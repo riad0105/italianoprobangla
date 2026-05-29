@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Italiano Pro Bangla</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Tiro+Bangla&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#009246;--red:#CE2B37;--white:#fff;
+  --gold:#F5A623;--dark:#0D1117;--cream:#FDFAF5;
+  --sky:#17C3CE;--warm:#FF6B35;--soft:#FFF3E0;
+  --bengali-red:#E63946;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Baloo 2',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,0,0,0.07);
+  padding:0.7rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{font-size:1.3rem;font-weight:800;color:var(--green);display:flex;align-items:center;gap:0.4rem}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:1.5rem;font-size:0.9rem;font-weight:700}
+.nav-links a{text-decoration:none;color:#444;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{background:var(--green);color:white;padding:0.5rem 1.3rem;border-radius:50px;font-size:0.9rem;font-weight:800;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:#007a38}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;padding:7rem 2rem 4rem;
+  background:linear-gradient(160deg,#0D1117 0%,#1a2a1a 40%,#0D1117 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+}
+.hero-bg-flags{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,rgba(0,146,70,.04) 0,rgba(0,146,70,.04) 33%,rgba(255,255,255,.02) 33%,rgba(255,255,255,.02) 66%,rgba(206,43,55,.04) 66%,rgba(206,43,55,.04) 100%);
+}
+.hero-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,146,70,.25),transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.lang-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.8);padding:0.5rem 1.2rem;border-radius:50px;
+  font-size:0.85rem;font-weight:600;letter-spacing:1px;margin-bottom:1.5rem;
+  animation:fadeUp .7s ease both;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,8vw,6.5rem);font-weight:900;
+  color:white;line-height:1;
+  animation:fadeUp .8s ease .1s both;
+}
+.hero h1 .accent{
+  display:block;
+  background:linear-gradient(90deg,var(--gold),var(--warm));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-bengali{
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(1.2rem,3vw,2rem);
+  color:rgba(255,255,255,.65);
+  margin-top:.6rem;
+  animation:fadeUp .8s ease .2s both;
+}
+.hero-sub{
+  font-size:1.05rem;color:rgba(255,255,255,.7);
+  max-width:580px;line-height:1.7;margin-top:1.5rem;
+  animation:fadeUp .9s ease .3s both;
+}
+.hero-sub .bn{font-family:'Tiro Bangla',serif;color:rgba(255,255,255,.5);display:block;font-size:.9rem;margin-top:.3rem}
+.hero-flags{display:flex;align-items:center;gap:0.8rem;margin-top:1.8rem;justify-content:center;animation:fadeUp .9s ease .4s both;}
+.flag{font-size:2.2rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4));animation:floatF 4s ease-in-out infinite;}
+.flag:nth-child(2){animation-delay:.5s}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:2rem;animation:fadeUp 1s ease .5s both}
+.btn{padding:.85rem 2rem;border-radius:50px;font-size:1rem;font-weight:800;cursor:pointer;border:none;text-decoration:none;transition:transform .2s,box-shadow .2s;display:inline-block}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--warm));color:white}
+.btn-outline{background:transparent;border:2px solid rgba(255,255,255,.4);color:white}
+.hero-urgency{
+  margin-top:2rem;
+  background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);
+  color:var(--gold);padding:.6rem 1.5rem;border-radius:50px;
+  font-size:.9rem;font-weight:700;
+  animation:fadeUp 1s ease .6s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatF{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ── WAVE ── */
+.wave-wrap{background:#0D1117;line-height:0}
+.wave-wrap svg{display:block}
+
+/* ── SECTION BASE ── */
+section{padding:5rem 1.5rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:900;text-align:center;margin-bottom:.4rem}
+.section-bn{font-family:'Tiro Bangla',serif;display:block;font-size:.95rem;color:#888;text-align:center;margin-bottom:.6rem}
+.section-sub{text-align:center;font-size:1rem;color:#666;max-width:620px;margin:0 auto 3rem}
+.highlight{position:relative;display:inline-block}
+.highlight::after{content:'';position:absolute;bottom:-5px;left:0;right:0;height:5px;background:var(--gold);border-radius:3px}
+
+/* ── DATES BANNER ── */
+.dates-banner{background:linear-gradient(135deg,var(--green),#00b356);padding:3rem 1.5rem;text-align:center;color:white}
+.dates-grid{display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;max-width:900px;margin:2rem auto 0}
+.date-item{background:rgba(255,255,255,.15);border-radius:20px;padding:1.5rem 2.5rem;backdrop-filter:blur(8px)}
+.date-item .di-label{font-family:'Tiro Bangla',serif;font-size:.85rem;opacity:.8;margin-bottom:.3rem}
+.date-item .di-it{font-size:.85rem;opacity:.7;margin-bottom:.4rem}
+.date-item .di-date{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900}
+.date-item .di-bn{font-family:'Tiro Bangla',serif;font-size:1rem;opacity:.85;margin-top:.2rem}
+
+/* ── COURSE ── */
+.course-bg{background:var(--cream)}
+.course-card{
+  max-width:820px;margin:0 auto;
+  background:white;border-radius:28px;
+  box-shadow:0 30px 80px rgba(0,0,0,.1);
+  overflow:hidden;
+}
+.course-header{
+  background:linear-gradient(135deg,var(--dark),#1a2a1a);
+  padding:2.5rem 2.5rem 2rem;color:white;text-align:center;
+}
+.course-header h3{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900}
+.course-header .bn{font-family:'Tiro Bangla',serif;font-size:1rem;opacity:.7;margin-top:.3rem}
+.course-levels{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.1)}
+.cl{padding:1.2rem;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+.cl:last-child{border-right:none}
+.cl .cl-badge{display:inline-block;padding:.3rem .9rem;border-radius:50px;font-size:.8rem;font-weight:800;letter-spacing:1px;margin-bottom:.5rem}
+.cl0 .cl-badge{background:rgba(255,107,53,.2);color:#FF6B35}
+.cl1 .cl-badge{background:rgba(23,195,206,.2);color:var(--sky)}
+.cl2 .cl-badge{background:rgba(245,166,35,.2);color:var(--gold)}
+.cl .cl-name{font-size:.85rem;color:rgba(255,255,255,.6);font-family:'Tiro Bangla',serif}
+.course-body{padding:2.5rem}
+.price-box{
+  display:flex;align-items:center;justify-content:center;gap:1.5rem;
+  flex-wrap:wrap;margin-bottom:2rem;
+}
+.price-original{font-size:1.5rem;color:#bbb;text-decoration:line-through;font-weight:600}
+.price-now{text-align:center}
+.price-now .amount{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:var(--green);line-height:1}
+.price-now .currency{font-size:1.8rem;vertical-align:super;color:var(--green)}
+.price-now .note{font-size:.85rem;color:#888;margin-top:.3rem;font-family:'Tiro Bangla',serif}
+.discount-badge{
+  background:linear-gradient(135deg,#E63946,#FF6B35);
+  color:white;padding:.4rem 1rem;border-radius:50px;
+  font-size:.8rem;font-weight:800;letter-spacing:1px;
+}
+.urgency-strip{
+  background:#FFF3E0;border:2px dashed var(--gold);
+  border-radius:14px;padding:1rem 1.5rem;
+  text-align:center;margin-bottom:2rem;
+  font-weight:700;font-size:.95rem;color:#B36B00;
+}
+.urgency-strip .bn{font-family:'Tiro Bangla',serif;font-size:.85rem;color:#9a5c00;display:block;margin-top:.2rem}
+.spots-bar{margin-bottom:2rem}
+.spots-bar .label{display:flex;justify-content:space-between;font-size:.85rem;font-weight:700;margin-bottom:.5rem}
+.spots-bar .bar{height:12px;background:#e8e8e8;border-radius:8px;overflow:hidden}
+.spots-bar .fill{height:100%;width:70%;background:linear-gradient(90deg,var(--green),var(--sky));border-radius:8px;animation:fillBar 1.5s ease 1s both}
+@keyframes fillBar{from{width:0}to{width:70%}}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:2rem}
+.info-item{background:var(--cream);border-radius:12px;padding:1rem;display:flex;align-items:flex-start;gap:.7rem}
+.info-item .ii-icon{font-size:1.4rem;flex-shrink:0;margin-top:.1rem}
+.info-item .ii-label{font-size:.78rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px}
+.info-item .ii-val{font-size:.9rem;font-weight:700;color:var(--dark);margin-top:.1rem}
+.info-item .ii-bn{font-family:'Tiro Bangla',serif;font-size:.8rem;color:#888;margin-top:.1rem}
+.cta-enroll{
+  display:block;width:100%;padding:1.1rem;
+  background:linear-gradient(135deg,var(--green),#00b356);
+  color:white;border:none;border-radius:16px;
+  font-size:1.1rem;font-weight:800;cursor:pointer;
+  text-align:center;text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+}
+.cta-enroll:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,146,70,.35)}
+.cta-enroll .en-bn{font-family:'Tiro Bangla',serif;font-size:.85rem;opacity:.85;display:block;margin-top:.2rem}
+
+/* ── PAYMENT ── */
+.payment-bg{background:white}
+.payment-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:900px;margin:0 auto}
+.pay-card{border-radius:22px;padding:2rem;border:2px solid #eee;transition:border-color .3s,transform .3s;cursor:pointer}
+.pay-card:hover{border-color:var(--green);transform:translateY(-5px)}
+.pay-card .pc-icon{font-size:2.8rem;margin-bottom:1rem}
+.pay-card h4{font-size:1.2rem;font-weight:800;margin-bottom:.3rem}
+.pay-card .pc-bn{font-family:'Tiro Bangla',serif;font-size:.85rem;color:#888;margin-bottom:1rem}
+.pay-card p{font-size:.9rem;color:#555;line-height:1.6}
+.pay-card .pc-tag{display:inline-block;background:var(--soft);color:var(--warm);font-size:.75rem;font-weight:800;padding:.2rem .7rem;border-radius:50px;margin-top:.8rem}
+
+/* payment plans */
+.plan-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:800px;margin:2.5rem auto 0}
+.plan-card{border-radius:22px;padding:2rem;text-align:center;border:2px solid #eee;transition:all .3s}
+.plan-card:hover{border-color:var(--green);transform:translateY(-5px)}
+.plan-card.featured{background:linear-gradient(135deg,var(--dark),#1a2a1a);color:white;border-color:var(--gold)}
+.plan-card h4{font-size:1.1rem;font-weight:800;margin-bottom:.3rem}
+.plan-card .pc-bn2{font-family:'Tiro Bangla',serif;font-size:.85rem;color:#888;margin-bottom:1rem}
+.plan-card.featured .pc-bn2{color:rgba(255,255,255,.5)}
+.plan-card .plan-amount{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--green);margin:0.5rem 0}
+.plan-card.featured .plan-amount{color:var(--gold)}
+.plan-card .plan-desc{font-size:.85rem;color:#666;line-height:1.6}
+.plan-card.featured .plan-desc{color:rgba(255,255,255,.65)}
+.plan-note{font-size:.8rem;margin-top:.8rem;color:#aaa;font-family:'Tiro Bangla',serif}
+.plan-card.featured .plan-note{color:rgba(255,255,255,.4)}
+
+/* ── FORM ── */
+.form-bg{background:var(--cream)}
+.form-wrap{max-width:680px;margin:0 auto;background:white;border-radius:28px;padding:3rem;box-shadow:0 20px 60px rgba(0,0,0,.08)}
+.form-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:.3rem}
+.form-bn-title{font-family:'Tiro Bangla',serif;font-size:1rem;color:#888;margin-bottom:2rem}
+.form-group{margin-bottom:1.4rem}
+.form-group label{display:block;font-weight:700;font-size:.9rem;margin-bottom:.5rem;color:#444}
+.form-group .lbn{font-family:'Tiro Bangla',serif;font-size:.8rem;color:#aaa;display:block;margin-top:.1rem}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:.85rem 1rem;border:2px solid #e8e8e8;border-radius:12px;
+  font-family:'Baloo 2',sans-serif;font-size:.95rem;
+  outline:none;transition:border-color .2s;background:var(--cream);
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green)}
+.form-group textarea{resize:vertical;min-height:90px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-info-box{background:var(--soft);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:1rem 1.2rem;margin-bottom:1.4rem;font-size:.85rem;color:#7a4e00;line-height:1.6}
+.form-info-box .fbn{font-family:'Tiro Bangla',serif;display:block;margin-top:.4rem;font-size:.8rem;color:#9a6200}
+.payment-choose{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.4rem}
+.pc-opt{border:2px solid #e8e8e8;border-radius:12px;padding:1rem;text-align:center;cursor:pointer;transition:all .2s;font-weight:700;font-size:.9rem}
+.pc-opt:hover,.pc-opt.active{border-color:var(--green);background:#f0fff4;color:var(--green)}
+.pc-opt .opt-icon{display:block;font-size:1.5rem;margin-bottom:.3rem}
+.pc-opt .opt-bn{font-family:'Tiro Bangla',serif;font-size:.75rem;color:#888;display:block;margin-top:.2rem}
+.submit-btn{
+  width:100%;padding:1.1rem;
+  background:linear-gradient(135deg,var(--green),#00b356);
+  color:white;border:none;border-radius:14px;
+  font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:800;
+  cursor:pointer;transition:transform .2s,box-shadow .2s;
+}
+.submit-btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,146,70,.3)}
+.submit-bn{font-family:'Tiro Bangla',serif;font-size:.82rem;opacity:.8;display:block;margin-top:.2rem}
+.success-msg{display:none;background:#f0fff4;border:2px solid var(--green);border-radius:12px;padding:1.2rem;text-align:center;margin-top:1rem;color:var(--green);font-weight:700}
+.success-msg .smbn{font-family:'Tiro Bangla',serif;font-size:.9rem;opacity:.8;display:block;margin-top:.3rem}
+
+/* ── FAQ ── */
+.faq-bg{background:white}
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.faq-item{border:2px solid #eee;border-radius:16px;overflow:hidden;transition:border-color .3s}
+.faq-item.open{border-color:var(--green)}
+.faq-q{padding:1.2rem 1.5rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700;font-size:.95rem}
+.faq-q .fq-bn{font-family:'Tiro Bangla',serif;font-size:.82rem;color:#888;display:block;margin-top:.2rem;font-weight:400}
+.faq-q .arrow{font-size:1.2rem;transition:transform .3s;flex-shrink:0;margin-left:1rem}
+.faq-item.open .arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 1.5rem 1.2rem;font-size:.9rem;color:#555;line-height:1.7}
+.faq-item.open .faq-a{display:block}
+.faq-a .fa-bn{font-family:'Tiro Bangla',serif;color:#888;display:block;margin-top:.5rem;font-size:.85rem}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);color:rgba(255,255,255,.5);text-align:center;padding:2.5rem;font-size:.88rem}
+footer strong{color:var(--gold)}
+footer .fbn{font-family:'Tiro Bangla',serif;display:block;margin-top:.4rem;font-size:.83rem;opacity:.6}
+
+/* ── RESPONSIVE ── */
+@media(max-width:620px){
+  nav .nav-links{display:none}
+  .form-row,.info-grid,.payment-choose{grid-template-columns:1fr}
+  .course-levels{grid-template-columns:1fr}
+  .cl{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
+  .dates-grid{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" style="font-size:0.95rem;white-space:nowrap;gap:0.25rem">🇮🇹 <span style="color:var(--green)">Italiano</span><span style="color:var(--red)"> Pro Bangla</span></div>
+  <div class="nav-links">
+    <a href="#corso">Corso</a>
+    <a href="#pagamento">Pagamento</a>
+    <a href="#iscrizione">Iscriviti</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#iscrizione" class="nav-cta">Iscriviti ora →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-flags"></div>
+  <div class="hero-glow"></div>
+
+  <div class="lang-badge">🇧🇩 বাংলা &nbsp;+&nbsp; 🇮🇹 Italiano</div>
+
+  <h1>
+    Impara<br>
+    <span class="accent">l'Italiano</span>
+  </h1>
+  <p class="hero-bengali">ইতালীয় ভাষা শিখুন — সহজ ও মজাদার উপায়ে</p>
+
+  <p class="hero-sub">
+    Un corso completo dal livello A0 al A2, pensato appositamente per chi parla bengalese e vive in Italia.
+    <span class="bn">বাংলাভাষীদের জন্য বিশেষভাবে তৈরি অনলাইন কোর্স — A0 থেকে A2 পর্যন্ত</span>
+  </p>
+
+  <div class="hero-flags">
+    <span class="flag">🇧🇩</span>
+    <span style="color:rgba(255,255,255,.3);font-size:1.5rem">→</span>
+    <span class="flag">🇮🇹</span>
+  </div>
+
+  <div class="hero-btns">
+    <a href="#iscrizione" class="btn btn-gold">Iscriviti ora 🚀</a>
+    <a href="#corso" class="btn btn-outline">Scopri il corso ↓</a>
+  </div>
+
+  <div class="hero-urgency">⏳ Offerta lancio: primi 10 iscritti a prezzo speciale! &nbsp;|&nbsp; প্রথম ১০ জনের জন্য বিশেষ মূল্য!</div>
+</section>
+
+<div class="wave-wrap">
+  <svg viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#FDFAF5"/>
+  </svg>
+</div>
+
+<!-- DATES BANNER -->
+<section class="dates-banner">
+  <h2 class="section-title" style="color:white">📅 Date Importanti</h2>
+  <span class="section-bn" style="color:rgba(255,255,255,.6)">গুরুত্বপূর্ণ তারিখ</span>
+  <div class="dates-grid">
+    <div class="date-item">
+      <div class="di-label">পেমেন্ট ও নথিভুক্তি</div>
+      <div class="di-it">Apertura iscrizioni</div>
+      <div class="di-date">1° Giugno 2025</div>
+      <div class="di-bn">ইনস্ক্রিপশন শুরু: ১ জুন</div>
+    </div>
+    <div class="date-item">
+      <div class="di-label">প্রথম ক্লাস</div>
+      <div class="di-it">Inizio lezioni</div>
+      <div class="di-date">15 Giugno 2025</div>
+      <div class="di-bn">ক্লাস শুরু: ১৫ জুন</div>
+    </div>
+    <div class="date-item">
+      <div class="di-label">ক্লাসের আকার</div>
+      <div class="di-it">Posti per classe</div>
+      <div class="di-date">7 – 8 persone</div>
+      <div class="di-bn">প্রতি ক্লাসে ৭-৮ জন</div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE -->
+<section class="course-bg" id="corso">
+  <h2 class="section-title">Il <span class="highlight">Corso Completo</span></h2>
+  <span class="section-bn">সম্পূর্ণ কোর্স</span>
+  <p class="section-sub">Un unico pacchetto che include tutti e tre i livelli. Non è possibile acquistare i livelli singolarmente.<br><span style="font-family:'Tiro Bangla',serif;font-size:.9rem">একটি সম্পূর্ণ প্যাকেজ — আলাদা আলাদা কোর্স কেনা যাবে না।</span></p>
+
+  <div class="course-card">
+    <div class="course-header">
+      <h3>Pacchetto A0 → A2</h3>
+      <p class="bn">সম্পূর্ণ প্যাকেজ — তিনটি স্তর একসাথে</p>
+      <div class="course-levels">
+        <div class="cl cl0"><span class="cl-badge">A0</span><div class="cl-name">শূন্য থেকে শুরু<br>Da zero</div></div>
+        <div class="cl cl1"><span class="cl-badge">A1</span><div class="cl-name">বেসিক স্তর<br>Elementare</div></div>
+        <div class="cl cl2"><span class="cl-badge">A2</span><div class="cl-name">প্রাথমিক স্তর<br>Pre-intermedio</div></div>
+      </div>
+    </div>
+
+    <div class="course-body">
+      <div class="urgency-strip">
+        🎉 Offerta speciale primi 10 iscritti — <strong>€100 di sconto!</strong>
+        <span class="bn">প্রথম ১০ জনের জন্য বিশেষ ছাড় — €১০০ ছাড়!</span>
+      </div>
+
+      <div class="price-box">
+        <div>
+          <div class="price-original">€ 350</div>
+          <div style="font-size:.75rem;color:#bbb;text-align:center;font-family:'Tiro Bangla',serif">আসল মূল্য</div>
+        </div>
+        <div class="price-now">
+          <div><span class="currency">€</span><span class="amount">250</span></div>
+          <div class="note">মূল্য (প্রথম ১০ জনের জন্য)</div>
+        </div>
+        <div class="discount-badge">-€100<br>SCONTO</div>
+      </div>
+
+      <div class="spots-bar">
+        <div class="label">
+          <span>🔥 Posti disponibili</span>
+          <span>3 rimasti / ১০টির মধ্যে ৩টি বাকি</span>
+        </div>
+        <div class="bar"><div class="fill"></div></div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="ii-icon">💻</div>
+          <div>
+            <div class="ii-label">Modalità</div>
+            <div class="ii-val">Online (via Zoom/Meet)</div>
+            <div class="ii-bn">অনলাইন ক্লাস</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">⏱️</div>
+          <div>
+            <div class="ii-label">Durata lezione</div>
+            <div class="ii-val">1h – 1h 30min</div>
+            <div class="ii-bn">ক্লাসের দৈর্ঘ্য (অধ্যায়ভেদে)</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">👥</div>
+          <div>
+            <div class="ii-label">Classe</div>
+            <div class="ii-val">7 – 8 persone max</div>
+            <div class="ii-bn">প্রতি ক্লাসে সর্বোচ্চ ৭-৮ জন</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">📦</div>
+          <div>
+            <div class="ii-label">Acquisto</div>
+            <div class="ii-val">Solo pacchetto completo</div>
+            <div class="ii-bn">শুধুমাত্র সম্পূর্ণ প্যাকেজ</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">🗓️</div>
+          <div>
+            <div class="ii-label">Inizio iscrizioni</div>
+            <div class="ii-val">1° Giugno 2025</div>
+            <div class="ii-bn">নথিভুক্তি: ১ জুন</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">🎓</div>
+          <div>
+            <div class="ii-label">Inizio lezioni</div>
+            <div class="ii-val">15 Giugno 2025</div>
+            <div class="ii-bn">ক্লাস শুরু: ১৫ জুন</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#iscrizione" class="cta-enroll">
+        Iscriviti e approfitta dello sconto →
+        <span class="en-bn">এখনই নথিভুক্ত হন এবং ছাড় পান →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="payment-bg" id="pagamento">
+  <h2 class="section-title">Piani di <span class="highlight">Pagamento</span></h2>
+  <span class="section-bn">পেমেন্ট পরিকল্পনা</span>
+  <p class="section-sub">Scegli come vuoi pagare il corso.<br><span style="font-family:'Tiro Bangla',serif;font-size:.9rem">কোর্সের মূল্য কীভাবে পরিশোধ করতে চান তা বেছে নিন।</span></p>
+
+  <div class="plan-cards">
+    <div class="plan-card">
+      <h4>Pagamento Unico</h4>
+      <div class="pc-bn2">সম্পূর্ণ পেমেন্ট একবারে</div>
+      <div class="plan-amount">€250</div>
+      <div class="plan-desc">Paga tutto subito e inizia il corso. Valido per i primi 10 iscritti al prezzo scontato.</div>
+      <div class="plan-note">সম্পূর্ণ €২৫০ একবারে পরিশোধ করুন</div>
+    </div>
+    <div class="plan-card featured">
+      <h4>Pagamento in 2 Rate</h4>
+      <div class="pc-bn2">দুই কিস্তিতে পেমেন্ট</div>
+      <div class="plan-amount">€125 × 2</div>
+      <div class="plan-desc">Prima rata all'iscrizione (inizio A0–A1), seconda rata all'inizio del livello A2.</div>
+      <div class="plan-note">প্রথম কিস্তি: নথিভুক্তিতে &nbsp;|&nbsp; দ্বিতীয় কিস্তি: A2 শুরুতে</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-bg" id="iscrizione">
+  <h2 class="section-title">Modulo di <span class="highlight">Iscrizione</span></h2>
+  <span class="section-bn">নথিভুক্তির ফর্ম</span>
+  <p class="section-sub">Compila il modulo — ti contatteremo per confermare il pagamento.<br><span style="font-family:'Tiro Bangla',serif;font-size:.9rem">ফর্ম পূরণ করুন — আমরা পেমেন্ট নিশ্চিত করতে যোগাযোগ করব।</span></p>
+
+  <div class="form-wrap">
+    <div class="form-title">Richiesta di Iscrizione</div>
+    <div class="form-bn-title">নথিভুক্তির অনুরোধ — ফর্ম পূরণ করুন</div>
+
+    <div class="form-info-box">
+      📌 Le iscrizioni aprono il <strong>1° Giugno 2025</strong>. Le lezioni iniziano il <strong>15 Giugno 2025</strong>. Ogni classe ha massimo 7–8 posti.
+      <span class="fbn">নথিভুক্তি শুরু: ১ জুন ২০২৫ | ক্লাস শুরু: ১৫ জুন | প্রতি ক্লাসে সর্বোচ্চ ৭-৮ জন।</span>
+    </div>
+
+    <div id="enroll-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome <span class="lbn">নাম (ইতালীয়তে)</span></label>
+          <input type="text" id="f-nome" placeholder="Mario"/>
+        </div>
+        <div class="form-group">
+          <label>Cognome <span class="lbn">পদবি</span></label>
+          <input type="text" id="f-cognome" placeholder="Rossi"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email <span class="lbn">ইমেইল ঠিকানা</span></label>
+        <input type="email" id="f-email" placeholder="tua@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Telefono / WhatsApp <span class="lbn">ফোন / হোয়াটসঅ্যাপ নম্বর</span></label>
+        <input type="tel" id="f-tel" placeholder="+39 333 000 0000"/>
+      </div>
+      <div class="form-group">
+        <label>Città in Italia <span class="lbn">ইতালিতে আপনার শহর</span></label>
+        <input type="text" id="f-citta" placeholder="es. Milano, Roma, Bologna…"/>
+      </div>
+      <div class="form-group">
+        <label>Livello di italiano attuale <span class="lbn">বর্তমান ইতালীয় স্তর</span></label>
+        <select id="f-livello">
+          <option value="">— Seleziona / বেছে নিন —</option>
+          <option value="zero">Zero — কিছুই জানি না</option>
+          <option value="base">Qualche parola — কিছু শব্দ জানি</option>
+          <option value="a1">Ho già studiato un po' — কিছুটা জানি</option>
+        </select>
+      </div>
+
+      <!-- PAYMENT PLAN -->
+      <div class="form-group">
+        <label>Piano di pagamento <span class="lbn">পেমেন্ট পরিকল্পনা</span></label>
+        <div class="payment-choose">
+          <div class="pc-opt" onclick="selectPlan(this,'unico')">
+            <span class="opt-icon">✅</span>Unico (€250)<span class="opt-bn">একবারে পেমেন্ট</span>
+          </div>
+          <div class="pc-opt" onclick="selectPlan(this,'rate')">
+            <span class="opt-icon">📅</span>2 Rate (€125×2)<span class="opt-bn">দুই কিস্তিতে</span>
+          </div>
+        </div>
+        <input type="hidden" id="f-plan"/>
+      </div>
+
+      <div class="form-group">
+        <label>Note aggiuntive (opzionale) <span class="lbn">অতিরিক্ত মন্তব্য (ঐচ্ছিক)</span></label>
+        <textarea id="f-note" placeholder="Scrivi qui eventuali domande o informazioni aggiuntive… / যেকোনো প্রশ্ন বা তথ্য লিখুন…"></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()">
+        Invia la richiesta di iscrizione
+        <span class="submit-bn">নথিভুক্তির অনুরোধ পাঠান</span>
+      </button>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      ✅ Richiesta inviata con successo! Ti contatteremo entro 24 ore per confermare il pagamento.
+      <span class="smbn">অনুরোধ সফলভাবে পাঠানো হয়েছে! পেমেন্ট নিশ্চিত করতে ২৪ ঘণ্টার মধ্যে যোগাযোগ করা হবে।</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-bg" id="faq">
+  <h2 class="section-title">Domande <span class="highlight">Frequenti</span></h2>
+  <span class="section-bn">সাধারণ প্রশ্নোত্তর</span>
+  <p class="section-sub">Risposte alle domande più comuni / সবচেয়ে সাধারণ প্রশ্নের উত্তর</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Posso comprare solo il livello A0 o A1?
+        <div class="fq-bn">আমি কি শুধু A0 বা A1 আলাদা কিনতে পারি?</div>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-a">No, i livelli non si vendono separatamente. Il corso è disponibile solo come pacchetto completo A0–A2 al prezzo di €250 (offerta lancio).
+        <span class="fa-bn">না, কোর্সগুলি আলাদাভাবে বিক্রি হয় না। শুধুমাত্র সম্পূর্ণ A0–A2 প্যাকেজ পাওয়া যায়।</span>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Come funziona il pagamento in due rate?
+        <div class="fq-bn">দুই কিস্তিতে পেমেন্ট কীভাবে কাজ করে?</div>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-a">La prima rata di €125 si paga all'iscrizione (prima di iniziare A0–A1). La seconda rata di €125 si paga all'inizio del livello A2.
+        <span class="fa-bn">প্রথম কিস্তি €১২৫ নথিভুক্তির সময় দিতে হবে। দ্বিতীয় কিস্তি €১২৫ A2 স্তর শুরু হওয়ার সময়।</span>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Quanto dura ogni lezione?
+        <div class="fq-bn">প্রতিটি ক্লাস কতক্ষণ হবে?</div>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-a">Le lezioni durano tra 1 ora e 1 ora e 30 minuti, a seconda del capitolo trattato. La durata esatta viene comunicata prima di ogni lezione.
+        <span class="fa-bn">প্রতিটি ক্লাস ১ ঘণ্টা থেকে ১ ঘণ্টা ৩০ মিনিট হবে, অধ্যায়ের উপর নির্ভর করে।</span>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Il corso è davvero online?
+        <div class="fq-bn">কোর্সটি কি সত্যিই অনলাইনে হবে?</div>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-a">Sì, il corso si svolge completamente online tramite piattaforme come Zoom o Google Meet. Puoi partecipare da qualsiasi parte d'Italia!
+        <span class="fa-bn">হ্যাঁ, কোর্সটি সম্পূর্ণ অনলাইনে হবে। ইতালির যেকোনো জায়গা থেকে অংশ নিতে পারবেন!</span>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Lo sconto è ancora disponibile?
+        <div class="fq-bn">ছাড় কি এখনও পাওয়া যাচ্ছে?</div>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-a">Lo sconto di €100 (da €350 a €250) è valido solo per i primi 10 iscritti. Affrettati — i posti si stanno esaurendo!
+        <span class="fa-bn">€১০০ ছাড় (€৩৫০ থেকে €২৫০) শুধুমাত্র প্রথম ১০ জনের জন্য। তাড়াতাড়ি করুন!</span>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Quante persone ci sono per classe?
+        <div class="fq-bn">প্রতিটি ক্লাসে কতজন থাকবে?</div>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-a">Ogni classe ha un massimo di 7–8 persone, per garantire un'attenzione personalizzata e un ambiente familiare.
+        <span class="fa-bn">প্রতিটি ক্লাসে সর্বোচ্চ ৭-৮ জন, যাতে সবাই ব্যক্তিগত মনোযোগ পায়।</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>🇮🇹 Italiano Pro Bangla — Corsi per bengalesi in Italia</strong>
+  <span class="fbn">বাংলাদেশী ও বাংলাভাষীদের জন্য ইতালীয় ভাষা কোর্স &nbsp;|&nbsp; © 2025</span>
+</footer>
+
+<script>
+// Payment method select
+function selectPay(el, val){
+  document.querySelectorAll('.payment-choose .pc-opt').forEach(e => {
+    if(e.parentElement===el.parentElement) e.classList.remove('active');
+  });
+  el.classList.add('active');
+  document.getElementById('f-pay').value = val;
+}
+// Payment plan select
+let planSelected = '';
+function selectPlan(el, val){
+  const siblings = el.parentElement.querySelectorAll('.pc-opt');
+  siblings.forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  planSelected = val;
+  document.getElementById('f-plan').value = val;
+}
+// FAQ toggle
+function toggleFaq(el){
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+// Form submit
+function submitForm(){
+  const nome = document.getElementById('f-nome').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const tel = document.getElementById('f-tel').value.trim();
+  const plan = document.getElementById('f-plan').value;
+  if(!nome||!email||!tel){
+    alert('Per favore compila almeno nome, email e telefono.\nঅনুগ্রহ করে নাম, ইমেইল এবং ফোন নম্বর পূরণ করুন।');
+    return;
+  }
+  if(!plan){alert('Seleziona un piano di pagamento.\nপেমেন্ট পরিকল্পনা বেছে নিন।');return;}
+  document.getElementById('enroll-form').style.display='none';
+  document.getElementById('success-msg').style.display='block';
+}
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
