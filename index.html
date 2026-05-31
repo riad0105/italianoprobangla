@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Italiano A0/A1 – Quiz del Corso</title>
+<title>ইতালিয়ানো A0/A1 – কোর্স কুইজ</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -356,8 +356,8 @@
 
 <header>
   <div class="bandiera">🇮🇹</div>
-  <h1>Italiano <span>A0 / A1</span></h1>
-  <p>Quiz interattivi per tutti i capitoli del corso</p>
+  <h1>ইতালিয়ানো <span>A0 / A1</span></h1>
+  <p>কোর্সের সকল অধ্যায়ের জন্য ইন্টারেক্টিভ কুইজ</p>
 </header>
 
 <nav id="capitoli"></nav>
@@ -370,577 +370,75 @@
 // ═══════════════════════════════════════════════════════
 const CAPITOLI = [
   {
-    id: 0, titolo: "Come ti chiami?", sottotitolo: "Presentazioni e saluti",
+    id: 0, titolo: "তোমার নাম কী?", sottotitolo: "পরিচয় এবং অভিবাদন",
     quiz: [
-      { d:"Come si dice 'Hello' in italiano?", o:["Arrivederci","Ciao","Grazie","Prego"], r:1 },
-      { d:"Quale frase usi per presentarti?", o:["Mi chiamo Marco","Non capisco","Dov'è il bagno?","Quanto costa?"], r:0 },
-      { d:"'Buongiorno' si usa:", o:["Di sera","Di notte","Al mattino","A Natale"], r:2 },
-      { d:"Come si risponde a 'Come stai?'", o:["Mi chiamo Anna","Sto bene, grazie!","Piacere!","Arrivederci!"], r:1 },
-      { d:"'Piacere' significa:", o:["Goodbye","Nice to meet you","Thank you","Excuse me"], r:1 },
-      { d:"Quale è il saluto per la sera?", o:["Buongiorno","Buon pomeriggio","Buonasera","Ciao ciao"], r:2 },
-      { d:"Come si chiede il nome a qualcuno?", o:["Dove sei?","Come ti chiami?","Quanti anni hai?","Di dove sei?"], r:1 },
-      { d:"'Arrivederci' significa:", o:["Hello","Please","Goodbye","Sorry"], r:2 },
-      { d:"Completa: 'Mi ___ Luigi.'", o:["sono","chiamo","ho","faccio"], r:1 },
-      { d:"'Buonanotte' si usa:", o:["A colazione","Di mattina","Prima di dormire","Al lavoro"], r:2 },
-      { d:"Qual è la risposta corretta a 'Come ti chiami?'", o:["Ho 25 anni","Sono italiano","Mi chiamo Sofia","Sto bene"], r:2 },
-      { d:"'Scusi' è usato per:", o:["Ringraziare","Salutare","Chiedere scusa formalmente","Presentarsi"], r:2 },
-      { d:"'Tu' in italiano è:", o:["Formale","Informale","Plurale","Neutro"], r:1 },
-      { d:"'Lei' (maiuscola) si usa per:", o:["Una donna","Il tuo amico","Il registro formale","Tutti"], r:2 },
-      { d:"'Ciao' si usa:", o:["Solo al mattino","Solo con i bambini","In modo informale","Solo in Sud Italia"], r:2 },
+      { d:"ইতালিয়ানে 'Hello' কীভাবে বলবেন?", o:["Arrivederci","Ciao","Grazie","Prego"], r:1, spiegazione:"'Ciao' হল ইতালিয়ানে 'হ্যালো' বলার অনানুষ্ঠানিক উপায়। 'Arrivederci' মানে বিদায়, 'Grazie' মানে ধন্যবাদ, 'Prego' মানে আপনাকে স্বাগতম।" },
+      { d:"নিজের পরিচয় দিতে কোন বাক্যটি ব্যবহার করবেন?", o:["Mi chiamo Marco","Non capisco","Dov'è il bagno?","Quanto costa?"], r:0, spiegazione:"'Mi chiamo Marco' মানে 'আমার নাম মার্কো'। অন্য বাক্যগুলো ভিন্ন অর্থ প্রকাশ করে।" },
+      { d:"'Buongiorno' কখন ব্যবহার করা হয়?", o:["সন্ধ্যায়","রাতে","সকালে","ক্রিসমাসে"], r:2, spiegazione:"'Buongiorno' মানে 'শুভ সকাল', এটি সকালে ব্যবহার করা হয়।" },
+      { d:"'Come stai?' এর উত্তর কীভাবে দেবেন?", o:["Mi chiamo Anna","Sto bene, grazie!","Piacere!","Arrivederci!"], r:1, spiegazione:"'Sto bene, grazie!' মানে 'আমি ভালো আছি, ধন্যবাদ!'। এটি 'কেমন আছো?' এর সঠিক উত্তর।" },
+      { d:"'Piacere' এর অর্থ কী?", o:["বিদায়","দেখা হয়ে ভালো লাগলো","ধন্যবাদ","মাফ করবেন"], r:1, spiegazione:"'Piacere' মানে 'দেখা হয়ে ভালো লাগলো'। এটি পরিচয়ের সময় বলা হয়।" },
+      { d:"সন্ধ্যার অভিবাদন কোনটি?", o:["Buongiorno","Buon pomeriggio","Buonasera","Ciao ciao"], r:2, spiegazione:"'Buonasera' মানে 'শুভ সন্ধ্যা', এটি সন্ধ্যার অভিবাদন।" },
+      { d:"কারও নাম কীভাবে জিজ্ঞাসা করবেন?", o:["তুমি কোথায়?","তোমার নাম কী?","তোমার বয়স কত?","তুমি কোথা থেকে এসেছো?"], r:1, spiegazione:"'Come ti chiami?' মানে 'তোমার নাম কী?'। এটি নাম জিজ্ঞাসার সঠিক প্রশ্ন।" },
+      { d:"'Arrivederci' এর অর্থ কী?", o:["হ্যালো","অনুগ্রহ করে","বিদায়","দুঃখিত"], r:2, spiegazione:"'Arrivederci' মানে 'বিদায়'। এটি বিদায় জানানোর আনুষ্ঠানিক উপায়।" },
+      { d:"শূন্যস্থান পূরণ: 'Mi ___ Luigi.'", o:["sono","chiamo","ho","faccio"], r:1, spiegazione:"'Mi chiamo Luigi' মানে 'আমার নাম লুইজি'। 'Chiamarsi' ক্রিয়াটি নাম বলার জন্য ব্যবহৃত হয়।" },
+      { d:"'Buonanotte' কখন ব্যবহার করা হয়?", o:["নাস্তার সময়","সকালে","ঘুমানোর আগে","কাজের সময়"], r:2, spiegazione:"'Buonanotte' মানে 'শুভ রাত্রি', এটি ঘুমানোর আগে বলা হয়।" },
+      { d:"'Come ti chiami?' এর সঠিক উত্তর কোনটি?", o:["আমার বয়স ২৫","আমি ইতালিয়ান","আমার নাম সোফিয়া","আমি ভালো আছি"], r:2, spiegazione:"'Mi chiamo Sofia' মানে 'আমার নাম সোফিয়া'। এটি নাম জিজ্ঞাসার সঠিক উত্তর।" },
+      { d:"'Scusi' কখন ব্যবহার করা হয়?", o:["ধন্যবাদ জানাতে","অভিবাদন জানাতে","আনুষ্ঠানিকভাবে ক্ষমা চাইতে","পরিচয় দিতে"], r:2, spiegazione:"'Scusi' মানে 'মাফ করবেন' (আনুষ্ঠানিক)। এটি আনুষ্ঠানিকভাবে ক্ষমা চাওয়ার জন্য ব্যবহৃত হয়।" },
+      { d:"ইতালিয়ানে 'Tu' কী?", o:["আনুষ্ঠানিক","অনানুষ্ঠানিক","বহুবচন","নিরপেক্ষ"], r:1, spiegazione:"'Tu' হল অনানুষ্ঠানিক 'তুমি'। এটি বন্ধু, পরিবার এবং শিশুদের সাথে ব্যবহৃত হয়।" },
+      { d:"'Lei' (বড় হাতের অক্ষরে) কখন ব্যবহার করা হয়?", o:["একজন মহিলার জন্য","তোমার বন্ধুর জন্য","আনুষ্ঠানিক সম্বোধনের জন্য","সবার জন্য"], r:2, spiegazione:"বড় হাতের 'Lei' আনুষ্ঠানিক 'আপনি' বোঝায়। এটি সম্মান দেখানোর জন্য অপরিচিত বা বয়স্ক ব্যক্তিদের সাথে ব্যবহৃত হয়।" },
+      { d:"'Ciao' কখন ব্যবহার করা হয়?", o:["শুধুমাত্র সকালে","শুধুমাত্র বাচ্চাদের সাথে","অনানুষ্ঠানিকভাবে","শুধুমাত্র দক্ষিণ ইতালিতে"], r:2, spiegazione:"'Ciao' একটি অনানুষ্ঠানিক অভিবাদন যা 'হ্যালো' এবং 'বিদায়' উভয় অর্থেই ব্যবহার করা যায়।" },
     ]
   },
   {
-    id: 1, titolo: "Numeri e alfabeto", sottotitolo: "Numeri 0–20 e lettere",
+    id: 1, titolo: "সংখ্যা এবং বর্ণমালা", sottotitolo: "সংখ্যা ০-২০ এবং অক্ষর",
     quiz: [
-      { d:"Quante lettere ha l'alfabeto italiano?", o:["21","26","28","24"], r:0 },
-      { d:"Come si scrive il numero 7?", o:["Sette","Sei","Otto","Cinque"], r:0 },
-      { d:"Quale lettera non esiste nell'alfabeto italiano?", o:["Z","Q","W","R"], r:2 },
-      { d:"Quanto fa 5 + 8?", o:["Dodici","Tredici","Quattordici","Undici"], r:1 },
-      { d:"Il numero 20 si dice:", o:["Venti","Dieci","Dodici","Quindici"], r:0 },
-      { d:"Quale numero viene dopo 'undici'?", o:["Tredici","Dieci","Dodici","Quattordici"], r:2 },
-      { d:"Come si pronuncia la lettera 'C' davanti a 'I'?", o:["Come 'K'","Come 'CH' inglese","Come 'S'","Come 'G'"], r:1 },
-      { d:"Il numero 15 è:", o:["Cinquanta","Cinque","Quindici","Diciassette"], r:2 },
-      { d:"'Zero' in inglese è:", o:["One","Zero","Two","Ten"], r:1 },
-      { d:"Come si fa lo spelling di 'ROMA'?", o:["Ri-O-Mi-A","Erre-O-Emme-A","Ro-Ma","R-O-M-A con suoni italiani"], r:1 },
-      { d:"Il numero 11 si chiama:", o:["Undici","Dodici","Diciassette","Ventuno"], r:0 },
-      { d:"'GN' in italiano (come in 'gnocchi') suona come:", o:["GN inglese","NY (come 'canyon')","NG","KN"], r:1 },
-      { d:"Quanto fa 10 + 3?", o:["Dodici","Tredici","Quattordici","Undici"], r:1 },
-      { d:"La vocale 'E' in italiano può avere:", o:["Un solo suono","Due suoni (aperto/chiuso)","Tre suoni","Nessun suono"], r:1 },
-      { d:"Il numero 18 si dice:", o:["Diciotto","Diciassette","Sedici","Diciannove"], r:0 },
+      { d:"ইতালিয়ান বর্ণমালায় কতটি অক্ষর আছে?", o:["২১","২৬","২৮","২৪"], r:0, spiegazione:"ইতালিয়ান বর্ণমালায় ২১টি অক্ষর আছে। ইংরেজির ২৬টি অক্ষরের মধ্যে J, K, W, X, Y এই ৫টি অক্ষর শুধুমাত্র বিদেশী শব্দে ব্যবহৃত হয়।" },
+      { d:"৭ নম্বর কীভাবে লেখা হয়?", o:["Sette","Sei","Otto","Cinque"], r:0, spiegazione:"ইতালিয়ানে ৭ হল 'Sette'। 'Sei'=৬, 'Otto'=৮, 'Cinque'=৫।" },
+      { d:"কোন অক্ষরটি ইতালিয়ান বর্ণমালায় নেই?", o:["Z","Q","W","R"], r:2, spiegazione:"'W' ইতালিয়ান বর্ণমালার স্থানীয় অক্ষর নয়। এটি শুধুমাত্র বিদেশী শব্দে ব্যবহৃত হয়।" },
+      { d:"৫ + ৮ = কত?", o:["বারো","তেরো","চৌদ্দ","এগারো"], r:1, spiegazione:"৫+৮=১৩, ইতালিয়ানে 'Tredici'। 'Dodici'=১২, 'Quattordici'=১৪, 'Undici'=১১।" },
+      { d:"২০ নম্বর ইতালিয়ানে কী?", o:["Venti","Dieci","Dodici","Quindici"], r:0, spiegazione:"২০ হল 'Venti'। 'Dieci'=১০, 'Dodici'=১২, 'Quindici'=১৫।" },
+      { d:"'Undici' (১১) এর পরবর্তী সংখ্যা কোনটি?", o:["তেরো","দশ","বারো","চৌদ্দ"], r:2, spiegazione:"১১ এর পর ১২, ইতালিয়ানে 'Dodici'।" },
+      { d:"'C' অক্ষরটি 'I' এর সামনে কীভাবে উচ্চারিত হয়?", o:["'K' এর মতো","ইংরেজি 'CH' এর মতো","'S' এর মতো","'G' এর মতো"], r:1, spiegazione:"ইতালিয়ানে 'C' + 'I' বা 'E' হলে ইংরেজি 'CH' এর মতো উচ্চারিত হয় (যেমন 'Ciao'-এ 'চ' ধ্বনি)।" },
+      { d:"১৫ নম্বরটি কী?", o:["পঞ্চাশ","পাঁচ","পনেরো","সতেরো"], r:2, spiegazione:"১৫ হল 'Quindici'। 'Cinquanta'=৫০, 'Cinque'=৫, 'Diciassette'=১৭।" },
+      { d:"ইংরেজিতে 'Zero' কী?", o:["এক","শূন্য","দুই","দশ"], r:1, spiegazione:"'Zero' ইংরেজি ও ইতালিয়ানে একই, অর্থ শূন্য (০)।" },
+      { d:"'ROMA' এর বানান কীভাবে বলবেন?", o:["রি-ও-মি-এ","এররে-ও-এম্মে-এ","রো-মা","ইতালিয়ান ধ্বনিতে R-O-M-A"], r:1, spiegazione:"ইতালিয়ানে R=Erre, O=O, M=Emme, A=A। তাই 'Erre-O-Emme-A'।" },
+      { d:"১১ নম্বরকে কী বলা হয়?", o:["Undici","Dodici","Diciassette","Ventuno"], r:0, spiegazione:"১১ হল 'Undici'। এটি মৌলিক সংখ্যা, মনে রাখা গুরুত্বপূর্ণ।" },
+      { d:"ইতালিয়ানে 'GN' (যেমন 'gnocchi') কীভাবে উচ্চারিত হয়?", o:["ইংরেজি GN এর মতো","NY (যেমন 'canyon')","NG","KN"], r:1, spiegazione:"ইতালিয়ানে 'GN' স্প্যানিশ 'Ñ' বা ইংরেজি 'canyon'-এর 'ny'-এর মতো উচ্চারিত হয়।" },
+      { d:"১০ + ৩ = কত?", o:["বারো","তেরো","চৌদ্দ","এগারো"], r:1, spiegazione:"১০+৩=১৩, ইতালিয়ানে 'Tredici'।" },
+      { d:"ইতালিয়ানে স্বরবর্ণ 'E' এর কয়টি উচ্চারণ হতে পারে?", o:["একটি","দুটি (খোলা/বন্ধ)","তিনটি","কোনোটিই নয়"], r:1, spiegazione:"ইতালিয়ানে 'E' এর দুটি উচ্চারণ আছে: খোলা (যেমন 'bene'-তে) এবং বন্ধ (যেমন 'perché'-তে)।" },
+      { d:"১৮ নম্বরটি কী?", o:["Diciotto","Diciassette","Sedici","Diciannove"], r:0, spiegazione:"১৮ হল 'Diciotto'। 'Diciassette'=১৭, 'Sedici'=১৬, 'Diciannove'=১৯।" },
     ]
   },
   {
-    id: 2, titolo: "Sono italiano!", sottotitolo: "Nazionalità e paese d'origine",
+    id: 2, titolo: "আমি ইতালিয়ান!", sottotitolo: "জাতীয়তা এবং জন্মস্থান",
     quiz: [
-      { d:"Come si chiede da dove viene qualcuno?", o:["Come stai?","Di dove sei?","Quanti anni hai?","Come ti chiami?"], r:1 },
-      { d:"'Sono americano.' Chi parla?", o:["Una donna","Un uomo (probabilmente)","Un bambino","Non si sa"], r:1 },
-      { d:"La forma femminile di 'italiano' è:", o:["Italiane","Italiana","Italiani","Italiono"], r:1 },
-      { d:"'Sono di Milano.' Significa:", o:["Sono nato a Milano","Vado a Milano","Milano è bella","Ho un amico a Milano"], r:0 },
-      { d:"Quale frase usa il verbo 'venire'?", o:["Sono francese","Vengo dalla Francia","Ho passaporto francese","Abito in Francia"], r:1 },
-      { d:"Il plurale di 'americano' (m.) è:", o:["Americane","Americani","Americano","Americans"], r:1 },
-      { d:"'Sei spagnola?' – Risposta corretta:", o:["No, sono Paolo","Sì, vengo da Barcellona","Ho 20 anni","Abito qui"], r:1 },
-      { d:"Come si dice 'I am German' in italiano?", o:["Sono tedesca/o","Vengo tedesco","Ho tedesco","Sono da Germania"], r:0 },
-      { d:"La capitale dell'Italia è:", o:["Milano","Venezia","Roma","Firenze"], r:2 },
-      { d:"'Abito a Parigi.' Quale verbo è usato?", o:["Essere","Avere","Abitare","Venire"], r:2 },
-      { d:"Come si dice la nazionalità brasiliana (m.)?", o:["Brasiliano","Brasiliana","Brasiliani","Brasilero"], r:0 },
-      { d:"'Di che nazionalità sei?' Risposta corretta:", o:["Sono le tre","Sono stanco","Sono cinese","Sono qui"], r:2 },
-      { d:"Quale parola NON è una nazionalità?", o:["Francese","Tedesco","Rosso","Giapponese"], r:2 },
-      { d:"'Veniamo dall'Argentina.' Soggetto:", o:["Io","Tu","Noi","Loro"], r:2 },
-      { d:"Come si chiede 'Where are you from?' formalmente?", o:["Di dove sei?","Lei di dov'è?","Da dove vieni?","Dove sei?"], r:1 },
+      { d:"কাউকে জিজ্ঞাসা করবেন 'তুমি কোথা থেকে এসেছো?'", o:["কেমন আছো?","তুমি কোথা থেকে?","তোমার বয়স কত?","তোমার নাম কী?"], r:1, spiegazione:"'Di dove sei?' মানে 'তুমি কোথা থেকে এসেছো?'। এটি উৎপত্তিস্থল জিজ্ঞাসার সঠিক প্রশ্ন।" },
+      { d:"'Sono americano.' – কে বলছে?", o:["একজন মহিলা","একজন পুরুষ (সম্ভবত)","একটি শিশু","জানা যায় না"], r:1, spiegazione:"'Americano' পুরুষবাচক রূপ। নারী হলে বলতেন 'Sono americana'।" },
+      { d:"'Italiano' এর নারীবাচক রূপ কী?", o:["Italiane","Italiana","Italiani","Italiono"], r:1, spiegazione:"'Italiano'-এর নারীবাচক রূপ 'Italiana'। বহুবচনে 'Italiani' (পুং) এবং 'Italiane' (স্ত্রী)।" },
+      { d:"'Sono di Milano.' এর অর্থ কী?", o:["আমি মিলানে জন্মেছি","আমি মিলানে যাচ্ছি","মিলান সুন্দর","মিলানে আমার এক বন্ধু আছে"], r:0, spiegazione:"'Sono di Milano' মানে 'আমি মিলানের বাসিন্দা' বা 'মিলানে জন্মেছি'।" },
+      { d:"কোন বাক্যে 'venire' ক্রিয়াটি ব্যবহৃত হয়েছে?", o:["আমি ফরাসি","আমি ফ্রান্স থেকে এসেছি","আমার ফরাসি পাসপোর্ট আছে","আমি ফ্রান্সে থাকি"], r:1, spiegazione:"'Vengo dalla Francia'-তে 'venire' (আসা) ক্রিয়া ব্যবহৃত হয়েছে। অন্য বাক্যে 'essere' বা 'abitare' ক্রিয়া আছে।" },
+      { d:"'Americano' (পুং) এর বহুবচন কী?", o:["Americane","Americani","Americano","Americans"], r:1, spiegazione:"'-o' সমাপ্ত পুংলিঙ্গ শব্দের বহুবচন হয় '-i' যোগে। তাই 'Americano' → 'Americani'।" },
+      { d:"'Sei spagnola?' – সঠিক উত্তর:", o:["না, আমি পাওলো","হ্যাঁ, আমি বার্সেলোনা থেকে এসেছি","আমার বয়স ২০","আমি এখানে থাকি"], r:1, spiegazione:"'Sei spagnola?' মানে 'তুমি কি স্প্যানিশ (মহিলা)?'। এর সঠিক উত্তর 'Sì, vengo da Barcellona' (হ্যাঁ, আমি বার্সেলোনা থেকে এসেছি)।" },
+      { d:"ইতালিয়ানে 'I am German' কীভাবে বলবেন?", o:["Sono tedesca/o","Vengo tedesco","Ho tedesco","Sono da Germania"], r:0, spiegazione:"জাতীয়তা বোঝাতে 'Essere' ক্রিয়া ব্যবহার হয়। পুরুষ হলে 'tedesco', নারী হলে 'tedesca'।" },
+      { d:"ইতালির রাজধানী কী?", o:["মিলান","ভেনিস","রোম","ফ্লোরেন্স"], r:2, spiegazione:"ইতালির রাজধানী রোম (Roma)। এটি দেশের সবচেয়ে বড় শহরও।" },
+      { d:"'Abito a Parigi.' – কোন ক্রিয়া ব্যবহৃত হয়েছে?", o:["Essere","Avere","Abitare","Venire"], r:2, spiegazione:"'Abitare' মানে 'বাস করা'। 'Abito a Parigi' = 'আমি প্যারিসে থাকি'।" },
+      { d:"ব্রাজিলীয় জাতীয়তা (পুং) কীভাবে বলবেন?", o:["Brasiliano","Brasiliana","Brasiliani","Brasilero"], r:0, spiegazione:"ব্রাজিলীয় পুরুষ = 'Brasiliano', নারী = 'Brasiliana'।" },
+      { d:"'Di che nazionalità sei?' – সঠিক উত্তর:", o:["তিনটে বাজে","আমি ক্লান্ত","আমি চীনা","আমি এখানে"], r:2, spiegazione:"'Di che nazionalità sei?' মানে 'তোমার জাতীয়তা কী?'। সঠিক উত্তর 'Sono cinese' (আমি চীনা)।" },
+      { d:"কোন শব্দটি জাতীয়তা নয়?", o:["ফরাসি","জার্মান","লাল","জাপানি"], r:2, spiegazione:"'Rosso' (লাল) একটি রঙ, জাতীয়তা নয়। অন্য সবগুলো জাতীয়তা বোঝায়।" },
+      { d:"'Veniamo dall'Argentina.' – কর্তা কে?", o:["আমি","তুমি","আমরা","তারা"], r:2, spiegazione:"'Veniamo' হল 'venire' ক্রিয়ার 'noi' (আমরা)-এর রূপ। তাই কর্তা 'Noi' (আমরা)।" },
+      { d:"আনুষ্ঠানিকভাবে 'Where are you from?' কীভাবে জিজ্ঞাসা করবেন?", o:["তুমি কোথা থেকে?","আপনি কোথা থেকে?","তুমি কোথা থেকে আসো?","তুমি কোথায়?"], r:1, spiegazione:"আনুষ্ঠানিকভাবে জিজ্ঞাসা করতে 'Lei di dov'è?' ব্যবহার করতে হবে। 'Lei' এখানে আনুষ্ঠানিক 'আপনি'।" },
     ]
   },
   {
-    id: 3, titolo: "La famiglia", sottotitolo: "Membri della famiglia e aggettivi",
+    id: 3, titolo: "পরিবার", sottotitolo: "পরিবারের সদস্য এবং বিশেষণ",
     quiz: [
-      { d:"Come si dice 'mother' in italiano?", o:["Padre","Sorella","Madre","Figlia"], r:2 },
-      { d:"Il contrario di 'fratello' è:", o:["Cugino","Sorella","Nipote","Zio"], r:1 },
-      { d:"'Mio nonno' indica:", o:["My uncle","My grandfather","My father","My brother"], r:1 },
-      { d:"Come si dice 'children' in italiano?", o:["Figli / bambini","Padri","Nonne","Fratelli"], r:0 },
-      { d:"'Ho due sorelle.' Quante?", o:["Una","Tre","Due","Nessuna"], r:2 },
-      { d:"Il maschile di 'zia' è:", o:["Zio","Zii","Nonno","Fratello"], r:0 },
-      { d:"Come si forma il possessivo in italiano?", o:["Nome + 's","Mio/Mia + nome","Nome + di + nome","Solo articolo"], r:1 },
-      { d:"'Mia madre si chiama Rosa.' La donna si chiama:", o:["Io","Mia madre","Rosa","Entrambe b e c"], r:2 },
-      { d:"Il plurale di 'figlio' è:", o:["Figlie","Figli","Filgio","Figlios"], r:1 },
-      { d:"'Miei' è il plurale di:", o:["Mia","Mio","Miei già è plurale","Mie"], r:1 },
-      { d:"'Cugina' in inglese è:", o:["Aunt","Sister","Cousin (f.)","Niece"], r:2 },
-      { d:"Come si dice 'husband' in italiano?", o:["Moglie","Marito","Fidanzato","Figlio"], r:1 },
-      { d:"'La mia famiglia è grande.' Quante persone?", o:["Poche","Molte","Due","Non si sa esattamente, ma tante"], r:3 },
-      { d:"Come si dice 'grandchildren' in italiano?", o:["Nonni","Nipoti","Cugini","Zii"], r:1 },
-      { d:"'Suo fratello' con 'Suo' indica:", o:["My brother","His/Her brother (formale)","Our brother","Your brother (informale)"], r:1 },
-    ]
-  },
-  {
-    id: 4, titolo: "I colori e i vestiti", sottotitolo: "Colori, abbigliamento e accordo",
-    quiz: [
-      { d:"Come si dice 'red' in italiano?", o:["Blu","Verde","Rosso","Giallo"], r:2 },
-      { d:"Quale colore è 'green'?", o:["Verde","Grigio","Viola","Arancione"], r:0 },
-      { d:"'Una camicia blu.' Perché 'blu' non cambia?", o:["È sbagliato","Blu è invariabile","È maschile","È un errore tipico"], r:1 },
-      { d:"Come si dice 'shoes' in italiano?", o:["Pantaloni","Scarpe","Magliette","Cappelli"], r:1 },
-      { d:"'I pantaloni sono ___.' Qual aggettivo è corretto?", o:["Nera","Neri","Nero","Nere"], r:1 },
-      { d:"Come si dice 'dress' (vestito da donna)?", o:["Gonna","Vestito / Abito","Giacca","Camicia"], r:1 },
-      { d:"Il plurale di 'maglietta rossa' è:", o:["Magliette rosse","Maglietta rossa","Magliette rossi","Magliette rosso"], r:0 },
-      { d:"'Arancione' in inglese è:", o:["Yellow","Orange","Purple","Brown"], r:1 },
-      { d:"Come si dice 'jacket' in italiano?", o:["Gonna","Maglione","Giacca","Cintura"], r:2 },
-      { d:"Quale colore è il cielo di solito?", o:["Rosso","Verde","Blu / Azzurro","Giallo"], r:2 },
-      { d:"'Viola' è il colore:", o:["Purple","Pink","Brown","Grey"], r:0 },
-      { d:"Come si dice 'white' in italiano?", o:["Nero","Bianco","Beige","Grigio"], r:1 },
-      { d:"'Le scarpe sono ___ (black).'", o:["Neri","Nera","Nere","Nero"], r:2 },
-      { d:"Come si chiama il capo 'hat'?", o:["Guanti","Cappello","Sciarpa","Borsa"], r:1 },
-      { d:"'Marrone' corrisponde a:", o:["Beige","Brown","Dark grey","Olive"], r:1 },
-    ]
-  },
-  {
-    id: 5, titolo: "A casa", sottotitolo: "Stanze, mobili e preposizioni di luogo",
-    quiz: [
-      { d:"Come si dice 'bathroom' in italiano?", o:["Cucina","Bagno","Camera da letto","Salotto"], r:1 },
-      { d:"Dove si dorme?", o:["In cucina","In salotto","In camera da letto","In bagno"], r:2 },
-      { d:"'Il divano è in ___ .' (living room)", o:["Cucina","Salotto","Bagno","Garage"], r:1 },
-      { d:"Come si dice 'window' in italiano?", o:["Porta","Finestra","Pavimento","Soffitto"], r:1 },
-      { d:"'Sul tavolo' significa:", o:["Under the table","Beside the table","On the table","Behind the table"], r:2 },
-      { d:"Come si dice 'fridge' in italiano?", o:["Forno","Lavastoviglie","Frigorifero","Lavatrice"], r:2 },
-      { d:"La preposizione corretta: 'Il gatto è ___ il divano.'", o:["Su","Sotto","In","Di"], r:1 },
-      { d:"Come si dice 'stairs' in italiano?", o:["Ascensore","Scale","Corridoio","Tetto"], r:1 },
-      { d:"'Vicino a' significa:", o:["Far from","Next to / near","Inside","On top of"], r:1 },
-      { d:"Dove si cucina?", o:["In bagno","In camera","In cucina","In giardino"], r:2 },
-      { d:"Come si dice 'ceiling' in italiano?", o:["Pavimento","Parete","Soffitto","Finestra"], r:2 },
-      { d:"'Dentro' è il contrario di:", o:["Sopra","Fuori","Vicino","Lontano"], r:1 },
-      { d:"Come si dice 'wardrobe' in italiano?", o:["Cassetto","Armadio","Scaffale","Comodino"], r:1 },
-      { d:"'La casa ha tre ___.' (rooms)", o:["Stanze","Scale","Porte","Finestre"], r:0 },
-      { d:"Come si dice 'garden' in italiano?", o:["Terrazzo","Cantina","Giardino","Garage"], r:2 },
-    ]
-  },
-  {
-    id: 6, titolo: "Che ora è?", sottotitolo: "Orario, routine quotidiana",
-    quiz: [
-      { d:"Come si chiede l'ora?", o:["Che giorno è?","Che ora è?","Com'è il tempo?","Dove sei?"], r:1 },
-      { d:"'Sono le tre.' Che ore sono?", o:["1:00","2:00","3:00","4:00"], r:2 },
-      { d:"Come si dice 'half past two'?", o:["Sono le due e un quarto","Sono le due e mezza","Sono le tre meno venti","Sono le due"], r:1 },
-      { d:"'Alle otto di mattina' è:", o:["8 PM","8 AM","12 AM","6 PM"], r:1 },
-      { d:"Come si dice '9:15'?", o:["Sono le nove e mezza","Sono le nove meno un quarto","Sono le nove e un quarto","Sono le dieci"], r:2 },
-      { d:"'Di solito mi alzo alle sette.' Che verbo è 'alzarsi'?", o:["Regolare","Riflessivo","Irregolare semplice","Ausiliare"], r:1 },
-      { d:"Come si dice 'midnight' in italiano?", o:["Mezzogiorno","Mezzanotte","Sera","Tardo"], r:1 },
-      { d:"'Faccio colazione' significa:", o:["I have lunch","I have dinner","I have breakfast","I cook"], r:2 },
-      { d:"'Alle venti e trenta' in formato 12 ore è:", o:["8:30 AM","8:30 PM","20:00","8:00 PM"], r:1 },
-      { d:"Come si dice 'before' (prima) in un contesto orario?", o:["Dopo","Adesso","Prima","Tardi"], r:2 },
-      { d:"'Vado a letto a mezzanotte.' Quando?", o:["A mezzogiorno","Alle 12 di notte","Alle 6 di sera","Alle 3 di mattina"], r:1 },
-      { d:"Come si dice '10:45'?", o:["Sono le undici meno un quarto","Sono le dieci e tre quarti","Sono le dieci e quarantacinque","a e c sono corrette"], r:3 },
-      { d:"'Di pomeriggio' indica:", o:["Morning","Evening","Afternoon","Night"], r:2 },
-      { d:"Come si dice 'I go to work at eight'?", o:["Vado al lavoro alle otto","Sono al lavoro otto","Lavoro a le otto","Vado lavoro otto"], r:0 },
-      { d:"'Puntuale' significa:", o:["Late","Early","On time","Absent"], r:2 },
-    ]
-  },
-  {
-    id: 7, titolo: "Al bar e al ristorante", sottotitolo: "Ordinare cibo e bevande",
-    quiz: [
-      { d:"Come si ordina un caffè al bar?", o:["Voglio caffè","Un caffè, per favore","Dammi caffè","Caffè io voglio"], r:1 },
-      { d:"'Il conto, per favore.' Cosa chiedi?", o:["The menu","The bill","More water","A table"], r:1 },
-      { d:"Come si dice 'I am hungry'?", o:["Ho sete","Ho freddo","Ho fame","Sono stanco"], r:2 },
-      { d:"'Vorrei' è la forma:", o:["Presente di volere","Condizionale di volere","Futuro di volere","Imperativo di volere"], r:1 },
-      { d:"Come si chiede 'Do you have a table for two?'", o:["Avete un tavolo per due?","Siete in due?","Voglio tavolo","Due persone, per favore"], r:0 },
-      { d:"'Un primo piatto' è:", o:["Dessert","Starter","First course (pasta/soup)","Side dish"], r:2 },
-      { d:"Come si dice 'I am thirsty'?", o:["Ho fame","Ho sete","Ho sonno","Ho freddo"], r:1 },
-      { d:"'Il menù' in inglese è:", o:["The bill","The waiter","The menu","The reservation"], r:2 },
-      { d:"Come si dice 'water' in italiano?", o:["Vino","Birra","Acqua","Succo"], r:2 },
-      { d:"'Al sangue' riferito a una bistecca significa:", o:["Well done","Medium","Rare","Burnt"], r:2 },
-      { d:"Come si dice 'waiter' (m.) in italiano?", o:["Cameriera","Cameriere","Cuoco","Barista"], r:1 },
-      { d:"'Senza zucchero' significa:", o:["With sugar","Without sugar","More sugar","Less sugar"], r:1 },
-      { d:"Come si chiede 'Is service included?'", o:["È compreso il servizio?","Quanto costa il pane?","Avete Wi-Fi?","Dov'è il bagno?"], r:0 },
-      { d:"'Un cappuccino e un cornetto.' Dove probabilmente sei?", o:["A pranzo al ristorante","A colazione al bar","A cena a casa","In pizzeria"], r:1 },
-      { d:"'Sono vegetariano.' Cosa non mangi?", o:["Verdura","Frutta","Carne","Pasta"], r:2 },
-    ]
-  },
-  {
-    id: 8, titolo: "In città", sottotitolo: "Luoghi, indicazioni stradali",
-    quiz: [
-      { d:"Come si chiede dov'è la stazione?", o:["Dov'è la stazione?","Come vai alla stazione?","Sei alla stazione?","La stazione è lì?"], r:0 },
-      { d:"'Gira a destra' significa:", o:["Turn left","Go straight","Turn right","Stop"], r:2 },
-      { d:"Come si dice 'pharmacy' in italiano?", o:["Banca","Farmacia","Ospedale","Ufficio postale"], r:1 },
-      { d:"'Sempre dritto' significa:", o:["Turn around","Go straight ahead","Turn right","Go back"], r:1 },
-      { d:"Come si dice 'traffic light' in italiano?", o:["Semaforo","Incrocio","Rotonda","Marciapiede"], r:0 },
-      { d:"'A piedi' significa:", o:["By car","By train","On foot","By bike"], r:2 },
-      { d:"Come si dice 'square' (piazza) in inglese?", o:["Park","Street","Square","Museum"], r:2 },
-      { d:"'La fermata dell'autobus' è:", o:["Train station","Bus stop","Airport","Taxi stand"], r:1 },
-      { d:"Come si chiede 'How far is it?'", o:["Com'è lontano?","Quanto è lontano?","Dove è lontano?","È lontano come?"], r:1 },
-      { d:"'A sinistra' significa:", o:["To the right","Straight ahead","To the left","Behind"], r:2 },
-      { d:"Come si dice 'crossroads' in italiano?", o:["Rotonda","Semaforo","Incrocio","Viale"], r:2 },
-      { d:"'Prendi la prima a destra' significa:", o:["Take the second left","Take the first right","Go straight","Turn around"], r:1 },
-      { d:"Come si dice 'post office' in italiano?", o:["Banca","Supermercato","Ufficio postale","Biblioteca"], r:2 },
-      { d:"'In centro' significa:", o:["In the suburbs","In the city center","At the beach","In the countryside"], r:1 },
-      { d:"Come si dice 'How do I get to…?'", o:["Dov'è…?","Come si arriva a…?","Quanto dista…?","C'è un…?"], r:1 },
-    ]
-  },
-  {
-    id: 9, titolo: "Il tempo libero", sottotitolo: "Hobby, sport e attività",
-    quiz: [
-      { d:"Come si chiede 'What do you like to do?'", o:["Cosa fai?","Cosa ti piace fare?","Dove vai?","Con chi esci?"], r:1 },
-      { d:"'Mi piace nuotare.' Cosa significa 'nuotare'?", o:["To run","To swim","To dance","To read"], r:1 },
-      { d:"Come si dice 'I play football'?", o:["Faccio il calcio","Gioco a calcio","Pratico football","Sono nel calcio"], r:1 },
-      { d:"'Ascolto musica' – che verbo è usato?", o:["Guardare","Suonare","Ascoltare","Leggere"], r:2 },
-      { d:"Come si dice 'reading' (leggere)?", o:["Leggere","Scrivere","Disegnare","Cantare"], r:0 },
-      { d:"'Non mi piace ballare.' Qual è la struttura negativa?", o:["Mi non piace","Non mi piace","Mi piace non","Piace non mi"], r:1 },
-      { d:"Come si dice 'hobby' in italiano?", o:["Lavoro","Hobby (stesso)","Passatempo","Gioco"], r:2 },
-      { d:"'Guardo la TV.' Che verbo è?", o:["Ascoltare","Guardare","Sentire","Vedere"], r:1 },
-      { d:"Come si dice 'I go to the cinema'?", o:["Vado al cinema","Vedo il cinema","Sto al cinema","Vengo al cinema"], r:0 },
-      { d:"'Cucino spesso.' Cosa significa 'spesso'?", o:["Never","Sometimes","Often","Always"], r:2 },
-      { d:"Come si dice 'yoga'?", o:["Yoga (stesso)","Ginnastica","Meditazione","Stretching"], r:0 },
-      { d:"'Gioco a scacchi.' 'Scacchi' è:", o:["Swimming","Chess","Running","Cycling"], r:1 },
-      { d:"Come si dice 'I prefer walking'?", o:["Preferisco camminare","Mi piace correre","Voglio camminare","Adoro la passeggiata"], r:0 },
-      { d:"'Di solito' in inglese è:", o:["Sometimes","Never","Usually","Always"], r:2 },
-      { d:"Come si dice 'concert' in italiano?", o:["Spettacolo","Concerto","Teatro","Opera"], r:1 },
-    ]
-  },
-  {
-    id: 10, titolo: "Il corpo e la salute", sottotitolo: "Parti del corpo, sintomi",
-    quiz: [
-      { d:"Come si dice 'head' in italiano?", o:["Mano","Testa","Piede","Spalla"], r:1 },
-      { d:"'Ho mal di testa.' Cosa ho?", o:["Stomach ache","Headache","Toothache","Backache"], r:1 },
-      { d:"Come si dice 'doctor' in italiano?", o:["Infermiera","Chirurgo","Medico / Dottore","Farmacista"], r:2 },
-      { d:"'Mi fa male il ginocchio.' Cosa è il ginocchio?", o:["Elbow","Knee","Shoulder","Ankle"], r:1 },
-      { d:"Come si dice 'fever' in italiano?", o:["Tosse","Raffreddore","Febbre","Mal di gola"], r:2 },
-      { d:"'Ho bisogno di una ricetta.' 'Ricetta' significa:", o:["Appointment","Recipe / Prescription","Medicine","Rest"], r:1 },
-      { d:"Come si dice 'I feel sick' in italiano?", o:["Mi sento bene","Mi sento male","Sono stanco","Ho fame"], r:1 },
-      { d:"Quale verbo si usa per i dolori fisici?", o:["Essere","Avere","Fare male","Stare"], r:2 },
-      { d:"Come si dice 'pharmacy' in italiano?", o:["Ospedale","Clinica","Farmacia","Pronto soccorso"], r:2 },
-      { d:"'Ho la tosse.' 'Tosse' significa:", o:["Flu","Cough","Cold","Rash"], r:1 },
-      { d:"Come si dice 'arm' in italiano?", o:["Gamba","Braccio","Schiena","Collo"], r:1 },
-      { d:"'Devo riposare.' Significa:", o:["I must eat","I must rest","I must go","I must drink"], r:1 },
-      { d:"Come si dice 'tooth' (singolare) in italiano?", o:["Dente","Denti","Bocca","Lingua"], r:0 },
-      { d:"'Sono allergico a…' cosa significa?", o:["I love...","I am allergic to...","I am afraid of...","I need..."], r:1 },
-      { d:"Come si dice 'blood pressure' in italiano?", o:["Frequenza cardiaca","Pressione sanguigna","Temperatura","Peso"], r:1 },
-    ]
-  },
-  {
-    id: 11, titolo: "Fare la spesa", sottotitolo: "Negozi, cibo e quantità",
-    quiz: [
-      { d:"Come si dice 'supermarket' in italiano?", o:["Mercato","Supermercato","Negozio","Drogheria"], r:1 },
-      { d:"'Un chilo di mele.' Quanto è un chilo?", o:["100g","500g","1000g","2000g"], r:2 },
-      { d:"Come si dice 'How much does it cost?'", o:["Quanto è grande?","Quanto costa?","Cosa è questo?","Dove si trova?"], r:1 },
-      { d:"'Vorrei mezzo chilo di formaggio.' Mezzo chilo è:", o:["250g","500g","750g","1000g"], r:1 },
-      { d:"Come si dice 'bakery' in italiano?", o:["Macelleria","Panetteria","Pescheria","Salumeria"], r:1 },
-      { d:"'È in offerta' significa:", o:["It's expensive","It's on sale","It's sold out","It's imported"], r:1 },
-      { d:"Come si chiede 'Can I have a bag?'", o:["Posso avere una borsa?","Posso avere un sacchetto?","Dove sono le buste?","Ha borse?"], r:1 },
-      { d:"'Un etto' corrisponde a:", o:["10g","50g","100g","200g"], r:2 },
-      { d:"Come si dice 'butcher's shop' in italiano?", o:["Panetteria","Pescheria","Macelleria","Gelateria"], r:2 },
-      { d:"'Cassa' in un negozio è:", o:["Exit","Entrance","Checkout/till","Storage room"], r:2 },
-      { d:"Come si dice 'receipt' in italiano?", o:["Scontrino","Sconto","Fattura","Prezzo"], r:0 },
-      { d:"'È esaurito' significa:", o:["It's fresh","It's on sale","It's out of stock","It's discounted"], r:2 },
-      { d:"Come si dice 'I'd like a bottle of water'?", o:["Voglio acqua","Vorrei una bottiglia d'acqua","Dammi acqua","Acqua, per favore"], r:1 },
-      { d:"'Biologico' si riferisce a prodotti:", o:["Imported","Organic","Frozen","Local"], r:1 },
-      { d:"Come si dice 'change' (resto) in italiano?", o:["Prezzo","Sconto","Resto","Totale"], r:2 },
-    ]
-  },
-  {
-    id: 12, titolo: "I verbi al presente", sottotitolo: "Coniugazione presente indicativo",
-    quiz: [
-      { d:"'Parlare' alla 1ª persona singolare è:", o:["Parlamo","Parlo","Parli","Parla"], r:1 },
-      { d:"'Mangiare' alla 2ª persona singolare (tu) è:", o:["Mangio","Mangia","Mangi","Mangiate"], r:2 },
-      { d:"Quale gruppo è 'scrivere'?", o:["-are","-ere","-ire","Irregolare"], r:1 },
-      { d:"'Loro parlano.' Il soggetto è:", o:["Noi","Voi","Loro","Lei"], r:2 },
-      { d:"Come si coniuga 'andare' alla 1ª persona?", o:["Ando","Vado","Ando","Andiamo"], r:1 },
-      { d:"'Noi mangiamo.' È corretto?", o:["Sì","No, deve essere 'mangiamo noi'","No, deve essere 'mangiamo'","No, è 'mangiate'"], r:0 },
-      { d:"Il presente di 'essere' alla 3ª singolare è:", o:["È","Sei","Siamo","Sono"], r:0 },
-      { d:"'Avere' alla 2ª persona singolare:", o:["Ho","Hai","Ha","Hanno"], r:1 },
-      { d:"'Venire' è un verbo:", o:["Regolare -are","Regolare -ere","Irregolare","Regolare -ire"], r:2 },
-      { d:"Completa: 'Voi ___ molto.' (lavorare)", o:["Lavorate","Lavorano","Lavoriamo","Lavorate"], r:0 },
-      { d:"'Fare' alla 1ª persona è:", o:["Faccio","Faro","Facciamo","Fai"], r:0 },
-      { d:"Quale frase è corretta?", o:["Io mangio pasta","Io manga pasta","Io mangia pasta","Io mangi pasta"], r:0 },
-      { d:"'Capire' appartiene ai verbi -ire con:", o:["Nessun cambiamento","L'inserzione di -isc-","Raddoppio della consonante","Cambio vocale"], r:1 },
-      { d:"'Potere' alla 1ª singolare è:", o:["Poto","Posso","Puoi","Può"], r:1 },
-      { d:"Completa: 'Lei ___ italiana.' (essere)", o:["Sono","Sei","È","Siamo"], r:2 },
-    ]
-  },
-  {
-    id: 13, titolo: "Il passato prossimo", sottotitolo: "Passato prossimo con avere/essere",
-    quiz: [
-      { d:"Il passato prossimo usa:", o:["Solo 'avere'","Solo 'essere'","'Avere' o 'essere'","Il congiuntivo"], r:2 },
-      { d:"'Ho mangiato.' Che ausiliare è usato?", o:["Essere","Avere","Fare","Stare"], r:1 },
-      { d:"'Sono andato.' Che ausiliare è usato?", o:["Avere","Essere","Stare","Venire"], r:1 },
-      { d:"Il participio passato di 'parlare' è:", o:["Parlito","Parluto","Parlato","Parlendo"], r:2 },
-      { d:"Il participio passato di 'scrivere' è:", o:["Scritto","Scrivo","Scrivuto","Scrivato"], r:0 },
-      { d:"Con 'essere' il participio:", o:["Non cambia mai","Concorda con il soggetto","Concorda con l'oggetto","È sempre maschile"], r:1 },
-      { d:"'Maria è ___ a Roma.' (andare)", o:["Andato","Andati","Andata","Andiate"], r:2 },
-      { d:"'Loro hanno ___.' (leggere)", o:["Letto","Letti","Legguto","Leggito"], r:0 },
-      { d:"Quale verbo usa 'essere' come ausiliare?", o:["Mangiare","Bere","Arrivare","Guardare"], r:2 },
-      { d:"'Ho visto un film.' Il participio di 'vedere' è:", o:["Visto","Veduto","Viso","Vedito"], r:0 },
-      { d:"'Siamo partiti ieri.' Soggetto è:", o:["Io","Tu","Noi","Loro"], r:2 },
-      { d:"Il participio di 'fare' è:", o:["Fatto","Fato","Faciuto","Fecito"], r:0 },
-      { d:"'Lei ha ___ il caffè.' (bere)", o:["Bevuto","Bibuto","Beuto","Bevito"], r:0 },
-      { d:"I verbi riflessivi usano sempre:", o:["Avere","Essere","Avere o essere","Stare"], r:1 },
-      { d:"'Ho aperto la finestra.' Participio di 'aprire':", o:["Aprito","Aperto","Aprito","Aprendo"], r:1 },
-    ]
-  },
-  {
-    id: 14, titolo: "Ripasso Generale A0/A1", sottotitolo: "Tutto il programma",
-    quiz: [
-      { d:"Quale frase è corretta per presentarsi?", o:["Io mi chiamo sono Maria","Mi chiamo Maria","Chiamo Maria","Sono chiamo Maria"], r:1 },
-      { d:"'Buongiorno' si usa fino a:", o:["Mezzogiorno circa","Le 15:00","La sera","Le 9:00"], r:0 },
-      { d:"Il plurale di 'una casa rossa' è:", o:["Una case rosse","Delle case rosse","Case rossa","Case rosse"], r:1 },
-      { d:"Dove si mette l'articolo determinativo in italiano?", o:["Dopo il nome","Prima del nome","Alla fine della frase","Non si usa"], r:1 },
-      { d:"Come si chiede il prezzo?", o:["Quanto costa?","Quanto è grande?","Di che colore è?","Com'è?"], r:0 },
-      { d:"'Ieri ho mangiato la pizza.' Che tempo è?", o:["Presente","Futuro","Passato prossimo","Imperfetto"], r:2 },
-      { d:"Quale articolo si usa con 'studente' (m.)?", o:["Il","Lo","L'","Un"], r:1 },
-      { d:"Come si dice 'I have to work'?", o:["Voglio lavorare","Devo lavorare","Posso lavorare","So lavorare"], r:1 },
-      { d:"'Molto' può modificare:", o:["Solo verbi","Solo aggettivi","Verbi e aggettivi","Solo nomi"], r:2 },
-      { d:"Quale parola è un avverbio di frequenza?", o:["Sempre","Qui","Bello","Poco"], r:0 },
-      { d:"'C'è' si usa per:", o:["Plurale","Singolare","Entrambi","Nessuno dei due"], r:1 },
-      { d:"Il contrario di 'grande' è:", o:["Alto","Piccolo","Largo","Lungo"], r:1 },
-      { d:"Quale frase usa correttamente 'piacere'?", o:["Io piace la musica","A me piace la musica","Mi piaccio la musica","Piace io la musica"], r:1 },
-      { d:"'Stare + gerundio' esprime:", o:["Un'azione futura","Un'azione abituale","Un'azione in corso","Un'azione passata"], r:2 },
-      { d:"Quale frase è grammaticalmente corretta?", o:["Io sono andato al mercato ieri","Io ho andato al mercato ieri","Io era andato al mercato ieri","Io andavo al mercato ieri"], r:0 },
-    ]
-  },
-];
-
-// ═══════════════════════════════════════════════════════
-//  STATO
-// ═══════════════════════════════════════════════════════
-let stato = {
-  schermata: 'home',   // 'home' | 'quiz' | 'risultati'
-  capIdx: null,
-  quizIdx: 0,
-  risposte: [],        // { corretta: bool }[]
-  scores: {},          // capIdx → punteggio
-};
-
-// ═══════════════════════════════════════════════════════
-//  RENDER
-// ═══════════════════════════════════════════════════════
-function render() {
-  renderNav();
-  if (stato.schermata === 'home') renderHome();
-  else if (stato.schermata === 'quiz') renderQuiz();
-  else renderRisultati();
-}
-
-/* --- NAV --- */
-function renderNav() {
-  const nav = document.getElementById('capitoli');
-  nav.innerHTML = `
-    <button class="${stato.schermata==='home'&&stato.capIdx===null?'active':''}"
-      onclick="goHome()">🏠 Home</button>
-    ${CAPITOLI.map((c,i)=>`
-      <button class="${stato.capIdx===i&&stato.schermata!=='home'?'active':''}"
-        onclick="iniziaCapitolo(${i})">
-        Cap.${i+1} ${stato.scores[i]!==undefined?'✓':''}
-      </button>`).join('')}
-  `;
-}
-
-/* --- HOME --- */
-function renderHome() {
-  const main = document.getElementById('main-content');
-  main.innerHTML = `
-    <div class="home-intro">
-      <h2>Scegli un capitolo</h2>
-      <p>15 quiz per ogni capitolo — buono studio! 🎓</p>
-    </div>
-    <div class="grid-capitoli">
-      ${CAPITOLI.map((c,i)=>`
-        <div class="cap-card" onclick="iniziaCapitolo(${i})">
-          <div class="num">Capitolo ${i+1}</div>
-          <h3>${c.titolo}</h3>
-          <p>${c.sottotitolo}</p>
-          <span class="quiz-count">15 quiz</span>
-          ${stato.scores[i]!==undefined
-            ? `<div class="cap-score">⭐ Ultimo punteggio: ${stato.scores[i]}/15</div>`
-            : ''}
-        </div>`).join('')}
-    </div>
-  `;
-}
-
-/* --- QUIZ --- */
-function renderQuiz() {
-  const cap = CAPITOLI[stato.capIdx];
-  const q = cap.quiz[stato.quizIdx];
-  const totale = cap.quiz.length;
-  const perc = Math.round((stato.quizIdx / totale) * 100);
-  const rispostaData = stato.risposte[stato.quizIdx];
-
-  const main = document.getElementById('main-content');
-  main.innerHTML = `
-    <div class="chapter-header">
-      <div class="chapter-badge">${stato.capIdx+1}</div>
-      <div>
-        <div class="chapter-title">${cap.titolo}</div>
-        <div class="chapter-subtitle">${cap.sottotitolo}</div>
-      </div>
-    </div>
-
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" style="width:${perc}%"></div>
-    </div>
-    <div class="progress-label">Domanda ${stato.quizIdx+1} di ${totale}</div>
-
-    <div class="quiz-card" id="quiz-card">
-      <div class="quiz-num">Domanda ${stato.quizIdx+1}</div>
-      <div class="quiz-domanda">${q.d}</div>
-      <div class="opzioni">
-        ${q.o.map((op,i)=>{
-          let cls = '';
-          const lettere = ['A','B','C','D'];
-          if (rispostaData !== undefined) {
-            cls = 'locked ';
-            if (i === q.r) cls += 'corretta';
-            else if (i === rispostaData.scelta && rispostaData.scelta !== q.r) cls += 'sbagliata';
-          }
-          return `<div class="opzione ${cls}" onclick="rispondi(${i})">
-            <span class="lettera">${lettere[i]}</span>
-            <span>${op}</span>
-          </div>`;
-        }).join('')}
-      </div>
-
-      ${rispostaData !== undefined ? `
-        <div class="feedback ${rispostaData.corretta?'ok':'no'} show">
-          <span class="icon">${rispostaData.corretta?'✅':'❌'}</span>
-          <span>${rispostaData.corretta
-            ? 'Ottimo! Risposta corretta!'
-            : `La risposta corretta è: <strong>${q.o[q.r]}</strong>`
-          }</span>
-        </div>` : ''}
-
-      <div class="quiz-nav">
-        <button class="btn btn-secondary"
-          onclick="quizPrecedente()"
-          ${stato.quizIdx===0?'disabled':''}>← Indietro</button>
-
-        ${stato.quizIdx < totale-1
-          ? `<button class="btn btn-primary"
-              onclick="quizSuccessivo()"
-              ${rispostaData===undefined?'disabled':''}>Avanti →</button>`
-          : `<button class="btn btn-primary"
-              onclick="mostraRisultati()"
-              ${rispostaData===undefined?'disabled':''}>Vedi risultati 🎉</button>`
-        }
-      </div>
-    </div>
-  `;
-}
-
-/* --- RISULTATI --- */
-function renderRisultati() {
-  const cap = CAPITOLI[stato.capIdx];
-  const corrette = stato.risposte.filter(r=>r.corretta).length;
-  const totale = cap.quiz.length;
-  const perc = Math.round((corrette/totale)*100);
-  let emoji, msg, stelle;
-  if (perc >= 90) { emoji='🏆'; msg='Eccellente! Sei un vero campione!'; stelle='⭐⭐⭐'; }
-  else if (perc >= 70) { emoji='😊'; msg='Molto bene! Continua così!'; stelle='⭐⭐'; }
-  else if (perc >= 50) { emoji='💪'; msg='Bene! Ripassate un po\' e riprova!'; stelle='⭐'; }
-  else { emoji='📚'; msg='Ripassate ancora, ce la fai!'; stelle=''; }
-
-  const main = document.getElementById('main-content');
-  main.innerHTML = `
-    <div class="risultati">
-      <div class="emoji">${emoji}</div>
-      <div class="stelline">${stelle}</div>
-      <div class="grande-voto">${corrette}</div>
-      <div class="su">su ${totale} domande</div>
-      <div class="messaggio">${msg}</div>
-      <div style="margin-bottom:28px;color:var(--grigio);font-size:.9rem;">
-        Percentuale: <strong>${perc}%</strong>
-      </div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="iniziaCapitolo(${stato.capIdx})">
-          🔄 Riprova capitolo
-        </button>
-        ${stato.capIdx < CAPITOLI.length-1
-          ? `<button class="btn btn-secondary" onclick="iniziaCapitolo(${stato.capIdx+1})">
-              Capitolo successivo →
-            </button>`
-          : ''}
-        <button class="btn btn-secondary" onclick="goHome()">🏠 Home</button>
-      </div>
-    </div>
-  `;
-}
-
-// ═══════════════════════════════════════════════════════
-//  AZIONI
-// ═══════════════════════════════════════════════════════
-function goHome() {
-  stato.schermata = 'home';
-  stato.capIdx = null;
-  render();
-  window.scrollTo(0,0);
-}
-
-function iniziaCapitolo(idx) {
-  stato.schermata = 'quiz';
-  stato.capIdx = idx;
-  stato.quizIdx = 0;
-  stato.risposte = [];
-  render();
-  window.scrollTo(0,0);
-}
-
-function rispondi(scelta) {
-  if (stato.risposte[stato.quizIdx] !== undefined) return;
-  const q = CAPITOLI[stato.capIdx].quiz[stato.quizIdx];
-  const corretta = scelta === q.r;
-  stato.risposte[stato.quizIdx] = { scelta, corretta };
-  render();
-}
-
-function quizSuccessivo() {
-  if (stato.quizIdx < CAPITOLI[stato.capIdx].quiz.length - 1) {
-    stato.quizIdx++;
-    render();
-    window.scrollTo(0,0);
-  }
-}
-
-function quizPrecedente() {
-  if (stato.quizIdx > 0) {
-    stato.quizIdx--;
-    render();
-    window.scrollTo(0,0);
-  }
-}
-
-function mostraRisultati() {
-  const corrette = stato.risposte.filter(r=>r.corretta).length;
-  stato.scores[stato.capIdx] = corrette;
-  stato.schermata = 'risultati';
-  render();
-  window.scrollTo(0,0);
-}
-
-// ═══════════════════════════════════════════════════════
-//  AVVIO
-// ═══════════════════════════════════════════════════════
-render();
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Italiano A0/A1 – Quiz del Corso</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --verde: #1a6b3c;
-    --verde-light: #2d9e5f;
-    --rosso: #c0392b;
-    --crema: #fdf6ec;
-    --oro: #c9962b;
-    --testo: #1a1a2e;
-    --grigio: #8a8a9a;
-    --bg-card: #ffffff;
-    --ombra: 0 4px 24px rgba(26,107,60,0.10);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--crema);
-    color: var(--testo);
-    min-height: 100vh;
-  }
-
-  /* ── HERO ── */
-  header {
-    background: var(--verde);
-    color: #fff;
-    padding: 56px 24px 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(
-      135deg,
-      transparent, transparent 40px,
-      rgba(255,255,255,0.04) 40px, rgba(255,255,255,0.04) 80px
-    );
-  }
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.4rem);
-    font-weight: 900;
-    letter-spacing: -0.5px;
+      { d:"ইতালিয়ানে 'mother' কী?", o:["Padre","Sorella","Madre","Figlia"], r:2, spiegazione:"'Madre' = মা। 'Padre' = বাবা, 'Sorella' = বোন, 'Figlia' = মেয়ে (সন্তান)।" },
+      { d:"'Fratello' (ভাই) এর বিপরীত শব্দ কী?", o:["কাজিন","বোন","ভাইপো/ভাগ্নে","চাচা"], r:1, spiegazione:"'Fratello' = ভাই, 'Sorella' = বোন। এরা পরস্পর বিপরীত লিঙ্গের সহোদর।" },
+      { d:"'Mio nonno' কী বোঝায়?", o:["আমার চাচা","আমার দাদা/নানা","আমার বাবা","আমার ভাই"], r:1, spiegazione:"'Mio nonno' = আমার দাদা বা নানা। 'Mio zio' = আমার চাচা/মামা।" },
+      { d:"ইতালিয়ানে 'children' কী?", o:["Figli / bambini","Padri","Nonne","Fratelli"], r:0, spiegazione:"'Figli' বা 'bambini' = শিশু/ছেলেমেয়ে। 'Padri' = বাবারা, 'Nonne' = দাদিরা।" },
+      { d:"'Ho due sorelle.' – কতজন?", o:["একজন","তিনজন","দুইজন","কেউ না"], r:2, spiegazione:"'Due' মানে দুই। তাই 'Ho due sorelle' = আমার দুই বোন আছে।" },
+      { d:"'Zia' (চাচি/মামি/খালা) এর পুংলিঙ্গ কী?", o:["Zio","Zii","Nonno","Fratello"], r:0, spiegazione:"'Zia'-এর পুংলিঙ্গ 'Zio' (চাচা/মামা/খালু)। বহুবচন 'Zii'।" },
+      { d:"ইতালিয়ানে অধিকারবাচক বিশেষণ কীভাবে গঠন করা হয়?", o:["নাম + 's","Mio/Mia + নাম","নাম + di + নাম","শুধুমাত্র আর্টিকেল"], r:1, spiegazione:"ইতালিয়ানে 'Mio/Mia/Tuo/Tua' ইত্যাদি অধিকারবাচক বিশেষণ নামের আগে বসে, যেমন 'Mia madre' (আমার মা)।" },
+      { d:"'Mia madre si chiama Rosa.' – মহিলাটির নাম কী?", o:["আমি","আমার মা","রোজা","b এবং c উভয়ই"], r:2, spiegazione:"'Mia madre si chiama Rosa' = আমার মায়ের নাম রোজা। তাই মহিলাটি হলেন রোজা, যিনি আমার মা।" },
+      { d:"'Figlio' (ছেলে) এর বহুবচন কী?", o:["Figlie","Figli","Filgio","Figlios"], r:1, spiegazione:"'-o' সমাপ্ত পুংলিঙ্গ শব্দের বহুবচন '-i' হয়। তাই 'Figlio' → 'Figli'।" },
+      { d:"'Miei' কোনটির বহুবচন?", o:["Mia","Mio","Miei নিজেই বহুবচন","Mie"], r:1
