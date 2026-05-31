@@ -441,4 +441,457 @@ const CAPITOLI = [
       { d:"ইতালিয়ানে অধিকারবাচক বিশেষণ কীভাবে গঠন করা হয়?", o:["নাম + 's","Mio/Mia + নাম","নাম + di + নাম","শুধুমাত্র আর্টিকেল"], r:1, spiegazione:"ইতালিয়ানে 'Mio/Mia/Tuo/Tua' ইত্যাদি অধিকারবাচক বিশেষণ নামের আগে বসে, যেমন 'Mia madre' (আমার মা)।" },
       { d:"'Mia madre si chiama Rosa.' – মহিলাটির নাম কী?", o:["আমি","আমার মা","রোজা","b এবং c উভয়ই"], r:2, spiegazione:"'Mia madre si chiama Rosa' = আমার মায়ের নাম রোজা। তাই মহিলাটি হলেন রোজা, যিনি আমার মা।" },
       { d:"'Figlio' (ছেলে) এর বহুবচন কী?", o:["Figlie","Figli","Filgio","Figlios"], r:1, spiegazione:"'-o' সমাপ্ত পুংলিঙ্গ শব্দের বহুবচন '-i' হয়। তাই 'Figlio' → 'Figli'।" },
-      { d:"'Miei' কোনটির বহুবচন?", o:["Mia","Mio","Miei নিজেই বহুবচন","Mie"], r:1
+      { d:"'Miei' কোনটির বহুবচন?", o:["Mia","Mio","Miei নিজেই বহুবচন","Mie"], r:1, spiegazione:"'Miei' হল 'Mio' (আমার - পুং) এর বহুবচন রূপ। যেমন 'I miei fratelli' (আমার ভাইরা)।" },
+      { d:"ইংরেজিতে 'Cugina' কী?", o:["আন্টি","বোন","কাজিন (মহিলা)","ভাগ্নি"], r:2, spiegazione:"'Cugina' = মহিলা কাজিন। 'Cugino' = পুরুষ কাজিন।" },
+      { d:"ইতালিয়ানে 'husband' কী?", o:["Moglie","Marito","Fidanzato","Figlio"], r:1, spiegazione:"'Marito' = স্বামী। 'Moglie' = স্ত্রী, 'Fidanzato' = বাগদত্তা/প্রেমিক।" },
+      { d:"'La mia famiglia è grande.' – কতজন লোক?", o:["কম","অনেক","দুইজন","সঠিক সংখ্যা জানা নেই, কিন্তু অনেক"], r:3, spiegazione:"'Grande' মানে বড়, তাই পরিবার বড় অর্থাৎ অনেক সদস্য। কিন্তু সঠিক সংখ্যা বলা হয়নি।" },
+      { d:"ইতালিয়ানে 'grandchildren' কী?", o:["Nonni","Nipoti","Cugini","Zii"], r:1, spiegazione:"'Nipoti' = নাতি-নাতনি (বহুবচন)। 'Nonni' = দাদা-দাদি/নানা-নানি।" },
+      { d:"'Suo fratello' – এখানে 'Suo' কী বোঝায়?", o:["আমার ভাই","তার/তার (আনুষ্ঠানিক) ভাই","আমাদের ভাই","তোমার ভাই (অনানুষ্ঠানিক)"], r:1, spiegazione:"'Suo' মানে 'তার' বা আনুষ্ঠানিক 'আপনার'। 'Suo fratello' = তার ভাই বা আপনার ভাই (আনুষ্ঠানিক)।" },
+    ]
+  },
+  {
+    id: 4, titolo: "রং এবং পোশাক", sottotitolo: "রং, পোশাক এবং সঙ্গতি",
+    quiz: [
+      { d:"ইতালিয়ানে 'red' কী?", o:["Blu","Verde","Rosso","Giallo"], r:2, spiegazione:"'Rosso' = লাল। 'Blu' = নীল, 'Verde' = সবুজ, 'Giallo' = হলুদ।" },
+      { d:"কোন রংটি 'green'?", o:["Verde","Grigio","Viola","Arancione"], r:0, spiegazione:"'Verde' = সবুজ। 'Grigio' = ধূসর, 'Viola' = বেগুনি, 'Arancione' = কমলা।" },
+      { d:"'Una camicia blu.' – 'Blu' কেন পরিবর্তিত হয় না?", o:["এটি ভুল","Blu অপরিবর্তনীয়","এটি পুংলিঙ্গ","এটি একটি সাধারণ ভুল"], r:1, spiegazione:"'Blu' একটি অপরিবর্তনীয় বিশেষণ, তাই এটি লিঙ্গ বা বচন ভেদে পরিবর্তিত হয় না।" },
+      { d:"ইতালিয়ানে 'shoes' কী?", o:["Pantaloni","Scarpe","Magliette","Cappelli"], r:1, spiegazione:"'Scarpe' = জুতা (বহুবচন)। 'Pantaloni' = প্যান্ট, 'Magliette' = টি-শার্ট।" },
+      { d:"'I pantaloni sono ___.' – কোন বিশেষণ সঠিক?", o:["Nera","Neri","Nero","Nere"], r:1, spiegazione:"'Pantaloni' পুংলিঙ্গ বহুবচন, তাই বিশেষণও পুংলিঙ্গ বহুবচন হবে 'Neri' (কালো)।" },
+      { d:"ইতালিয়ানে 'dress' (মহিলাদের পোশাক) কী?", o:["Gonna","Vestito / Abito","Giacca","Camicia"], r:1, spiegazione:"'Vestito' বা 'Abito' = জামা/ড্রেস। 'Gonna' = স্কার্ট, 'Giacca' = জ্যাকেট।" },
+      { d:"'Maglietta rossa' এর বহুবচন কী?", o:["Magliette rosse","Maglietta rossa","Magliette rossi","Magliette rosso"], r:0, spiegazione:"বহুবচনে 'Maglietta' → 'Magliette' এবং নারীবাচক 'rossa' → 'rosse'। উভয়ই নারীবাচক বহুবচন হবে।" },
+      { d:"ইংরেজিতে 'Arancione' কী?", o:["হলুদ","কমলা","বেগুনি","বাদামি"], r:1, spiegazione:"'Arancione' = কমলা রং। 'Giallo' = হলুদ, 'Viola' = বেগুনি।" },
+      { d:"ইতালিয়ানে 'jacket' কী?", o:["Gonna","Maglione","Giacca","Cintura"], r:2, spiegazione:"'Giacca' = জ্যাকেট। 'Maglione' = সোয়েটার, 'Cintura' = বেল্ট।" },
+      { d:"সাধারণত আকাশের রং কী?", o:["লাল","সবুজ","নীল / আজ্জুরো","হলুদ"], r:2, spiegazione:"ইতালিয়ানে আকাশের রং 'Blu' বা 'Azzurro' (হালকা নীল)।" },
+      { d:"'Viola' কী রং?", o:["বেগুনি","গোলাপি","বাদামি","ধূসর"], r:0, spiegazione:"'Viola' = বেগুনি। 'Rosa' = গোলাপি, 'Marrone' = বাদামি।" },
+      { d:"ইতালিয়ানে 'white' কী?", o:["Nero","Bianco","Beige","Grigio"], r:1, spiegazione:"'Bianco' = সাদা। 'Nero' = কালো, 'Grigio' = ধূসর।" },
+      { d:"'Le scarpe sono ___ (black).'", o:["Neri","Nera","Nere","Nero"], r:2, spiegazione:"'Scarpe' নারীবাচক বহুবচন, তাই বিশেষণ হবে 'Nere' (কালো)।" },
+      { d:"'Hat' কে ইতালিয়ানে কী বলে?", o:["Guanti","Cappello","Sciarpa","Borsa"], r:1, spiegazione:"'Cappello' = টুপি। 'Guanti' = দস্তানা, 'Sciarpa' = স্কার্ফ।" },
+      { d:"'Marrone' কোন রঙের সাথে মেলে?", o:["বেইজ","বাদামি","গাঢ় ধূসর","জলপাই"], r:1, spiegazione:"'Marrone' = বাদামি রং। এটি একটি সাধারণ রঙের নাম।" },
+    ]
+  },
+  {
+    id: 5, titolo: "বাড়িতে", sottotitolo: "ঘর, আসবাবপত্র এবং অবস্থান নির্দেশক",
+    quiz: [
+      { d:"ইতালিয়ানে 'bathroom' কী?", o:["Cucina","Bagno","Camera da letto","Salotto"], r:1, spiegazione:"'Bagno' = বাথরুম। 'Cucina' = রান্নাঘর, 'Camera da letto' = শোবার ঘর।" },
+      { d:"কোথায় ঘুমানো হয়?", o:["রান্নাঘরে","বসার ঘরে","শোবার ঘরে","বাথরুমে"], r:2, spiegazione:"'Camera da letto' = শোবার ঘর, যেখানে মানুষ ঘুমায়।" },
+      { d:"'Il divano è in ___.' (living room)", o:["Cucina","Salotto","Bagno","Garage"], r:1, spiegazione:"'Salotto' = বসার ঘর, যেখানে সাধারণত সোফা (divano) থাকে।" },
+      { d:"ইতালিয়ানে 'window' কী?", o:["Porta","Finestra","Pavimento","Soffitto"], r:1, spiegazione:"'Finestra' = জানালা। 'Porta' = দরজা, 'Pavimento' = মেঝে।" },
+      { d:"'Sul tavolo' এর অর্থ কী?", o:["টেবিলের নিচে","টেবিলের পাশে","টেবিলের উপরে","টেবিলের পিছনে"], r:2, spiegazione:"'Sul' = 'su' + 'il' = উপরে। তাই 'Sul tavolo' = টেবিলের উপরে।" },
+      { d:"ইতালিয়ানে 'fridge' কী?", o:["Forno","Lavastoviglie","Frigorifero","Lavatrice"], r:2, spiegazione:"'Frigorifero' = ফ্রিজ। 'Forno' = ওভেন, 'Lavastoviglie' = ডিশওয়াশার।" },
+      { d:"সঠিক অবস্থান নির্দেশক: 'Il gatto è ___ il divano.'", o:["Su","Sotto","In","Di"], r:1, spiegazione:"'Sotto' = নিচে। 'Il gatto è sotto il divano' = বিড়াল সোফার নিচে আছে।" },
+      { d:"ইতালিয়ানে 'stairs' কী?", o:["Ascensore","Scale","Corridoio","Tetto"], r:1, spiegazione:"'Scale' = সিঁড়ি। 'Ascensore' = লিফট, 'Corridoio' = করিডোর।" },
+      { d:"'Vicino a' এর অর্থ কী?", o:["দূরে","পাশে / কাছে","ভিতরে","উপরে"], r:1, spiegazione:"'Vicino a' = কাছে/পাশে। 'Lontano da' = দূরে।" },
+      { d:"কোথায় রান্না করা হয়?", o:["বাথরুমে","ঘরে","রান্নাঘরে","বাগানে"], r:2, spiegazione:"'Cucina' = রান্নাঘর, যেখানে রান্না করা হয়।" },
+      { d:"ইতালিয়ানে 'ceiling' কী?", o:["Pavimento","Parete","Soffitto","Finestra"], r:2, spiegazione:"'Soffitto' = ছাদ/সিলিং। 'Pavimento' = মেঝে, 'Parete' = দেয়াল।" },
+      { d:"'Dentro' এর বিপরীত শব্দ কী?", o:["উপরে","বাইরে","কাছে","দূরে"], r:1, spiegazione:"'Dentro' = ভিতরে, 'Fuori' = বাইরে। এরা পরস্পর বিপরীত।" },
+      { d:"ইতালিয়ানে 'wardrobe' কী?", o:["Cassetto","Armadio","Scaffale","Comodino"], r:1, spiegazione:"'Armadio' = আলমারি/ওয়ারড্রোব। 'Cassetto' = ড্রয়ার, 'Scaffale' = তাক।" },
+      { d:"'La casa ha tre ___.' (rooms)", o:["Stanze","Scale","Porte","Finestre"], r:0, spiegazione:"'Stanze' = ঘর/রুম (বহুবচন)। 'La casa ha tre stanze' = বাড়িতে তিনটি ঘর আছে।" },
+      { d:"ইতালিয়ানে 'garden' কী?", o:["Terrazzo","Cantina","Giardino","Garage"], r:2, spiegazione:"'Giardino' = বাগান। 'Terrazzo' = ছাদ/টেরেস, 'Cantina' = সেলার।" },
+    ]
+  },
+  {
+    id: 6, titolo: "কয়টা বাজে?", sottotitolo: "সময়, দৈনন্দিন রুটিন",
+    quiz: [
+      { d:"সময় কীভাবে জিজ্ঞাসা করবেন?", o:["কী বার?","কয়টা বাজে?","আবহাওয়া কেমন?","তুমি কোথায়?"], r:1, spiegazione:"'Che ora è?' বা 'Che ore sono?' = কয়টা বাজে? সময় জিজ্ঞাসার সঠিক প্রশ্ন।" },
+      { d:"'Sono le tre.' – কয়টা বাজে?", o:["১:০০","২:০০","৩:০০","৪:০০"], r:2, spiegazione:"'Sono le tre' = তিনটে বাজে। ইতালিয়ানে সময় বলতে 'Sono le + সংখ্যা' ব্যবহার হয়।" },
+      { d:"'Half past two' কীভাবে বলবেন?", o:["Sono le due e un quarto","Sono le due e mezza","Sono le tre meno venti","Sono le due"], r:1, spiegazione:"'Sono le due e mezza' = আড়াইটে। 'Mezza' মানে অর্ধেক।" },
+      { d:"'Alle otto di mattina' কী?", o:["রাত ৮টা","সকাল ৮টা","রাত ১২টা","সন্ধ্যা ৬টা"], r:1, spiegazione:"'Di mattina' = সকালে। তাই 'Alle otto di mattina' = সকাল ৮টায়।" },
+      { d:"'9:15' কীভাবে বলবেন?", o:["Sono le nove e mezza","Sono le nove meno un quarto","Sono le nove e un quarto","Sono le dieci"], r:2, spiegazione:"'Sono le nove e un quarto' = ৯টা ১৫ মিনিট। 'Un quarto' = এক চতুর্থাংশ।" },
+      { d:"'Di solito mi alzo alle sette.' – 'Alzarsi' কী ধরনের ক্রিয়া?", o:["নিয়মিত","রিফ্লেক্সিভ","অনিয়মিত সরল","সহায়ক"], r:1, spiegazione:"'Alzarsi' একটি রিফ্লেক্সিভ ক্রিয়া (নিজে ওঠা)। এর সাথে 'mi, ti, si' ইত্যাদি সর্বনাম ব্যবহার হয়।" },
+      { d:"ইতালিয়ানে 'midnight' কী?", o:["Mezzogiorno","Mezzanotte","Sera","Tardo"], r:1, spiegazione:"'Mezzanotte' = মধ্যরাত। 'Mezzogiorno' = দুপুর।" },
+      { d:"'Faccio colazione' এর অর্থ কী?", o:["আমি দুপুরের খাবার খাই","আমি রাতের খাবার খাই","আমি সকালের নাস্তা করি","আমি রান্না করি"], r:2, spiegazione:"'Faccio colazione' = আমি সকালের নাস্তা করি। 'Colazione' = সকালের নাস্তা।" },
+      { d:"'Alle venti e trenta' ১২-ঘণ্টা ফরম্যাটে কী?", o:["সকাল ৮:৩০","রাত ৮:৩০","রাত ৮:০০","রাত ৮:০০"], r:1, spiegazione:"'Venti' = ২০ (রাত ৮টা)। তাই 'Alle venti e trenta' = রাত ৮টা ৩০।" },
+      { d:"সময়ের প্রসঙ্গে 'before' কীভাবে বলবেন?", o:["Dopo","Adesso","Prima","Tardi"], r:2, spiegazione:"'Prima' = আগে/পূর্বে। 'Dopo' = পরে, 'Adesso' = এখন।" },
+      { d:"'Vado a letto a mezzanotte.' – কখন?", o:["দুপুরে","রাত ১২টায়","সন্ধ্যা ৬টায়","ভোর ৩টায়"], r:1, spiegazione:"'Mezzanotte' = মধ্যরাত (রাত ১২টা)। তাই রাত ১২টায় ঘুমাতে যাওয়া বোঝায়।" },
+      { d:"'10:45' কীভাবে বলবেন?", o:["Sono le undici meno un quarto","Sono le dieci e tre quarti","Sono le dieci e quarantacinque","a এবং c সঠিক"], r:3, spiegazione:"উভয়ই সঠিক। 'Sono le undici meno un quarto' (১১টা বাজতে ১৫ মিনিট) এবং 'Sono le dieci e quarantacinque' (১০টা ৪৫)।" },
+      { d:"'Di pomeriggio' কী নির্দেশ করে?", o:["সকাল","সন্ধ্যা","বিকাল","রাত"], r:2, spiegazione:"'Di pomeriggio' = বিকালে/অপরাহ্ণে। 'Di mattina' = সকালে, 'Di sera' = সন্ধ্যায়।" },
+      { d:"ইতালিয়ানে 'I go to work at eight' কীভাবে বলবেন?", o:["Vado al lavoro alle otto","Sono al lavoro otto","Lavoro a le otto","Vado lavoro otto"], r:0, spiegazione:"'Vado al lavoro alle otto' = আমি ৮টায় কাজে যাই। 'Andare al lavoro' = কাজে যাওয়া।" },
+      { d:"'Puntuale' এর অর্থ কী?", o:["দেরি","তাড়াতাড়ি","সময়মতো","অনুপস্থিত"], r:2, spiegazione:"'Puntuale' = সময়নিষ্ঠ/সময়মতো। 'In ritardo' = দেরিতে, 'In anticipo' = তাড়াতাড়ি।" },
+    ]
+  },
+  {
+    id: 7, titolo: "বার এবং রেস্তোরাঁয়", sottotitolo: "খাবার ও পানীয় অর্ডার করা",
+    quiz: [
+      { d:"বারে কফি কীভাবে অর্ডার করবেন?", o:["আমি কফি চাই","একটি কফি, অনুগ্রহ করে","আমাকে কফি দাও","কফি আমি চাই"], r:1, spiegazione:"ভদ্রভাবে অর্ডার করতে 'Un caffè, per favore' (একটি কফি, অনুগ্রহ করে) বলতে হবে।" },
+      { d:"'Il conto, per favore.' – আপনি কী চাইছেন?", o:["মেনু","বিল","আরও পানি","একটি টেবিল"], r:1, spiegazione:"'Il conto' = বিল। খাবার শেষে বিল চাওয়ার বাক্য।" },
+      { d:"ইতালিয়ানে 'I am hungry' কী?", o:["আমার পিপাসা পেয়েছে","আমার ঠান্ডা লাগছে","আমার ক্ষুধা পেয়েছে","আমি ক্লান্ত"], r:2, spiegazione:"'Ho fame' = আমার ক্ষুধা পেয়েছে। ইতালিয়ানে ক্ষুধা বোঝাতে 'avere fame' ব্যবহার হয়।" },
+      { d:"'Vorrei' কোন রূপ?", o:["Volere-এর বর্তমান","Volere-এর শর্তসাপেক্ষ","Volere-এর ভবিষ্যৎ","Volere-এর আদেশসূচক"], r:1, spiegazione:"'Vorrei' = আমি চাই (ভদ্র রূপ)। এটি 'volere' ক্রিয়ার শর্তসাপেক্ষ বর্তমান রূপ।" },
+      { d:"'দুইজনের জন্য টেবিল আছে?' কীভাবে জিজ্ঞাসা করবেন?", o:["Avete un tavolo per due?","Siete in due?","Voglio tavolo","Due persone, per favore"], r:0, spiegazione:"'Avete un tavolo per due?' = আপনাদের কি দুইজনের জন্য টেবিল আছে? এটি সঠিক প্রশ্ন।" },
+      { d:"'Un primo piatto' কী?", o:["ডেজার্ট","স্টার্টার","প্রথম খাবার (পাস্তা/স্যুপ)","সাইড ডিশ"], r:2, spiegazione:"ইতালিয়ানে 'Primo piatto' = প্রথম খাবার, সাধারণত পাস্তা, রাইস বা স্যুপ।" },
+      { d:"ইতালিয়ানে 'I am thirsty' কী?", o:["আমার ক্ষুধা পেয়েছে","আমার পিপাসা পেয়েছে","আমার ঘুম পেয়েছে","আমার ঠান্ডা লাগছে"], r:1, spiegazione:"'Ho sete' = আমার পিপাসা পেয়েছে। 'Avere sete' = পিপাসা পাওয়া।" },
+      { d:"ইংরেজিতে 'Il menù' কী?", o:["বিল","ওয়েটার","মেনু","রিজার্ভেশন"], r:2, spiegazione:"'Il menù' = মেনু/খাবারের তালিকা। এটি ইতালিয়ানে বহুল ব্যবহৃত শব্দ।" },
+      { d:"ইতালিয়ানে 'water' কী?", o:["Vino","Birra","Acqua","Succo"], r:2, spiegazione:"'Acqua' = পানি। 'Vino' = ওয়াইন, 'Birra' = বিয়ার।" },
+      { d:"স্টেকের ক্ষেত্রে 'Al sangue' এর অর্থ কী?", o:["ভালোভাবে সেদ্ধ","মিডিয়াম","কম সেদ্ধ (রক্তসহ)","পোড়া"], r:2, spiegazione:"'Al sangue' = রক্তসহ/কম সেদ্ধ (rare)। 'Ben cotto' = ভালোভাবে সেদ্ধ।" },
+      { d:"ইতালিয়ানে 'waiter' (পুরুষ) কী?", o:["Cameriera","Cameriere","Cuoco","Barista"], r:1, spiegazione:"'Cameriere' = পুরুষ ওয়েটার। 'Cameriera' = মহিলা ওয়েট্রেস।" },
+      { d:"'Senza zucchero' এর অর্থ কী?", o:["চিনি সহ","চিনি ছাড়া","আরও চিনি","কম চিনি"], r:1, spiegazione:"'Senza' = ছাড়া। তাই 'Senza zucchero' = চিনি ছাড়া।" },
+      { d:"'Is service included?' কীভাবে জিজ্ঞাসা করবেন?", o:["এটা কি সার্ভিস অন্তর্ভুক্ত?","রুটির দাম কত?","আপনাদের কি ওয়াই-ফাই আছে?","বাথরুম কোথায়?"], r:0, spiegazione:"'È compreso il servizio?' = সার্ভিস কি অন্তর্ভুক্ত? রেস্তোরাঁয় বিলের আগে জিজ্ঞাসা করার প্রশ্ন।" },
+      { d:"'Un cappuccino e un cornetto.' – আপনি সম্ভবত কোথায় আছেন?", o:["রেস্তোরাঁয় দুপুরের খাবার খাচ্ছি","বারে সকালের নাস্তা করছি","বাড়িতে রাতের খাবার খাচ্ছি","পিৎজারিয়ায়"], r:1, spiegazione:"কাপুচিনো ও ক্রোঁয়াসা (cornetto) হল ইতালিয়ান সকালের নাস্তার ক্লাসিক কম্বিনেশন, যা বার বা ক্যাফেতে খাওয়া হয়।" },
+      { d:"'Sono vegetariano.' – আপনি কী খান না?", o:["সবজি","ফল","মাংস","পাস্তা"], r:2, spiegazione:"'Vegetariano' = নিরামিষভোজী, অর্থাৎ যিনি মাংস খান না।" },
+    ]
+  },
+  {
+    id: 8, titolo: "শহরে", sottotitolo: "স্থান, দিকনির্দেশনা",
+    quiz: [
+      { d:"স্টেশন কোথায় জিজ্ঞাসা করবেন কীভাবে?", o:["স্টেশন কোথায়?","তুমি স্টেশনে কীভাবে যাও?","তুমি কি স্টেশনে?","স্টেশন কি ওখানে?"], r:0, spiegazione:"'Dov'è la stazione?' = স্টেশন কোথায়? এটি সরাসরি ও সহজ প্রশ্ন।" },
+      { d:"'Gira a destra' এর অর্থ কী?", o:["বামে ঘোরো","সোজা যাও","ডানে ঘোরো","থামো"], r:2, spiegazione:"'Gira a destra' = ডানে ঘোরো/মোড় নাও। 'Gira a sinistra' = বামে ঘোরো।" },
+      { d:"ইতালিয়ানে 'pharmacy' কী?", o:["Banca","Farmacia","Ospedale","Ufficio postale"], r:1, spiegazione:"'Farmacia' = ফার্মেসি/ঔষধের দোকান। 'Banca' = ব্যাংক, 'Ospedale' = হাসপাতাল।" },
+      { d:"'Sempre dritto' এর অর্থ কী?", o:["ঘুরে দাঁড়াও","সোজা সামনে যাও","ডানে ঘোরো","ফিরে যাও"], r:1, spiegazione:"'Sempre dritto' = একেবারে সোজা। দিকনির্দেশনার গুরুত্বপূর্ণ বাক্য।" },
+      { d:"ইতালিয়ানে 'traffic light' কী?", o:["Semaforo","Incrocio","Rotonda","Marciapiede"], r:0, spiegazione:"'Semaforo' = ট্রাফিক লাইট/সিগনাল। 'Incrocio' = মোড়, 'Rotonda' = গোলচক্কর।" },
+      { d:"'A piedi' এর অর্থ কী?", o:["গাড়িতে","ট্রেনে","পায়ে হেঁটে","সাইকেলে"], r:2, spiegazione:"'A piedi' = পায়ে হেঁটে। 'In macchina' = গাড়িতে, 'In treno' = ট্রেনে।" },
+      { d:"ইংরেজিতে 'Piazza' (স্কোয়ার) কী?", o:["পার্ক","রাস্তা","স্কোয়ার/চক","মিউজিয়াম"], r:2, spiegazione:"'Piazza' = চক/স্কোয়ার। ইতালির প্রতিটি শহরের কেন্দ্রে সাধারণত একটি প্রধান 'Piazza' থাকে।" },
+      { d:"'La fermata dell'autobus' কী?", o:["ট্রেন স্টেশন","বাস স্টপ","এয়ারপোর্ট","ট্যাক্সি স্ট্যান্ড"], r:1, spiegazione:"'Fermata dell'autobus' = বাস স্টপ/বাস থামার স্থান।" },
+      { d:"'How far is it?' কীভাবে জিজ্ঞাসা করবেন?", o:["কেমন দূরে?","কত দূরে?","কোথায় দূরে?","এটা কি দূরে?"], r:1, spiegazione:"'Quanto è lontano?' = কত দূরে? 'Lontano' = দূর।" },
+      { d:"'A sinistra' এর অর্থ কী?", o:["ডান দিকে","সোজা সামনে","বাম দিকে","পিছনে"], r:2, spiegazione:"'A sinistra' = বাম দিকে। 'A destra' = ডান দিকে।" },
+      { d:"ইতালিয়ানে 'crossroads' কী?", o:["Rotonda","Semaforo","Incrocio","Viale"], r:2, spiegazione:"'Incrocio' = মোড়/ক্রসরোড। যেখানে দুই বা ততোধিক রাস্তা মিলিত হয়।" },
+      { d:"'Prendi la prima a destra' এর অর্থ কী?", o:["দ্বিতীয় বাম নাও","প্রথম ডান নাও","সোজা যাও","ঘুরে দাঁড়াও"], r:1, spiegazione:"'Prendi la prima a destra' = প্রথম ডান দিকের রাস্তাটি নাও।" },
+      { d:"ইতালিয়ানে 'post office' কী?", o:["Banca","Supermercato","Ufficio postale","Biblioteca"], r:2, spiegazione:"'Ufficio postale' = ডাকঘর। 'Biblioteca' = লাইব্রেরি।" },
+      { d:"'In centro' এর অর্থ কী?", o:["উপনগরীতে","শহরের কেন্দ্রে","সৈকতে","গ্রামাঞ্চলে"], r:1, spiegazione:"'In centro' = শহরের কেন্দ্রস্থলে। 'In periferia' = উপনগরীতে।" },
+      { d:"'How do I get to…?' কীভাবে বলবেন?", o:["কোথায়…?","কীভাবে পৌঁছাবো…?","কত দূর…?","কি একটি… আছে?"], r:1, spiegazione:"'Come si arriva a…?' = কীভাবে …-এ পৌঁছানো যায়? দিকনির্দেশনা চাওয়ার ভদ্র প্রশ্ন।" },
+    ]
+  },
+  {
+    id: 9, titolo: "অবসর সময়", sottotitolo: "শখ, খেলাধুলা এবং কার্যকলাপ",
+    quiz: [
+      { d:"'What do you like to do?' কীভাবে জিজ্ঞাসা করবেন?", o:["তুমি কী করো?","তোমার কী করতে ভালো লাগে?","তুমি কোথায় যাও?","কার সাথে বের হও?"], r:1, spiegazione:"'Cosa ti piace fare?' = তোমার কী করতে ভালো লাগে? শখ বা পছন্দ সম্পর্কে জিজ্ঞাসা।" },
+      { d:"'Mi piace nuotare.' – 'Nuotare' এর অর্থ কী?", o:["দৌড়ানো","সাঁতার কাটা","নাচা","পড়া"], r:1, spiegazione:"'Nuotare' = সাঁতার কাটা। 'Correre' = দৌড়ানো, 'Ballare' = নাচা।" },
+      { d:"ইতালিয়ানে 'I play football' কী?", o:["আমি ফুটবল করি","আমি ফুটবল খেলি","আমি ফুটবল অনুশীলন করি","আমি ফুটবলে আছি"], r:1, spiegazione:"ইতালিয়ানে 'giocare a + খেলা' = খেলা খেলা। তাই 'Gioco a calcio' = আমি ফুটবল খেলি।" },
+      { d:"'Ascolto musica' – কোন ক্রিয়া ব্যবহৃত হয়েছে?", o:["দেখা","বাজানো","শোনা","পড়া"], r:2, spiegazione:"'Ascoltare' = শোনা (মনোযোগ দিয়ে)। 'Sentire' = শোনা (সাধারণভাবে), 'Guardare' = দেখা।" },
+      { d:"ইতালিয়ানে 'reading' (পড়া) কী?", o:["Leggere","Scrivere","Disegnare","Cantare"], r:0, spiegazione:"'Leggere' = পড়া। 'Scrivere' = লেখা, 'Disegnare' = আঁকা।" },
+      { d:"'Non mi piace ballare.' – নেতিবাচক কাঠামো কোনটি?", o:["Mi non piace","Non mi piace","Mi piace non","Piace non mi"], r:1, spiegazione:"ইতালিয়ানে নেতিবাচক করতে 'Non' ক্রিয়ার আগে বসে। তাই 'Non mi piace' = আমার পছন্দ না।" },
+      { d:"ইতালিয়ানে 'hobby' কী?", o:["Lavoro","Hobby (একই)","Passatempo","Gioco"], r:2, spiegazione:"ইতালিয়ানে 'hobby' কে 'passatempo' (অবসর বিনোদন) বলা হয়। যদিও 'hobby' শব্দটিও বহুল প্রচলিত।" },
+      { d:"'Guardo la TV.' – কোন ক্রিয়া?", o:["Ascoltare","Guardare","Sentire","Vedere"], r:1, spiegazione:"'Guardare' = দেখা (ইচ্ছাকৃতভাবে)। 'Vedere' = দেখা (অনিচ্ছাকৃত), 'Ascoltare' = শোনা।" },
+      { d:"ইতালিয়ানে 'I go to the cinema' কী?", o:["Vado al cinema","Vedo il cinema","Sto al cinema","Vengo al cinema"], r:0, spiegazione:"'Vado al cinema' = আমি সিনেমা দেখতে যাই। 'Andare al cinema' = সিনেমায় যাওয়া।" },
+      { d:"'Cucino spesso.' – 'Spesso' এর অর্থ কী?", o:["কখনো না","কখনো কখনো","প্রায়ই","সবসময়"], r:2, spiegazione:"'Spesso' = প্রায়ই। 'Mai' = কখনো না, 'A volte' = কখনো কখনো, 'Sempre' = সবসময়।" },
+      { d:"ইতালিয়ানে 'yoga' কী?", o:["Yoga (একই)","Ginnastica","Meditazione","Stretching"], r:0, spiegazione:"ইতালিয়ানে 'Yoga' একই শব্দ, কারণ এটি একটি আন্তর্জাতিক শব্দ।" },
+      { d:"'Gioco a scacchi.' – 'Scacchi' কী?", o:["সাঁতার","দাবা","দৌড়","সাইক্লিং"], r:1, spiegazione:"'Scacchi' = দাবা খেলা। 'Giocare a scacchi' = দাবা খেলা।" },
+      { d:"ইতালিয়ানে 'I prefer walking' কী?", o:["আমি হাঁটতে পছন্দ করি","আমার দৌড়াতে ভালো লাগে","আমি হাঁটতে চাই","আমি হাঁটা ভালোবাসি"], r:0, spiegazione:"'Preferisco camminare' = আমি হাঁটতে পছন্দ করি (অন্য কিছুর তুলনায়)। 'Preferire' = পছন্দ করা/অগ্রাধিকার দেওয়া।" },
+      { d:"ইংরেজিতে 'Di solito' কী?", o:["কখনো কখনো","কখনো না","সাধারণত","সবসময়"], r:2, spiegazione:"'Di solito' = সাধারণত/সচরাচর। 'A volte' = কখনো কখনো, 'Mai' = কখনো না।" },
+      { d:"ইতালিয়ানে 'concert' কী?", o:["Spettacolo","Concerto","Teatro","Opera"], r:1, spiegazione:"'Concerto' = সঙ্গীতানুষ্ঠান/কনসার্ট। 'Spettacolo' = প্রদর্শনী/শো।" },
+    ]
+  },
+  {
+    id: 10, titolo: "শরীর এবং স্বাস্থ্য", sottotitolo: "শরীরের অঙ্গ, লক্ষণ",
+    quiz: [
+      { d:"ইতালিয়ানে 'head' কী?", o:["Mano","Testa","Piede","Spalla"], r:1, spiegazione:"'Testa' = মাথা। 'Mano' = হাত, 'Piede' = পা।" },
+      { d:"'Ho mal di testa.' – আমার কী হয়েছে?", o:["পেট ব্যথা","মাথা ব্যথা","দাঁত ব্যথা","পিঠ ব্যথা"], r:1, spiegazione:"'Mal di testa' = মাথা ব্যথা। 'Mal di pancia' = পেট ব্যথা, 'Mal di denti' = দাঁত ব্যথা।" },
+      { d:"ইতালিয়ানে 'doctor' কী?", o:["নার্স","সার্জন","মেডিকো / দোত্তোরে","ফার্মাসিস্ট"], r:2, spiegazione:"'Medico' বা 'Dottore' = ডাক্তার। 'Infermiera' = নার্স, 'Farmacista' = ফার্মাসিস্ট।" },
+      { d:"'Mi fa male il ginocchio.' – 'Ginocchio' কী?", o:["কনুই","হাঁটু","কাঁধ","গোড়ালি"], r:1, spiegazione:"'Ginocchio' = হাঁটু। 'Gomito' = কনুই, 'Spalla' = কাঁধ।" },
+      { d:"ইতালিয়ানে 'fever' কী?", o:["Tosse","Raffreddore","Febbre","Mal di gola"], r:2, spiegazione:"'Febbre' = জ্বর। 'Tosse' = কাশি, 'Raffreddore' = ঠান্ডা/সর্দি।" },
+      { d:"'Ho bisogno di una ricetta.' – 'Ricetta' এর অর্থ:", o:["অ্যাপয়েন্টমেন্ট","প্রেসক্রিপশন / রেসিপি","ঔষধ","বিশ্রাম"], r:1, spiegazione:"'Ricetta' = প্রেসক্রিপশন (ডাক্তারের) বা রেসিপি (রান্নার)। প্রসঙ্গ অনুযায়ী অর্থ নির্ধারিত হয়।" },
+      { d:"ইতালিয়ানে 'I feel sick' কী?", o:["আমার ভালো লাগছে","আমার খারাপ লাগছে","আমি ক্লান্ত","আমার ক্ষুধা পেয়েছে"], r:1, spiegazione:"'Mi sento male' = আমার অসুস্থ বোধ হচ্ছে। 'Mi sento bene' = আমার ভালো লাগছে।" },
+      { d:"শারীরিক ব্যথার জন্য কোন ক্রিয়া ব্যবহার করা হয়?", o:["Essere","Avere","Fare male","Stare"], r:2, spiegazione:"ইতালিয়ানে ব্যথা বোঝাতে 'fare male' ব্যবহার হয়। যেমন 'Mi fa male la testa' = আমার মাথা ব্যথা করছে।" },
+      { d:"ইতালিয়ানে 'pharmacy' কী?", o:["Ospedale","Clinica","Farmacia","Pronto soccorso"], r:2, spiegazione:"'Farmacia' = ফার্মেসি। 'Ospedale' = হাসপাতাল, 'Pronto soccorso' = জরুরি বিভাগ।" },
+      { d:"'Ho la tosse.' – 'Tosse' এর অর্থ:", o:["ফ্লু","কাশি","ঠান্ডা/সর্দি","র্যাশ"], r:1, spiegazione:"'Tosse' = কাশি। 'Ho la tosse' = আমার কাশি হয়েছে।" },
+      { d:"ইতালিয়ানে 'arm' কী?", o:["Gamba","Braccio","Schiena","Collo"], r:1, spiegazione:"'Braccio' = বাহু (একবচন), বহুবচন 'Braccia'। 'Gamba' = পা।" },
+      { d:"'Devo riposare.' এর অর্থ:", o:["আমাকে খেতে হবে","আমাকে বিশ্রাম নিতে হবে","আমাকে যেতে হবে","আমাকে পান করতে হবে"], r:1, spiegazione:"'Devo riposare' = আমাকে বিশ্রাম নিতে হবে। 'Dovere' = আবশ্যক হওয়া/কর্তব্য।" },
+      { d:"ইতালিয়ানে 'tooth' (একবচন) কী?", o:["Dente","Denti","Bocca","Lingua"], r:0, spiegazione:"'Dente' = দাঁত (একবচন)। 'Denti' = দাঁত (বহুবচন), 'Bocca' = মুখ।" },
+      { d:"'Sono allergico a…' এর অর্থ কী?", o:["আমি … ভালোবাসি","আমার … অ্যালার্জি আছে","আমি … ভয় পাই","আমার … প্রয়োজন"], r:1, spiegazione:"'Sono allergico/a a…' = আমার …-এ অ্যালার্জি আছে। পুরুষ 'allergico', নারী 'allergica'।" },
+      { d:"ইতালিয়ানে 'blood pressure' কী?", o:["Frequenza cardiaca","Pressione sanguigna","Temperatura","Peso"], r:1, spiegazione:"'Pressione sanguigna' বা 'Pressione del sangue' = রক্তচাপ। 'Frequenza cardiaca' = হৃদস্পন্দন।" },
+    ]
+  },
+  {
+    id: 11, titolo: "কেনাকাটা করা", sottotitolo: "দোকান, খাবার এবং পরিমাণ",
+    quiz: [
+      { d:"ইতালিয়ানে 'supermarket' কী?", o:["Mercato","Supermercato","Negozio","Drogheria"], r:1, spiegazione:"'Supermercato' = সুপারমার্কেট। 'Mercato' = বাজার, 'Negozio' = দোকান।" },
+      { d:"'Un chilo di mele.' – এক কিলো কত?", o:["১০০ গ্রাম","৫০০ গ্রাম","১০০০ গ্রাম","২০০০ গ্রাম"], r:2, spiegazione:"'Un chilo' বা 'Un chilogrammo' = ১০০০ গ্রাম। ইতালিতে 'chilo' বা 'kg' বহুল ব্যবহৃত।" },
+      { d:"ইতালিয়ানে 'How much does it cost?' কী?", o:["এটা কত বড়?","এটার দাম কত?","এটা কী?","এটা কোথায়?"], r:1, spiegazione:"'Quanto costa?' = কত দাম? 'Costa' = দাম/মূল্য।" },
+      { d:"'Vorrei mezzo chilo di formaggio.' – আধা কিলো কত?", o:["২৫০ গ্রাম","৫০০ গ্রাম","৭৫০ গ্রাম","১০০০ গ্রাম"], r:1, spiegazione:"'Mezzo chilo' = আধা কিলো = ৫০০ গ্রাম। ইতালিতে 'mezzo chilo' বা 'cinquecento grammi' উভয়ই প্রচলিত।" },
+      { d:"ইতালিয়ানে 'bakery' কী?", o:["Macelleria","Panetteria","Pescheria","Salumeria"], r:1, spiegazione:"'Panetteria' = বেকারি/রুটির দোকান। 'Macelleria' = মাংসের দোকান।" },
+      { d:"'È in offerta' এর অর্থ কী?", o:["এটা দামি","এটা ছাড়ে আছে","এটা শেষ","এটা আমদানি করা"], r:1, spiegazione:"'In offerta' = বিশেষ অফার/ছাড়ে। দোকানে 'in offerta' লিখিত জিনিস মানে কম দামে বিক্রি হচ্ছে।" },
+      { d:"'Can I have a bag?' কীভাবে বলবেন?", o:["আমি একটি ব্যাগ পেতে পারি?","আমি একটি থলে/ব্যাগ পেতে পারি?","ব্যাগগুলো কোথায়?","আপনার কি ব্যাগ আছে?"], r:1, spiegazione:"'Sacchetto' = থলে/শপিং ব্যাগ। দোকানে প্লাস্টিক বা কাগজের ব্যাগ চাওয়ার বাক্য।" },
+      { d:"'Un etto' কত গ্রাম?", o:["১০ গ্রাম","৫০ গ্রাম","১০০ গ্রাম","২০০ গ্রাম"], r:2, spiegazione:"'Un etto' = ১০০ গ্রাম। ইতালিতে খাবার কেনার সময় খুব সাধারণ পরিমাপ।" },
+      { d:"ইতালিয়ানে 'butcher's shop' কী?", o:["Panetteria","Pescheria","Macelleria","Gelateria"], r:2, spiegazione:"'Macelleria' = মাংসের দোকান/কসাইখানা। 'Pescheria' = মাছের দোকান।" },
+      { d:"দোকানে 'Cassa' কী?", o:["বাহিরের দরজা","প্রবেশদ্বার","ক্যাশ কাউন্টার/চেকআউট","স্টোরেজ রুম"], r:2, spiegazione:"'Cassa' = ক্যাশ কাউন্টার, যেখানে দাম পরিশোধ করা হয়।" },
+      { d:"ইতালিয়ানে 'receipt' কী?", o:["Scontrino","Sconto","Fattura","Prezzo"], r:0, spiegazione:"'Scontrino' = রশিদ/প্রাপ্তি স্বীকারপত্র। 'Sconto' = ছাড়, 'Fattura' = চালান।" },
+      { d:"'È esaurito' এর অর্থ কী?", o:["এটা টাটকা","এটা ছাড়ে আছে","এটা শেষ/স্টক নেই","এটা ছাড় দেওয়া হয়েছে"], r:2, spiegazione:"'Esaurito' = শেষ/ফুরিয়ে গেছে। কোনো পণ্য স্টকে না থাকলে এই বাক্য ব্যবহৃত হয়।" },
+      { d:"ইতালিয়ানে 'I'd like a bottle of water' কী?", o:["আমি পানি চাই","আমি এক বোতল পানি চাই","আমাকে পানি দাও","পানি, অনুগ্রহ করে"], r:1, spiegazione:"ভদ্রভাবে চাওয়ার জন্য 'Vorrei' ব্যবহার করতে হয়। 'Vorrei una bottiglia d'acqua' = আমি এক বোতল পানি চাই।" },
+      { d:"'Biologico' কোন ধরনের পণ্য বোঝায়?", o:["আমদানি করা","জৈব/অর্গানিক","হিমায়িত","স্থানীয়"], r:1, spiegazione:"'Biologico' = জৈব/অর্গানিক, অর্থাৎ রাসায়নিক সার বা কীটনাশক ছাড়া উৎপাদিত পণ্য।" },
+      { d:"ইতালিয়ানে 'change' (খুচরা টাকা) কী?", o:["Prezzo","Sconto","Resto","Totale"], r:2, spiegazione:"'Resto' = খুচরা/ফেরত টাকা। 'Prezzo' = দাম, 'Totale' = মোট।" },
+    ]
+  },
+  {
+    id: 12, titolo: "বর্তমানকালের ক্রিয়া", sottotitolo: "বর্তমান নির্দেশক ক্রিয়ারূপ",
+    quiz: [
+      { d:"'Parlare' (বলা) এর ১ম পুরুষ একবচন কী?", o:["Parlamo","Parlo","Parli","Parla"], r:1, spiegazione:"'Io parlo' = আমি বলি। নিয়মিত -are ক্রিয়ার ১ম পুরুষ একবচনে -o হয়।" },
+      { d:"'Mangiare' (খাওয়া) এর ২য় পুরুষ একবচন (tu) কী?", o:["Mangio","Mangia","Mangi","Mangiate"], r:2, spiegazione:"'Tu mangi' = তুমি খাও। নিয়মিত -are ক্রিয়ার ২য় পুরুষ একবচনে -i হয়।" },
+      { d:"'Scrivere' (লেখা) কোন দলের ক্রিয়া?", o:["-are","-ere","-ire","অনিয়মিত"], r:1, spiegazione:"'Scrivere' হল -ere দলের ক্রিয়া। এর ধাতু 'scriv-' এবং সমাপ্তি '-ere'।" },
+      { d:"'Loro parlano.' – কর্তা কে?", o:["আমরা","তোমরা","তারা","তিনি (মহিলা)"], r:2, spiegazione:"'Loro parlano' = তারা বলে। 'Noi parliamo' = আমরা বলি, 'Voi parlate' = তোমরা বলো।" },
+      { d:"'Andare' (যাওয়া) এর ১ম পুরুষ কী?", o:["Ando","Vado","Ando","Andiamo"], r:1, spiegazione:"'Andare' অনিয়মিত ক্রিয়া। 'Io vado' = আমি যাই। এটি সম্পূর্ণ অনিয়মিত রূপ।" },
+      { d:"'Noi mangiamo.' – এটি কি সঠিক?", o:["হ্যাঁ","না, 'mangiamo noi' হতে হবে","না, 'mangiamo' হতে হবে","না, 'mangiate' হবে"], r:0, spiegazione:"হ্যাঁ, 'Noi mangiamo' সম্পূর্ণ সঠিক। এটি 'mangiare' ক্রিয়ার নিয়মিত রূপ।" },
+      { d:"'Essere' (হওয়া) এর ৩য় পুরুষ একবচন কী?", o:["È","Sei","Siamo","Sono"], r:0, spiegazione:"'Lui/Lei è' = সে/তিনি। 'Essere' ক্রিয়া সম্পূর্ণ অনিয়মিত, এটি মুখস্থ করতে হবে।" },
+      { d:"'Avere' (থাকা/আছে) এর ২য় পুরুষ একবচন:", o:["Ho","Hai","Ha","Hanno"], r:1, spiegazione:"'Tu hai' = তোমার আছে। 'Io ho' = আমার আছে, 'Lui/Lei ha' = তার আছে।" },
+      { d:"'Venire' (আসা) কী ধরনের ক্রিয়া?", o:["নিয়মিত -are","নিয়মিত -ere","অনিয়মিত","নিয়মিত -ire"], r:2, spiegazione:"'Venire' একটি অনিয়মিত ক্রিয়া। 'Io vengo, tu vieni, lui viene' ইত্যাদি।" },
+      { d:"শূন্যস্থান পূরণ: 'Voi ___ molto.' (lavorare)", o:["Lavorate","Lavorano","Lavoriamo","Lavorate"], r:0, spiegazione:"'Voi lavorate' = তোমরা কাজ করো। -are ক্রিয়ার ২য় পুরুষ বহুবচনে -ate হয়।" },
+      { d:"'Fare' (করা) এর ১ম পুরুষ কী?", o:["Faccio","Faro","Facciamo","Fai"], r:0, spiegazione:"'Io faccio' = আমি করি। 'Fare' একটি গুরুত্বপূর্ণ অনিয়মিত ক্রিয়া।" },
+      { d:"কোন বাক্যটি সঠিক?", o:["Io mangio pasta","Io manga pasta","Io mangia pasta","Io mangi pasta"], r:0, spiegazione:"'Io mangio pasta' = আমি পাস্তা খাই। ১ম পুরুষ একবচনে '-o' সমাপ্তি হয়।" },
+      { d:"'Capire' (বোঝা) -ire ক্রিয়ার সাথে কী যুক্ত হয়?", o:["কোনো পরিবর্তন নেই","-isc- যুক্ত হয়","ব্যঞ্জন দ্বিত্ব হয়","স্বর পরিবর্তন হয়"], r:1, spiegazione:"'Capire' -isc- ধরণের ক্রিয়া। 'Io capisco, tu capisci, lui capisce' ইত্যাদি।" },
+      { d:"'Potere' (পারা) এর ১ম পুরুষ একবচন কী?", o:["Poto","Posso","Puoi","Può"], r:1, spiegazione:"'Io posso' = আমি পারি। 'Potere' একটি মোডাল অনিয়মিত ক্রিয়া।" },
+      { d:"শূন্যস্থান পূরণ: 'Lei ___ italiana.' (essere)", o:["Sono","Sei","È","Siamo"], r:2, spiegazione:"'Lei è italiana' = তিনি ইতালিয়ান (মহিলা)। ৩য় পুরুষ একবচনে 'è' ব্যবহার হয়।" },
+    ]
+  },
+  {
+    id: 13, titolo: "অতীতকাল (পাসাতো প্রোসিমো)", sottotitolo: "Avere/Essere সহযোগে অতীত",
+    quiz: [
+      { d:"পাসাতো প্রোসিমো (নিকট অতীত) কী ব্যবহার করে?", o:["শুধু 'avere'","শুধু 'essere'","'Avere' অথবা 'essere'","কনজাঙ্কটিভ"], r:2, spiegazione:"ইতালিয়ানে পাসাতো প্রোসিমো গঠনে 'avere' অথবা 'essere' সহায়ক ক্রিয়া হিসেবে ব্যবহৃত হয়। বেশিরভাগ ক্রিয়ায় 'avere' এবং গতি/পরিবর্তন বোঝালে 'essere' ব্যবহৃত হয়।" },
+      { d:"'Ho mangiato.' – কোন সহায়ক ক্রিয়া ব্যবহৃত হয়েছে?", o:["Essere","Avere","Fare","Stare"], r:1, spiegazione:"'Ho mangiato'-তে 'avere' সহায়ক ক্রিয়া। বেশিরভাগ সকর্মক ক্রিয়ায় 'avere' ব্যবহৃত হয়।" },
+      { d:"'Sono andato.' – কোন সহায়ক ক্রিয়া ব্যবহৃত হয়েছে?", o:["Avere","Essere","Stare","Venire"], r:1, spiegazione:"'Sono andato'-তে 'essere' সহায়ক ক্রিয়া। গতি নির্দেশক ক্রিয়াগুলোতে সাধারণত 'essere' ব্যবহৃত হয়।" },
+      { d:"'Parlare' এর অতীত কৃদন্ত (participio passato) কী?", o:["Parlito","Parluto","Parlato","Parlendo"], r:2, spiegazione:"নিয়মিত -are ক্রিয়ার অতীত কৃদন্ত '-ato' হয়। তাই 'parlare' → 'parlato'।" },
+      { d:"'Scrivere' এর অতীত কৃদন্ত কী?", o:["Scritto","Scrivo","Scrivuto","Scrivato"], r:0, spiegazione:"'Scrivere' এর অতীত কৃদন্ত 'scritto', যা অনিয়মিত। বেশিরভাগ -ere ক্রিয়া অনিয়মিত অতীত কৃদন্ত তৈরি করে।" },
+      { d:"'Essere' সহায়ক ক্রিয়ার সাথে অতীত কৃদন্ত:", o:["কখনো পরিবর্তিত হয় না","কর্তার সাথে লিঙ্গ ও বচনে মেলে","কর্মের সাথে মেলে","সবসময় পুংলিঙ্গ হয়"], r:1, spiegazione:"'Essere' সহায়ক ক্রিয়ার সাথে অতীত কৃদন্ত কর্তার লিঙ্গ ও বচন অনুযায়ী পরিবর্তিত হয়। যেমন: 'andato' (পুং), 'andata' (স্ত্রী), 'andati' (পুং বহু), 'andate' (স্ত্রী বহু)।" },
+      { d:"'Maria è ___ a Roma.' (andare)", o:["Andato","Andati","Andata","Andiate"], r:2, spiegazione:"Maria নারী, তাই 'andata' স্ত্রীলিঙ্গ একবচন। 'Essere'-এর সাথে কর্তার লিঙ্গ অনুযায়ী পরিবর্তন বাধ্যতামূলক।" },
+      { d:"'Loro hanno ___.' (leggere)", o:["Letto","Letti","Legguto","Leggito"], r:0, spiegazione:"'Leggere'-এর অতীত কৃদন্ত 'letto' (অনিয়মিত)। 'Avere'-এর সাথে অতীত কৃদন্ত সাধারণত অপরিবর্তিত থাকে।" },
+      { d:"কোন ক্রিয়াটি 'essere' সহায়ক ক্রিয়া ব্যবহার করে?", o:["Mangiare","Bere","Arrivare","Guardare"], r:2, spiegazione:"'Arrivare' (পৌঁছানো) গতি নির্দেশক ক্রিয়া, তাই এটি 'essere' সহায়ক ক্রিয়া নেয়। 'Sono arrivato/a' = আমি পৌঁছেছি।" },
+      { d:"'Ho visto un film.' – 'Vedere'-এর অতীত কৃদন্ত কী?", o:["Visto","Veduto","Viso","Vedito"], r:0, spiegazione:"'Vedere'-এর অতীত কৃদন্ত 'visto' (অনিয়মিত)। কখনো কখনো 'veduto'-ও ব্যবহার হয়, কিন্তু 'visto' বেশি প্রচলিত।" },
+      { d:"'Siamo partiti ieri.' – কর্তা কে?", o:["আমি","তুমি","আমরা","তারা"], r:2, spiegazione:"'Siamo' = আমরা (essere ক্রিয়ার ১ম পুরুষ বহুবচন)। তাই কর্তা 'Noi' (আমরা)।" },
+      { d:"'Fare'-এর অতীত কৃদন্ত কী?", o:["Fatto","Fato","Faciuto","Fecito"], r:0, spiegazione:"'Fare'-এর অতীত কৃদন্ত 'fatto' (অনিয়মিত)। 'Ho fatto' = আমি করেছি।" },
+      { d:"'Lei ha ___ il caffè.' (bere)", o:["Bevuto","Bibuto","Beuto","Bevito"], r:0, spiegazione:"'Bere'-এর অতীত কৃদন্ত 'bevuto' (অনিয়মিত)। 'Ha bevuto' = সে/তিনি পান করেছেন।" },
+      { d:"রিফ্লেক্সিভ ক্রিয়া সবসময় কোন সহায়ক ক্রিয়া ব্যবহার করে?", o:["Avere","Essere","Avere অথবা essere","Stare"], r:1, spiegazione:"ইতালিয়ানে সব রিফ্লেক্সিভ ক্রিয়া 'essere' সহায়ক ক্রিয়া ব্যবহার করে। যেমন 'Mi sono alzato/a' = আমি উঠেছি।" },
+      { d:"'Ho aperto la finestra.' – 'Aprire'-এর অতীত কৃদন্ত:", o:["Aprito","Aperto","Aprito","Aprendo"], r:1, spiegazione:"'Aprire'-এর অতীত কৃদন্ত 'aperto' (অনিয়মিত)। 'Ho aperto' = আমি খুলেছি।" },
+    ]
+  },
+  {
+    id: 14, titolo: "A0/A1 সাধারণ পুনরালোচনা", sottotitolo: "সম্পূর্ণ পাঠ্যক্রম",
+    quiz: [
+      { d:"নিজের পরিচয় দেওয়ার জন্য কোন বাক্যটি সঠিক?", o:["Io mi chiamo sono Maria","Mi chiamo Maria","Chiamo Maria","Sono chiamo Maria"], r:1, spiegazione:"'Mi chiamo Maria' = আমার নাম মারিয়া। এটি পরিচয় দেওয়ার আদর্শ বাক্য।" },
+      { d:"'Buongiorno' কখন পর্যন্ত ব্যবহার করা হয়?", o:["প্রায় দুপুর পর্যন্ত","বিকাল ৩টা পর্যন্ত","সন্ধ্যা পর্যন্ত","সকাল ৯টা পর্যন্ত"], r:0, spiegazione:"'Buongiorno' সকাল থেকে দুপুর পর্যন্ত ব্যবহার করা হয়। দুপুরের পর 'Buon pomeriggio' বা 'Buonasera' ব্যবহার করা হয়।" },
+      { d:"'Una casa rossa' এর বহুবচন কী?", o:["Una case rosse","Delle case rosse","Case rossa","Case rosse"], r:1, spiegazione:"বহুবচনে 'Una casa rossa' → 'Delle case rosse'। আর্টিকেল, বিশেষ্য ও বিশেষণ তিনটিই বহুবচন নারীবাচকে পরিবর্তিত হয়।" },
+      { d:"ইতালিয়ানে নির্দিষ্ট আর্টিকেল কোথায় বসে?", o:["নামের পরে","নামের আগে","বাক্যের শেষে","ব্যবহার করা হয় না"], r:1, spiegazione:"ইতালিয়ানে নির্দিষ্ট আর্টিকেল (il, la, lo, i, le, gli) নামের আগে বসে। যেমন: 'Il libro', 'La casa'।" },
+      { d:"দাম কীভাবে জিজ্ঞাসা করবেন?", o:["Quanto costa?","Quanto è grande?","Di che colore è?","Com'è?"], r:0, spiegazione:"'Quanto costa?' = কত দাম? এটি মূল্য জিজ্ঞাসার আদর্শ প্রশ্ন।" },
+      { d:"'Ieri ho mangiato la pizza.' – এটি কোন কাল?", o:["বর্তমান","ভবিষ্যৎ","নিকট অতীত (Passato Prossimo)","অসমাপ্ত অতীত (Imperfetto)"], r:2, spiegazione:"'Ho mangiato' = আমি খেয়েছি, এটি Passato Prossimo (নিকট অতীত)। গতকালের (ieri) সাথে নিকট অতীত ব্যবহার সঠিক।" },
+      { d:"'Studente' (ছাত্র) এর সাথে কোন আর্টিকেল ব্যবহার হয়?", o:["Il","Lo","L'","Un"], r:1, spiegazione:"'Studente' পুরুষবাচক, শুরু হয়েছে s + ব্যঞ্জন দিয়ে, তাই 'Lo studente'। একই নিয়ম 'Lo sport', 'Lo zaino' ইত্যাদিতে প্রযোজ্য।" },
+      { d:"ইতালিয়ানে 'I have to work' কী?", o:["Voglio lavorare","Devo lavorare","Posso lavorare","So lavorare"], r:1, spiegazione:"'Devo lavorare' = আমাকে কাজ করতে হবে। 'Dovere' = আবশ্যক হওয়া। 'Voglio' = আমি চাই।" },
+      { d:"'Molto' কী পরিবর্তন করতে পারে?", o:["শুধু ক্রিয়া","শুধু বিশেষণ","ক্রিয়া এবং বিশেষণ","শুধু বিশেষ্য"], r:2, spiegazione:"'Molto' ক্রিয়াবিশেষণ হিসেবে ক্রিয়া পরিবর্তন করে ('Lavoro molto') এবং বিশেষণ হিসেবেও ব্যবহৃত হয় ('Molto bello')।" },
+      { d:"কোন শব্দটি কম্পাঙ্ক নির্দেশক ক্রিয়াবিশেষণ?", o:["সর্বদা","এখানে","সুন্দর","অল্প"], r:0, spiegazione:"'Sempre' (সর্বদা) একটি কম্পাঙ্ক নির্দেশক ক্রিয়াবিশেষণ। অন্যান্য উদাহরণ: 'Spesso' (প্রায়ই), 'A volte' (কখনো কখনো), 'Mai' (কখনো না)।" },
+      { d:"'C'è' কখন ব্যবহার করা হয়?", o:["বহুবচনের জন্য","একবচনের জন্য","উভয়ের জন্য","কোনোটির জন্যই নয়"], r:1, spiegazione:"'C'è' (একবচন) = আছে/রয়েছে। বহুবচনে 'Ci sono'। যেমন 'C'è un libro' (একটি বই আছে), 'Ci sono due libri' (দুটি বই আছে)।" },
+      { d:"'Grande' (বড়) এর বিপরীত শব্দ কী?", o:["উঁচু","ছোট","প্রশস্ত","লম্বা"], r:1, spiegazione:"'Piccolo' = ছোট। 'Grande' = বড়। 'Alto' = উঁচু/লম্বা, 'Largo' = প্রশস্ত।" },
+      { d:"কোন বাক্যে 'piacere' সঠিকভাবে ব্যবহৃত হয়েছে?", o:["Io piace la musica","A me piace la musica","Mi piaccio la musica","Piace io la musica"], r:1, spiegazione:"'Piacere' ক্রিয়ার বিশেষ গঠন: 'A + ব্যক্তি + piace + জিনিস'। 'A me piace la musica' বা 'Mi piace la musica' = আমার সঙ্গীত পছন্দ।" },
+      { d:"'Stare + gerundio' কী প্রকাশ করে?", o:["ভবিষ্যতের কাজ","অভ্যাসগত কাজ","চলমান কাজ (বর্তমানে ঘটছে)","অতীতের কাজ"], r:2, spiegazione:"'Stare + gerundio' = ইংরেজি Present Continuous-এর মতো চলমান বর্তমান প্রকাশ করে। যেমন 'Sto mangiando' = আমি খাচ্ছি।" },
+      { d:"কোন বাক্যটি ব্যাকরণগতভাবে সঠিক?", o:["Io sono andato al mercato ieri","Io ho andato al mercato ieri","Io era andato al mercato ieri","Io andavo al mercato ieri"], r:0, spiegazione:"'Andare' ক্রিয়া 'essere' সহায়ক ক্রিয়া নেয়। তাই 'Io sono andato/a al mercato ieri' (আমি গতকাল বাজারে গিয়েছিলাম) সঠিক।" },
+    ]
+  },
+];
+
+// ═══════════════════════════════════════════════════════
+//  STATO
+// ═══════════════════════════════════════════════════════
+let stato = {
+  schermata: 'home',   // 'home' | 'quiz' | 'risultati'
+  capIdx: null,
+  quizIdx: 0,
+  risposte: [],        // { corretta: bool }[]
+  scores: {},          // capIdx → punteggio
+};
+
+// ═══════════════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════════════
+function render() {
+  renderNav();
+  if (stato.schermata === 'home') renderHome();
+  else if (stato.schermata === 'quiz') renderQuiz();
+  else renderRisultati();
+}
+
+/* --- NAV --- */
+function renderNav() {
+  const nav = document.getElementById('capitoli');
+  nav.innerHTML = `
+    <button class="${stato.schermata==='home'&&stato.capIdx===null?'active':''}"
+      onclick="goHome()">🏠 হোম</button>
+    ${CAPITOLI.map((c,i)=>`
+      <button class="${stato.capIdx===i&&stato.schermata!=='home'?'active':''}"
+        onclick="iniziaCapitolo(${i})">
+        অধ্যায় ${i+1} ${stato.scores[i]!==undefined?'✓':''}
+      </button>`).join('')}
+  `;
+}
+
+/* --- HOME --- */
+function renderHome() {
+  const main = document.getElementById('main-content');
+  main.innerHTML = `
+    <div class="home-intro">
+      <h2>একটি অধ্যায় বেছে নিন</h2>
+      <p>প্রতিটি অধ্যায়ে ১৫টি কুইজ — ভালোভাবে পড়াশোনা করুন! 🎓</p>
+    </div>
+    <div class="grid-capitoli">
+      ${CAPITOLI.map((c,i)=>`
+        <div class="cap-card" onclick="iniziaCapitolo(${i})">
+          <div class="num">অধ্যায় ${i+1}</div>
+          <h3>${c.titolo}</h3>
+          <p>${c.sottotitolo}</p>
+          <span class="quiz-count">১৫টি কুইজ</span>
+          ${stato.scores[i]!==undefined
+            ? `<div class="cap-score">⭐ শেষ স্কোর: ${stato.scores[i]}/১৫</div>`
+            : ''}
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+/* --- QUIZ --- */
+function renderQuiz() {
+  const cap = CAPITOLI[stato.capIdx];
+  const q = cap.quiz[stato.quizIdx];
+  const totale = cap.quiz.length;
+  const perc = Math.round((stato.quizIdx / totale) * 100);
+  const rispostaData = stato.risposte[stato.quizIdx];
+
+  const main = document.getElementById('main-content');
+  main.innerHTML = `
+    <div class="chapter-header">
+      <div class="chapter-badge">${stato.capIdx+1}</div>
+      <div>
+        <div class="chapter-title">${cap.titolo}</div>
+        <div class="chapter-subtitle">${cap.sottotitolo}</div>
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" style="width:${perc}%"></div>
+    </div>
+    <div class="progress-label">প্রশ্ন ${stato.quizIdx+1} / ${totale}</div>
+
+    <div class="quiz-card" id="quiz-card">
+      <div class="quiz-num">প্রশ্ন ${stato.quizIdx+1}</div>
+      <div class="quiz-domanda">${q.d}</div>
+      <div class="opzioni">
+        ${q.o.map((op,i)=>{
+          let cls = '';
+          const lettere = ['A','B','C','D'];
+          if (rispostaData !== undefined) {
+            cls = 'locked ';
+            if (i === q.r) cls += 'corretta';
+            else if (i === rispostaData.scelta && rispostaData.scelta !== q.r) cls += 'sbagliata';
+          }
+          return `<div class="opzione ${cls}" onclick="rispondi(${i})">
+            <span class="lettera">${lettere[i]}</span>
+            <span>${op}</span>
+          </div>`;
+        }).join('')}
+      </div>
+
+      ${rispostaData !== undefined ? `
+        <div class="feedback ${rispostaData.corretta?'ok':'no'} show">
+          <span class="icon">${rispostaData.corretta?'✅':'❌'}</span>
+          <span>${rispostaData.corretta
+            ? 'চমৎকার! সঠিক উত্তর!'
+            : `সঠিক উত্তর হল: <strong>${q.o[q.r]}</strong>`
+          }</span>
+          <div style="margin-top:8px;font-size:.85rem;opacity:.9;">${q.spiegazione}</div>
+        </div>` : ''}
+
+      <div class="quiz-nav">
+        <button class="btn btn-secondary"
+          onclick="quizPrecedente()"
+          ${stato.quizIdx===0?'disabled':''}>← পিছনে</button>
+
+        ${stato.quizIdx < totale-1
+          ? `<button class="btn btn-primary"
+              onclick="quizSuccessivo()"
+              ${rispostaData===undefined?'disabled':''}>সামনে →</button>`
+          : `<button class="btn btn-primary"
+              onclick="mostraRisultati()"
+              ${rispostaData===undefined?'disabled':''}>ফলাফল দেখুন 🎉</button>`
+        }
+      </div>
+    </div>
+  `;
+}
+
+/* --- RISULTATI --- */
+function renderRisultati() {
+  const cap = CAPITOLI[stato.capIdx];
+  const corrette = stato.risposte.filter(r=>r.corretta).length;
+  const totale = cap.quiz.length;
+  const perc = Math.round((corrette/totale)*100);
+  let emoji, msg, stelle;
+  if (perc >= 90) { emoji='🏆'; msg='চমৎকার! আপনি সত্যিই একজন চ্যাম্পিয়ন!'; stelle='⭐⭐⭐'; }
+  else if (perc >= 70) { emoji='😊'; msg='খুব ভালো! এগিয়ে চলুন!'; stelle='⭐⭐'; }
+  else if (perc >= 50) { emoji='💪'; msg='ভালো! একটু পুনরালোচনা করুন এবং আবার চেষ্টা করুন!'; stelle='⭐'; }
+  else { emoji='📚'; msg='আরও পুনরালোচনা করুন, আপনি পারবেন!'; stelle=''; }
+
+  const main = document.getElementById('main-content');
+  main.innerHTML = `
+    <div class="risultati">
+      <div class="emoji">${emoji}</div>
+      <div class="stelline">${stelle}</div>
+      <div class="grande-voto">${corrette}</div>
+      <div class="su">/${totale} প্রশ্নের মধ্যে</div>
+      <div class="messaggio">${msg}</div>
+      <div style="margin-bottom:28px;color:var(--grigio);font-size:.9rem;">
+        শতকরা হার: <strong>${perc}%</strong>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="iniziaCapitolo(${stato.capIdx})">
+          🔄 অধ্যায় পুনরায় চেষ্টা করুন
+        </button>
+        ${stato.capIdx < CAPITOLI.length-1
+          ? `<button class="btn btn-secondary" onclick="iniziaCapitolo(${stato.capIdx+1})">
+              পরবর্তী অধ্যায় →
+            </button>`
+          : ''}
+        <button class="btn btn-secondary" onclick="goHome()">🏠 হোম</button>
+      </div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════
+//  AZIONI
+// ═══════════════════════════════════════════════════════
+function goHome() {
+  stato.schermata = 'home';
+  stato.capIdx = null;
+  render();
+  window.scrollTo(0,0);
+}
+
+function iniziaCapitolo(idx) {
+  stato.schermata = 'quiz';
+  stato.capIdx = idx;
+  stato.quizIdx = 0;
+  stato.risposte = [];
+  render();
+  window.scrollTo(0,0);
+}
+
+function rispondi(scelta) {
+  if (stato.risposte[stato.quizIdx] !== undefined) return;
+  const q = CAPITOLI[stato.capIdx].quiz[stato.quizIdx];
+  const corretta = scelta === q.r;
+  stato.risposte[stato.quizIdx] = { scelta, corretta };
+  render();
+}
+
+function quizSuccessivo() {
+  if (stato.quizIdx < CAPITOLI[stato.capIdx].quiz.length - 1) {
+    stato.quizIdx++;
+    render();
+    window.scrollTo(0,0);
+  }
+}
+
+function quizPrecedente() {
+  if (stato.quizIdx > 0) {
+    stato.quizIdx--;
+    render();
+    window.scrollTo(0,0);
+  }
+}
+
+function mostraRisultati() {
+  const corrette = stato.risposte.filter(r=>r.corretta).length;
+  stato.scores[stato.capIdx] = corrette;
+  stato.schermata = 'risultati';
+  render();
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════════════════════════
+//  AVVIO
+// ═══════════════════════════════════════════════════════
+render();
+</script>
+</body>
+</html>
