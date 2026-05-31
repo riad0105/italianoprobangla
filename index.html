@@ -894,3 +894,53 @@ render();
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italiano A0/A1 – Quiz del Corso</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1a6b3c;
+    --verde-light: #2d9e5f;
+    --rosso: #c0392b;
+    --crema: #fdf6ec;
+    --oro: #c9962b;
+    --testo: #1a1a2e;
+    --grigio: #8a8a9a;
+    --bg-card: #ffffff;
+    --ombra: 0 4px 24px rgba(26,107,60,0.10);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--testo);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  header {
+    background: var(--verde);
+    color: #fff;
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      135deg,
+      transparent, transparent 40px,
+      rgba(255,255,255,0.04) 40px, rgba(255,255,255,0.04) 80px
+    );
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    letter-spacing: -0.5px;
