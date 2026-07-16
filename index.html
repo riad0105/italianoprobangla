@@ -716,23 +716,23 @@
   <div class="chat-head">
     <div class="av">IB</div>
     <div>
-      <h4>Assistente Italiano Bangla Pro</h4>
-      <p>Online ora</p>
+      <h4>ইতালিয়ানো বাংলা প্রো অ্যাসিস্ট্যান্ট</h4>
+      <p>এখন অনলাইন</p>
     </div>
-    <button class="chat-close" onclick="ibpToggleChat()" aria-label="Chiudi chat">✕</button>
+    <button class="chat-close" onclick="ibpToggleChat()" aria-label="চ্যাট বন্ধ করো">✕</button>
   </div>
   <div class="chat-body" id="chat-body">
-    <div class="msg bot">Ciao! 👋 Sono qui per aiutarti con l'iscrizione al corso o rispondere alle tue domande. Come posso aiutarti? · কীভাবে সাহায্য করতে পারি?</div>
+    <div class="msg bot">হ্যালো! 👋 আমি এখানে আছি কোর্সে ভর্তি হতে সাহায্য করতে বা তোমার প্রশ্নের উত্তর দিতে। কীভাবে সাহায্য করতে পারি?</div>
   </div>
   <div class="chat-quick" id="chat-quick">
-    <button onclick="ibpQuick('Come mi iscrivo?')">Come mi iscrivo?</button>
-    <button onclick="ibpQuick('Quanto costa?')">Quanto costa?</button>
-    <button onclick="ibpQuick('Quando sono le lezioni?')">Orari lezioni</button>
-    <button onclick="ibpQuick('Parlare con un umano')">Parla con noi</button>
+    <button onclick="ibpQuick('কীভাবে ভর্তি হব?')">কীভাবে ভর্তি হব?</button>
+    <button onclick="ibpQuick('খরচ কত?')">খরচ কত?</button>
+    <button onclick="ibpQuick('ক্লাসের সময় কখন?')">ক্লাসের সময়</button>
+    <button onclick="ibpQuick('মানুষের সাথে কথা বলতে চাই')">সরাসরি কথা বলতে চাই</button>
   </div>
   <div class="chat-input-row">
-    <input type="text" id="chat-input" placeholder="Scrivi un messaggio..." onkeydown="if(event.key==='Enter')ibpSend()">
-    <button onclick="ibpSend()" aria-label="Invia messaggio">➤</button>
+    <input type="text" id="chat-input" placeholder="একটি বার্তা লিখো..." onkeydown="if(event.key==='Enter')ibpSend()">
+    <button onclick="ibpSend()" aria-label="বার্তা পাঠাও">➤</button>
   </div>
 </div>
 <script type="module">
@@ -742,7 +742,7 @@
     onAuthStateChanged, signOut, updateProfile
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import {
-    getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp, collection, addDoc
+    getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp, collection, addDoc, enableIndexedDbPersistence
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 
@@ -765,6 +765,7 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
   try{ getAnalytics(app); }catch(e){ console.warn('Analytics non disponibile:', e); }
+  enableIndexedDbPersistence(db).catch(err => console.warn('Cache offline non attivata:', err.code));
 
   const TOTAL_EXERCISES = 5;
   let currentUid = null;
@@ -791,20 +792,26 @@
     setAuthMsg('');
   };
 
+  let pendingRegisterName = null;
+
   window.ibpRegister = function(e){
     e.preventDefault();
     const nome = document.getElementById('reg-nome').value.trim();
     const email = document.getElementById('reg-email').value.trim().toLowerCase();
     const pass = document.getElementById('reg-pass').value;
     setAuthMsg('Creazione account in corso... · অ্যাকাউন্ট তৈরি হচ্ছে...');
+    pendingRegisterName = nome;
     createUserWithEmailAndPassword(auth, email, pass)
-      .then(async (cred) => {
-        await updateProfile(cred.user, { displayName: nome });
-        await setDoc(doc(db, 'students', cred.user.uid), {
-          nome: nome, email: email, livello: 'A0', progress: {}, createdAt: serverTimestamp()
-        });
+      .then((cred) => {
+        // Salvataggio del profilo in background: non blocca la dashboard, già visibile
+        Promise.all([
+          updateProfile(cred.user, { displayName: nome }),
+          setDoc(doc(db, 'students', cred.user.uid), {
+            nome: nome, email: email, livello: 'A0', progress: {}, createdAt: serverTimestamp()
+          })
+        ]).catch(err => console.error('Salvataggio profilo non riuscito:', err));
       })
-      .catch(err => setAuthMsg(ibpAuthError(err)));
+      .catch(err => { pendingRegisterName = null; setAuthMsg(ibpAuthError(err)); });
     return false;
   };
 
@@ -820,21 +827,36 @@
 
   window.ibpLogout = function(){ signOut(auth); };
 
-  onAuthStateChanged(auth, async (user) => {
+  onAuthStateChanged(auth, (user) => {
     if(user){
       currentUid = user.uid;
-      let data = { nome: user.displayName || 'Studente', livello: 'A0', progress: {} };
-      try{
-        const snap = await getDoc(doc(db, 'students', user.uid));
-        if(snap.exists()) data = snap.data();
-      }catch(e){ console.error(e); }
-      currentProgress = data.progress || {};
-      document.getElementById('dash-nome').textContent = data.nome || 'Studente';
-      document.getElementById('dash-livello').textContent = data.livello || 'A0';
+
+      // Mostra subito la dashboard usando i dati già disponibili (nessuna attesa di rete)
+      document.getElementById('dash-nome').textContent = pendingRegisterName || user.displayName || 'Studente';
+      document.getElementById('dash-livello').textContent = 'A0';
       document.getElementById('auth-view').style.display = 'none';
       document.getElementById('quiz-dash').classList.add('show');
       setAuthMsg('');
+      currentProgress = {};
       ibpRenderProgress();
+
+      if(pendingRegisterName){
+        // account appena creato: non c'è ancora nulla da recuperare
+        pendingRegisterName = null;
+        return;
+      }
+
+      // in background: recupera livello reale e progressi salvati
+      getDoc(doc(db, 'students', user.uid)).then(snap => {
+        if(snap.exists()){
+          const data = snap.data();
+          currentProgress = data.progress || {};
+          document.getElementById('dash-nome').textContent = data.nome || user.displayName || 'Studente';
+          document.getElementById('dash-livello').textContent = data.livello || 'A0';
+          ibpRenderProgress();
+        }
+      }).catch(e => console.error('Recupero profilo non riuscito:', e));
+
     } else {
       currentUid = null;
       currentProgress = {};
@@ -952,22 +974,22 @@
 
   function ibpRespond(text){
     const q = text.toLowerCase();
-    let reply = "Non sono sicuro di aver capito, ma puoi scriverci direttamente su WhatsApp e ti risponderemo di persona. · সরাসরি হোয়াটসঅ্যাপে লিখতে পারো।";
+    let reply = "আমি ঠিক বুঝতে পারিনি। সরাসরি হোয়াটসঅ্যাপে আমাদের লিখো, আমরা ব্যক্তিগতভাবে উত্তর দেব।";
 
-    if(/iscriv|iscriz|prenot|come mi/.test(q)){
-      reply = "Per iscriverti non serve creare un account: compila il modulo nella sezione 'Prenota il tuo posto', riceverai subito le coordinate di pagamento e il link Zoom. Vuoi che ti porti lì?";
-    } else if(/prezzo|cost|quanto/.test(q)){
-      reply = "Il corso completo (A0→A2) costa 199€, libro incluso. Trovi tutti i dettagli nella sezione Prezzi.";
-    } else if(/orari|quando|lezion/.test(q)){
-      reply = "Le lezioni sono ogni domenica dalle 16:00 alle 17:00, a volte fino alle 17:30 in base all'unità.";
-    } else if(/quiz|eserciz/.test(q)){
-      reply = "I quiz sono nell'area riservata: registrati gratuitamente nella sezione Quiz per iniziare a esercitarti subito.";
-    } else if(/zero|principiante|base/.test(q)){
-      reply = "Nessun problema! Il livello A0 parte da zero: alfabeto, pronuncia e prime parole.";
-    } else if(/umano|whatsapp|parlare con/.test(q)){
-      reply = "Certo, scrivimi direttamente su WhatsApp al 351 321 2632 e ti rispondo io stesso.";
-    } else if(/ciao|salve|buongiorno|buonasera/.test(q)){
-      reply = "Ciao! 😊 Chiedimi pure dell'iscrizione, dei prezzi o degli orari delle lezioni.";
+    if(/iscriv|iscriz|prenot|come mi|ভর্তি|রেজিস্ট্রেশন|নথিভুক্ত/.test(q)){
+      reply = "ভর্তি হতে কোনো অ্যাকাউন্ট তৈরি করার দরকার নেই। ওয়েবসাইটের 'তোমার আসন বুক করো' অংশে ফর্মটি পূরণ করো — সাথে সাথে পেমেন্টের তথ্য এবং Zoom লিংক পেয়ে যাবে। আমি কি তোমাকে সেখানে নিয়ে যাই?";
+    } else if(/prezzo|cost|quanto|খরচ|দাম|মূল্য/.test(q)){
+      reply = "সম্পূর্ণ কোর্সের (A0→A2) মূল্য ১৯৯ ইউরো, বই সহ। বিস্তারিত তথ্য 'মূল্য' সেকশনে পাবে।";
+    } else if(/orari|quando|lezion|সময়|ক্লাস|রবিবার/.test(q)){
+      reply = "প্রতি রবিবার বিকেল ৪টা থেকে ৫টা পর্যন্ত ক্লাস হয়, কখনো কখনো ইউনিট অনুযায়ী ৫:৩০ পর্যন্ত হতে পারে।";
+    } else if(/quiz|eserciz|কুইজ|অনুশীলন/.test(q)){
+      reply = "কুইজগুলো সংরক্ষিত এলাকায় আছে: বিনামূল্যে রেজিস্ট্রেশন করে এখনই অনুশীলন শুরু করতে পারো।";
+    } else if(/zero|principiante|base|শূন্য|নতুন|বেসিক/.test(q)){
+      reply = "কোনো সমস্যা নেই! A0 লেভেল একদম শূন্য থেকে শুরু হয়: বর্ণমালা, উচ্চারণ এবং প্রথম শব্দ দিয়ে।";
+    } else if(/umano|whatsapp|parlare con|মানুষ|হোয়াটসঅ্যাপ|কথা বল/.test(q)){
+      reply = "অবশ্যই! সরাসরি হোয়াটসঅ্যাপে লিখো এই নম্বরে: 351 321 2632, আমি নিজেই উত্তর দেব।";
+    } else if(/ciao|salve|buongiorno|buonasera|হ্যালো|নমস্কার|আসসালামু/.test(q)){
+      reply = "হ্যালো! 😊 ভর্তি, মূল্য অথবা ক্লাসের সময় নিয়ে যা খুশি জিজ্ঞেস করতে পারো।";
     }
 
     setTimeout(()=>ibpPushMessage(reply, 'bot'), 450);
