@@ -1330,6 +1330,88 @@
        indice risposta corretta (0,1,2)]
      ============================================================ */
 
+  /* ===== NAVIGAZIONE AREA PERSONALE: hub → categoria → livello ===== */
+  window.ibpShowCategory = function(cat){
+    document.getElementById('area-hub').style.display = 'none';
+    document.getElementById('cat-quiz').style.display = (cat === 'quiz') ? 'block' : 'none';
+    document.getElementById('cat-libri').style.display = (cat === 'libri') ? 'block' : 'none';
+    document.getElementById('cat-video').style.display = (cat === 'video') ? 'block' : 'none';
+    if(cat === 'quiz') ibpShowQuizLevelSelect();
+    if(cat === 'video') ibpShowVideoLevelSelect();
+    document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  window.ibpBackToHub = function(){
+    document.getElementById('area-hub').style.display = 'block';
+    document.getElementById('cat-quiz').style.display = 'none';
+    document.getElementById('cat-libri').style.display = 'none';
+    document.getElementById('cat-video').style.display = 'none';
+    document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  window.ibpShowQuizLevelSelect = function(){
+    document.getElementById('quiz-level-select').style.display = 'grid';
+    ['a0','a1','a2'].forEach(l => document.getElementById('quiz-level-'+l).style.display = 'none');
+  };
+  window.ibpShowQuizLevel = function(level){
+    document.getElementById('quiz-level-select').style.display = 'none';
+    ['a0','a1','a2'].forEach(l => document.getElementById('quiz-level-'+l).style.display = (l === level ? 'block' : 'none'));
+  };
+
+  window.ibpShowVideoLevelSelect = function(){
+    document.getElementById('video-level-select').style.display = 'grid';
+    ['a0','a1','a2'].forEach(l => document.getElementById('video-list-'+l).style.display = 'none');
+  };
+  window.ibpShowVideoLevel = function(level){
+    document.getElementById('video-level-select').style.display = 'none';
+    ['a0','a1','a2'].forEach(l => document.getElementById('video-list-'+l).style.display = (l === level ? 'block' : 'none'));
+  };
+
+  /* Lettore PDF inline: nessuna nuova scheda, tutto resta nella stessa pagina */
+  window.ibpToggleRead = function(level){
+    const reader = document.getElementById('book-reader-'+level);
+    const btn = document.getElementById('book-read-btn-'+level);
+    const iframe = document.getElementById('book-iframe-'+level);
+    if(!reader) return;
+    const isOpen = reader.style.display !== 'none';
+    if(isOpen){
+      reader.style.display = 'none';
+      iframe.src = '';
+      btn.textContent = '👁 Leggi online';
+    } else {
+      if(!iframe.src) iframe.src = iframe.dataset.src || (level === 'a0' ? 'A0%20BOOK.pdf' : '');
+      reader.style.display = 'block';
+      btn.textContent = '✕ Chiudi lettura';
+      reader.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+  };
+
+  /* ============================================================
+     VIDEOLEZIONI — sostituisci "url" con il link diretto al tuo file
+     video (es. link di Google Drive/Dropbox in modalità "download diretto",
+     oppure l'URL del file .mp4 caricato sul tuo hosting).
+     ============================================================ */
+  const VIDEOS = {
+    v1: { url: "https://esempio.com/video/lezione-1-alfabeto.mp4" },
+    v2: { url: "https://esempio.com/video/lezione-2-saluti.mp4" },
+    v3: { url: "https://esempio.com/video/lezione-3-numeri.mp4" },
+    v4: { url: "https://esempio.com/video/lezione-4-verbi.mp4" },
+    v5: { url: "https://esempio.com/video/lezione-5-conversazione.mp4" }
+  };
+
+  window.ibpPlayVideo = function(videoId){
+    const card = document.querySelector('.video-card[data-video-id="'+videoId+'"]');
+    const thumb = card ? card.querySelector('.video-thumb') : null;
+    const data = VIDEOS[videoId];
+    if(!card || !thumb || !data) return;
+    const video = document.createElement('video');
+    video.controls = true;
+    video.autoplay = true;
+    video.src = data.url;
+    video.textContent = 'Il tuo browser non supporta la riproduzione video.';
+    thumb.replaceWith(video);
+  };
+
   const EXERCISES_META = {
     1: { it:"Alfabeto e pronuncia", bn:"বর্ণমালা ও উচ্চারণ", livello:"A0" },
     2: { it:"Saluti e presentazioni", bn:"সম্ভাষণ ও পরিচয়", livello:"A0" },
