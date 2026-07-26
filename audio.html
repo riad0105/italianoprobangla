@@ -33,6 +33,7 @@
       color: #b3282d;
       text-transform: uppercase;
       letter-spacing: 1px;
+      scroll-margin-top: 20px;
     }
     .traccia {
       background: white;
@@ -68,7 +69,7 @@
         ultimaPagina = "";
       }
       if (t.pagina !== ultimaPagina) {
-        contenitore.innerHTML += `<div class="pagina">${t.pagina}</div>`;
+        contenitore.innerHTML += `<div class="pagina" id="${t.id}">${t.pagina}</div>`;
         ultimaPagina = t.pagina;
       }
       contenitore.innerHTML += `
@@ -80,6 +81,12 @@
         </div>
       `;
     });
+
+    // Salta automaticamente alla sezione giusta, se presente nel link
+    if (window.location.hash) {
+      const target = document.getElementById(window.location.hash.substring(1));
+      if (target) target.scrollIntoView();
+    }
   </script>
 </body>
 </html>
