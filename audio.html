@@ -2,21 +2,65 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Audio - Italiano Bangla</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f7f7f7;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      color: #b3282d;
+    }
+    .unita {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      border-bottom: 2px solid #b3282d;
+      padding-bottom: 5px;
+    }
+    .traccia {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 12px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .traccia h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+    audio {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <h1>Ascolta le lezioni</h1>
+  <h1>🎧 Audio del libro</h1>
   <div id="lista-audio"></div>
 
   <script src="tracce.js"></script>
   <script>
     const contenitore = document.getElementById('lista-audio');
+    let ultimaUnita = "";
+
     tracce.forEach(t => {
+      if (t.unita !== ultimaUnita) {
+        contenitore.innerHTML += `<div class="unita">${t.unita}</div>`;
+        ultimaUnita = t.unita;
+      }
       contenitore.innerHTML += `
-        <h2>${t.titolo}</h2>
-        <audio controls>
-          <source src="${t.file}" type="audio/mpeg">
-        </audio>
+        <div class="traccia">
+          <h3>${t.titolo}</h3>
+          <audio controls>
+            <source src="${t.file}" type="audio/mpeg">
+          </audio>
+        </div>
       `;
     });
   </script>
