@@ -1,83 +1,74 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Audio - Italiano Bangla</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 20px;
-      background: #f7f7f7;
-      color: #222;
-    }
-    h1 { text-align: center; color: #b3282d; }
-    .unita {
-      margin-top: 35px;
-      font-size: 22px;
-      font-weight: bold;
-      color: white;
-      background: #b3282d;
-      padding: 8px 14px;
-      border-radius: 6px;
-    }
-    .pagina {
-      margin-top: 18px;
-      font-size: 15px;
-      font-weight: bold;
-      color: #b3282d;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      scroll-margin-top: 20px;
-    }
-    .traccia {
-      background: white;
-      border-radius: 10px;
-      padding: 14px;
-      margin: 10px 0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-    }
-    .traccia h3 { margin: 0 0 10px 0; font-size: 16px; }
-    audio { width: 100%; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio - Italiano Bangla</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: #f7f7f7;
+  color: #222222;
+  text-align: center;
+}
+h1 {
+  color: #b3282d;
+  font-size: 20px;
+}
+.traccia {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
+.traccia h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+audio {
+  width: 100%;
+}
+</style>
 </head>
 <body>
-  <h1>🎧 Audio del libro</h1>
-  <div id="lista-audio"></div>
 
-  <script src="tracce.js"></script>
-  <script>
-    const contenitore = document.getElementById('lista-audio');
-    let ultimaUnita = "";
-    let ultimaPagina = "";
+<div id="contenuto"></div>
 
-    tracce.forEach(t => {
-      if (t.unita !== ultimaUnita) {
-        contenitore.innerHTML += `<div class="unita">${t.unita}</div>`;
-        ultimaUnita = t.unita;
-        ultimaPagina = "";
-      }
-      if (t.pagina !== ultimaPagina) {
-        contenitore.innerHTML += `<div class="pagina" id="${t.id}">${t.pagina}</div>`;
-        ultimaPagina = t.pagina;
-      }
-      contenitore.innerHTML += `
-        <div class="traccia">
-          <h3>${t.titolo}</h3>
-          <audio controls>
-            <source src="${t.file}" type="audio/mpeg">
-          </audio>
-        </div>
-      `;
-    });
+<script src="tracce.js"></script>
+<script>
+var params = new URLSearchParams(window.location.search);
+var idRichiesto = params.get("id");
+var contenitore = document.getElementById("contenuto");
 
-   if (window.location.hash) {
-      setTimeout(() => {
-        const target = document.getElementById(window.location.hash.substring(1));
-        if (target) {
-          target.scrollIntoView({ behavior: "instant", block: "start" });
-        }
-      }, 150);
-    }
+var trovata = null;
+for (var i = 0; i < tracce.length; i++) {
+  if (tracce[i].id === idRichiesto) {
+    trovata = tracce[i];
+  }
+}
+
+if (trovata) {
+  var html = "<h1>" + trovata.unita + " - " + trovata.pagina + "</h1>";
+  html += '<div class="traccia">';
+  html += "<h3>" + trovata.titolo + "</h3>";
+  html += '<audio controls><source src="' + trovata.file + '" type="audio/mpeg"></audio>';
+  html += "</div>";
+  contenitore.innerHTML = html;
+} else {
+  var html = "<h1>Tutti gli audio del libro</h1>";
+  for (var i = 0; i < tracce.length; i++) {
+    var t = tracce[i];
+    html += '<div class="traccia">';
+    html += "<h3>" + t.unita + " - " + t.pagina + ": " + t.titolo + "</h3>";
+    html += '<audio controls><source src="' + t.file + '" type="audio/mpeg"></audio>';
+    html += "</div>";
+  }
+  contenitore.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
