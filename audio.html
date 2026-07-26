@@ -13,10 +13,7 @@
       background: #f7f7f7;
       color: #222;
     }
-    h1 {
-      text-align: center;
-      color: #b3282d;
-    }
+    h1 { text-align: center; color: #b3282d; }
     .unita {
       margin-top: 35px;
       font-size: 22px;
@@ -42,14 +39,8 @@
       margin: 10px 0;
       box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     }
-    .traccia h3 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      color: #222;
-    }
-    audio {
-      width: 100%;
-    }
+    .traccia h3 { margin: 0 0 10px 0; font-size: 16px; }
+    audio { width: 100%; }
   </style>
 </head>
 <body>
@@ -82,7 +73,6 @@
       `;
     });
 
-    // Salta automaticamente alla sezione giusta, se presente nel link
     if (window.location.hash) {
       const target = document.getElementById(window.location.hash.substring(1));
       if (target) target.scrollIntoView();
