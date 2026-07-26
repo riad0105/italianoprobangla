@@ -18,22 +18,33 @@
       color: #b3282d;
     }
     .unita {
-      margin-top: 30px;
-      font-size: 20px;
+      margin-top: 35px;
+      font-size: 22px;
       font-weight: bold;
-      border-bottom: 2px solid #b3282d;
-      padding-bottom: 5px;
+      color: white;
+      background: #b3282d;
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+    .pagina {
+      margin-top: 18px;
+      font-size: 15px;
+      font-weight: bold;
+      color: #b3282d;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .traccia {
       background: white;
       border-radius: 10px;
-      padding: 15px;
-      margin: 12px 0;
+      padding: 14px;
+      margin: 10px 0;
       box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     }
     .traccia h3 {
       margin: 0 0 10px 0;
       font-size: 16px;
+      color: #222;
     }
     audio {
       width: 100%;
@@ -48,11 +59,17 @@
   <script>
     const contenitore = document.getElementById('lista-audio');
     let ultimaUnita = "";
+    let ultimaPagina = "";
 
     tracce.forEach(t => {
       if (t.unita !== ultimaUnita) {
         contenitore.innerHTML += `<div class="unita">${t.unita}</div>`;
         ultimaUnita = t.unita;
+        ultimaPagina = "";
+      }
+      if (t.pagina !== ultimaPagina) {
+        contenitore.innerHTML += `<div class="pagina">${t.pagina}</div>`;
+        ultimaPagina = t.pagina;
       }
       contenitore.innerHTML += `
         <div class="traccia">
