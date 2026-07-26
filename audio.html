@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio - Italiano Bangla</title>
+</head>
+<body>
+  <h1>Ascolta le lezioni</h1>
+  <div id="lista-audio"></div>
+
+  <script src="tracce.js"></script>
+  <script>
+    const contenitore = document.getElementById('lista-audio');
+    tracce.forEach(t => {
+      contenitore.innerHTML += `
+        <h2>${t.titolo}</h2>
+        <audio controls>
+          <source src="${t.file}" type="audio/mpeg">
+        </audio>
+      `;
+    });
+  </script>
+</body>
+</html>
