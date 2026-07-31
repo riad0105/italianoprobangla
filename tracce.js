@@ -11,6 +11,7 @@ var tracce = [
   { id: "pagina14-15", unita: "Ciao", pagina: "Pagina 14-15", titolo: "Numeri (1-20)", file: "NUMERI_DA_1_A_20.mp3" },
 
   { id: "pagina17-18", unita: "Di dove sei", pagina: "Pagina 17-18", titolo: "Presentarsi (Lui/Lei)", file: "PRESENTARSI2.mp3" },
+  { id: "pagina19", unita: "Di dove sei", pagina: "Pagina 19", titolo: "Lui / Lei", file: "LUI_LEI.mp3" },
   { id: "pagina20", unita: "Di dove sei", pagina: "Pagina 20", titolo: "La negazione (Non)", file: "NON.mp3" },
   { id: "pagina21", unita: "Di dove sei", pagina: "Pagina 21", titolo: "Nazionalità", file: "NAZIONALITA.mp3" },
   { id: "pagina22", unita: "Di dove sei", pagina: "Pagina 22", titolo: "Nazionalità e Continenti", file: "CONTINENTI.mp3" },
