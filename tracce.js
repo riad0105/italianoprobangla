@@ -1,6 +1,6 @@
 var tracce = [
-  { id: "pagina1-3", unita: "Ciao", pagina: "Pagina 1-3", titolo: "Alfabeto italiano", file: "ALFABETO.MP3" },
-  { id: "pagina4", unita: "Ciao", pagina: "Pagina 4", titolo: "Presentarsi", file: "PRESENTARSI.MP3" },
+  { id: "pagina1-3", unita: "Ciao", pagina: "Pagina 1-3", titolo: "Alfabeto italiano", file: "ALFABETO.mp3" },
+  { id: "pagina4", unita: "Ciao", pagina: "Pagina 4", titolo: "Presentarsi", file: "PRESENTARSI.mp3" },
   { id: "pagina5", unita: "Ciao", pagina: "Pagina 5", titolo: "Saluti", file: "SALUTI.mp3" },
   { id: "pagina6", unita: "Ciao", pagina: "Pagina 6", titolo: "Suoni dolci (C)", file: "SUONO_DOLCE_C.mp3" },
   { id: "pagina7", unita: "Ciao", pagina: "Pagina 7", titolo: "Suoni duri (C)", file: "SUONI_DURI_C.mp3" },
