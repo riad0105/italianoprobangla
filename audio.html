@@ -34,27 +34,23 @@ audio {
 </style>
 </head>
 <body>
-
 <div id="contenuto"></div>
-
 <script src="tracce.js"></script>
 <script>
 var params = new URLSearchParams(window.location.search);
 var idRichiesto = params.get("id");
 var contenitore = document.getElementById("contenuto");
-
 var trovata = null;
 for (var i = 0; i < tracce.length; i++) {
   if (tracce[i].id === idRichiesto) {
     trovata = tracce[i];
   }
 }
-
 if (trovata) {
   var html = "<h1>" + trovata.unita + " - " + trovata.pagina + "</h1>";
   html += '<div class="traccia">';
   html += "<h3>" + trovata.titolo + "</h3>";
-  html += '<audio controls><source src="' + trovata.file + '" type="audio/mpeg"></audio>';
+  html += '<audio controls><source src="' + trovata.file + '"></audio>';
   html += "</div>";
   contenitore.innerHTML = html;
 } else {
@@ -63,12 +59,11 @@ if (trovata) {
     var t = tracce[i];
     html += '<div class="traccia">';
     html += "<h3>" + t.unita + " - " + t.pagina + ": " + t.titolo + "</h3>";
-    html += '<audio controls><source src="' + t.file + '" type="audio/mpeg"></audio>';
+    html += '<audio controls><source src="' + t.file + '"></audio>';
     html += "</div>";
   }
   contenitore.innerHTML = html;
 }
 </script>
-
 </body>
 </html>
