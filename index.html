@@ -482,6 +482,8 @@
   .audio-btn:disabled{background:var(--line);color:var(--muted);cursor:not-allowed;}
   .audio-player{margin-top:10px;width:100%;display:none;}
   .audio-player.show{display:block;}
+  .lesson-audio-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;}
+  .lesson-audio-controls .audio-player{width:220px;margin-top:6px;}
 
   .lesson-section{margin-bottom:30px;}
   .lesson-section h3{font-size:15px;color:var(--paper);margin-bottom:4px;}
@@ -1557,7 +1559,7 @@
     title: "Unità 1", topic: "Ciao", bn: "হাই",
     lessons: [
       {
-        id: 'alfabeto', title: 'Alfabeto italiano', bn: 'ইতালিয়ান বর্ণমালা',
+        id: 'alfabeto', title: 'Alfabeto italiano', bn: 'ইতালিয়ান বর্ণমালা', audio: 'ALFABETO.mp3',
         html: `
           <div class="lesson-section">
             <h3>Le 21 lettere di base</h3>
@@ -1617,7 +1619,7 @@
           </div>`
       },
       {
-        id: 'presentarsi', title: 'Presentarsi', bn: 'পরিচয় হওয়া',
+        id: 'presentarsi', title: 'Presentarsi', bn: 'পরিচয় হওয়া', audio: 'PRESENTARSI.mp3',
         html: `
           <div class="lesson-section">
             <h3>Come presentarsi</h3>
@@ -1645,7 +1647,7 @@
           </div>`
       },
       {
-        id: 'saluti', title: 'Saluti', bn: 'অভিবাদন',
+        id: 'saluti', title: 'Saluti', bn: 'অভিবাদন', audio: 'SALUTI.mp3',
         html: `
           <div class="lesson-section">
             <h3>I tre saluti formali</h3>
@@ -1673,6 +1675,10 @@
       },
       {
         id: 'suoni-c', title: 'Suoni della C (dolci e duri)', bn: 'C এর মিষ্টি ও শক্ত উচ্চারণ',
+        audio: [
+          { label: 'Suono dolce', file: 'SUONO_DOLCE_C.mp3' },
+          { label: 'Suono duro', file: 'SUONI_DURI_C.mp3' }
+        ],
         html: `
           <div class="lesson-section">
             <h3>Suono dolce: C + I / C + E</h3>
@@ -1721,6 +1727,10 @@
       },
       {
         id: 'suoni-g', title: 'Suoni della G (dolci e duri)', bn: 'G এর মিষ্টি ও শক্ত উচ্চারণ',
+        audio: [
+          { label: 'Suono dolce', file: 'SUONO_DOLCE_G.mp3' },
+          { label: 'Suono duro', file: 'SUONI_DURI_G.mp3' }
+        ],
         html: `
           <div class="lesson-section">
             <h3>Suono dolce: G + I / G + E</h3>
@@ -1765,7 +1775,7 @@
           </div>`
       },
       {
-        id: 'giorni', title: 'Giorni della settimana', bn: 'সপ্তাহের দিন',
+        id: 'giorni', title: 'Giorni della settimana', bn: 'সপ্তাহের দিন', audio: 'GIORNI_DELLA_SETTIMANA.mp3',
         html: `
           <div class="lesson-section">
             <h3>I sette giorni</h3>
@@ -1797,7 +1807,7 @@
           </div>`
       },
       {
-        id: 'mesi', title: "Mesi dell'anno", bn: 'বছরের মাসগুলো',
+        id: 'mesi', title: "Mesi dell'anno", bn: 'বছরের মাসগুলো', audio: 'MESI_DELL_ANNO.mp3',
         html: `
           <div class="lesson-section">
             <h3>I dodici mesi</h3>
@@ -1826,7 +1836,7 @@
           </div>`
       },
       {
-        id: 'numeri', title: 'Numeri da 1 a 20', bn: '১ থেকে ২০ পর্যন্ত সংখ্যা',
+        id: 'numeri', title: 'Numeri da 1 a 20', bn: '১ থেকে ২০ পর্যন্ত সংখ্যা', audio: 'NUMERI_DA_1_A_20.mp3',
         html: `
           <div class="lesson-section">
             <h3>Da 1 a 10</h3>
@@ -1971,10 +1981,7 @@
     document.getElementById('lesson-content').innerHTML =
       '<div class="lesson-header">' +
         '<div><h2>' + lesson.title + '</h2><p class="bn">' + lesson.bn + '</p></div>' +
-        '<div>' +
-          '<button class="audio-btn" onclick="ibpToggleLessonAudio(this)" ' + (lesson.audio ? '' : 'disabled') + '>▶ ' + (lesson.audio ? 'Ascolta' : 'Audio in arrivo') + '</button>' +
-          (lesson.audio ? '<audio class="audio-player" id="lesson-audio-player" src="' + lesson.audio + '"></audio>' : '') +
-        '</div>' +
+        '<div class="lesson-audio-controls">' + ibpBuildAudioControls(lesson.audio) + '</div>' +
       '</div>' +
       lesson.html +
       '<div class="lesson-footer-nav">' + footerHtml + '</div>';
@@ -1982,16 +1989,48 @@
     document.getElementById('cat-lezioni').scrollIntoView({behavior:'smooth', block:'start'});
   };
 
+  /* Genera i pulsanti audio: supporta una traccia singola (stringa)
+     oppure più tracce, es. suono dolce/duro (array di {label, file}) */
+  function ibpBuildAudioControls(audio){
+    if(!audio){
+      return '<button class="audio-btn" disabled>▶ Audio in arrivo</button>';
+    }
+    const tracks = Array.isArray(audio) ? audio : [{ label: null, file: audio }];
+    let html = '';
+    tracks.forEach((t, i) => {
+      const pid = 'lesson-audio-player-' + i;
+      const label = t.label ? ('▶ ' + t.label) : '▶ Ascolta';
+      html +=
+        '<button class="audio-btn" data-player-id="' + pid + '" onclick="ibpToggleLessonAudio(this)">' + label + '</button>' +
+        '<audio class="audio-player" id="' + pid + '" src="' + t.file + '"></audio>';
+    });
+    return html;
+  }
+
   window.ibpToggleLessonAudio = function(btn){
-    const player = document.getElementById('lesson-audio-player');
+    const pid = btn.getAttribute('data-player-id');
+    const player = document.getElementById(pid);
     if(!player) return;
+
+    // Ferma le altre tracce eventualmente in riproduzione nella stessa lezione
+    document.querySelectorAll('.lesson-audio-controls .audio-player').forEach(p => {
+      if(p !== player && !p.paused){
+        p.pause();
+        p.currentTime = 0;
+        const otherBtn = document.querySelector('.audio-btn[data-player-id="' + p.id + '"]');
+        if(otherBtn) otherBtn.textContent = otherBtn.dataset.label || '▶ Ascolta';
+      }
+    });
+
+    if(!btn.dataset.label) btn.dataset.label = btn.textContent;
+
     if(player.paused){
       player.classList.add('show');
       player.play();
       btn.textContent = '⏸ In riproduzione...';
     } else {
       player.pause();
-      btn.textContent = '▶ Ascolta';
+      btn.textContent = btn.dataset.label;
     }
   };
 
