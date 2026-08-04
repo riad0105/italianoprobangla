@@ -13,13 +13,16 @@
 <style>
 
   :root{
-    --night:#12151b;
-    --panel:#191d24;
-    --paper:#f1ede4;
-    --gold:#c6a15b;
-    --gold-soft:#8f7439;
-    --line:rgba(241,237,228,0.11);
-    --muted:rgba(241,237,228,0.62);
+    --night:#FFFFFF;
+    --panel:#F8F5FF;
+    --paper:#241C3D;
+    --gold:#FF7A3D;
+    --gold-soft:#FFA366;
+    --purple:#6C3FC5;
+    --purple-soft:rgba(108,63,197,0.12);
+    --yellow:#FFC542;
+    --line:rgba(36,28,61,0.12);
+    --muted:rgba(36,28,61,0.62);
   }
   *{box-sizing:border-box;}
   html,body{background:var(--night);}
@@ -34,6 +37,12 @@
   a{color:inherit;}
   img{max-width:100%;display:block;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* ===== SISTEMA MULTI-PAGINA ===== */
+  .page-view{display:none;animation:ibpFadeIn .35s ease;}
+  .page-view.active{display:block;}
+  @keyframes ibpFadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .navlinks a.active-page,.nav-panel a.active-page{color:var(--gold);font-weight:700;}
   .eyebrow{text-transform:uppercase;letter-spacing:0.16em;font-size:12px;font-weight:600;color:var(--gold);}
   .eyebrow.bn{text-transform:none;letter-spacing:0;font-size:13px;}
 
@@ -42,7 +51,7 @@
   .banner .bn{font-weight:500;opacity:0.85;}
 
   /* NAV */
-  nav{position:sticky;top:0;z-index:50;background:rgba(18,21,27,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
   .navrow{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1080px;margin:0 auto;}
   .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:18px;}
   .logo img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid var(--line);}
@@ -51,7 +60,7 @@
   .nav-burger{
     display:flex;flex-direction:column;justify-content:center;gap:5px;
     width:42px;height:42px;padding:0;border:1px solid var(--line);border-radius:10px;
-    background:rgba(241,237,228,0.04);cursor:pointer;align-items:center;
+    background:rgba(36,28,61,0.04);cursor:pointer;align-items:center;
   }
   .nav-burger span{display:block;width:20px;height:2px;background:var(--paper);border-radius:2px;transition:transform .25s ease,opacity .25s ease;}
   .nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -96,13 +105,13 @@
   .hero-bg{
     position:relative;overflow:hidden;min-height:480px;display:flex;align-items:center;
     background:
-      radial-gradient(60% 70% at 88% 10%, rgba(198,161,91,0.14), transparent 60%),
-      radial-gradient(50% 60% at 5% 100%, rgba(198,161,91,0.08), transparent 60%),
+      radial-gradient(60% 70% at 88% 10%, rgba(255,122,61,0.14), transparent 60%),
+      radial-gradient(50% 60% at 5% 100%, rgba(255,122,61,0.08), transparent 60%),
       var(--night);
   }
   .hero-bg::before{
     content:'';position:absolute;inset:0;pointer-events:none;
-    background-image:radial-gradient(rgba(241,237,228,0.06) 1px, transparent 1px);
+    background-image:radial-gradient(rgba(36,28,61,0.06) 1px, transparent 1px);
     background-size:28px 28px;mask-image:radial-gradient(ellipse at 30% 20%, black, transparent 70%);
   }
   .hero-inner{position:relative;z-index:2;padding:88px 24px;max-width:1080px;margin:0 auto;width:100%;}
@@ -111,10 +120,10 @@
   .hero h1 .accent{color:var(--gold);}
   .hero .bn-line{font-size:clamp(17px,2.2vw,21px);color:var(--muted);margin-top:16px;max-width:42ch;}
   .hero-ctas{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;}
-  .btn-primary{background:var(--gold);color:var(--night);padding:15px 28px;border-radius:100px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 8px 22px rgba(198,161,91,0.22);transition:transform .18s ease;}
+  .btn-primary{background:var(--gold);color:var(--night);padding:15px 28px;border-radius:100px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 8px 22px rgba(255,122,61,0.22);transition:transform .18s ease;}
   .btn-primary:hover{transform:translateY(-2px);}
-  .btn-ghost{border:1.5px solid rgba(241,237,228,0.32);color:var(--paper);padding:14px 26px;border-radius:100px;text-decoration:none;font-weight:600;font-size:15px;transition:border-color .18s ease,background .18s ease;}
-  .btn-ghost:hover{border-color:rgba(241,237,228,0.65);background:rgba(241,237,228,0.06);}
+  .btn-ghost{border:1.5px solid rgba(36,28,61,0.32);color:var(--paper);padding:14px 26px;border-radius:100px;text-decoration:none;font-weight:600;font-size:15px;transition:border-color .18s ease,background .18s ease;}
+  .btn-ghost:hover{border-color:rgba(36,28,61,0.65);background:rgba(36,28,61,0.06);}
 
   /* feature strip */
   .feature-strip{display:flex;gap:0;border-top:1px solid var(--line);background:var(--night);}
@@ -214,10 +223,10 @@
   .enroll-form label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;color:var(--muted);}
   .enroll-form input,.enroll-form select,.enroll-form textarea{
     width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--line);
-    background:rgba(241,237,228,0.04);color:var(--paper);font-family:'Work Sans',sans-serif;font-size:14.5px;
+    background:rgba(36,28,61,0.04);color:var(--paper);font-family:'Work Sans',sans-serif;font-size:14.5px;
   }
   .enroll-form textarea{min-height:90px;resize:vertical;}
-  .enroll-form ::placeholder{color:rgba(241,237,228,0.35);}
+  .enroll-form ::placeholder{color:rgba(36,28,61,0.35);}
   .enroll-form button{background:var(--gold);color:var(--night);border:none;padding:15px 28px;border-radius:100px;font-weight:700;font-size:15px;cursor:pointer;justify-self:start;}
   #form-status{font-size:14px;margin-top:10px;grid-column:1/-1;color:var(--muted);}
 
@@ -235,7 +244,7 @@
   .community-badge{
     display:inline-flex;align-items:center;gap:10px;
     padding:8px 16px 8px 8px;border-radius:100px;
-    background:rgba(198,161,91,0.1);border:1px solid rgba(198,161,91,0.35);
+    background:rgba(255,122,61,0.1);border:1px solid rgba(255,122,61,0.35);
     margin-bottom:22px;
   }
   .community-badge .avatars{display:flex;}
@@ -289,9 +298,9 @@
   .auth-form label{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;}
   .auth-form input{
     width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--line);
-    background:rgba(241,237,228,0.04);color:var(--paper);font-family:'Work Sans',sans-serif;font-size:14.5px;
+    background:rgba(36,28,61,0.04);color:var(--paper);font-family:'Work Sans',sans-serif;font-size:14.5px;
   }
-  .auth-form ::placeholder{color:rgba(241,237,228,0.35);}
+  .auth-form ::placeholder{color:rgba(36,28,61,0.35);}
   .auth-form button{
     background:var(--gold);color:var(--night);border:none;padding:14px;border-radius:100px;
     font-weight:700;font-size:15px;cursor:pointer;margin-top:6px;
@@ -306,11 +315,11 @@
   .quiz-hello h3{font-size:19px;color:var(--paper);}
   .quiz-hello p{font-size:13px;color:var(--muted);margin-top:2px;}
   .btn-logout{background:none;border:1px solid var(--line);color:var(--muted);padding:9px 16px;border-radius:100px;font-size:13px;cursor:pointer;font-family:'Work Sans',sans-serif;}
-  .progress-track{background:rgba(241,237,228,0.08);border-radius:100px;height:8px;overflow:hidden;margin:6px 0 28px;}
+  .progress-track{background:rgba(36,28,61,0.08);border-radius:100px;height:8px;overflow:hidden;margin:6px 0 28px;}
   .progress-fill{background:var(--gold);height:100%;border-radius:100px;}
   .exercise-list{display:flex;flex-direction:column;gap:12px;}
 
-  .level-book{margin-bottom:36px;padding:24px;border-radius:14px;background:rgba(241,237,228,0.025);border:1px solid var(--line);}
+  .level-book{margin-bottom:36px;padding:24px;border-radius:14px;background:rgba(36,28,61,0.025);border:1px solid var(--line);}
   .level-book:last-child{margin-bottom:0;}
   .level-book-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
   .level-badge{
@@ -323,15 +332,15 @@
   .level-book-title{flex:1;min-width:160px;}
   .level-book-title h4{font-size:16.5px;color:var(--paper);}
   .level-book-title p{font-size:12.5px;color:var(--muted);margin-top:2px;}
-  .level-count{font-size:12.5px;font-weight:700;color:var(--gold);background:rgba(198,161,91,0.1);padding:5px 12px;border-radius:100px;white-space:nowrap;}
+  .level-count{font-size:12.5px;font-weight:700;color:var(--gold);background:rgba(255,122,61,0.1);padding:5px 12px;border-radius:100px;white-space:nowrap;}
 
   /* ===== VIDEOLEZIONI ===== */
   .level-badge.lvl-video{background:linear-gradient(135deg, var(--gold), #b5716b);font-size:19px;}
-  .video-book{background:rgba(198,161,91,0.04);}
+  .video-book{background:rgba(255,122,61,0.04);}
   .video-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(220px,1fr));gap:16px;}
-  .video-card{background:rgba(241,237,228,0.03);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .video-card{background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
   .video-thumb{
-    position:relative;aspect-ratio:16/9;background:linear-gradient(135deg, rgba(198,161,91,0.18), rgba(18,21,27,0.6));
+    position:relative;aspect-ratio:16/9;background:linear-gradient(135deg, rgba(255,122,61,0.18), rgba(108,63,197,0.18));
     display:flex;align-items:center;justify-content:center;cursor:pointer;
   }
   .video-play{
@@ -350,8 +359,8 @@
   .video-card video{width:100%;aspect-ratio:16/9;display:block;background:#000;}
 
   .book-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(200px,1fr));gap:16px;}
-  .book-card{background:rgba(241,237,228,0.03);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
-  .book-cover{width:100%;aspect-ratio:3/4;border-radius:8px;background:linear-gradient(135deg, rgba(198,161,91,0.18), rgba(241,237,228,0.04));display:flex;align-items:center;justify-content:center;font-size:34px;border:1px solid var(--line);overflow:hidden;}
+  .book-card{background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+  .book-cover{width:100%;aspect-ratio:3/4;border-radius:8px;background:linear-gradient(135deg, rgba(255,122,61,0.18), rgba(36,28,61,0.04));display:flex;align-items:center;justify-content:center;font-size:34px;border:1px solid var(--line);overflow:hidden;}
   .book-cover img{width:100%;height:100%;object-fit:cover;display:block;}
   .book-info h5{font-size:14px;color:var(--paper);font-weight:600;}
   .book-info p{font-size:12px;color:var(--muted);margin-top:3px;}
@@ -365,7 +374,7 @@
   /* ===== HUB (menu categorie area personale) ===== */
   .hub-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px,1fr));gap:16px;}
   .hub-card{
-    background:rgba(241,237,228,0.03);border:1px solid var(--line);border-radius:14px;padding:28px 20px;
+    background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:14px;padding:28px 20px;
     display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;cursor:pointer;
     font-family:'Work Sans',sans-serif;transition:border-color .18s ease,transform .18s ease;
   }
@@ -383,7 +392,7 @@
 
   .sub-level-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(160px,1fr));gap:14px;margin-bottom:8px;}
   .sub-level-card{
-    background:rgba(241,237,228,0.03);border:1px solid var(--line);border-radius:12px;padding:20px 16px;
+    background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:12px;padding:20px 16px;
     display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;cursor:pointer;
     font-family:'Work Sans',sans-serif;transition:border-color .18s ease,transform .18s ease;
   }
@@ -393,7 +402,7 @@
   .level-content .level-book{margin-top:0;}
   .exercise{
     display:flex;align-items:center;justify-content:space-between;gap:14px;
-    background:rgba(241,237,228,0.03);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
   }
   .exercise .lv{
     font-family:'Fraunces',serif;font-size:13px;color:var(--night);background:var(--gold);
@@ -407,7 +416,7 @@
   .badge-pill{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 9px;border-radius:100px;background:var(--ok-soft);color:var(--ok);white-space:nowrap;}
 
   /* quiz demo card (quando si apre un esercizio) */
-  .quiz-demo{margin-top:24px;padding:22px;border-radius:10px;background:rgba(198,161,91,0.06);border:1px dashed rgba(198,161,91,0.4);display:none;}
+  .quiz-demo{margin-top:24px;padding:22px;border-radius:10px;background:rgba(255,122,61,0.06);border:1px dashed rgba(255,122,61,0.4);display:none;}
   .quiz-demo.show{display:block;}
   .quiz-demo h5{font-size:14.5px;color:var(--paper);margin-bottom:14px;}
   .quiz-demo .opts{display:flex;flex-direction:column;gap:8px;}
@@ -421,10 +430,10 @@
   .quiz-demo .fb{margin-top:12px;font-size:13.5px;color:var(--muted);min-height:18px;}
   .open-answer-box{width:100%;}
   .open-textarea{
-    width:100%;padding:14px;border-radius:10px;border:1px solid var(--line);background:rgba(241,237,228,0.04);
+    width:100%;padding:14px;border-radius:10px;border:1px solid var(--line);background:rgba(36,28,61,0.04);
     color:var(--paper);font-family:'Work Sans',sans-serif;font-size:14.5px;resize:vertical;min-height:80px;
   }
-  .open-textarea::placeholder{color:rgba(241,237,228,0.35);}
+  .open-textarea::placeholder{color:rgba(36,28,61,0.35);}
   .btn-reveal{
     margin-top:12px;background:var(--gold);color:var(--night);border:none;padding:12px 22px;border-radius:100px;
     font-weight:700;font-size:14px;cursor:pointer;font-family:'Work Sans',sans-serif;
@@ -432,6 +441,76 @@
   .open-sample-label{font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
   .open-sample-text{font-size:14.5px;color:var(--paper);line-height:1.6;padding:14px;background:rgba(143,170,138,0.08);border:1px solid rgba(143,170,138,0.3);border-radius:10px;margin-bottom:8px;}
   .open-sample-text.bn{color:var(--muted);font-size:13.5px;background:none;border:none;padding:0 14px;}
+
+  /* ===== LEZIONI ===== */
+  .lesson-crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:18px;flex-wrap:wrap;}
+  .lesson-crumb button{background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;font-family:'Work Sans',sans-serif;padding:0;text-decoration:underline;}
+  .lesson-crumb button:hover{color:var(--gold);}
+
+  .unit-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px,1fr));gap:16px;}
+  .unit-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;cursor:pointer;text-align:left;
+    font-family:'Work Sans',sans-serif;transition:border-color .18s ease,transform .18s ease;
+  }
+  .unit-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .unit-card .unit-num{display:inline-block;background:var(--gold);color:#fff;font-size:11px;font-weight:700;padding:3px 11px;border-radius:100px;margin-bottom:10px;}
+  .unit-card h4{font-size:16px;color:var(--paper);margin-bottom:3px;}
+  .unit-card p{font-size:12.5px;color:var(--muted);}
+  .unit-card .unit-count{font-size:11.5px;color:var(--purple);font-weight:600;margin-top:8px;}
+
+  .lesson-list{display:flex;flex-direction:column;gap:10px;}
+  .lesson-list-item{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;text-align:left;width:100%;
+    font-family:'Work Sans',sans-serif;transition:border-color .15s ease;
+  }
+  .lesson-list-item:hover{border-color:var(--gold);}
+  .lesson-list-item .n{width:28px;height:28px;border-radius:50%;background:var(--purple-soft);color:var(--purple);font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .lesson-list-item .info{flex:1;}
+  .lesson-list-item h5{font-size:14.5px;color:var(--paper);}
+  .lesson-list-item p{font-size:12px;color:var(--muted);margin-top:2px;}
+  .lesson-list-item .go{color:var(--gold);font-size:13px;font-weight:700;}
+
+  .lesson-page{max-width:760px;}
+  .lesson-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;flex-wrap:wrap;}
+  .lesson-header h2{font-size:24px;}
+  .lesson-header .bn{font-size:14.5px;color:var(--muted);margin-top:4px;}
+  .audio-btn{
+    display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;border:none;padding:11px 20px;
+    border-radius:100px;font-weight:700;font-size:13.5px;cursor:pointer;font-family:'Work Sans',sans-serif;white-space:nowrap;
+  }
+  .audio-btn:disabled{background:var(--line);color:var(--muted);cursor:not-allowed;}
+  .audio-player{margin-top:10px;width:100%;display:none;}
+  .audio-player.show{display:block;}
+
+  .lesson-section{margin-bottom:30px;}
+  .lesson-section h3{font-size:15px;color:var(--paper);margin-bottom:4px;}
+  .lesson-section .sub-bn{font-size:12.5px;color:var(--muted);margin-bottom:14px;}
+
+  .word-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(130px,1fr));gap:10px;}
+  .word-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;}
+  .word-card .letter{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold);}
+  .word-card .it{font-size:12.5px;font-weight:700;color:var(--paper);margin-top:4px;}
+  .word-card .bn-phon{font-size:11px;color:var(--purple);margin-top:2px;}
+  .word-card .bn-mean{font-size:11px;color:var(--muted);}
+
+  .dialogue-box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .dialogue-line{display:flex;gap:10px;margin-bottom:12px;}
+  .dialogue-line:last-child{margin-bottom:0;}
+  .dialogue-line .who{font-size:12px;font-weight:700;color:var(--purple);min-width:52px;flex-shrink:0;}
+  .dialogue-line .txt{font-size:14px;color:var(--paper);}
+  .dialogue-line .txt .bn{display:block;font-size:12.5px;color:var(--muted);margin-top:2px;}
+
+  .lesson-tip{background:var(--purple-soft);border:1px solid rgba(108,63,197,0.25);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--paper);}
+  .lesson-tip b{color:var(--purple);}
+
+  .exercise-block{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .exercise-block .ex-title{font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px;}
+  .exercise-row{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--paper);margin-bottom:10px;flex-wrap:wrap;}
+  .exercise-row input{border:none;border-bottom:2px solid var(--line);background:none;font-size:14px;padding:2px 4px;width:110px;font-family:'Work Sans',sans-serif;color:var(--paper);}
+  .exercise-row input:focus{outline:none;border-color:var(--gold);}
+
+  .lesson-footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line);flex-wrap:wrap;}
   .quiz-demo-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
   .quiz-demo-head h5{margin-bottom:0;}
   .quiz-nav-mini{display:flex;align-items:center;gap:8px;}
@@ -441,7 +520,7 @@
     transition:border-color .15s ease,color .15s ease;
   }
   .quiz-back-btn:hover{border-color:var(--gold);color:var(--gold);}
-  .quiz-progress-label{font-size:11.5px;font-weight:700;color:var(--gold);background:rgba(198,161,91,0.12);padding:4px 11px;border-radius:100px;white-space:nowrap;}
+  .quiz-progress-label{font-size:11.5px;font-weight:700;color:var(--gold);background:rgba(255,122,61,0.12);padding:4px 11px;border-radius:100px;white-space:nowrap;}
   .quiz-q-it{font-size:16px;color:var(--paper);font-weight:600;line-height:1.5;margin-bottom:4px;}
   .quiz-q-bn{font-size:13.5px;color:var(--muted);margin-bottom:16px;}
   .opt-it{display:block;font-weight:600;}
@@ -479,17 +558,17 @@
   .enroll-confirm h3{font-size:21px;color:var(--paper);}
   .enroll-confirm p.lead{font-size:14.5px;color:var(--muted);margin-top:8px;max-width:52ch;}
   .next-steps{display:flex;flex-direction:column;gap:14px;margin-top:26px;}
-  .next-step{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:16px;background:rgba(241,237,228,0.03);border:1px solid var(--line);border-radius:10px;}
+  .next-step{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:16px;background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:10px;}
   .next-step .n{font-family:'Fraunces',serif;color:var(--gold);font-size:15px;}
   .next-step h5{font-size:14px;color:var(--paper);font-weight:600;}
   .next-step p{font-size:13px;color:var(--muted);margin-top:3px;}
-  .next-step code{background:rgba(241,237,228,0.08);padding:2px 7px;border-radius:5px;font-size:12.5px;color:var(--gold);}
+  .next-step code{background:rgba(36,28,61,0.08);padding:2px 7px;border-radius:5px;font-size:12.5px;color:var(--gold);}
 
   /* ===== CHATBOT ===== */
   .chat-fab{
     position:fixed;bottom:22px;right:22px;z-index:90;
     width:60px;height:60px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;
-    box-shadow:0 10px 26px rgba(198,161,91,0.35);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 26px rgba(255,122,61,0.35);display:flex;align-items:center;justify-content:center;
     font-size:26px;color:var(--night);transition:transform .18s ease;
   }
   .chat-fab:hover{transform:scale(1.06);}
@@ -503,7 +582,7 @@
     box-shadow:0 20px 60px rgba(0,0,0,0.45);display:none;flex-direction:column;overflow:hidden;
   }
   .chat-window.open{display:flex;}
-  .chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:rgba(198,161,91,0.06);}
+  .chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:rgba(255,122,61,0.06);}
   .chat-head .av{width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--night);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0;}
   .chat-head h4{font-size:14.5px;color:var(--paper);}
   .chat-head p{font-size:12px;color:var(--ok);display:flex;align-items:center;gap:5px;}
@@ -511,20 +590,20 @@
   .chat-close{margin-left:auto;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;padding:4px;}
   .chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;}
   .msg{max-width:82%;padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.5;}
-  .msg.bot{background:rgba(241,237,228,0.06);color:var(--paper);border-bottom-left-radius:4px;align-self:flex-start;}
+  .msg.bot{background:rgba(36,28,61,0.06);color:var(--paper);border-bottom-left-radius:4px;align-self:flex-start;}
   .msg.user{background:var(--gold);color:var(--night);border-bottom-right-radius:4px;align-self:flex-end;font-weight:500;}
   .chat-quick{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 14px;}
   .chat-quick button{
-    background:none;border:1px solid rgba(198,161,91,0.4);color:var(--gold);padding:8px 13px;border-radius:100px;
+    background:none;border:1px solid rgba(255,122,61,0.4);color:var(--gold);padding:8px 13px;border-radius:100px;
     font-size:12.5px;cursor:pointer;font-family:'Work Sans',sans-serif;
   }
-  .chat-quick button:hover{background:rgba(198,161,91,0.1);}
+  .chat-quick button:hover{background:rgba(255,122,61,0.1);}
   .chat-input-row{display:flex;gap:8px;padding:14px;border-top:1px solid var(--line);}
   .chat-input-row input{
     flex:1;padding:11px 14px;border-radius:100px;border:1px solid var(--line);
-    background:rgba(241,237,228,0.04);color:var(--paper);font-family:'Work Sans',sans-serif;font-size:13.5px;
+    background:rgba(36,28,61,0.04);color:var(--paper);font-family:'Work Sans',sans-serif;font-size:13.5px;
   }
-  .chat-input-row ::placeholder{color:rgba(241,237,228,0.35);}
+  .chat-input-row ::placeholder{color:rgba(36,28,61,0.35);}
   .chat-input-row button{
     width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--night);border:none;
     cursor:pointer;font-size:16px;flex-shrink:0;
@@ -562,6 +641,7 @@
   <a href="https://wa.me/393513212632" target="_blank" rel="noopener" onclick="ibpCloseMenu()">💬 Scrivici su WhatsApp</a>
 </nav>
 
+<div class="page-view active" id="page-home">
 <header class="hero">
   <div class="hero-bg">
     <div class="hero-inner">
@@ -661,7 +741,9 @@
       </div>
     </div>
   </div>
-</section><section id="quiz">
+</section>
+</div>
+<section id="quiz" class="page-view">
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Area riservata · সংরক্ষিত এলাকা</p>
@@ -717,6 +799,11 @@
           <!-- HUB: scelta categoria -->
           <div class="area-hub" id="area-hub">
             <div class="hub-grid">
+              <button class="hub-card" onclick="ibpShowCategory('lezioni')">
+                <span class="hub-ic">📖</span>
+                <h4>Lezioni</h4>
+                <p>Impara passo dopo passo, con spiegazioni · পাঠ শুরু করো</p>
+              </button>
               <button class="hub-card" onclick="ibpShowCategory('quiz')">
                 <span class="hub-ic">📝</span>
                 <h4>Quiz</h4>
@@ -736,6 +823,42 @@
           </div>
 
           <!-- CATEGORIA: QUIZ -->
+          <!-- CATEGORIA: LEZIONI -->
+          <div class="cat-container" id="cat-lezioni" style="display:none;">
+            <button class="cat-back-btn" onclick="ibpBackToHub()">← Torna al menu</button>
+
+            <div id="lezioni-view-units">
+              <div class="section-head" style="margin-bottom:22px;">
+                <p class="eyebrow">Corso · কোর্স</p>
+                <h2 style="font-size:22px;">Scegli un'unità</h2>
+                <p class="bn">একটি ইউনিট বেছে নাও।</p>
+              </div>
+              <div class="unit-grid" id="unit-grid"></div>
+            </div>
+
+            <div id="lezioni-view-list" style="display:none;">
+              <div class="lesson-crumb">
+                <button onclick="ibpShowUnits()">Unità</button>
+                <span>→</span>
+                <span id="crumb-unit-title"></span>
+              </div>
+              <div class="section-head" style="margin-bottom:22px;">
+                <h2 id="unit-list-title" style="font-size:22px;"></h2>
+                <p class="bn" id="unit-list-bn"></p>
+              </div>
+              <div class="lesson-list" id="lesson-list"></div>
+            </div>
+
+            <div id="lezioni-view-lesson" style="display:none;">
+              <div class="lesson-crumb">
+                <button onclick="ibpShowUnits()">Unità</button>
+                <span>→</span>
+                <button onclick="ibpBackToLessonList()" id="crumb-unit-title-2"></button>
+              </div>
+              <div class="lesson-page" id="lesson-content"></div>
+            </div>
+          </div>
+
           <div class="cat-container" id="cat-quiz" style="display:none;">
             <button class="cat-back-btn" onclick="ibpBackToHub()">← Torna al menu</button>
 
@@ -1159,7 +1282,7 @@
     </div>
   </div>
 </section>
-<section id="iscriviti">
+<section id="iscriviti" class="page-view">
   <div class="wrap">
     <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
       <p class="eyebrow">Iscrizione · ভর্তি</p>
@@ -1256,7 +1379,7 @@
     <p class="price-note">Ogni lezione dura 1 ora, fino a 1 ora e mezza in base all'intensità dell'unità · Iscrizioni aperte fino al 6 settembre. · প্রতিটি ক্লাস ১–১.৫ ঘণ্টা · ৬ সেপ্টেম্বর পর্যন্ত ভর্তি খোলা।</p>
   </div>
 </section>
-<section id="faq">
+<section id="faq" class="page-view">
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">FAQ</p>
@@ -1296,7 +1419,7 @@
      Qui si registrano da soli (email+password) SENZA passare dal
      pagamento: l'account si crea e si attiva immediatamente.
      ============================================================ -->
-<section id="accesso-riservato">
+<section id="accesso-riservato" class="page-view">
   <div class="wrap">
     <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
       <p class="eyebrow">Accesso riservato · সংরক্ষিত প্রবেশ</p>
@@ -1409,9 +1532,11 @@
   /* ===== NAVIGAZIONE AREA PERSONALE: hub → categoria → livello ===== */
   window.ibpShowCategory = function(cat){
     document.getElementById('area-hub').style.display = 'none';
+    document.getElementById('cat-lezioni').style.display = (cat === 'lezioni') ? 'block' : 'none';
     document.getElementById('cat-quiz').style.display = (cat === 'quiz') ? 'block' : 'none';
     document.getElementById('cat-libri').style.display = (cat === 'libri') ? 'block' : 'none';
     document.getElementById('cat-video').style.display = (cat === 'video') ? 'block' : 'none';
+    if(cat === 'lezioni') ibpShowUnits();
     if(cat === 'quiz') ibpShowQuizLevelSelect();
     if(cat === 'video') ibpShowVideoLevelSelect();
     document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
@@ -1419,10 +1544,455 @@
 
   window.ibpBackToHub = function(){
     document.getElementById('area-hub').style.display = 'block';
+    document.getElementById('cat-lezioni').style.display = 'none';
     document.getElementById('cat-quiz').style.display = 'none';
     document.getElementById('cat-libri').style.display = 'none';
     document.getElementById('cat-video').style.display = 'none';
     document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+
+  const LEZIONI = {
+  u1: {
+    title: "Unità 1", topic: "Ciao", bn: "হাই",
+    lessons: [
+      {
+        id: 'alfabeto', title: 'Alfabeto italiano', bn: 'ইতালিয়ান বর্ণমালা',
+        html: `
+          <div class="lesson-section">
+            <h3>Le 21 lettere di base</h3>
+            <p class="sub-bn">২১টি মূল অক্ষর</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="letter">A</div><div class="it">anatra</div><div class="bn-phon">আনাত্রা</div><div class="bn-mean">হাঁস</div></div>
+              <div class="word-card"><div class="letter">B</div><div class="it">banana</div><div class="bn-phon">বানানা</div><div class="bn-mean">কলা</div></div>
+              <div class="word-card"><div class="letter">C</div><div class="it">casa</div><div class="bn-phon">কাসা</div><div class="bn-mean">বাড়ি</div></div>
+              <div class="word-card"><div class="letter">D</div><div class="it">dottore</div><div class="bn-phon">দোত্তোরে</div><div class="bn-mean">ডাক্তার</div></div>
+              <div class="word-card"><div class="letter">E</div><div class="it">estate</div><div class="bn-phon">এস্তাতে</div><div class="bn-mean">গ্রীষ্মকাল</div></div>
+              <div class="word-card"><div class="letter">F</div><div class="it">fuoco</div><div class="bn-phon">ফুওকো</div><div class="bn-mean">আগুন</div></div>
+              <div class="word-card"><div class="letter">G</div><div class="it">ginocchio</div><div class="bn-phon">জিনোক্কিও</div><div class="bn-mean">হাঁটু</div></div>
+              <div class="word-card"><div class="letter">H</div><div class="it">hotel</div><div class="bn-phon">ওতেল</div><div class="bn-mean">হোটেল</div></div>
+              <div class="word-card"><div class="letter">I</div><div class="it">Italia</div><div class="bn-phon">ইতালিয়া</div><div class="bn-mean">ইতালি</div></div>
+              <div class="word-card"><div class="letter">L</div><div class="it">libro</div><div class="bn-phon">লিব্রো</div><div class="bn-mean">বই</div></div>
+              <div class="word-card"><div class="letter">M</div><div class="it">matita</div><div class="bn-phon">মাতিতা</div><div class="bn-mean">পেন্সিল</div></div>
+              <div class="word-card"><div class="letter">N</div><div class="it">naso</div><div class="bn-phon">নাসো</div><div class="bn-mean">নাক</div></div>
+              <div class="word-card"><div class="letter">O</div><div class="it">ombrello</div><div class="bn-phon">ওম্ব্রেল্লো</div><div class="bn-mean">ছাতা</div></div>
+              <div class="word-card"><div class="letter">P</div><div class="it">pesce</div><div class="bn-phon">পেশে</div><div class="bn-mean">মাছ</div></div>
+              <div class="word-card"><div class="letter">Q</div><div class="it">quaderno</div><div class="bn-phon">কুয়াদের্নো</div><div class="bn-mean">খাতা</div></div>
+              <div class="word-card"><div class="letter">R</div><div class="it">riso</div><div class="bn-phon">রিজো</div><div class="bn-mean">ভাত</div></div>
+              <div class="word-card"><div class="letter">S</div><div class="it">sabbia</div><div class="bn-phon">সাব্বিয়া</div><div class="bn-mean">বালি</div></div>
+              <div class="word-card"><div class="letter">T</div><div class="it">testa</div><div class="bn-phon">তেস্তা</div><div class="bn-mean">মাথা</div></div>
+              <div class="word-card"><div class="letter">U</div><div class="it">uccello</div><div class="bn-phon">উচ্চেল্লো</div><div class="bn-mean">পাখি</div></div>
+              <div class="word-card"><div class="letter">V</div><div class="it">vetro</div><div class="bn-phon">ভেত্রো</div><div class="bn-mean">কাচ</div></div>
+              <div class="word-card"><div class="letter">Z</div><div class="it">zaino</div><div class="bn-phon">জাইনো</div><div class="bn-mean">ব্যাগ</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <div class="lesson-tip">
+              <b>Consigli · টিপস</b><br>
+              • La lettera 'H' non si pronuncia mai, è muta · 'H' অক্ষরটি উচ্চারিত হয় না, এটি নীরব।<br>
+              • La 'R' si pronuncia facendo vibrare la lingua · 'R' উচ্চারণ করার সময় জিভের ডগা কাঁপাতে হবে।<br>
+              • La 'Z' si pronuncia come "TZ" o "DZ" · 'Z' উচ্চারণ করার সময় এর আওয়াজ "TZ" বা "DZ"-এর মতো হবে।
+            </div>
+          </div>`
+      },
+      {
+        id: 'lettere-straniere', title: 'Lettere straniere', bn: 'বিদেশী বর্ণমালা',
+        html: `
+          <div class="lesson-section">
+            <h3>Le 5 lettere straniere</h3>
+            <p class="sub-bn">৫টি বিদেশী অক্ষর</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="letter">J</div><div class="it">jeans</div><div class="bn-phon">জিন্স</div><div class="bn-mean">প্যান্ট</div></div>
+              <div class="word-card"><div class="letter">K</div><div class="it">kiwi</div><div class="bn-phon">কিউই</div><div class="bn-mean">কিউই</div></div>
+              <div class="word-card"><div class="letter">X</div><div class="it">xilofono</div><div class="bn-phon">ক্সিলোফোনো</div><div class="bn-mean">জাইলোফোন</div></div>
+              <div class="word-card"><div class="letter">Y</div><div class="it">yogurt</div><div class="bn-phon">ইয়োগুর্ত</div><div class="bn-mean">দই</div></div>
+              <div class="word-card"><div class="letter">W</div><div class="it">water</div><div class="bn-phon">ভাতের</div><div class="bn-mean">কমোড</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <div class="lesson-tip">
+              <b>Consigli · টিপস</b><br>
+              Queste 5 lettere straniere si usano pochissimo in italiano. · এই ৫টি বিদেশী অক্ষর ইতালিতে ব্যবহার হয় না বললেই চলে; ব্যবহার হলেও তা খুবই কম।
+            </div>
+          </div>`
+      },
+      {
+        id: 'presentarsi', title: 'Presentarsi', bn: 'পরিচয় হওয়া',
+        html: `
+          <div class="lesson-section">
+            <h3>Come presentarsi</h3>
+            <p class="sub-bn">নিজের পরিচয় কীভাবে দেবে</p>
+            <div class="dialogue-box">
+              <div class="dialogue-line"><span class="who">Marco</span><span class="txt">Buongiorno, io sono Marco, sono italiano.<span class="bn">শুভ সকাল, আমি মার্কো, আমি ইতালীয়।</span></span></div>
+              <div class="dialogue-line"><span class="who">Riad</span><span class="txt">Buongiorno, io sono Riad, sono bengalese.<span class="bn">শুভ সকাল, আমি রিয়াদ, আমি বাংলাদেশী।</span></span></div>
+              <div class="dialogue-line"><span class="who">Sokina</span><span class="txt">Buongiorno, io sono Sokina, sono indiana e sono una cameriera.<span class="bn">শুভ সকাল, আমি সকিনা, আমি ভারতীয় এবং আমি একজন ওয়েট্রেস।</span></span></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Struttura</h3>
+            <p class="sub-bn">গঠন</p>
+            <div class="lesson-tip">
+              <b>Buongiorno, io sono [nome], sono [nazionalità], e sono [lavoro].</b><br>
+              শুভ সকাল, আমি [নাম], আমি [জাতীয়তা], এবং আমি [পেশা]।
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa con: Nome: Maria — Paese: Spagna — Lavoro: Cantante</p>
+            <div class="exercise-row">Buongiorno, <input placeholder="..."> Maria, sono <input placeholder="..."> , e sono <input placeholder="..."> .</div>
+            <p style="font-size:13px;color:var(--muted);margin:14px 0 10px;">Ora tocca a te — presentati con i tuoi dati:</p>
+            <div class="exercise-row">Buongiorno, sono <input placeholder="il tuo nome">, sono <input placeholder="la tua nazionalità">, e sono <input placeholder="il tuo lavoro">.</div>
+          </div>`
+      },
+      {
+        id: 'saluti', title: 'Saluti', bn: 'অভিবাদন',
+        html: `
+          <div class="lesson-section">
+            <h3>I tre saluti formali</h3>
+            <p class="sub-bn">তিনটি আনুষ্ঠানিক শুভেচ্ছা</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it" style="font-size:14px;">Buongiorno</div><div class="bn-phon">বুওনজোর্নো</div><div class="bn-mean">শুভ সকাল</div></div>
+              <div class="word-card"><div class="it" style="font-size:14px;">Buonasera</div><div class="bn-phon">বুওনাসেরা</div><div class="bn-mean">শুভ সন্ধ্যা</div></div>
+              <div class="word-card"><div class="it" style="font-size:14px;">Buonanotte</div><div class="bn-phon">বুওনানোত্তে</div><div class="bn-mean">শুভ রাত্রি</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Con amici o persone che conosci</h3>
+            <p class="sub-bn">বন্ধু বা পরিচিতদের ক্ষেত্রে</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it" style="font-size:14px;">Ciao</div><div class="bn-phon">চাও</div><div class="bn-mean">হাই</div></div>
+              <div class="word-card"><div class="it" style="font-size:14px;">Arrivederci</div><div class="bn-phon">আর্রিভেদের্চি</div><div class="bn-mean">আবার দেখা হবে</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <div class="lesson-tip">
+              In situazioni formali si usano solo Buongiorno, Buonasera, Buonanotte; con amici o conoscenti si usa CIAO. · ফরমাল ক্ষেত্রে শুধু Buongiorno, Buonasera, Buonanotte; আর বন্ধু বা পরিচিতদের ক্ষেত্রে CIAO।<br><br>
+              "Arrivederci" si può usare sia in modo formale che informale. · আমরা Arrivederci শব্দটি ফরমাল এবং ইনফরমাল উভয় ক্ষেত্রেই ব্যবহার করতে পারি।
+            </div>
+          </div>`
+      },
+      {
+        id: 'suoni-c', title: 'Suoni della C (dolci e duri)', bn: 'C এর মিষ্টি ও শক্ত উচ্চারণ',
+        html: `
+          <div class="lesson-section">
+            <h3>Suono dolce: C + I / C + E</h3>
+            <p class="sub-bn">মিষ্টি উচ্চারণ (বাংলা 'চ' এর মতো), যখন C এর পরে I অথবা E থাকে</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">cibo</div><div class="bn-phon">চিবো</div></div>
+              <div class="word-card"><div class="it">ciambella</div><div class="bn-phon">চাম্বেল্লা</div></div>
+              <div class="word-card"><div class="it">cena</div><div class="bn-phon">চেনা</div></div>
+              <div class="word-card"><div class="it">invece</div><div class="bn-phon">ইনভেচে</div></div>
+              <div class="word-card"><div class="it">bacio</div><div class="bn-phon">বাচো</div></div>
+              <div class="word-card"><div class="it">dolce</div><div class="bn-phon">দোলচে</div></div>
+              <div class="word-card"><div class="it">felice</div><div class="bn-phon">ফেলিচে</div></div>
+              <div class="word-card"><div class="it">doccia</div><div class="bn-phon">দোচ্চা</div></div>
+              <div class="word-card"><div class="it">calcio</div><div class="bn-phon">কালচো</div></div>
+              <div class="word-card"><div class="it">bicicletta</div><div class="bn-phon">বিচিক্লেত্তা</div></div>
+              <div class="word-card"><div class="it">forbici</div><div class="bn-phon">ফরবিচি</div></div>
+              <div class="word-card"><div class="it">cervello</div><div class="bn-phon">চের্ভেল্লো</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Suono duro: C + tutte le altre lettere</h3>
+            <p class="sub-bn">শক্ত উচ্চারণ (বাংলা 'ক' এর মতো), যখন C এর পরে I এবং E ছাড়া অন্য কোনো অক্ষর থাকে</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">carta</div><div class="bn-phon">কার্তা</div></div>
+              <div class="word-card"><div class="it">colore</div><div class="bn-phon">কোলোরে</div></div>
+              <div class="word-card"><div class="it">cuore</div><div class="bn-phon">কুওরে</div></div>
+              <div class="word-card"><div class="it">chilo</div><div class="bn-phon">কিলো</div></div>
+              <div class="word-card"><div class="it">barche</div><div class="bn-phon">বারকে</div></div>
+              <div class="word-card"><div class="it">camera</div><div class="bn-phon">কামেরা</div></div>
+              <div class="word-card"><div class="it">coltello</div><div class="bn-phon">কোলতেল্লো</div></div>
+              <div class="word-card"><div class="it">cucina</div><div class="bn-phon">কুচিনা</div></div>
+              <div class="word-card"><div class="it">che</div><div class="bn-phon">কে</div></div>
+              <div class="word-card"><div class="it">chi</div><div class="bn-phon">কি</div></div>
+              <div class="word-card"><div class="it">clima</div><div class="bn-phon">ক্লিমা</div></div>
+              <div class="word-card"><div class="it">caffè</div><div class="bn-phon">কাফ্ফে</div></div>
+            </div>
+            <div class="lesson-tip" style="margin-top:14px;">
+              Nota: "CH" davanti a I o E dà sempre il suono duro (che, chi). · লক্ষ্য করো: I বা E এর আগে "CH" থাকলে সবসময় শক্ত উচ্চারণ হয় (che, chi)।
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa con CHI, CHE, CI o CE:</p>
+            <div class="exercise-row">GIO<input style="width:60px" placeholder="..">STO &nbsp; <input style="width:60px" placeholder="..">NESE &nbsp; BU<input style="width:60px" placeholder="..">A &nbsp; VAC<input style="width:60px" placeholder="..">NZA</div>
+          </div>`
+      },
+      {
+        id: 'suoni-g', title: 'Suoni della G (dolci e duri)', bn: 'G এর মিষ্টি ও শক্ত উচ্চারণ',
+        html: `
+          <div class="lesson-section">
+            <h3>Suono dolce: G + I / G + E</h3>
+            <p class="sub-bn">মিষ্টি উচ্চারণ (ইংরেজি 'J' বা বাংলা 'জ' এর মতো), যখন G এর পরে I অথবা E থাকে</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">giallo</div><div class="bn-phon">জাল্লো</div></div>
+              <div class="word-card"><div class="it">giorno</div><div class="bn-phon">জোর্নো</div></div>
+              <div class="word-card"><div class="it">gente</div><div class="bn-phon">জেন্তে</div></div>
+              <div class="word-card"><div class="it">gentile</div><div class="bn-phon">জেন্তিলে</div></div>
+              <div class="word-card"><div class="it">genio</div><div class="bn-phon">জেনিও</div></div>
+              <div class="word-card"><div class="it">giro</div><div class="bn-phon">জিরো</div></div>
+              <div class="word-card"><div class="it">gigante</div><div class="bn-phon">জিগান্তে</div></div>
+              <div class="word-card"><div class="it">girasole</div><div class="bn-phon">জিরাসোলে</div></div>
+              <div class="word-card"><div class="it">giusto</div><div class="bn-phon">জুস্তো</div></div>
+              <div class="word-card"><div class="it">giovane</div><div class="bn-phon">জোভানে</div></div>
+              <div class="word-card"><div class="it">genitori</div><div class="bn-phon">জেনিতোরি</div></div>
+              <div class="word-card"><div class="it">gemello</div><div class="bn-phon">জেমেল্লো</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Suono duro: G + tutte le altre lettere</h3>
+            <p class="sub-bn">শক্ত উচ্চারণ (বাংলা 'গ' এর মতো), যখন G এর পরে I এবং E ছাড়া অন্য কোনো অক্ষর থাকে</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">guanto</div><div class="bn-phon">গুয়ান্তো</div></div>
+              <div class="word-card"><div class="it">margherita</div><div class="bn-phon">মার্গেরিতা</div></div>
+              <div class="word-card"><div class="it">funghi</div><div class="bn-phon">ফুঙ্গি</div></div>
+              <div class="word-card"><div class="it">regalo</div><div class="bn-phon">রেগালো</div></div>
+              <div class="word-card"><div class="it">ragazzo</div><div class="bn-phon">রাগাৎসো</div></div>
+              <div class="word-card"><div class="it">gomma</div><div class="bn-phon">গোম্মা</div></div>
+              <div class="word-card"><div class="it">gusto</div><div class="bn-phon">গুস্তো</div></div>
+              <div class="word-card"><div class="it">guancia</div><div class="bn-phon">গুয়ানচা</div></div>
+              <div class="word-card"><div class="it">spaghetti</div><div class="bn-phon">স্পাগেত্তি</div></div>
+              <div class="word-card"><div class="it">laghi</div><div class="bn-phon">লাগি</div></div>
+              <div class="word-card"><div class="it">gara</div><div class="bn-phon">গারা</div></div>
+              <div class="word-card"><div class="it">guerra</div><div class="bn-phon">গুয়ের্রা</div></div>
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa con GI, GE, GA, GHE, GHI, GR, GO o GU:</p>
+            <div class="exercise-row"><input style="width:60px" placeholder="..">LLO &nbsp; SPA<input style="width:60px" placeholder="..">TTI &nbsp; <input style="width:60px" placeholder="..">STO &nbsp; <input style="width:60px" placeholder="..">RRA</div>
+          </div>`
+      },
+      {
+        id: 'giorni', title: 'Giorni della settimana', bn: 'সপ্তাহের দিন',
+        html: `
+          <div class="lesson-section">
+            <h3>I sette giorni</h3>
+            <p class="sub-bn">সাতটি দিন</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it" style="font-size:13px;">Lunedì</div><div class="bn-phon">লুনেদি</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Martedì</div><div class="bn-phon">মার্তেদি</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Mercoledì</div><div class="bn-phon">মের্কোলেদি</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Giovedì</div><div class="bn-phon">জোভেদি</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Venerdì</div><div class="bn-phon">ভেনের্দি</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Sabato</div><div class="bn-phon">সাবাতো</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Domenica</div><div class="bn-phon">দোমেনিকা</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Oggi, domani, ieri</h3>
+            <p class="sub-bn">আজ, আগামীকাল, গতকাল</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it" style="font-size:14px;">Ieri</div><div class="bn-phon">ইয়েরি</div></div>
+              <div class="word-card"><div class="it" style="font-size:14px;">Oggi</div><div class="bn-phon">ওজ্জি</div></div>
+              <div class="word-card"><div class="it" style="font-size:14px;">Domani</div><div class="bn-phon">দোমানি</div></div>
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <div class="exercise-row">Ieri era sabato. Oggi è lunedì. Domani sarà <input placeholder="martedì"></div>
+            <div class="exercise-row">Ieri era giovedì. Oggi è <input placeholder="..">. Domani sarà <input placeholder="..">.</div>
+            <div class="exercise-row">Ieri era <input placeholder="..">. Oggi è martedì. Domani sarà <input placeholder="..">.</div>
+          </div>`
+      },
+      {
+        id: 'mesi', title: "Mesi dell'anno", bn: 'বছরের মাসগুলো',
+        html: `
+          <div class="lesson-section">
+            <h3>I dodici mesi</h3>
+            <p class="sub-bn">বারোটি মাস</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it" style="font-size:13px;">Gennaio</div><div class="bn-phon">জেন্নাইও</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Febbraio</div><div class="bn-phon">ফেব্রাইও</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Marzo</div><div class="bn-phon">মার্তসো</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Aprile</div><div class="bn-phon">আপ্রিলে</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Maggio</div><div class="bn-phon">মাজ্জিও</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Giugno</div><div class="bn-phon">জুন্যো</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Luglio</div><div class="bn-phon">লুল্লিও</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Agosto</div><div class="bn-phon">আগোস্তো</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Settembre</div><div class="bn-phon">সেত্তেম্ব্রে</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Ottobre</div><div class="bn-phon">ওত্তোব্রে</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Novembre</div><div class="bn-phon">নোভেম্ব্রে</div></div>
+              <div class="word-card"><div class="it" style="font-size:13px;">Dicembre</div><div class="bn-phon">দিচেম্ব্রে</div></div>
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Quando sei nato? Esempio: Sono nato il 5 giugno del 2001.</p>
+            <div class="exercise-row">Quando sei nato tu? <input placeholder="..." style="flex:1;min-width:200px;"></div>
+            <div class="exercise-row">Quando è nato tuo padre? <input placeholder="..." style="flex:1;min-width:200px;"></div>
+            <div class="exercise-row">Quando è nata tua madre? <input placeholder="..." style="flex:1;min-width:200px;"></div>
+          </div>`
+      },
+      {
+        id: 'numeri', title: 'Numeri da 1 a 20', bn: '১ থেকে ২০ পর্যন্ত সংখ্যা',
+        html: `
+          <div class="lesson-section">
+            <h3>Da 1 a 10</h3>
+            <p class="sub-bn">১ থেকে ১০</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="letter">1</div><div class="it">uno</div><div class="bn-phon">উনো</div></div>
+              <div class="word-card"><div class="letter">2</div><div class="it">due</div><div class="bn-phon">দুয়ে</div></div>
+              <div class="word-card"><div class="letter">3</div><div class="it">tre</div><div class="bn-phon">ত্রে</div></div>
+              <div class="word-card"><div class="letter">4</div><div class="it">quattro</div><div class="bn-phon">কুয়াত্ত্রো</div></div>
+              <div class="word-card"><div class="letter">5</div><div class="it">cinque</div><div class="bn-phon">চিনকুয়ে</div></div>
+              <div class="word-card"><div class="letter">6</div><div class="it">sei</div><div class="bn-phon">সেই</div></div>
+              <div class="word-card"><div class="letter">7</div><div class="it">sette</div><div class="bn-phon">সেত্তে</div></div>
+              <div class="word-card"><div class="letter">8</div><div class="it">otto</div><div class="bn-phon">ওত্তো</div></div>
+              <div class="word-card"><div class="letter">9</div><div class="it">nove</div><div class="bn-phon">নোভে</div></div>
+              <div class="word-card"><div class="letter">10</div><div class="it">dieci</div><div class="bn-phon">দিয়েচি</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Da 11 a 20</h3>
+            <p class="sub-bn">১১ থেকে ২০</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="letter">11</div><div class="it">undici</div><div class="bn-phon">উন্দিচি</div></div>
+              <div class="word-card"><div class="letter">12</div><div class="it">dodici</div><div class="bn-phon">দোদিচি</div></div>
+              <div class="word-card"><div class="letter">13</div><div class="it">tredici</div><div class="bn-phon">ত্রেদিচি</div></div>
+              <div class="word-card"><div class="letter">14</div><div class="it">quattordici</div><div class="bn-phon">কোয়াত্তোরদিচি</div></div>
+              <div class="word-card"><div class="letter">15</div><div class="it">quindici</div><div class="bn-phon">কুইন্দিচি</div></div>
+              <div class="word-card"><div class="letter">16</div><div class="it">sedici</div><div class="bn-phon">সেদিচি</div></div>
+              <div class="word-card"><div class="letter">17</div><div class="it">diciassette</div><div class="bn-phon">দিচিয়াসসেত্তে</div></div>
+              <div class="word-card"><div class="letter">18</div><div class="it">diciotto</div><div class="bn-phon">দিচোত্তো</div></div>
+              <div class="word-card"><div class="letter">19</div><div class="it">diciannove</div><div class="bn-phon">দিচিয়ানোভে</div></div>
+              <div class="word-card"><div class="letter">20</div><div class="it">venti</div><div class="bn-phon">ভেন্তি</div></div>
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scrivi il numero in lettere:</p>
+            <div class="exercise-row">9 = <input style="width:90px" placeholder="nove"> &nbsp; 2 = <input style="width:90px"> &nbsp; 10 = <input style="width:90px"> &nbsp; 7 = <input style="width:90px"></div>
+            <div class="exercise-row">16 = <input style="width:90px"> &nbsp; 18 = <input style="width:90px"> &nbsp; 20 = <input style="width:90px"> &nbsp; 12 = <input style="width:90px"></div>
+          </div>`
+      }
+    ]
+  },
+  u2: {
+    title: "Unità 2", topic: "Di dove sei?", bn: "তোমার বাড়ি কোথায়?",
+    lessons: []
+  },
+  u3: {
+    title: "Unità 3", topic: "Quanti anni hai?", bn: "তোমার বয়স কত?",
+    lessons: []
+  },
+  u4: {
+    title: "Unità 4", topic: "Impara facile", bn: "সহজে শিখুন",
+    lessons: []
+  },
+  u5: {
+    title: "Unità 5", topic: "Are-Ere-Ire", bn: "ক্রিয়া",
+    lessons: []
+  }
+};
+
+
+  /* ===== NAVIGAZIONE LEZIONI: unità → lista → lezione ===== */
+  let currentUnitId = null;
+
+  function ibpRenderUnits(){
+    const grid = document.getElementById('unit-grid');
+    grid.innerHTML = '';
+    Object.keys(LEZIONI).forEach((uid, idx) => {
+      const u = LEZIONI[uid];
+      const count = u.lessons.length;
+      const card = document.createElement('button');
+      card.className = 'unit-card';
+      card.onclick = function(){ ibpShowUnitLessons(uid); };
+      card.innerHTML =
+        '<span class="unit-num">Unità ' + (idx+1) + '</span>' +
+        '<h4>' + u.topic + '</h4>' +
+        '<p>' + u.bn + '</p>' +
+        '<div class="unit-count">' + (count > 0 ? count + ' lezioni' : 'In arrivo · শীঘ্রই আসছে') + '</div>';
+      if(count === 0){ card.style.opacity = '0.55'; card.style.cursor = 'default'; card.onclick = null; }
+      grid.appendChild(card);
+    });
+  }
+
+  window.ibpShowUnits = function(){
+    document.getElementById('lezioni-view-units').style.display = 'block';
+    document.getElementById('lezioni-view-list').style.display = 'none';
+    document.getElementById('lezioni-view-lesson').style.display = 'none';
+    ibpRenderUnits();
+  };
+
+  window.ibpShowUnitLessons = function(uid){
+    currentUnitId = uid;
+    const u = LEZIONI[uid];
+    document.getElementById('lezioni-view-units').style.display = 'none';
+    document.getElementById('lezioni-view-list').style.display = 'block';
+    document.getElementById('lezioni-view-lesson').style.display = 'none';
+
+    document.getElementById('crumb-unit-title').textContent = u.topic;
+    document.getElementById('unit-list-title').textContent = u.topic;
+    document.getElementById('unit-list-bn').textContent = u.bn;
+
+    const list = document.getElementById('lesson-list');
+    list.innerHTML = '';
+    u.lessons.forEach((lesson, i) => {
+      const item = document.createElement('button');
+      item.className = 'lesson-list-item';
+      item.onclick = function(){ ibpOpenLesson(uid, lesson.id); };
+      item.innerHTML =
+        '<span class="n">' + (i+1) + '</span>' +
+        '<span class="info"><h5>' + lesson.title + '</h5><p>' + lesson.bn + '</p></span>' +
+        '<span class="go">Apri →</span>';
+      list.appendChild(item);
+    });
+  };
+
+  window.ibpBackToLessonList = function(){
+    ibpShowUnitLessons(currentUnitId);
+  };
+
+  window.ibpOpenLesson = function(uid, lessonId){
+    currentUnitId = uid;
+    const u = LEZIONI[uid];
+    const lesson = u.lessons.find(l => l.id === lessonId);
+    if(!lesson) return;
+
+    document.getElementById('lezioni-view-units').style.display = 'none';
+    document.getElementById('lezioni-view-list').style.display = 'none';
+    document.getElementById('lezioni-view-lesson').style.display = 'block';
+    document.getElementById('crumb-unit-title-2').textContent = u.topic;
+
+    const idx = u.lessons.findIndex(l => l.id === lessonId);
+    const prevLesson = u.lessons[idx-1];
+    const nextLesson = u.lessons[idx+1];
+
+    let footerHtml = '<div>';
+    if(prevLesson) footerHtml += '<button class="btn-ghost" onclick="ibpOpenLesson(\'' + uid + '\',\'' + prevLesson.id + '\')">← ' + prevLesson.title + '</button>';
+    footerHtml += '</div><div>';
+    if(nextLesson) footerHtml += '<button class="btn-primary" style="border:none;cursor:pointer;" onclick="ibpOpenLesson(\'' + uid + '\',\'' + nextLesson.id + '\')">' + nextLesson.title + ' →</button>';
+    else footerHtml += '<button class="btn-primary" style="border:none;cursor:pointer;" onclick="ibpBackToLessonList()">Hai finito l\'unità! Torna alla lista ✓</button>';
+    footerHtml += '</div>';
+
+    document.getElementById('lesson-content').innerHTML =
+      '<div class="lesson-header">' +
+        '<div><h2>' + lesson.title + '</h2><p class="bn">' + lesson.bn + '</p></div>' +
+        '<div>' +
+          '<button class="audio-btn" onclick="ibpToggleLessonAudio(this)" ' + (lesson.audio ? '' : 'disabled') + '>▶ ' + (lesson.audio ? 'Ascolta' : 'Audio in arrivo') + '</button>' +
+          (lesson.audio ? '<audio class="audio-player" id="lesson-audio-player" src="' + lesson.audio + '"></audio>' : '') +
+        '</div>' +
+      '</div>' +
+      lesson.html +
+      '<div class="lesson-footer-nav">' + footerHtml + '</div>';
+
+    document.getElementById('cat-lezioni').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  window.ibpToggleLessonAudio = function(btn){
+    const player = document.getElementById('lesson-audio-player');
+    if(!player) return;
+    if(player.paused){
+      player.classList.add('show');
+      player.play();
+      btn.textContent = '⏸ In riproduzione...';
+    } else {
+      player.pause();
+      btn.textContent = '▶ Ascolta';
+    }
   };
 
   window.ibpShowQuizLevelSelect = function(){
@@ -3336,9 +3906,8 @@
       ["Come chiederesti a un collega di aiutarti con un compito?","একজন সহকর্মীকে একটি কাজে সাহায্য করতে কীভাবে বলবে?","Direi 'Puoi aiutarmi con questo, per favore?'.","আমি বলব 'তুমি কি এতে আমাকে সাহায্য করতে পারো, দয়া করে?'।"],
       ["Descrivi come ti senti riguardo al vivere in un nuovo paese.","একটি নতুন দেশে বসবাস করা নিয়ে তোমার অনুভূতি বর্ণনা করো।","Mi sento a volte difficile, ma sto imparando molto.","আমার কখনো কখনো কঠিন লাগে, কিন্তু আমি অনেক কিছু শিখছি।"],
       ["Come descriveresti un buon collega di lavoro?","একজন ভালো সহকর্মী কীভাবে বর্ণনা করবে?","Un buon collega è affidabile e sempre disposto ad aiutare.","একজন ভালো সহকর্মী নির্ভরযোগ্য এবং সবসময় সাহায্য করতে ইচ্ছুক।"]
-    ]
+    ],
   };
-
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -3846,6 +4415,50 @@
     if(document.getElementById('nav-panel').classList.contains('open')){ ibpCloseMenu(); }
     else{ ibpOpenMenu(); }
   }
+
+  /* ===== ROUTER: pagine separate con URL propri (#home, #quiz, #iscriviti, #faq) =====
+     Ogni sezione principale del sito diventa una "pagina" a schermo intero:
+     cliccando un link il contenuto cambia del tutto (con una piccola transizione),
+     la pagina scorre in cima, e l'URL nella barra degli indirizzi cambia — esattamente
+     come un sito multi-pagina tradizionale, ma senza dover gestire più file. */
+  const IBP_PAGES = {
+    'home': { el: 'page-home', title: 'Italiano Bangla Pro — Impara l\'italiano online' },
+    'quiz': { el: 'quiz', title: 'Area Personale — Italiano Bangla Pro' },
+    'iscriviti': { el: 'iscriviti', title: 'Iscrizione — Italiano Bangla Pro' },
+    'faq': { el: 'faq', title: 'Domande frequenti — Italiano Bangla Pro' },
+    'accesso-riservato': { el: 'accesso-riservato', title: 'Accesso riservato — Italiano Bangla Pro' }
+  };
+
+  function ibpRoute(){
+    const rawHash = (location.hash || '').replace('#','').trim();
+    const pageId = IBP_PAGES[rawHash] ? rawHash : 'home';
+    const page = IBP_PAGES[pageId];
+
+    document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById(page.el);
+    if(target) target.classList.add('active');
+
+    document.title = page.title;
+
+    // se l'hash punta a un elemento specifico dentro la pagina (es. #programma dentro Home), scorre fin lì
+    const subTarget = (rawHash && rawHash !== pageId) ? document.getElementById(rawHash) : null;
+    if(subTarget){
+      subTarget.scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    document.querySelectorAll('.navlinks a, .nav-panel a').forEach(a => {
+      const href = (a.getAttribute('href') || '').replace('#','');
+      a.classList.toggle('active-page', href === pageId || href === rawHash);
+    });
+
+    ibpCloseMenu();
+  }
+
+  window.addEventListener('hashchange', ibpRoute);
+  window.addEventListener('DOMContentLoaded', ibpRoute);
+  ibpRoute();
 
   function ibpToggleChat(){
     document.getElementById('chat-window').classList.toggle('open');
