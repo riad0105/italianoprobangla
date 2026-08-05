@@ -576,9 +576,11 @@
     position:fixed;bottom:22px;right:22px;z-index:90;
     width:60px;height:60px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;
     box-shadow:0 10px 26px rgba(255,122,61,0.35);display:flex;align-items:center;justify-content:center;
-    font-size:26px;color:var(--night);transition:transform .18s ease;
+    color:var(--night);transition:transform .18s ease;
   }
   .chat-fab:hover{transform:scale(1.06);}
+  .chat-fab svg{width:28px;height:28px;animation:ibpSparklePulse 2.4s ease-in-out infinite;}
+  @keyframes ibpSparklePulse{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.12) rotate(8deg);}}
   .chat-fab .dot{
     position:absolute;top:4px;right:4px;width:12px;height:12px;border-radius:50%;background:#b5716b;
     border:2px solid var(--night);
@@ -1483,8 +1485,13 @@
 </footer>
 
 <!-- ===== AI VIRTUAL ASSISTANT ===== -->
-<button class="chat-fab" id="chat-fab" onclick="ibpToggleChat()" aria-label="Open virtual assistant">
-  💬<span class="dot"></span>
+<button class="chat-fab" id="chat-fab" onclick="ibpToggleChat()" aria-label="Open AI assistant">
+  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M12 2L14.3 9.7L22 12L14.3 14.3L12 22L9.7 14.3L2 12L9.7 9.7Z"/>
+    <circle cx="19" cy="5" r="1.4"/>
+    <circle cx="5" cy="19" r="1"/>
+  </svg>
+  <span class="dot"></span>
 </button>
 
 <div class="chat-window" id="chat-window">
