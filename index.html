@@ -5244,7 +5244,7 @@
   const PRICE = 199;
   const EMAILJS_SERVICE = 'service_vsk4bfo';
   const EMAILJS_NOTIFY_TEMPLATE = 'template_5ctj4yx';       // a te: notifica nuova iscrizione
-  const EMAILJS_CREDENTIALS_TEMPLATE = 'YOUR_CREDENTIALS_TEMPLATE_ID'; // allo studente: email + password
+  const EMAILJS_CREDENTIALS_TEMPLATE = 'template_n1lagkj'; // allo studente: email + password
 
   emailjs.init("amI7zkN3o539HGjsb");
 
@@ -5422,8 +5422,8 @@
 
     if(accountCreated){
       emailjs.send(EMAILJS_SERVICE, EMAILJS_CREDENTIALS_TEMPLATE, {
-        to_email: enrollData.email, nome: enrollData.nome,
-        email: enrollData.email, password: password
+        to_email: enrollData.email, to_name: enrollData.nome,
+        password: password, link_area: 'https://italianoprobangla.it/#quiz'
       }).catch(err => console.error('Email credenziali non inviata:', err));
     }
 
