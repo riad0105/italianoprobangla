@@ -8,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Work+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<!-- PayPal: Client ID già configurato per Italiano Pro Bangla -->
-<script src="https://www.paypal.com/sdk/js?client-id=BAAqves8ip67wEc10f_DV7cLflPeddKcu86RId893G98evblW7QGwXsv2KclvIBLRNcKENwx2ijzomOd4g&currency=EUR"></script>
 <style>
 
   :root{
@@ -1351,7 +1349,7 @@
         </form>
       </div>
 
-      <!-- STEP 2: PAGAMENTO PAYPAL INTEGRATO -->
+      <!-- STEP 2: PAGAMENTO STRIPE -->
       <div id="enroll-payment-view" style="display:none;">
         <div class="price-summary">
           <div>
@@ -1360,8 +1358,10 @@
           </div>
           <div class="price-summary-amount">€ 199</div>
         </div>
-        <p class="cart-note" style="margin-top:0;margin-bottom:18px;">Pagamento sicuro tramite PayPal, direttamente su questa pagina — nessuna nuova scheda. · সরাসরি এই পাতায় নিরাপদ পেপ্যাল পেমেন্ট।</p>
-        <div id="paypal-button-container"></div>
+        <p class="cart-note" style="margin-top:0;margin-bottom:18px;">Pagamento sicuro con carta tramite Stripe. Verrai portato su una pagina di pagamento protetta e poi riporterà automaticamente qui. · স্ট্রাইপের মাধ্যমে নিরাপদ কার্ড পেমেন্ট।</p>
+        <div id="stripe-button-container">
+          <button class="btn-primary" style="width:100%;border:none;cursor:pointer;" onclick="ibpStartStripeCheckout()" id="stripe-pay-btn">Paga € 199 con carta →</button>
+        </div>
         <button class="btn-ghost" style="margin-top:14px;" onclick="ibpBackToEnrollForm()">← Torna al modulo</button>
       </div>
 
@@ -5232,7 +5232,7 @@
   };
 
   /* ============================================================
-     ISCRIZIONE UNIFICATA: form → pagamento PayPal (nella stessa
+     ISCRIZIONE UNIFICATA: form → pagamento Stripe (redirect alla
      pagina) → creazione automatica dell'account → email con le
      credenziali di accesso all'Area Personale.
 
@@ -5256,6 +5256,7 @@
   }
 
   let enrollData = { nome:'', email:'', telefono:'', livello:'' };
+  const AI_WORKER_URL = 'https://italiano-pro-bangla-ai.riad-hacker2017.workers.dev';
 
   document.getElementById("enrollForm").addEventListener("submit", function(e){
     e.preventDefault();
@@ -5269,7 +5270,6 @@
     document.getElementById('enroll-form-view').style.display = 'none';
     document.getElementById('enroll-payment-view').style.display = 'block';
     document.getElementById('enroll-payment-view').scrollIntoView({behavior:'smooth', block:'start'});
-    ibpRenderPayPal();
   });
 
   /* ============================================================
@@ -5309,83 +5309,132 @@
   window.ibpBackToEnrollForm = function(){
     document.getElementById('enroll-payment-view').style.display = 'none';
     document.getElementById('enroll-form-view').style.display = 'block';
-    document.getElementById('paypal-button-container').innerHTML = '';
   };
 
-  function ibpRenderPayPal(){
-    const container = document.getElementById('paypal-button-container');
-    container.innerHTML = '';
+  /* ===== STRIPE: avvia il pagamento =====
+     Il Worker crea la sessione sul server (prezzo fissato lì, non nel
+     browser) e ci restituisce l'indirizzo della pagina di pagamento
+     Stripe, dove reindirizziamo il browser. */
+  window.ibpStartStripeCheckout = async function(){
+    const btn = document.getElementById('stripe-pay-btn');
+    btn.disabled = true;
+    btn.textContent = 'Un attimo...';
+    try{
+      const res = await fetch(AI_WORKER_URL + '/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(enrollData)
+      });
+      const data = await res.json();
+      if(data.url){
+        window.location.href = data.url;
+      } else {
+        throw new Error('URL mancante');
+      }
+    }catch(err){
+      console.error('Errore avvio pagamento Stripe:', err);
+      btn.disabled = false;
+      btn.textContent = 'Paga € 199 con carta →';
+      document.getElementById('stripe-button-container').insertAdjacentHTML('beforeend',
+        '<p style="color:#b5716b;font-size:13px;text-align:center;margin-top:10px;">Il pagamento non è ancora configurato o non risponde. Contattaci su WhatsApp per completare l\'iscrizione.</p>');
+    }
+  };
 
-    if(typeof paypal === 'undefined'){
-      container.innerHTML = '<p style="color:var(--muted);font-size:13px;text-align:center;">Il pagamento PayPal non è ancora configurato su questo sito. Contattaci su WhatsApp per completare l\'iscrizione.</p>';
-      return;
+  /* ===== STRIPE: completa l'iscrizione dopo il pagamento =====
+     Alla ricarica della pagina, se nell'indirizzo c'è "stripe=success"
+     e un session_id, verifichiamo il pagamento col Worker e, se è
+     davvero pagato, creiamo l'account e mandiamo le email. */
+  async function ibpCheckStripeReturn(){
+    const params = new URLSearchParams(window.location.search);
+    if(params.get('stripe') !== 'success') return;
+    const sessionId = params.get('session_id');
+    if(!sessionId) return;
+
+    document.getElementById('enroll-form-view').style.display = 'none';
+    document.getElementById('enroll-payment-view').style.display = 'block';
+    document.getElementById('stripe-button-container').innerHTML =
+      '<p style="color:var(--muted);font-size:13px;text-align:center;">Verifica del pagamento in corso... · পেমেন্ট যাচাই করা হচ্ছে...</p>';
+
+    try{
+      const res = await fetch(AI_WORKER_URL + '/verify-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId })
+      });
+      const data = await res.json();
+
+      if(!data.paid){
+        document.getElementById('stripe-button-container').innerHTML =
+          '<p style="color:#b5716b;font-size:13px;text-align:center;">Il pagamento non risulta completato. Se hai pagato e vedi questo messaggio, scrivici su WhatsApp.</p>';
+        return;
+      }
+
+      enrollData = {
+        nome: data.nome || 'studente',
+        email: data.email,
+        telefono: data.telefono || '',
+        livello: data.livello || ''
+      };
+      await ibpCompleteEnrollment('Stripe');
+
+      // pulisce l'indirizzo per non ri-processare se l'utente ricarica la pagina
+      history.replaceState(null, '', window.location.pathname + '#iscriviti');
+    }catch(err){
+      console.error('Errore verifica pagamento Stripe:', err);
+      document.getElementById('stripe-button-container').innerHTML =
+        '<p style="color:#b5716b;font-size:13px;text-align:center;">Non riesco a verificare il pagamento adesso. Scrivici su WhatsApp con la conferma che hai ricevuto da Stripe/dalla tua banca.</p>';
+    }
+  }
+
+  /* Crea l'account dello studente e invia le email (uguale per qualunque
+     metodo di pagamento, così se in futuro se ne aggiunge un altro basta
+     richiamare questa funzione). */
+  async function ibpCompleteEnrollment(metodoPagamento){
+    const password = ibpGenPassword();
+    let accountCreated = true;
+
+    try{
+      const cred = await createUserWithEmailAndPassword(auth, enrollData.email, password);
+      await updateProfile(cred.user, { displayName: enrollData.nome });
+      await setDoc(doc(db, 'students', cred.user.uid), {
+        nome: enrollData.nome, email: enrollData.email, livello: 'A0', progress: {}, createdAt: serverTimestamp()
+      });
+    }catch(err){
+      if(err.code === 'auth/email-already-in-use'){
+        accountCreated = false; // ha già un account: nessuna nuova password da inviare
+      } else {
+        console.error('Creazione account non riuscita:', err);
+      }
     }
 
-    paypal.Buttons({
-      style: { layout: 'vertical', color: 'gold', shape: 'pill', label: 'paypal' },
-      createOrder: function(data, actions){
-        return actions.order.create({
-          purchase_units: [{
-            description: 'Corso Italiano Pro Bangla (A0-A2) — ' + enrollData.nome,
-            amount: { value: String(PRICE), currency_code: 'EUR' }
-          }]
-        });
-      },
-      onApprove: function(data, actions){
-        return actions.order.capture().then(async function(){
-          container.innerHTML = '<p style="color:var(--muted);font-size:13px;text-align:center;">Pagamento ricevuto, sto creando il tuo accesso... · পেমেন্ট গৃহীত হয়েছে...</p>';
+    addDoc(collection(db, 'iscrizioni'), {
+      nome: enrollData.nome, email: enrollData.email, telefono: enrollData.telefono,
+      livello: enrollData.livello, messaggio: 'Pagamento ' + metodoPagamento + ' completato (€' + PRICE + ')',
+      createdAt: serverTimestamp()
+    }).catch(err => console.error('Backup Firestore non riuscito:', err));
 
-          const password = ibpGenPassword();
-          let accountCreated = true;
+    emailjs.send(EMAILJS_SERVICE, EMAILJS_NOTIFY_TEMPLATE, {
+      nome: enrollData.nome, email: enrollData.email, telefono: enrollData.telefono,
+      livello: enrollData.livello,
+      messaggio: enrollData.nome + ' ha pagato €' + PRICE + ' con ' + metodoPagamento + '. ' +
+        (accountCreated ? 'Account creato automaticamente.' : 'Aveva già un account: nessuna nuova password inviata.')
+    }).catch(err => console.error('Notifica non inviata:', err));
 
-          try{
-            const cred = await createUserWithEmailAndPassword(auth, enrollData.email, password);
-            await updateProfile(cred.user, { displayName: enrollData.nome });
-            await setDoc(doc(db, 'students', cred.user.uid), {
-              nome: enrollData.nome, email: enrollData.email, livello: 'A0', progress: {}, createdAt: serverTimestamp()
-            });
-          }catch(err){
-            if(err.code === 'auth/email-already-in-use'){
-              accountCreated = false; // ha già un account: nessuna nuova password da inviare
-            } else {
-              console.error('Creazione account non riuscita:', err);
-            }
-          }
+    if(accountCreated){
+      emailjs.send(EMAILJS_SERVICE, EMAILJS_CREDENTIALS_TEMPLATE, {
+        to_email: enrollData.email, nome: enrollData.nome,
+        email: enrollData.email, password: password
+      }).catch(err => console.error('Email credenziali non inviata:', err));
+    }
 
-          addDoc(collection(db, 'iscrizioni'), {
-            nome: enrollData.nome, email: enrollData.email, telefono: enrollData.telefono,
-            livello: enrollData.livello, messaggio: 'Pagamento PayPal completato (€' + PRICE + ')',
-            createdAt: serverTimestamp()
-          }).catch(err => console.error('Backup Firestore non riuscito:', err));
-
-          // notifica a te: nuova iscrizione pagata
-          emailjs.send(EMAILJS_SERVICE, EMAILJS_NOTIFY_TEMPLATE, {
-            nome: enrollData.nome, email: enrollData.email, telefono: enrollData.telefono,
-            livello: enrollData.livello,
-            messaggio: enrollData.nome + ' ha pagato €' + PRICE + ' con PayPal. ' +
-              (accountCreated ? 'Account creato automaticamente.' : 'Aveva già un account: nessuna nuova password inviata.')
-          }).catch(err => console.error('Notifica non inviata:', err));
-
-          // email allo studente con le credenziali (solo se l'account è nuovo)
-          if(accountCreated){
-            emailjs.send(EMAILJS_SERVICE, EMAILJS_CREDENTIALS_TEMPLATE, {
-              to_email: enrollData.email, nome: enrollData.nome,
-              email: enrollData.email, password: password
-            }).catch(err => console.error('Email credenziali non inviata:', err));
-          }
-
-          document.getElementById('confirm-nome').textContent = enrollData.nome;
-          document.getElementById('enroll-payment-view').style.display = 'none';
-          document.getElementById('enroll-confirm').classList.add('show');
-          document.getElementById('enroll-confirm').scrollIntoView({behavior:'smooth', block:'start'});
-        });
-      },
-      onError: function(err){
-        console.error('Errore PayPal:', err);
-        container.innerHTML = '<p style="color:#b5716b;font-size:13px;text-align:center;">Si è verificato un errore con il pagamento. Riprova oppure scrivici su WhatsApp.</p>';
-      }
-    }).render('#paypal-button-container');
+    document.getElementById('confirm-nome').textContent = enrollData.nome;
+    document.getElementById('enroll-payment-view').style.display = 'none';
+    document.getElementById('enroll-confirm').classList.add('show');
+    document.getElementById('enroll-confirm').scrollIntoView({behavior:'smooth', block:'start'});
   }
+
+  ibpCheckStripeReturn();
+
 </script>
 
 <script>
@@ -5503,12 +5552,68 @@
     div.appendChild(btn);
   }
 
-  function ibpSpeak(text){
+  /* Sceglie la miglior voce disponibile gratis nel browser per la lingua richiesta
+     (le voci "Google" o "Natural/Online" suonano più naturali di quelle di sistema base) */
+  function ibpBestVoice(langPrefix){
+    const voices = window.speechSynthesis.getVoices();
+    const candidates = voices.filter(v => v.lang.toLowerCase().startsWith(langPrefix));
+    if(candidates.length === 0) return null;
+    const ranked = candidates.sort((a, b) => {
+      const score = v => (/google/i.test(v.name) ? 3 : 0) + (/natural|online|neural/i.test(v.name) ? 2 : 0) + (v.localService ? 0 : 1);
+      return score(b) - score(a);
+    });
+    return ranked[0];
+  }
+
+  async function ibpSpeak(text){
+    // Prova prima la voce naturale (ElevenLabs, via Worker); se non disponibile
+    // o se ha finito il limite gratuito del mese, usa la voce del browser.
+    const playedNatural = await ibpSpeakNatural(text);
+    if(playedNatural) return;
+    ibpSpeakBrowser(text);
+  }
+
+  async function ibpSpeakNatural(text){
+    if(AI_FUNCTION_URL.includes('TUO-SOTTODOMINIO')) return false;
+    try {
+      const res = await fetch(AI_FUNCTION_URL + '/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+      if(!res.ok) return false;
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.play();
+      return true;
+    } catch(err){
+      console.error('Voce naturale non disponibile:', err);
+      return false;
+    }
+  }
+
+  function ibpSpeakBrowser(text){
     if(!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = /[a-zA-Z]/.test(text) && !/[\u0980-\u09FF]/.test(text) ? 'it-IT' : 'bn-BD';
-    window.speechSynthesis.speak(utter);
+    const langPrefix = /[a-zA-Z]/.test(text) && !/[\u0980-\u09FF]/.test(text) ? 'it' : 'bn';
+
+    const speakNow = () => {
+      const utter = new SpeechSynthesisUtterance(text);
+      const voice = ibpBestVoice(langPrefix);
+      if(voice){ utter.voice = voice; utter.lang = voice.lang; }
+      else { utter.lang = langPrefix === 'it' ? 'it-IT' : 'bn-BD'; }
+      utter.rate = 0.95;
+      utter.pitch = 1;
+      window.speechSynthesis.speak(utter);
+    };
+
+    // le voci a volte si caricano in modo asincrono al primo utilizzo
+    if(window.speechSynthesis.getVoices().length === 0){
+      window.speechSynthesis.onvoiceschanged = speakNow;
+    } else {
+      speakNow();
+    }
   }
 
   /* ===== Microfono: converte la voce in testo =====
