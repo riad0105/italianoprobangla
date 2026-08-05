@@ -5451,9 +5451,16 @@
     document.getElementById('chat-window').classList.toggle('open');
   }
 
+  /* ===== Assistente AI vero (Google Gemini, gratuito, via Cloudflare Worker) =====
+     Sostituisci WORKER_URL con l'indirizzo che Cloudflare ti dà dopo
+     aver pubblicato il Worker (vedi guida). Sarà tipo:
+     https://tuo-worker.tuonome.workers.dev */
+  const AI_FUNCTION_URL = 'https://italiano-pro-bangla-ai.riad-hacker2017.workers.dev';
+  let ibpChatHistory = [];
+
   function ibpQuick(text){
     ibpPushMessage(text, 'user');
-    ibpRespond(text);
+    ibpAskAI(text);
   }
 
   function ibpSend(){
@@ -5462,7 +5469,7 @@
     if(!text) return;
     ibpPushMessage(text, 'user');
     input.value = '';
-    ibpRespond(text);
+    ibpAskAI(text);
   }
 
   function ibpPushMessage(text, who){
@@ -5474,27 +5481,59 @@
     body.scrollTop = body.scrollHeight;
   }
 
-  function ibpRespond(text){
-    const q = text.toLowerCase();
-    let reply = "আমি ঠিক বুঝতে পারিনি। সরাসরি হোয়াটসঅ্যাপে আমাদের লিখো, আমরা ব্যক্তিগতভাবে উত্তর দেব।";
-
-    if(/iscriv|iscriz|prenot|come mi|ভর্তি|রেজিস্ট্রেশন|নথিভুক্ত/.test(q)){
-      reply = "ভর্তি হতে কোনো অ্যাকাউন্ট তৈরি করার দরকার নেই। ওয়েবসাইটের 'তোমার আসন বুক করো' অংশে ফর্মটি পূরণ করো — সাথে সাথে পেমেন্টের তথ্য এবং Zoom লিংক পেয়ে যাবে। আমি কি তোমাকে সেখানে নিয়ে যাই?";
-    } else if(/prezzo|cost|quanto|খরচ|দাম|মূল্য/.test(q)){
-      reply = "সম্পূর্ণ কোর্সের (A0→A2) মূল্য ১৯৯ ইউরো, বই সহ। বিস্তারিত তথ্য 'মূল্য' সেকশনে পাবে।";
-    } else if(/orari|quando|lezion|সময়|ক্লাস|রবিবার/.test(q)){
-      reply = "প্রতি রবিবার বিকেল ৪টা থেকে ৫টা পর্যন্ত ক্লাস হয়, কখনো কখনো ইউনিট অনুযায়ী ৫:৩০ পর্যন্ত হতে পারে।";
-    } else if(/quiz|eserciz|কুইজ|অনুশীলন/.test(q)){
-      reply = "কুইজগুলো সংরক্ষিত এলাকায় আছে: বিনামূল্যে রেজিস্ট্রেশন করে এখনই অনুশীলন শুরু করতে পারো।";
-    } else if(/zero|principiante|base|শূন্য|নতুন|বেসিক/.test(q)){
-      reply = "কোনো সমস্যা নেই! A0 লেভেল একদম শূন্য থেকে শুরু হয়: বর্ণমালা, উচ্চারণ এবং প্রথম শব্দ দিয়ে।";
-    } else if(/umano|whatsapp|parlare con|মানুষ|হোয়াটসঅ্যাপ|কথা বল/.test(q)){
-      reply = "অবশ্যই! সরাসরি হোয়াটসঅ্যাপে লিখো এই নম্বরে: 351 321 2632, আমি নিজেই উত্তর দেব।";
-    } else if(/ciao|salve|buongiorno|buonasera|হ্যালো|নমস্কার|আসসালামু/.test(q)){
-      reply = "হ্যালো! 😊 ভর্তি, মূল্য অথবা ক্লাসের সময় নিয়ে যা খুশি জিজ্ঞেস করতে পারো।";
+  async function ibpAskAI(text){
+    if(AI_FUNCTION_URL.includes('TUO-SOTTODOMINIO')){
+      const typingId = ibpPushTyping();
+      setTimeout(() => ibpReplaceTyping(typingId, ibpFallbackReply(text)), 400);
+      return;
     }
+    const typingId = ibpPushTyping();
+    try {
+      const res = await fetch(AI_FUNCTION_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: ibpChatHistory })
+      });
+      const data = await res.json();
+      const reply = data.reply || ibpFallbackReply(text);
+      ibpChatHistory.push({ role: 'user', content: text });
+      ibpChatHistory.push({ role: 'assistant', content: reply });
+      ibpReplaceTyping(typingId, reply);
+    } catch (err) {
+      console.error('Errore assistente AI:', err);
+      ibpReplaceTyping(typingId, ibpFallbackReply(text));
+    }
+  }
 
-    setTimeout(()=>ibpPushMessage(reply, 'bot'), 450);
+  function ibpPushTyping(){
+    const body = document.getElementById('chat-body');
+    const div = document.createElement('div');
+    div.className = 'msg bot';
+    div.textContent = '···';
+    div.id = 'typing-' + Date.now();
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div.id;
+  }
+
+  function ibpReplaceTyping(id, reply){
+    const div = document.getElementById(id);
+    if(div){ div.textContent = reply; }
+    else { ibpPushMessage(reply, 'bot'); }
+    document.getElementById('chat-body').scrollTop = document.getElementById('chat-body').scrollHeight;
+  }
+
+  /* Risposta di riserva se la funzione AI non risponde (es. connessione assente) */
+  function ibpFallbackReply(text){
+    const q = text.toLowerCase();
+    if(/iscriv|iscriz|prenot|come mi|ভর্তি|রেজিস্ট্রেশন|নথিভুক্ত/.test(q)){
+      return "ভর্তি হতে কোনো অ্যাকাউন্ট তৈরি করার দরকার নেই। ওয়েবসাইটের 'তোমার আসন বুক করো' অংশে ফর্মটি পূরণ করো।";
+    } else if(/prezzo|cost|quanto|খরচ|দাম|মূল্য/.test(q)){
+      return "সম্পূর্ণ কোর্সের (A0→A2) মূল্য ১৯৯ ইউরো, বই সহ।";
+    } else if(/orari|quando|lezion|সময়|ক্লাস|রবিবার/.test(q)){
+      return "প্রতি রবিবার বিকেল ৪টা থেকে ৫টা পর্যন্ত ক্লাস হয়।";
+    }
+    return "দুঃখিত, এখন সংযোগ করতে পারছি না। সরাসরি হোয়াটসঅ্যাপে লেখো: 351 321 2632";
   }
 </script>
 
