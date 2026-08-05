@@ -2991,25 +2991,45 @@
      video (es. link di Google Drive/Dropbox in modalità "download diretto",
      oppure l'URL del file .mp4 caricato sul tuo hosting).
      ============================================================ */
+  /* Ogni video corrisponde a un file caricato su Cloudflare R2.
+     "key" deve essere IDENTICO al nome del file caricato lì (es. "u1-alfabeto.mp4"). */
   const VIDEOS = {
-    v1: { url: "https://esempio.com/video/lezione-1-alfabeto.mp4" },
-    v2: { url: "https://esempio.com/video/lezione-2-saluti.mp4" },
-    v3: { url: "https://esempio.com/video/lezione-3-numeri.mp4" },
-    v4: { url: "https://esempio.com/video/lezione-4-verbi.mp4" },
-    v5: { url: "https://esempio.com/video/lezione-5-conversazione.mp4" }
+    v1: { key: "u1-alfabeto.mp4" },
+    v2: { key: "INSERISCI-NOME-FILE-2.mp4" },
+    v3: { key: "INSERISCI-NOME-FILE-3.mp4" },
+    v4: { key: "INSERISCI-NOME-FILE-4.mp4" },
+    v5: { key: "INSERISCI-NOME-FILE-5.mp4" }
   };
 
-  window.ibpPlayVideo = function(videoId){
+  window.ibpPlayVideo = async function(videoId){
     const card = document.querySelector('.video-card[data-video-id="'+videoId+'"]');
     const thumb = card ? card.querySelector('.video-thumb') : null;
     const data = VIDEOS[videoId];
-    if(!card || !thumb || !data) return;
-    const video = document.createElement('video');
-    video.controls = true;
-    video.autoplay = true;
-    video.src = data.url;
-    video.textContent = 'Il tuo browser non supporta la riproduzione video.';
-    thumb.replaceWith(video);
+    if(!card || !thumb || !data || !data.key || data.key.startsWith('INSERISCI')){
+      if(thumb) thumb.insertAdjacentHTML('beforeend', '<p style="position:absolute;bottom:8px;left:8px;right:8px;font-size:11px;color:#fff;background:rgba(0,0,0,0.6);padding:4px 8px;border-radius:6px;">Video in arrivo · ভিডিও শীঘ্রই আসছে</p>');
+      return;
+    }
+    if(!currentUid || !auth.currentUser){
+      ibpShowAuthView();
+      return;
+    }
+
+    thumb.innerHTML = '<p style="color:#fff;font-size:13px;text-align:center;padding-top:40%;">Caricamento video... · লোড হচ্ছে...</p>';
+
+    try {
+      const idToken = await auth.currentUser.getIdToken();
+      const video = document.createElement('video');
+      video.controls = true;
+      video.autoplay = true;
+      video.style.width = '100%';
+      video.style.borderRadius = '10px';
+      video.src = AI_WORKER_URL + '/video/' + encodeURIComponent(data.key) + '?token=' + encodeURIComponent(idToken);
+      video.textContent = 'Il tuo browser non supporta la riproduzione video.';
+      thumb.replaceWith(video);
+    } catch(err){
+      console.error('Errore caricamento video:', err);
+      thumb.innerHTML = '<p style="color:#fff;font-size:13px;text-align:center;padding-top:40%;">Errore nel caricamento. Riprova o scrivici su WhatsApp.</p>';
+    }
   };
 
   const EXERCISES_META = {
