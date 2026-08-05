@@ -1913,7 +1913,204 @@
   },
   u2: {
     title: "Unità 2", topic: "Di dove sei?", bn: "তোমার বাড়ি কোথায়?",
-    lessons: []
+    lessons: [
+      {
+        id: 'presentarsi-luilei', title: 'Presentarsi (Lui/Lei)', bn: 'পরিচয় করানো (সে)', audio: 'PRESENTARSI2.mp3',
+        html: `
+          <div class="lesson-section">
+            <h3>Chiedere e dire di dove sei</h3>
+            <p class="sub-bn">তুমি কোথাকার তা জিজ্ঞেস করা ও বলা</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Tu di dove sei?</div><div class="bn-phon">তু দি দোভে সেই</div><div class="bn-mean">তোমার দেশের বাড়ি কোথায়?</div></div>
+              <div class="word-card"><div class="it">Io sono bengalese.</div><div class="bn-phon">ইও সোনো বেঙ্গালেজে</div><div class="bn-mean">আমি বাংলাদেশী।</div></div>
+              <div class="word-card"><div class="it">Io sono italiano.</div><div class="bn-phon">ইও সোনো ইতালিয়ানো</div><div class="bn-mean">আমি ইতালিয়ান।</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Lui / Lei — "সে"</h3>
+            <p class="sub-bn">ইতালিয়ান ভাষায় "সে" পুরুষ (Lui) ও নারী (Lei) আলাদা করে বলা হয়, কিন্তু বাংলায় দুটোই "সে"</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Lui chi è?</div><div class="bn-phon">লুই কি এ</div><div class="bn-mean">সে কে? (পুরুষ)</div></div>
+              <div class="word-card"><div class="it">Lui è Abdul.</div><div class="bn-phon">লুই এ আবদুল</div><div class="bn-mean">সে আব্দুল।</div></div>
+              <div class="word-card"><div class="it">Lei chi è?</div><div class="bn-phon">লেই কি এ</div><div class="bn-mean">সে কে? (নারী)</div></div>
+              <div class="word-card"><div class="it">Lei è Amena.</div><div class="bn-phon">লেই এ আমেনা</div><div class="bn-mean">সে আমেনা।</div></div>
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scrivi Lui è / Lei è davanti al nome giusto:</p>
+            <div class="exercise-row">Maria = <input style="width:110px" placeholder="Lei è"> &nbsp; Aldo = <input style="width:110px" placeholder="Lui è"></div>
+            <div class="exercise-row">Amena = <input style="width:110px"> &nbsp; Abdul = <input style="width:110px"></div>
+            <div class="exercise-row">Salman = <input style="width:110px"> &nbsp; Sokina = <input style="width:110px"></div>
+          </div>`
+      },
+      {
+        id: 'di-dove-e', title: 'Di dove è?', bn: 'তার দেশের বাড়ি কোথায়?', audio: 'LUI_LEI.mp3',
+        html: `
+          <div class="lesson-section">
+            <h3>Chiedere la nazionalità di qualcun altro</h3>
+            <p class="sub-bn">অন্য কারো দেশের বাড়ি সম্পর্কে জিজ্ঞেস করা</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Lui è Riad.</div><div class="bn-phon">লুই এ রিয়াদ</div><div class="bn-mean">সে রিয়াদ।</div></div>
+              <div class="word-card"><div class="it">Di dove è lui?</div><div class="bn-phon">দি দোভে এ লুই</div><div class="bn-mean">তার দেশের বাড়ি কোথায়?</div></div>
+              <div class="word-card"><div class="it">Lui è italiano.</div><div class="bn-phon">লুই এ ইতালিয়ানো</div><div class="bn-mean">সে ইতালিয়ান।</div></div>
+              <div class="word-card"><div class="it">Lei è Sokina.</div><div class="bn-phon">লেই এ সকিনা</div><div class="bn-mean">সে সকিনা।</div></div>
+              <div class="word-card"><div class="it">Di dove è lei?</div><div class="bn-phon">দি দোভে এ লেই</div><div class="bn-mean">তার দেশের বাড়ি কোথায়?</div></div>
+              <div class="word-card"><div class="it">Lei è bengalese.</div><div class="bn-phon">লেই এ বেঙ্গালেজে</div><div class="bn-mean">সে বাংলাদেশী।</div></div>
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Chiedi a un tuo compagno · সহপাঠীকে জিজ্ঞেস করো</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa con il nome di un compagno di classe:</p>
+            <div class="exercise-row">Lui/Lei si chiama <input style="width:140px">, </div>
+            <div class="exercise-row">Lui/Lei è <input style="width:160px">,</div>
+            <div class="exercise-row">Di dove è? <input style="width:160px">, Lui/Lei è <input style="width:160px">.</div>
+          </div>`
+      },
+      {
+        id: 'negazione', title: 'La negazione (Non)', bn: 'না-বাচক বাক্য', audio: 'NON.mp3',
+        html: `
+          <div class="lesson-section">
+            <h3>Come dire "no" in italiano</h3>
+            <p class="sub-bn">ইতালিয়ানে কীভাবে "না" বলবে — verbo-র আগে "Non" বসিয়ে</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Tu sei italiana?</div><div class="bn-phon">তু সেই ইতালিয়ানা</div><div class="bn-mean">তুমি কি ইতালিয়ান?</div></div>
+              <div class="word-card"><div class="it">No, non sono italiana.</div><div class="bn-phon">নো নন সোনো ইতালিয়ানা</div><div class="bn-mean">না, আমি ইতালিয়ান নই।</div></div>
+              <div class="word-card"><div class="it">Sono bengalese.</div><div class="bn-phon">সোনো বেঙ্গালেজে</div><div class="bn-mean">আমি বাংলাদেশী।</div></div>
+              <div class="word-card"><div class="it">Lui non è cingalese.</div><div class="bn-phon">লুই নন এ চিঙ্গালেজে</div><div class="bn-mean">সে শ্রীলঙ্কান না।</div></div>
+              <div class="word-card"><div class="it">È brasiliano.</div><div class="bn-phon">এ ব্রাজিলিয়ানো</div><div class="bn-mean">সে ব্রাজিলিয়ান।</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <div class="lesson-tip">
+              <b>Regola · নিয়ম</b><br>
+              না-বাচক বাক্য বানাতে ক্রিয়ার (verbo) ঠিক আগে "Non" বসাও: Non sono, Non sei, Non è ইত্যাদি।
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Rispondi con "No, non...":</p>
+            <div class="exercise-row">Mia è italiana? No, non <input style="width:220px"></div>
+            <div class="exercise-row">Priya è bengalese? No, <input style="width:220px"></div>
+            <div class="exercise-row">Salman è cingalese? No, <input style="width:220px"></div>
+          </div>`
+      },
+      {
+        id: 'nazionalita', title: 'Nazionalità', bn: 'জাতীয়তা', audio: 'NAZIONALITA.mp3',
+        html: `
+          <div class="lesson-section">
+            <h3>I nomi delle nazionalità</h3>
+            <p class="sub-bn">পুরুষবাচক শব্দ সাধারণত '-O' দিয়ে, নারীবাচক '-A' দিয়ে শেষ হয়</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Italia → Italiano / Italiana</div><div class="bn-phon">ইতালিয়ানো / ইতালিয়ানা</div></div>
+              <div class="word-card"><div class="it">India → Indiano / Indiana</div><div class="bn-phon">ইন্দিয়ানো / ইন্দিয়ানা</div></div>
+              <div class="word-card"><div class="it">Sri Lanka → Cingalese</div><div class="bn-phon">চিঙ্গালেজে</div><div class="bn-mean">(দুজনের জন্যই একই)</div></div>
+              <div class="word-card"><div class="it">Romania → Rumeno / Rumena</div><div class="bn-phon">রুমেনো / রুমেনা</div></div>
+              <div class="word-card"><div class="it">Marocco → Marocchino / Marocchina</div><div class="bn-phon">মারোক্কিনো / মারোক্কিনা</div></div>
+              <div class="word-card"><div class="it">Russia → Russo / Russa</div><div class="bn-phon">রুসসো / রুসসা</div></div>
+              <div class="word-card"><div class="it">Germania → Tedesco / Tedesca</div><div class="bn-phon">তেদেস্কো / তেদেস্কা</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <div class="lesson-tip">
+              <b>Consiglio · পরামর্শ</b><br>
+              বেশিরভাগ জাতীয়তা পুরুষবাচক হলে '-O' দিয়ে শেষ হয় (Italiano, Indiano), নারীবাচক হলে '-A' (Italiana, Indiana)। তবে 'Cingalese'-এর মতো কিছু শব্দ দুজনের জন্যই একই থাকে।
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa (Lei è...):</p>
+            <div class="exercise-row">Bengalese: Lei è <input style="width:160px"></div>
+            <div class="exercise-row">Polacco: Lui è <input style="width:160px"></div>
+            <div class="exercise-row">Spagnola: Lei è <input style="width:160px"></div>
+          </div>`
+      },
+      {
+        id: 'continenti', title: 'Nazionalità e Continenti', bn: 'জাতীয়তা ও মহাদেশ', audio: 'CONTINENTI.mp3',
+        html: `
+          <div class="lesson-section">
+            <h3>I continenti</h3>
+            <p class="sub-bn">পাঁচটি মহাদেশ ও তার বিশেষণ (পুরুষ/নারী রূপ)</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Asia → Asiatico / Asiatica</div><div class="bn-phon">আসিয়াতিকো / আসিয়াতিকা</div></div>
+              <div class="word-card"><div class="it">Africa → Africano / Africana</div><div class="bn-phon">আফ্রিকানো / আফ্রিকানা</div></div>
+              <div class="word-card"><div class="it">Nord America → Nordamericano/a</div><div class="bn-phon">নর্দআমেরিকানো/না</div></div>
+              <div class="word-card"><div class="it">Europa → Europeo / Europea</div><div class="bn-phon">এউরোপেও / এউরোপেয়া</div></div>
+              <div class="word-card"><div class="it">Sud America → Sudamericano/a</div><div class="bn-phon">সুদআমেরিকানো/না</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <p style="font-size:14px;"><b>Esempio · উদাহরণ:</b> Io sono indiana, sono asiatica. <span class="bn-mean">(আমি ইন্ডিয়ান, আমি এশিয়ান।)</span></p>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Tocca a te · এবার তোমার পালা</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scrivi la tua nazionalità e il tuo continente:</p>
+            <div class="exercise-row">Io sono <input style="width:160px">, sono <input style="width:160px">.</div>
+          </div>`
+      },
+      {
+        id: 'colori', title: 'Colori', bn: 'রঙ', audio: 'COLORI.mp3',
+        html: `
+          <div class="lesson-section">
+            <h3>I colori</h3>
+            <p class="sub-bn">রঙের নাম</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#fff;border:1px solid var(--line);margin:0 auto 6px;"></div><div class="it">Bianco</div><div class="bn-phon">বিয়াংকো</div><div class="bn-mean">সাদা</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#111;margin:0 auto 6px;"></div><div class="it">Nero</div><div class="bn-phon">নেরো</div><div class="bn-mean">কালো</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#d21f1f;margin:0 auto 6px;"></div><div class="it">Rosso</div><div class="bn-phon">রোসসো</div><div class="bn-mean">লাল</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#1743c4;margin:0 auto 6px;"></div><div class="it">Blu</div><div class="bn-phon">ব্লু</div><div class="bn-mean">নীল (গাঢ়)</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#7ec8ec;margin:0 auto 6px;"></div><div class="it">Azzurro</div><div class="bn-phon">আজ্জুররো</div><div class="bn-mean">আকাশী নীল</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#f4d81c;margin:0 auto 6px;"></div><div class="it">Giallo</div><div class="bn-phon">জাল্লো</div><div class="bn-mean">হলুদ</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#4c7a1f;margin:0 auto 6px;"></div><div class="it">Verde</div><div class="bn-phon">ভের্দে</div><div class="bn-mean">সবুজ</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#f0761e;margin:0 auto 6px;"></div><div class="it">Arancione</div><div class="bn-phon">আরানচোনে</div><div class="bn-mean">কমলা</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#6b4118;margin:0 auto 6px;"></div><div class="it">Marrone</div><div class="bn-phon">মাররোনে</div><div class="bn-mean">বাদামী</div></div>
+              <div class="word-card"><div class="letter" style="width:26px;height:26px;border-radius:50%;background:#f0a8d0;margin:0 auto 6px;"></div><div class="it">Rosa</div><div class="bn-phon">রোজা</div><div class="bn-mean">গোলাপী</div></div>
+            </div>
+          </div>`
+      },
+      {
+        id: 'verbo-essere', title: 'Verbo Essere', bn: "'হওয়া' ক্রিয়া", audio: 'VERBO_ESSERE.mp3',
+        html: `
+          <div class="lesson-section">
+            <h3>Coniugazione di Essere (presente)</h3>
+            <p class="sub-bn">'হওয়া' ক্রিয়ার রূপ</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Io sono</div><div class="bn-phon">ইও সোনো</div></div>
+              <div class="word-card"><div class="it">Tu sei</div><div class="bn-phon">তু সেই</div></div>
+              <div class="word-card"><div class="it">Lui/Lei è</div><div class="bn-phon">লুই/লেই এ</div></div>
+              <div class="word-card"><div class="it">Noi siamo</div><div class="bn-phon">নোই সিয়ামো</div></div>
+              <div class="word-card"><div class="it">Voi siete</div><div class="bn-phon">ভোই সিয়েতে</div></div>
+              <div class="word-card"><div class="it">Loro sono</div><div class="bn-phon">লোরো সোনো</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <h3>Come si usa</h3>
+            <p class="sub-bn">কখন 'Essere' ব্যবহার করবে</p>
+            <div class="word-grid">
+              <div class="word-card"><div class="it">Identità: Io sono Riad.</div><div class="bn-mean">পরিচয়: আমি রিয়াদ।</div></div>
+              <div class="word-card"><div class="it">Nazionalità: Lei è italiana.</div><div class="bn-mean">দেশ: সে ইতালিয়ান।</div></div>
+              <div class="word-card"><div class="it">Professione: Io sono studente.</div><div class="bn-mean">কাজ: আমি ছাত্র।</div></div>
+              <div class="word-card"><div class="it">Posizione: Io sono a casa.</div><div class="bn-mean">জায়গা: আমি বাড়িতে।</div></div>
+              <div class="word-card"><div class="it">Descrizione: Io sono bravo.</div><div class="bn-mean">গুণ: আমি ভালো।</div></div>
+              <div class="word-card"><div class="it">Numeri: Sono le 14:00.</div><div class="bn-mean">সংখ্যা: দুপুর ২টা বাজে।</div></div>
+            </div>
+          </div>
+          <div class="lesson-section">
+            <div class="lesson-tip">
+              <b>Consiglio · পরামর্শ</b><br>
+              বয়স ছাড়া প্রায় সব ক্ষেত্রে 'Essere' ব্যবহার হয়। বয়স বলার সময় 'Essere' নয়, বরং 'Avere' ক্রিয়া ব্যবহার করতে হয় (এটা পরের ইউনিটে শিখবে)।
+            </div>
+          </div>
+          <div class="exercise-block">
+            <div class="ex-title">Esercizio · অনুশীলন</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scegli la forma giusta:</p>
+            <div class="exercise-row">Io ( sono / sei ) in Italia da due mesi.</div>
+            <div class="exercise-row">Noi ( siamo / sono ) amici.</div>
+            <div class="exercise-row">Scusa, tu di dove ( sei / è )?</div>
+            <div class="exercise-row">Ragazzi, voi ( siete / siamo ) pronti?</div>
+          </div>`
+      }
+    ]
   },
   u3: {
     title: "Unità 3", topic: "Quanti anni hai?", bn: "তোমার বয়স কত?",
