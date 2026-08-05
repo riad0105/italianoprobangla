@@ -617,6 +617,11 @@
     width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--night);border:none;
     cursor:pointer;font-size:16px;flex-shrink:0;
   }
+  .chat-input-row .mic-btn{background:none;border:1px solid var(--line);color:var(--paper);}
+  .chat-input-row .mic-btn.listening{background:#b5716b;color:#fff;border-color:#b5716b;animation:ibpMicPulse 1.1s ease-in-out infinite;}
+  @keyframes ibpMicPulse{0%,100%{box-shadow:0 0 0 0 rgba(181,113,107,0.5);}50%{box-shadow:0 0 0 8px rgba(181,113,107,0);}}
+  .speak-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:2px 4px;margin-top:4px;}
+  .speak-btn:hover{color:var(--gold);}
   @media(max-width:480px){
     .chat-window{right:16px;bottom:88px;}
     .chat-fab{right:16px;bottom:16px;}
@@ -1504,10 +1509,11 @@
     <button class="chat-close" onclick="ibpToggleChat()" aria-label="Close chat">✕</button>
   </div>
   <div class="chat-body" id="chat-body">
-    <div class="msg bot">Hello! 👋 I'm an AI assistant here to help you with anything — questions about the course, the lessons, or anything else you'd like to know. How can I help?</div>
+    <div class="msg bot">Hello! 👋 I'm an AI assistant here to help you with anything — questions about the course, or practice speaking Italian with me (try the microphone 🎤). How can I help?</div>
   </div>
   <div class="chat-input-row">
-    <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')ibpSend()">
+    <button class="mic-btn" id="mic-btn" onclick="ibpToggleVoice()" aria-label="Speak your message" title="Tap to speak (Italian)">🎤</button>
+    <input type="text" id="chat-input" placeholder="Type a message or tap the mic..." onkeydown="if(event.key==='Enter')ibpSend()">
     <button onclick="ibpSend()" aria-label="Send message">➤</button>
   </div>
 </div>
@@ -5478,8 +5484,78 @@
     const div = document.createElement('div');
     div.className = 'msg ' + who;
     div.textContent = text;
+    if(who === 'bot'){ ibpAddSpeakButton(div, text); }
     body.appendChild(div);
     body.scrollTop = body.scrollHeight;
+  }
+
+  /* ===== Altoparlante: legge ad alta voce le risposte dell'assistente =====
+     Usa la funzione "Speech Synthesis" già integrata gratuitamente nel browser. */
+  function ibpAddSpeakButton(div, text){
+    if(!('speechSynthesis' in window)) return;
+    const btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Listen to this message');
+    btn.textContent = '🔊 Listen';
+    btn.onclick = () => ibpSpeak(text);
+    div.appendChild(document.createElement('br'));
+    div.appendChild(btn);
+  }
+
+  function ibpSpeak(text){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = /[a-zA-Z]/.test(text) && !/[\u0980-\u09FF]/.test(text) ? 'it-IT' : 'bn-BD';
+    window.speechSynthesis.speak(utter);
+  }
+
+  /* ===== Microfono: converte la voce in testo =====
+     Usa la funzione "Speech Recognition" già integrata gratuitamente nel browser
+     (funziona su Chrome/Edge desktop e Android; non su Safari/iOS). */
+  let ibpRecognition = null;
+  let ibpListening = false;
+
+  function ibpToggleVoice(){
+    const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!SpeechRecognitionAPI){
+      alert('Voice input is not supported in this browser. Try Chrome or Edge.');
+      return;
+    }
+    const micBtn = document.getElementById('mic-btn');
+
+    if(ibpListening){
+      ibpRecognition && ibpRecognition.stop();
+      return;
+    }
+
+    ibpRecognition = new SpeechRecognitionAPI();
+    ibpRecognition.lang = 'it-IT';
+    ibpRecognition.interimResults = false;
+    ibpRecognition.maxAlternatives = 1;
+
+    ibpRecognition.onstart = () => {
+      ibpListening = true;
+      micBtn.classList.add('listening');
+      micBtn.textContent = '⏹';
+    };
+    ibpRecognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      document.getElementById('chat-input').value = transcript;
+      ibpSend();
+    };
+    ibpRecognition.onerror = () => {
+      ibpListening = false;
+      micBtn.classList.remove('listening');
+      micBtn.textContent = '🎤';
+    };
+    ibpRecognition.onend = () => {
+      ibpListening = false;
+      micBtn.classList.remove('listening');
+      micBtn.textContent = '🎤';
+    };
+    ibpRecognition.start();
   }
 
   async function ibpAskAI(text){
@@ -5519,7 +5595,7 @@
 
   function ibpReplaceTyping(id, reply){
     const div = document.getElementById(id);
-    if(div){ div.textContent = reply; }
+    if(div){ div.textContent = reply; div.removeAttribute('id'); ibpAddSpeakButton(div, reply); }
     else { ibpPushMessage(reply, 'bot'); }
     document.getElementById('chat-body').scrollTop = document.getElementById('chat-body').scrollHeight;
   }
