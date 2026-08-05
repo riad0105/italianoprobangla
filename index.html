@@ -1482,8 +1482,8 @@
   </div>
 </footer>
 
-<!-- ===== ASSISTENTE VIRTUALE AI ===== -->
-<button class="chat-fab" id="chat-fab" onclick="ibpToggleChat()" aria-label="Apri assistente virtuale">
+<!-- ===== AI VIRTUAL ASSISTANT ===== -->
+<button class="chat-fab" id="chat-fab" onclick="ibpToggleChat()" aria-label="Open virtual assistant">
   💬<span class="dot"></span>
 </button>
 
@@ -1491,23 +1491,17 @@
   <div class="chat-head">
     <div class="av">IB</div>
     <div>
-      <h4>ইতালিয়ানো বাংলা প্রো অ্যাসিস্ট্যান্ট</h4>
-      <p>এখন অনলাইন</p>
+      <h4>Italiano Pro Bangla Assistant</h4>
+      <p>Online now</p>
     </div>
-    <button class="chat-close" onclick="ibpToggleChat()" aria-label="চ্যাট বন্ধ করো">✕</button>
+    <button class="chat-close" onclick="ibpToggleChat()" aria-label="Close chat">✕</button>
   </div>
   <div class="chat-body" id="chat-body">
-    <div class="msg bot">হ্যালো! 👋 আমি এখানে আছি কোর্সে ভর্তি হতে সাহায্য করতে বা তোমার প্রশ্নের উত্তর দিতে। কীভাবে সাহায্য করতে পারি?</div>
-  </div>
-  <div class="chat-quick" id="chat-quick">
-    <button onclick="ibpQuick('কীভাবে ভর্তি হব?')">কীভাবে ভর্তি হব?</button>
-    <button onclick="ibpQuick('খরচ কত?')">খরচ কত?</button>
-    <button onclick="ibpQuick('ক্লাসের সময় কখন?')">ক্লাসের সময়</button>
-    <button onclick="ibpQuick('মানুষের সাথে কথা বলতে চাই')">সরাসরি কথা বলতে চাই</button>
+    <div class="msg bot">Hello! 👋 I'm an AI assistant here to help you with anything — questions about the course, the lessons, or anything else you'd like to know. How can I help?</div>
   </div>
   <div class="chat-input-row">
-    <input type="text" id="chat-input" placeholder="একটি বার্তা লিখো..." onkeydown="if(event.key==='Enter')ibpSend()">
-    <button onclick="ibpSend()" aria-label="বার্তা পাঠাও">➤</button>
+    <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')ibpSend()">
+    <button onclick="ibpSend()" aria-label="Send message">➤</button>
   </div>
 </div>
 <script type="module">
