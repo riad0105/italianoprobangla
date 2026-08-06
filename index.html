@@ -1630,13 +1630,34 @@
   /* ===== NAVIGAZIONE AREA PERSONALE: hub → categoria → livello ===== */
   window.ibpShowCategory = function(cat){
     if(!currentUid && (cat === 'libri' || cat === 'video')){ ibpShowAuthView(); return; }
+
+    if(cat === 'quiz'){
+      const nextId = ibpNextExerciseId();
+      if(nextId === null){
+        // ha già completato tutto quello che ha sbloccato: mostra comunque
+        // la lista, così vede il riepilogo e può ripetere un esercizio
+        document.getElementById('area-hub').style.display = 'none';
+        document.getElementById('cat-lezioni').style.display = 'none';
+        document.getElementById('cat-quiz').style.display = 'block';
+        document.getElementById('cat-libri').style.display = 'none';
+        document.getElementById('cat-video').style.display = 'none';
+        ibpShowQuizLevelSelect();
+        document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
+        return;
+      }
+      if(!currentUid && nextId !== 1){ ibpShowAuthView(); return; }
+      document.getElementById('area-hub').style.display = 'none';
+      document.getElementById('cat-quiz').style.display = 'block';
+      ibpOpenQuiz(nextId);
+      return;
+    }
+
     document.getElementById('area-hub').style.display = 'none';
     document.getElementById('cat-lezioni').style.display = (cat === 'lezioni') ? 'block' : 'none';
-    document.getElementById('cat-quiz').style.display = (cat === 'quiz') ? 'block' : 'none';
+    document.getElementById('cat-quiz').style.display = 'none';
     document.getElementById('cat-libri').style.display = (cat === 'libri') ? 'block' : 'none';
     document.getElementById('cat-video').style.display = (cat === 'video') ? 'block' : 'none';
     if(cat === 'lezioni') ibpShowUnits();
-    if(cat === 'quiz') ibpShowQuizLevelSelect();
     if(cat === 'video') ibpShowVideoLevelSelect();
     document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
   };
@@ -5190,6 +5211,19 @@
     return !!(prev && prev.done);
   }
 
+  /* Trova il prossimo esercizio da fare (il primo non ancora completato tra
+     quelli sbloccati), per portare lo studente dritto al quiz giusto con un
+     solo click, senza passare da menu di livello/unità/lista esercizi.
+     Ritorna null se ha già completato tutto quello che ha sbloccato finora. */
+  function ibpNextExerciseId(){
+    for(let i=1;i<=TOTAL_EXERCISES;i++){
+      if(!ibpExerciseUnlocked(i)) break;
+      const state = ibpExState(i);
+      if(!state || !state.done) return i;
+    }
+    return null;
+  }
+
   function ibpRenderProgress(){
     for(let i=1;i<=TOTAL_EXERCISES;i++){
       const lv = document.getElementById('lv-'+i);
@@ -5283,6 +5317,7 @@
 
   /* Torna dalla pagina del quiz alla lista esercizi del livello corretto */
   window.ibpBackToQuizList = function(){
+    ibpPlaySound('click');
     const playView = document.getElementById('quiz-play-view');
     playView.style.display = 'none';
     playView.classList.remove('quiz-fullscreen');
@@ -5297,6 +5332,7 @@
 
   window.ibpPrevQuestion = function(){
     if(currentQIndex === 0) return;
+    ibpPlaySound('click');
     currentQIndex--;
     ibpRenderQuestion();
   };
@@ -5473,7 +5509,7 @@
       btn.innerHTML = '<span class="opt-it">'+p[0]+'</span>';
       if(window._ibpMatchMatched.has(i)){ btn.disabled = true; btn.classList.add('correct'); }
       else if(window._ibpMatchLeftSel === i){ btn.style.boxShadow = 'inset 0 0 0 2px var(--gold)'; }
-      btn.onclick = function(){ window._ibpMatchLeftSel = i; ibpRenderQuestion(); };
+      btn.onclick = function(){ ibpPlaySound('click'); window._ibpMatchLeftSel = i; ibpRenderQuestion(); };
       left.appendChild(btn);
     });
 
@@ -5492,8 +5528,11 @@
           if(window._ibpMatchMatched.size === q.pairs.length){
             currentAnswers[currentQIndex] = { correct: true, chosenIndex: null };
             ibpAwardPoints(true);
+          } else {
+            ibpPlaySound('correct');
           }
         } else {
+          ibpPlaySound('wrong');
           window._ibpMatchLeftSel = null;
         }
         ibpRenderQuestion();
@@ -5541,6 +5580,7 @@
       chip.className = 'opt'; chip.style.cssText = 'width:auto;padding:8px 14px;';
       chip.textContent = item.w;
       chip.onclick = function(){
+        ibpPlaySound('click');
         window._ibpReorderChosen.splice(pos,1);
         window._ibpReorderPool.push(item);
         ibpRenderQuestion();
@@ -5556,6 +5596,7 @@
       chip.className = 'opt'; chip.style.cssText = 'width:auto;padding:8px 14px;';
       chip.textContent = item.w;
       chip.onclick = function(){
+        ibpPlaySound('click');
         window._ibpReorderPool.splice(idx,1);
         window._ibpReorderChosen.push(item);
         if(window._ibpReorderPool.length === 0){
@@ -5583,13 +5624,25 @@
       try{ _ibpAudioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
       catch(e){ return null; }
     }
-    if(_ibpAudioCtx.state === 'suspended'){ _ibpAudioCtx.resume().catch(function(){}); }
     return _ibpAudioCtx;
   }
+  // Sblocca l'audio alla primissima interazione dell'utente con la pagina
+  // (i browser bloccano l'audio finché non c'è un tocco/click reale) — così
+  // quando serve davvero un suono (risposta, click) è già pronto e non manca
+  // il primo suono per il ritardo di attivazione.
+  function ibpUnlockAudioOnce(){
+    const ctx = ibpGetAudioCtx();
+    if(ctx && ctx.state === 'suspended'){ ctx.resume().catch(function(){}); }
+    document.removeEventListener('pointerdown', ibpUnlockAudioOnce);
+    document.removeEventListener('keydown', ibpUnlockAudioOnce);
+  }
+  document.addEventListener('pointerdown', ibpUnlockAudioOnce, { once:true });
+  document.addEventListener('keydown', ibpUnlockAudioOnce, { once:true });
 
   function ibpPlaySound(kind){
     const ctx = ibpGetAudioCtx();
     if(!ctx) return;
+    if(ctx.state === 'suspended'){ ctx.resume().catch(function(){}); }
     try{
       if(kind === 'correct'){
         [660, 880].forEach(function(freq, i){
@@ -5602,7 +5655,7 @@
           g.gain.exponentialRampToValueAtTime(0.0001, start+0.22);
           o.start(start); o.stop(start+0.24);
         });
-      } else {
+      } else if(kind === 'wrong'){
         const o = ctx.createOscillator(); const g = ctx.createGain();
         o.type = 'sawtooth'; o.frequency.value = 140;
         o.connect(g); g.connect(ctx.destination);
@@ -5611,6 +5664,16 @@
         g.gain.exponentialRampToValueAtTime(0.18, start+0.02);
         g.gain.exponentialRampToValueAtTime(0.0001, start+0.35);
         o.start(start); o.stop(start+0.36);
+      } else {
+        // 'click': ticchettio breve e neutro per navigazione/selezione
+        const o = ctx.createOscillator(); const g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = 520;
+        o.connect(g); g.connect(ctx.destination);
+        const start = ctx.currentTime;
+        g.gain.setValueAtTime(0.0001, start);
+        g.gain.exponentialRampToValueAtTime(0.12, start+0.008);
+        g.gain.exponentialRampToValueAtTime(0.0001, start+0.07);
+        o.start(start); o.stop(start+0.08);
       }
     } catch(e){ /* audio non disponibile: nessun problema, si ignora */ }
   }
@@ -5650,6 +5713,7 @@
 
   window.ibpNextQuestion = async function(){
     const list = QUIZZES['ex'+openExerciseId];
+    ibpPlaySound('click');
     if(currentQIndex < list.length - 1){
       currentQIndex++;
       ibpRenderQuestion();
