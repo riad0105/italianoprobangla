@@ -3022,32 +3022,61 @@
     v5: { key: "INSERISCI-NOME-FILE-5.mp4" }
   };
 
-  // Marca ogni card video come "pronta" (video-ready) o "in arrivo" (video-soon)
-  // guardando automaticamente l'oggetto VIDEOS qui sopra — non serve caricare
-  // nessuna immagine: basta cambiare il "key" di un video per farlo diventare
-  // visivamente disponibile.
+  /* Ordine di sblocco progressivo dei video: v2 si sblocca solo dopo aver
+     guardato v1, v3 dopo v2, ecc. Stesso principio dei quiz: non si può
+     saltare avanti. Il "visto" viene salvato per ogni studente in Firestore
+     (currentProgress['video_'+id]) appena il video inizia a essere riprodotto. */
+  const VIDEO_ORDER = ['v1','v2','v3','v4','v5'];
+
+  function ibpVideoWatched(videoId){
+    return !!(currentProgress && currentProgress['video_'+videoId]);
+  }
+
+  function ibpVideoUnlocked(videoId){
+    const idx = VIDEO_ORDER.indexOf(videoId);
+    if(idx <= 0) return true; // il primo video è sempre sbloccato
+    return ibpVideoWatched(VIDEO_ORDER[idx-1]);
+  }
+
+  async function ibpMarkVideoWatched(videoId){
+    if(!currentUid) return;
+    currentProgress['video_'+videoId] = true;
+    try{ await updateDoc(doc(db, 'students', currentUid), { progress: currentProgress }); }
+    catch(e){ console.error('Salvataggio video visto non riuscito:', e); }
+    ibpMarkVideoAvailability();
+  }
+
+  // Marca ogni card video con uno di tre stati:
+  // - "video-ready": file caricato E video precedente già guardato → si può guardare
+  // - "video-locked": file caricato ma il video precedente non è ancora stato guardato
+  // - "video-soon": il file non è ancora stato caricato su R2
   function ibpMarkVideoAvailability(){
     document.querySelectorAll('.video-card').forEach(function(card){
       const videoId = card.getAttribute('data-video-id');
       const thumb = card.querySelector('.video-thumb');
       if(!thumb || !videoId) return;
       const data = VIDEOS[videoId];
-      const isReady = !!(data && data.key && !data.key.startsWith('INSERISCI'));
+      const isUploaded = !!(data && data.key && !data.key.startsWith('INSERISCI'));
+      const isUnlocked = ibpVideoUnlocked(videoId);
       const playBtn = thumb.querySelector('.video-play');
-      if(isReady){
+      const oldTag = thumb.querySelector('.video-status-tag');
+      if(oldTag) oldTag.remove();
+      thumb.classList.remove('video-ready','video-soon');
+
+      if(isUploaded && isUnlocked){
         thumb.classList.add('video-ready');
-        thumb.classList.remove('video-soon');
         if(playBtn) playBtn.textContent = '▶';
-        if(!thumb.querySelector('.video-status-tag')){
-          thumb.insertAdjacentHTML('beforeend', '<span class="video-status-tag ready">▶ Guarda ora</span>');
-        }
+        thumb.insertAdjacentHTML('beforeend', '<span class="video-status-tag ready">▶ Guarda ora</span>');
+      } else if(isUploaded && !isUnlocked){
+        thumb.classList.add('video-soon');
+        if(playBtn) playBtn.textContent = '🔒';
+        const idx = VIDEO_ORDER.indexOf(videoId);
+        const prevNum = idx; // es. video v3 (idx 2) richiede la lezione 2
+        thumb.insertAdjacentHTML('beforeend', '<span class="video-status-tag soon">🔒 Guarda prima la lezione '+prevNum+'</span>');
       } else {
         thumb.classList.add('video-soon');
-        thumb.classList.remove('video-ready');
         if(playBtn) playBtn.textContent = '🔒';
-        if(!thumb.querySelector('.video-status-tag')){
-          thumb.insertAdjacentHTML('beforeend', '<span class="video-status-tag soon">Prossimamente</span>');
-        }
+        thumb.insertAdjacentHTML('beforeend', '<span class="video-status-tag soon">Prossimamente</span>');
       }
     });
   }
@@ -3065,6 +3094,11 @@
       ibpShowAuthView();
       return;
     }
+    if(!ibpVideoUnlocked(videoId)){
+      const idx = VIDEO_ORDER.indexOf(videoId);
+      thumb.insertAdjacentHTML('beforeend', '<p style="position:absolute;bottom:8px;left:8px;right:8px;font-size:11px;color:#fff;background:rgba(0,0,0,0.6);padding:4px 8px;border-radius:6px;">🔒 Guarda prima la lezione '+idx+'</p>');
+      return;
+    }
 
     thumb.innerHTML = '<p style="color:#fff;font-size:13px;text-align:center;padding-top:40%;">Caricamento video... · লোড হচ্ছে...</p>';
 
@@ -3078,6 +3112,10 @@
       video.src = AI_WORKER_URL + '/video/' + encodeURIComponent(data.key) + '?token=' + encodeURIComponent(idToken);
       video.textContent = 'Il tuo browser non supporta la riproduzione video.';
       thumb.replaceWith(video);
+      // Segna il video come "visto" appena parte, così sblocca il prossimo
+      // (per la lezione successiva basta averlo aperto, non serve guardarlo
+      // fino in fondo — coerente con come funzionano le lezioni video).
+      video.addEventListener('play', function(){ ibpMarkVideoWatched(videoId); }, { once:true });
     } catch(err){
       console.error('Errore caricamento video:', err);
       thumb.innerHTML = '<p style="color:#fff;font-size:13px;text-align:center;padding-top:40%;">Errore nel caricamento. Riprova o scrivici su WhatsApp.</p>';
@@ -5027,6 +5065,7 @@
       setAuthMsg('');
       currentProgress = {};
       ibpRenderProgress();
+      ibpMarkVideoAvailability();
 
       if(pendingRegisterName){
         // account appena creato: non c'è ancora nulla da recuperare
@@ -5042,6 +5081,7 @@
           document.getElementById('dash-nome').textContent = data.nome || user.displayName || 'Studente';
           document.getElementById('dash-livello').textContent = data.livello || 'A0';
           ibpRenderProgress();
+          ibpMarkVideoAvailability();
         } else {
           // primo accesso con un account creato manualmente da te: crea il profilo di base
           const nomeIniziale = user.displayName || (user.email ? user.email.split('@')[0] : 'Studente');
@@ -5065,6 +5105,7 @@
       document.getElementById('dash-login-btn').style.display = '';
       document.getElementById('quiz-demo').classList.remove('show');
       ibpRenderProgress();
+      ibpMarkVideoAvailability();
     }
   });
 
