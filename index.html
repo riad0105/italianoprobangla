@@ -315,6 +315,7 @@
     font-family:'Fraunces',serif;font-size:13.5px;font-weight:700;color:var(--night);
     background:var(--gold);padding:8px 16px;border-radius:100px;white-space:nowrap;
   }
+  .points-badge-mini{background:var(--purple);color:var(--night);}
   @keyframes ibpLevelUpPop{
     0%{transform:scale(1);}
     35%{transform:scale(1.22);box-shadow:0 0 0 8px rgba(255,122,61,0.25);}
@@ -882,6 +883,7 @@
               <h3>Ciao, <span id="dash-nome">Ospite</span> 👋</h3>
               <p>Livello attuale: <b id="dash-livello">Prova gratuita</b> · প্রগতি চালিয়ে যাও</p>
             </div>
+            <span class="level-badge-mini points-badge-mini" id="dash-points-badge">⭐ 0 punti</span>
             <span class="level-badge-mini" id="dash-level-badge">🏆 Livello 1</span>
             <button class="btn-logout" id="dash-logout-btn" onclick="ibpLogout()" style="display:none;">Esci</button>
             <button class="btn-logout" id="dash-login-btn" onclick="ibpShowAuthView()">Accedi / Registrati</button>
@@ -5146,6 +5148,7 @@
       ibpRenderProgress();
       ibpMarkVideoAvailability();
       ibpRenderLevelBadge();
+      ibpRenderPointsBadge();
 
       if(pendingRegisterName){
         pendingRegisterName = null;
@@ -5162,6 +5165,7 @@
           ibpRenderProgress();
           ibpMarkVideoAvailability();
           ibpRenderLevelBadge();
+          ibpRenderPointsBadge();
         } else {
           // primo accesso con un account creato manualmente da te: crea il profilo di base
           const nomeIniziale = user.displayName || (user.email ? user.email.split('@')[0] : 'Studente');
@@ -5187,6 +5191,7 @@
       ibpRenderProgress();
       ibpMarkVideoAvailability();
       ibpRenderLevelBadge();
+      ibpRenderPointsBadge();
     }
   });
 
@@ -5687,9 +5692,10 @@
     ibpPlaySound(correct ? 'correct' : 'wrong');
     if(!currentUid) return;
     const prevLevel = ibpLevel();
-    currentProgress.totalPoints = (currentProgress.totalPoints || 0) + (correct ? 5 : -2);
+    currentProgress.totalPoints = (currentProgress.totalPoints || 0) + (correct ? 1 : -2);
     if(correct) currentProgress.totalCorrect = (currentProgress.totalCorrect || 0) + 1;
     ibpRenderLevelBadge();
+    ibpRenderPointsBadge();
     if(ibpLevel() > prevLevel){
       // piccolo momento di festa quando si sale di livello
       const badge = document.getElementById('dash-level-badge');
@@ -5702,6 +5708,14 @@
   function ibpRenderLevelBadge(){
     const badge = document.getElementById('dash-level-badge');
     if(badge) badge.textContent = '🏆 Livello ' + ibpLevel();
+  }
+
+  // Punteggio totale, visibile nell'Area Personale: +1 per ogni risposta
+  // corretta, -2 per ogni sbagliata, su tutti i quiz messi insieme.
+  function ibpRenderPointsBadge(){
+    const badge = document.getElementById('dash-points-badge');
+    const points = (currentProgress && currentProgress.totalPoints) || 0;
+    if(badge) badge.textContent = '⭐ ' + points + ' punti';
   }
 
   window.ibpAnswer = function(chosenIndex, correct){
