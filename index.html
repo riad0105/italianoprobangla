@@ -311,6 +311,16 @@
   .quiz-dash{display:none;}
   .quiz-dash.show{display:block;}
   .quiz-hello{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:26px;}
+  .level-badge-mini{
+    font-family:'Fraunces',serif;font-size:13.5px;font-weight:700;color:var(--night);
+    background:var(--gold);padding:8px 16px;border-radius:100px;white-space:nowrap;
+  }
+  @keyframes ibpLevelUpPop{
+    0%{transform:scale(1);}
+    35%{transform:scale(1.22);box-shadow:0 0 0 8px rgba(255,122,61,0.25);}
+    100%{transform:scale(1);}
+  }
+  .level-badge-mini.level-up-pop{animation:ibpLevelUpPop .5s ease;}
   .guest-banner{background:var(--purple-soft);border:1px solid rgba(108,63,197,0.25);color:var(--paper);border-radius:10px;padding:12px 16px;font-size:13.5px;margin-bottom:18px;}
   .quiz-hello h3{font-size:19px;color:var(--paper);}
   .quiz-hello p{font-size:13px;color:var(--muted);margin-top:2px;}
@@ -455,6 +465,31 @@
 
   /* quiz demo card (quando si apre un esercizio) */
   .quiz-demo{margin-top:24px;padding:22px;border-radius:10px;background:rgba(255,122,61,0.06);border:1px dashed rgba(255,122,61,0.4);display:none;}
+
+  /* Quiz a schermo intero, stile app: copre tutto lo schermo mentre si fa
+     l'esercizio, con una testata fissa in alto (titolo + progresso + torna
+     indietro) e il contenuto della domanda scorrevole sotto. */
+  .quiz-play-view.quiz-fullscreen{
+    position:fixed;inset:0;z-index:2000;background:var(--paper);
+    display:flex;flex-direction:column;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .quiz-play-view.quiz-fullscreen .cat-back-btn{
+    position:sticky;top:0;z-index:5;background:var(--paper);
+    margin:0;padding:16px 20px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;font-size:13.5px;
+  }
+  .quiz-play-view.quiz-fullscreen .quiz-demo{
+    margin:0;flex:1;display:flex !important;flex-direction:column;
+    border:none;border-radius:0;background:none;padding:24px 20px 40px;
+    max-width:640px;width:100%;margin-left:auto;margin-right:auto;
+  }
+  .quiz-play-view.quiz-fullscreen .quiz-demo-head{
+    position:sticky;top:57px;background:var(--paper);z-index:4;
+    padding-bottom:12px;margin-bottom:18px;border-bottom:1px solid var(--line);
+  }
+  .quiz-play-view.quiz-fullscreen .quiz-q-it{font-size:19px;}
+  body.quiz-fullscreen-lock{overflow:hidden;}
   .quiz-demo.show{display:block;}
   .quiz-demo h5{font-size:14.5px;color:var(--paper);margin-bottom:14px;}
   .quiz-demo .opts{display:flex;flex-direction:column;gap:8px;}
@@ -847,6 +882,7 @@
               <h3>Ciao, <span id="dash-nome">Ospite</span> 👋</h3>
               <p>Livello attuale: <b id="dash-livello">Prova gratuita</b> · প্রগতি চালিয়ে যাও</p>
             </div>
+            <span class="level-badge-mini" id="dash-level-badge">🏆 Livello 1</span>
             <button class="btn-logout" id="dash-logout-btn" onclick="ibpLogout()" style="display:none;">Esci</button>
             <button class="btn-logout" id="dash-login-btn" onclick="ibpShowAuthView()">Accedi / Registrati</button>
           </div>
@@ -2984,13 +3020,19 @@
     }
   };
   window.ibpShowQuizLevelSelect = function(){
-    document.getElementById('quiz-play-view').style.display = 'none';
+    const playView = document.getElementById('quiz-play-view');
+    playView.style.display = 'none';
+    playView.classList.remove('quiz-fullscreen');
+    document.body.classList.remove('quiz-fullscreen-lock');
     document.getElementById('quiz-demo').classList.remove('show');
     document.getElementById('quiz-level-select').style.display = 'grid';
     ['a0','a1','a2'].forEach(l => document.getElementById('quiz-level-'+l).style.display = 'none');
   };
   window.ibpShowQuizLevel = function(level){
-    document.getElementById('quiz-play-view').style.display = 'none';
+    const playView = document.getElementById('quiz-play-view');
+    playView.style.display = 'none';
+    playView.classList.remove('quiz-fullscreen');
+    document.body.classList.remove('quiz-fullscreen-lock');
     document.getElementById('quiz-demo').classList.remove('show');
     document.getElementById('quiz-level-select').style.display = 'none';
     ['a0','a1','a2'].forEach(l => document.getElementById('quiz-level-'+l).style.display = (l === level ? 'block' : 'none'));
@@ -5082,9 +5124,9 @@
       currentProgress = {};
       ibpRenderProgress();
       ibpMarkVideoAvailability();
+      ibpRenderLevelBadge();
 
       if(pendingRegisterName){
-        // account appena creato: non c'è ancora nulla da recuperare
         pendingRegisterName = null;
         return;
       }
@@ -5098,6 +5140,7 @@
           document.getElementById('dash-livello').textContent = data.livello || 'A0';
           ibpRenderProgress();
           ibpMarkVideoAvailability();
+          ibpRenderLevelBadge();
         } else {
           // primo accesso con un account creato manualmente da te: crea il profilo di base
           const nomeIniziale = user.displayName || (user.email ? user.email.split('@')[0] : 'Studente');
@@ -5122,6 +5165,7 @@
       document.getElementById('quiz-demo').classList.remove('show');
       ibpRenderProgress();
       ibpMarkVideoAvailability();
+      ibpRenderLevelBadge();
     }
   });
 
@@ -5216,10 +5260,13 @@
     window._ibpMatchQ = -1;
     window._ibpReorderQ = -1;
 
-    // Il quiz si apre come una pagina a sé, non inline nella lista degli esercizi
+    // Il quiz si apre come una pagina a sé, a schermo intero (stile app)
     document.getElementById('quiz-level-select').style.display = 'none';
     ['a0','a1','a2'].forEach(l => { const el = document.getElementById('quiz-level-'+l); if(el) el.style.display = 'none'; });
-    document.getElementById('quiz-play-view').style.display = 'block';
+    const playView = document.getElementById('quiz-play-view');
+    playView.style.display = 'block';
+    playView.classList.add('quiz-fullscreen');
+    document.body.classList.add('quiz-fullscreen-lock');
 
     const demo = document.getElementById('quiz-demo');
     demo.classList.add('show');
@@ -5236,7 +5283,10 @@
 
   /* Torna dalla pagina del quiz alla lista esercizi del livello corretto */
   window.ibpBackToQuizList = function(){
-    document.getElementById('quiz-play-view').style.display = 'none';
+    const playView = document.getElementById('quiz-play-view');
+    playView.style.display = 'none';
+    playView.classList.remove('quiz-fullscreen');
+    document.body.classList.remove('quiz-fullscreen-lock');
     document.getElementById('quiz-demo').classList.remove('show');
     const meta = EXERCISES_META[openExerciseId];
     const level = meta ? meta.livello.toLowerCase() : 'a0';
@@ -5378,6 +5428,7 @@
     const norm = function(s){ return (s||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); };
     const isCorrect = norm(inp ? inp.value : '') === norm(q.answer);
     currentAnswers[currentQIndex] = { correct: isCorrect, chosenIndex: null };
+    ibpAwardPoints(isCorrect);
     ibpRenderQuestion();
   };
 
@@ -5440,6 +5491,7 @@
           window._ibpMatchLeftSel = null;
           if(window._ibpMatchMatched.size === q.pairs.length){
             currentAnswers[currentQIndex] = { correct: true, chosenIndex: null };
+            ibpAwardPoints(true);
           }
         } else {
           window._ibpMatchLeftSel = null;
@@ -5510,6 +5562,7 @@
           const built = window._ibpReorderChosen.map(function(x){return x.w;}).join(' ');
           const correct = built === q.correct.join(' ');
           currentAnswers[currentQIndex] = { correct: correct, chosenIndex: null };
+          ibpAwardPoints(correct);
         }
         ibpRenderQuestion();
       };
@@ -5519,9 +5572,79 @@
     wrap.appendChild(box);
   }
 
+  /* ===== Punti, livelli e suoni =====
+     Punti: +5 per ogni risposta giusta, -2 per ogni risposta sbagliata.
+     Niente numero di punti mostrato allo studente: si mostra solo un "Livello"
+     che sale di 1 ogni 50 risposte corrette totali, per non sovraccaricare
+     con numeri grandi/negativi poco motivanti. */
+  let _ibpAudioCtx = null;
+  function ibpGetAudioCtx(){
+    if(!_ibpAudioCtx){
+      try{ _ibpAudioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+      catch(e){ return null; }
+    }
+    if(_ibpAudioCtx.state === 'suspended'){ _ibpAudioCtx.resume().catch(function(){}); }
+    return _ibpAudioCtx;
+  }
+
+  function ibpPlaySound(kind){
+    const ctx = ibpGetAudioCtx();
+    if(!ctx) return;
+    try{
+      if(kind === 'correct'){
+        [660, 880].forEach(function(freq, i){
+          const o = ctx.createOscillator(); const g = ctx.createGain();
+          o.type = 'sine'; o.frequency.value = freq;
+          o.connect(g); g.connect(ctx.destination);
+          const start = ctx.currentTime + i*0.09;
+          g.gain.setValueAtTime(0.0001, start);
+          g.gain.exponentialRampToValueAtTime(0.25, start+0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, start+0.22);
+          o.start(start); o.stop(start+0.24);
+        });
+      } else {
+        const o = ctx.createOscillator(); const g = ctx.createGain();
+        o.type = 'sawtooth'; o.frequency.value = 140;
+        o.connect(g); g.connect(ctx.destination);
+        const start = ctx.currentTime;
+        g.gain.setValueAtTime(0.0001, start);
+        g.gain.exponentialRampToValueAtTime(0.18, start+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, start+0.35);
+        o.start(start); o.stop(start+0.36);
+      }
+    } catch(e){ /* audio non disponibile: nessun problema, si ignora */ }
+  }
+
+  function ibpLevel(){
+    const correct = (currentProgress && currentProgress.totalCorrect) || 0;
+    return Math.floor(correct / 50) + 1;
+  }
+
+  async function ibpAwardPoints(correct){
+    ibpPlaySound(correct ? 'correct' : 'wrong');
+    if(!currentUid) return;
+    const prevLevel = ibpLevel();
+    currentProgress.totalPoints = (currentProgress.totalPoints || 0) + (correct ? 5 : -2);
+    if(correct) currentProgress.totalCorrect = (currentProgress.totalCorrect || 0) + 1;
+    ibpRenderLevelBadge();
+    if(ibpLevel() > prevLevel){
+      // piccolo momento di festa quando si sale di livello
+      const badge = document.getElementById('dash-level-badge');
+      if(badge){ badge.classList.remove('level-up-pop'); void badge.offsetWidth; badge.classList.add('level-up-pop'); }
+    }
+    try{ await updateDoc(doc(db, 'students', currentUid), { progress: currentProgress }); }
+    catch(e){ console.error('Salvataggio punti non riuscito:', e); }
+  }
+
+  function ibpRenderLevelBadge(){
+    const badge = document.getElementById('dash-level-badge');
+    if(badge) badge.textContent = '🏆 Livello ' + ibpLevel();
+  }
+
   window.ibpAnswer = function(chosenIndex, correct){
     if(currentAnswers[currentQIndex]) return; // già risposta, evita doppio conteggio
     currentAnswers[currentQIndex] = { correct: correct, chosenIndex: chosenIndex };
+    ibpAwardPoints(correct);
     ibpRenderQuestion();
   };
 
