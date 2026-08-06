@@ -5079,9 +5079,14 @@
     return raw;
   }
 
-  /* Ospiti (non registrati): solo l'esercizio 1 (Alfabeto e pronuncia, A0) è sbloccato */
+  /* Ospiti (non registrati): solo l'esercizio 1 (Alfabeto e pronuncia, A0) è sbloccato.
+     Studenti registrati: ogni esercizio si sblocca solo dopo aver completato il precedente,
+     così il percorso resta in ordine e nessuno può saltare avanti senza fare i quiz prima. */
   function ibpExerciseUnlocked(i){
-    return !!currentUid || i === 1;
+    if(!currentUid) return i === 1;
+    if(i === 1) return true;
+    const prev = ibpExState(i - 1);
+    return !!(prev && prev.done);
   }
 
   function ibpRenderProgress(){
@@ -5092,7 +5097,13 @@
 
       if(!ibpExerciseUnlocked(i)){
         if(lv){ lv.textContent = '🔒'; lv.classList.remove('done'); }
-        if(slot) slot.innerHTML = '<a class="go" onclick="ibpShowAuthView()">🔒 Registrati</a>';
+        if(slot){
+          if(!currentUid){
+            slot.innerHTML = '<a class="go" onclick="ibpShowAuthView()">🔒 Registrati</a>';
+          } else {
+            slot.innerHTML = '<span class="badge-pill" style="opacity:.7">🔒 Completa il quiz '+(i-1)+' prima</span>';
+          }
+        }
         continue;
       }
 
