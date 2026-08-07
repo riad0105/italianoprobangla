@@ -3116,7 +3116,7 @@
       iframe.src = '';
       btn.textContent = '👁 Leggi online';
     } else {
-      if(!iframe.src) iframe.src = iframe.dataset.src || (level === 'a0' ? 'https://drive.google.com/file/d/1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0/preview' : '');
+      if(!iframe.src) iframe.src = iframe.dataset.src || (level === 'a0' ? 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent('https://drive.google.com/uc?export=download&id=1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0') : '');
       reader.style.display = 'flex';
       reader.classList.add('book-fullscreen');
       document.body.classList.add('book-fullscreen-lock');
