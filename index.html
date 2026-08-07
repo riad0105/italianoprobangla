@@ -3113,10 +3113,15 @@
       reader.style.display = 'none';
       reader.classList.remove('book-fullscreen');
       document.body.classList.remove('book-fullscreen-lock');
-      iframe.src = '';
+      iframe.removeAttribute('src');
       btn.textContent = '👁 Leggi online';
     } else {
-      if(!iframe.src) iframe.src = iframe.dataset.src || (level === 'a0' ? 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent('https://drive.google.com/uc?export=download&id=1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0') : '');
+      // Carichiamo SEMPRE l'URL giusto qui, senza controllare se ce n'è già
+      // uno: dopo una chiusura il browser trasforma spesso il campo vuoto in
+      // "about:blank", che sembra "già caricato" e bloccava ogni riapertura
+      // successiva, indipendentemente dal PDF collegato.
+      const url = iframe.dataset.src || (level === 'a0' ? 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent('https://drive.google.com/uc?export=download&id=1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0') : '');
+      iframe.src = url;
       reader.style.display = 'flex';
       reader.classList.add('book-fullscreen');
       document.body.classList.add('book-fullscreen-lock');
