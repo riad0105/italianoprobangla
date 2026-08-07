@@ -416,11 +416,14 @@
   .hub-card p{font-size:12.5px;color:var(--muted);}
 
   .cat-back-btn{
-    background:none;border:1px solid var(--line);color:var(--muted);font-size:12.5px;font-weight:600;
-    padding:7px 15px;border-radius:100px;cursor:pointer;font-family:'Work Sans',sans-serif;
-    margin-bottom:20px;transition:border-color .15s ease,color .15s ease;
+    background:var(--panel);border:1px solid var(--line);color:var(--muted);font-size:12.5px;font-weight:700;
+    padding:8px 16px 8px 12px;border-radius:100px;cursor:pointer;font-family:'Work Sans',sans-serif;
+    margin-bottom:20px;transition:border-color .15s ease,color .15s ease,background .15s ease;
+    display:inline-flex;align-items:center;gap:6px;
   }
-  .cat-back-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .cat-back-btn svg{width:15px;height:15px;flex-shrink:0;transition:transform .15s ease;}
+  .cat-back-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,122,61,0.08);}
+  .cat-back-btn:hover svg{transform:translateX(-2px);}
 
   .sub-level-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(160px,1fr));gap:14px;margin-bottom:8px;}
   .sub-level-card{
@@ -476,11 +479,12 @@
     -webkit-overflow-scrolling:touch;
   }
   .quiz-play-view.quiz-fullscreen .cat-back-btn{
-    position:sticky;top:0;z-index:5;background:var(--night);
+    position:sticky;top:0;z-index:5;background:var(--night);border:none;
     margin:0;padding:calc(22px + env(safe-area-inset-top, 0px)) 20px 16px;
-    border-bottom:1px solid var(--line);
-    display:flex;align-items:center;font-size:14px;
+    border-bottom:1px solid var(--line);border-radius:0;
+    display:flex;align-items:center;font-size:13.5px;
   }
+  .quiz-play-view.quiz-fullscreen .cat-back-btn:hover{background:var(--night);}
   .quiz-play-view.quiz-fullscreen .quiz-demo{
     margin:0;flex:1;display:flex !important;flex-direction:column;
     border:none;border-radius:0;background:none;padding:24px 20px 40px;
@@ -859,7 +863,7 @@
     <div class="quiz-panel">
       <!-- LOGIN / REGISTRAZIONE (nascosto di default: si apre con "Accedi / Registrati") -->
       <div id="auth-view" style="display:none;">
-        <button class="cat-back-btn" onclick="ibpBackToGuestHub()">← Torna alla prova gratuita</button>
+        <button class="cat-back-btn" onclick="ibpBackToGuestHub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Torna alla prova gratuita</span></button>
         <div class="quiz-tabs">
           <button class="quiz-tab active" id="tab-login" onclick="ibpSetAuthTab('login')">Accedi</button>
           <button class="quiz-tab" id="tab-register" onclick="ibpSetAuthTab('register')">Registrati</button>
@@ -937,7 +941,7 @@
           <!-- CATEGORIA: QUIZ -->
           <!-- CATEGORIA: LEZIONI -->
           <div class="cat-container" id="cat-lezioni" style="display:none;">
-            <button class="cat-back-btn" onclick="ibpBackToHub()">← Torna al menu</button>
+            <button class="cat-back-btn" onclick="ibpBackToHub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Torna al menu</span></button>
 
             <div id="lezioni-view-units">
               <div class="section-head" style="margin-bottom:22px;">
@@ -972,7 +976,7 @@
           </div>
 
           <div class="cat-container" id="cat-quiz" style="display:none;">
-            <button class="cat-back-btn" onclick="ibpBackToHub()">← Torna al menu</button>
+            <button class="cat-back-btn" onclick="ibpBackToHub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Torna al menu</span></button>
 
             <div class="sub-level-grid" id="quiz-level-select">
               <button class="sub-level-card" onclick="ibpShowQuizLevel('a0')">
@@ -993,7 +997,7 @@
             </div>
 
             <div class="level-content" id="quiz-level-a0" style="display:none;">
-              <button class="cat-back-btn" onclick="ibpShowQuizLevelSelect()">← Livelli</button>
+              <button class="cat-back-btn" onclick="ibpShowQuizLevelSelect()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Livelli</span></button>
               <!-- LIBRO 1 · A0 · basato su "Facile Facile A0" (Cassiani/Mattioli) -->
           <div class="level-book">
             <div class="level-book-head">
@@ -1047,7 +1051,7 @@
           
             </div>
             <div class="level-content" id="quiz-level-a1" style="display:none;">
-              <button class="cat-back-btn" onclick="ibpShowQuizLevelSelect()">← Livelli</button>
+              <button class="cat-back-btn" onclick="ibpShowQuizLevelSelect()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Livelli</span></button>
               <!-- LIBRO 2 · A1 -->
           <div class="level-book">
             <div class="level-book-head">
@@ -1122,7 +1126,7 @@
           
             </div>
             <div class="level-content" id="quiz-level-a2" style="display:none;">
-              <button class="cat-back-btn" onclick="ibpShowQuizLevelSelect()">← Livelli</button>
+              <button class="cat-back-btn" onclick="ibpShowQuizLevelSelect()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Livelli</span></button>
               <!-- LIBRO 3 · A2 -->
           <div class="level-book">
             <div class="level-book-head">
@@ -1213,7 +1217,7 @@
 
             <!-- PAGINA SEPARATA: svolgimento del quiz (come le Lezioni, non inline nella lista) -->
             <div class="quiz-play-view" id="quiz-play-view" style="display:none;">
-              <button class="cat-back-btn" onclick="ibpBackToQuizList()">← Torna agli esercizi</button>
+              <button class="cat-back-btn" onclick="ibpBackToQuizList()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Torna agli esercizi</span></button>
               <div class="quiz-demo show" id="quiz-demo">
                 <div class="quiz-demo-head">
                   <h5 id="quiz-ex-title">Esercizio</h5>
@@ -1237,7 +1241,7 @@
 
           <!-- CATEGORIA: LIBRI -->
           <div class="cat-container" id="cat-libri" style="display:none;">
-            <button class="cat-back-btn" onclick="ibpBackToHub()">← Torna al menu</button>
+            <button class="cat-back-btn" onclick="ibpBackToHub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Torna al menu</span></button>
                       <!-- Per ogni libro: sostituisci href="#" con il link/percorso del file caricato (es. href="libri/a0.pdf")
                e togli la classe "disabled" dal link .book-download quando il file è pronto. -->
           <div class="level-book">
@@ -1293,7 +1297,7 @@
 
           <!-- CATEGORIA: VIDEOLEZIONI -->
           <div class="cat-container" id="cat-video" style="display:none;">
-            <button class="cat-back-btn" onclick="ibpBackToHub()">← Torna al menu</button>
+            <button class="cat-back-btn" onclick="ibpBackToHub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Torna al menu</span></button>
 
             <div class="sub-level-grid" id="video-level-select">
               <button class="sub-level-card" onclick="ibpShowVideoLevel('a0')">
@@ -1314,7 +1318,7 @@
             </div>
 
             <div class="level-content" id="video-list-a0" style="display:none;">
-              <button class="cat-back-btn" onclick="ibpShowVideoLevelSelect()">← Livelli</button>
+              <button class="cat-back-btn" onclick="ibpShowVideoLevelSelect()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Livelli</span></button>
               <div class="video-grid">
                 <div class="video-card" data-video-id="v1">
                 <div class="video-thumb" onclick="ibpPlayVideo('v1')">
@@ -1349,7 +1353,7 @@
               </div>
             </div>
             <div class="level-content" id="video-list-a1" style="display:none;">
-              <button class="cat-back-btn" onclick="ibpShowVideoLevelSelect()">← Livelli</button>
+              <button class="cat-back-btn" onclick="ibpShowVideoLevelSelect()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Livelli</span></button>
               <div class="video-grid">
                 <div class="video-card" data-video-id="v4">
                 <div class="video-thumb" onclick="ibpPlayVideo('v4')">
@@ -1364,7 +1368,7 @@
               </div>
             </div>
             <div class="level-content" id="video-list-a2" style="display:none;">
-              <button class="cat-back-btn" onclick="ibpShowVideoLevelSelect()">← Livelli</button>
+              <button class="cat-back-btn" onclick="ibpShowVideoLevelSelect()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Livelli</span></button>
               <div class="video-grid">
                 <div class="video-card" data-video-id="v5">
                 <div class="video-thumb" onclick="ibpPlayVideo('v5')">
