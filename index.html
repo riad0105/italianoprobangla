@@ -1278,8 +1278,15 @@
                   <p class="bn">শুরুর স্তর</p>
                 </div>
                 <div class="book-actions">
-                  <a class="book-read" href="https://drive.google.com/file/d/1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0/view" target="_blank" rel="noopener">👁 Leggi online</a>
+                  <button class="book-read" onclick="ibpToggleRead('a0')" id="book-read-btn-a0">👁 Leggi online</button>
                   <a class="book-download" href="https://drive.google.com/uc?export=download&id=1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0" target="_blank" rel="noopener">⬇ Scarica</a>
+                </div>
+                <div class="book-reader" id="book-reader-a0" style="display:none;">
+                  <div class="book-reader-head">
+                    <h5>Libro A0 · Le basi</h5>
+                    <button class="cat-back-btn" onclick="ibpToggleRead('a0')" style="margin:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Chiudi</span></button>
+                  </div>
+                  <iframe id="book-iframe-a0" title="Libro A0" src=""></iframe>
                 </div>
               </div>
               <div class="book-card" data-book-level="a1">
@@ -3131,7 +3138,7 @@
      "key" deve essere IDENTICO al nome del file caricato lì (es. "u1-alfabeto.mp4"). */
   const VIDEOS = {
     v1: { key: "u1-alfabeto.mp4" },
-    v2: { key: "INSERISCI-NOME-FILE-2.mp4" },
+    v2: { key: "u2-saluti.mp4" },
     v3: { key: "INSERISCI-NOME-FILE-3.mp4" },
     v4: { key: "INSERISCI-NOME-FILE-4.mp4" },
     v5: { key: "INSERISCI-NOME-FILE-5.mp4" }
