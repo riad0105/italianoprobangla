@@ -3120,7 +3120,7 @@
       // uno: dopo una chiusura il browser trasforma spesso il campo vuoto in
       // "about:blank", che sembra "già caricato" e bloccava ogni riapertura
       // successiva, indipendentemente dal PDF collegato.
-      const url = iframe.dataset.src || (level === 'a0' ? 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent('https://drive.google.com/uc?export=download&id=1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0') : '');
+      const url = iframe.dataset.src || (level === 'a0' ? 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent('https://drive.google.com/uc?export=download&id=1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0') : '');
       iframe.src = url;
       reader.style.display = 'flex';
       reader.classList.add('book-fullscreen');
