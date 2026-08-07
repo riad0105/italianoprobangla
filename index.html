@@ -1261,7 +1261,7 @@
                 </div>
                 <div class="book-actions">
                   <button class="book-read" onclick="ibpToggleRead('a0')" id="book-read-btn-a0">👁 Leggi online</button>
-                  <a class="book-download" href="A0%20BOOK.pdf" download>⬇ Scarica</a>
+                  <a class="book-download" href="https://drive.google.com/uc?export=download&id=1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0" target="_blank" rel="noopener">⬇ Scarica</a>
                 </div>
                 <div class="book-reader" id="book-reader-a0" style="display:none;">
                   <iframe id="book-iframe-a0" title="Libro A0" src=""></iframe>
@@ -3092,7 +3092,7 @@
       iframe.src = '';
       btn.textContent = '👁 Leggi online';
     } else {
-      if(!iframe.src) iframe.src = iframe.dataset.src || (level === 'a0' ? 'A0%20BOOK.pdf' : '');
+      if(!iframe.src) iframe.src = iframe.dataset.src || (level === 'a0' ? 'https://drive.google.com/file/d/1oMr6CG4J1A1aVaUly13S_Q5spYzHHVK0/preview' : '');
       reader.style.display = 'block';
       btn.textContent = '✕ Chiudi lettura';
       reader.scrollIntoView({behavior:'smooth', block:'nearest'});
