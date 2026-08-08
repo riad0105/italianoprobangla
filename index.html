@@ -723,8 +723,14 @@
   .exercise-block{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
   .exercise-block .ex-title{font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px;}
   .exercise-row{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--paper);margin-bottom:10px;flex-wrap:wrap;}
-  .exercise-row input{border:none;border-bottom:2px solid var(--line);background:none;font-size:14px;padding:2px 4px;width:110px;font-family:'Work Sans',sans-serif;color:var(--paper);}
+  .exercise-row input{border:none;border-bottom:2px solid var(--line);background:none;font-size:14px;padding:2px 4px;width:110px;font-family:'Work Sans',sans-serif;color:var(--paper);transition:border-color .15s ease,background .15s ease;}
   .exercise-row input:focus{outline:none;border-color:var(--gold);}
+  .exercise-row input.ex-correct{border-color:var(--ok);background:rgba(143,170,138,0.15);}
+  .exercise-row input.ex-wrong{border-color:#E05A4E;background:rgba(224,90,78,0.1);}
+  .ex-fb{font-size:12px;font-weight:700;white-space:nowrap;}
+  .ex-fb.ex-fb-ok{color:var(--ok);}
+  .ex-fb.ex-fb-bad{color:#E05A4E;}
+  .lesson-exercise-hint{font-size:11.5px;color:var(--muted);margin-top:-2px;margin-bottom:14px;}
 
   .lesson-footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line);flex-wrap:wrap;}
   .quiz-demo-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
@@ -1860,8 +1866,8 @@
         id: 'alfabeto', title: 'Alfabeto italiano', bn: 'ইতালিয়ান বর্ণমালা', audio: 'ALFABETO.mp3',
         html: `
           <div class="lesson-section">
-            <h3>Le 21 lettere di base</h3>
-            <p class="sub-bn">২১টি মূল অক্ষর</p>
+            <h3>Le 26 lettere dell'alfabeto</h3>
+            <p class="sub-bn">২৬টি অক্ষর</p>
             <div class="word-grid">
               <div class="word-card"><div class="letter">A</div><div class="it">anatra</div><div class="bn-phon">আনাত্রা</div><div class="bn-mean">হাঁস</div></div>
               <div class="word-card"><div class="letter">B</div><div class="it">banana</div><div class="bn-phon">বানানা</div><div class="bn-mean">কলা</div></div>
@@ -1872,6 +1878,8 @@
               <div class="word-card"><div class="letter">G</div><div class="it">ginocchio</div><div class="bn-phon">জিনোক্কিও</div><div class="bn-mean">হাঁটু</div></div>
               <div class="word-card"><div class="letter">H</div><div class="it">hotel</div><div class="bn-phon">ওতেল</div><div class="bn-mean">হোটেল</div></div>
               <div class="word-card"><div class="letter">I</div><div class="it">Italia</div><div class="bn-phon">ইতালিয়া</div><div class="bn-mean">ইতালি</div></div>
+              <div class="word-card"><div class="letter">J</div><div class="it">jeans</div><div class="bn-phon">জিন্স</div><div class="bn-mean">প্যান্ট</div></div>
+              <div class="word-card"><div class="letter">K</div><div class="it">kiwi</div><div class="bn-phon">কিউই</div><div class="bn-mean">কিউই</div></div>
               <div class="word-card"><div class="letter">L</div><div class="it">libro</div><div class="bn-phon">লিব্রো</div><div class="bn-mean">বই</div></div>
               <div class="word-card"><div class="letter">M</div><div class="it">matita</div><div class="bn-phon">মাতিতা</div><div class="bn-mean">পেন্সিল</div></div>
               <div class="word-card"><div class="letter">N</div><div class="it">naso</div><div class="bn-phon">নাসো</div><div class="bn-mean">নাক</div></div>
@@ -1883,6 +1891,9 @@
               <div class="word-card"><div class="letter">T</div><div class="it">testa</div><div class="bn-phon">তেস্তা</div><div class="bn-mean">মাথা</div></div>
               <div class="word-card"><div class="letter">U</div><div class="it">uccello</div><div class="bn-phon">উচ্চেল্লো</div><div class="bn-mean">পাখি</div></div>
               <div class="word-card"><div class="letter">V</div><div class="it">vetro</div><div class="bn-phon">ভেত্রো</div><div class="bn-mean">কাচ</div></div>
+              <div class="word-card"><div class="letter">W</div><div class="it">water</div><div class="bn-phon">ভাতের</div><div class="bn-mean">কমোড</div></div>
+              <div class="word-card"><div class="letter">X</div><div class="it">xilofono</div><div class="bn-phon">ক্সিলোফোনো</div><div class="bn-mean">জাইলোফোন</div></div>
+              <div class="word-card"><div class="letter">Y</div><div class="it">yogurt</div><div class="bn-phon">ইয়োগুর্ত</div><div class="bn-mean">দই</div></div>
               <div class="word-card"><div class="letter">Z</div><div class="it">zaino</div><div class="bn-phon">জাইনো</div><div class="bn-mean">ব্যাগ</div></div>
             </div>
           </div>
@@ -1891,28 +1902,8 @@
               <b>Consigli · টিপস</b><br>
               • La lettera 'H' non si pronuncia mai, è muta · 'H' অক্ষরটি উচ্চারিত হয় না, এটি নীরব।<br>
               • La 'R' si pronuncia facendo vibrare la lingua · 'R' উচ্চারণ করার সময় জিভের ডগা কাঁপাতে হবে।<br>
-              • La 'Z' si pronuncia come "TZ" o "DZ" · 'Z' উচ্চারণ করার সময় এর আওয়াজ "TZ" বা "DZ"-এর মতো হবে।
-            </div>
-          </div>`
-      },
-      {
-        id: 'lettere-straniere', title: 'Lettere straniere', bn: 'বিদেশী বর্ণমালা',
-        html: `
-          <div class="lesson-section">
-            <h3>Le 5 lettere straniere</h3>
-            <p class="sub-bn">৫টি বিদেশী অক্ষর</p>
-            <div class="word-grid">
-              <div class="word-card"><div class="letter">J</div><div class="it">jeans</div><div class="bn-phon">জিন্স</div><div class="bn-mean">প্যান্ট</div></div>
-              <div class="word-card"><div class="letter">K</div><div class="it">kiwi</div><div class="bn-phon">কিউই</div><div class="bn-mean">কিউই</div></div>
-              <div class="word-card"><div class="letter">X</div><div class="it">xilofono</div><div class="bn-phon">ক্সিলোফোনো</div><div class="bn-mean">জাইলোফোন</div></div>
-              <div class="word-card"><div class="letter">Y</div><div class="it">yogurt</div><div class="bn-phon">ইয়োগুর্ত</div><div class="bn-mean">দই</div></div>
-              <div class="word-card"><div class="letter">W</div><div class="it">water</div><div class="bn-phon">ভাতের</div><div class="bn-mean">কমোড</div></div>
-            </div>
-          </div>
-          <div class="lesson-section">
-            <div class="lesson-tip">
-              <b>Consigli · টিপস</b><br>
-              Queste 5 lettere straniere si usano pochissimo in italiano. · এই ৫টি বিদেশী অক্ষর ইতালিতে ব্যবহার হয় না বললেই চলে; ব্যবহার হলেও তা খুবই কম।
+              • La 'Z' si pronuncia come "TZ" o "DZ" · 'Z' উচ্চারণ করার সময় এর আওয়াজ "TZ" বা "DZ"-এর মতো হবে।<br>
+              • J, K, W, X, Y sono lettere straniere: si usano pochissimo in italiano, solo in parole importate da altre lingue · J, K, W, X, Y বিদেশী অক্ষর, ইতালিতে খুব কম ব্যবহৃত হয়, শুধু অন্য ভাষা থেকে আসা শব্দে।
             </div>
           </div>`
       },
@@ -1939,8 +1930,8 @@
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa con: Nome: Maria — Paese: Spagna — Lavoro: Cantante</p>
-            <div class="exercise-row">Buongiorno, <input placeholder="..."> Maria, sono <input placeholder="..."> , e sono <input placeholder="..."> .</div>
-            <p style="font-size:13px;color:var(--muted);margin:14px 0 10px;">Ora tocca a te — presentati con i tuoi dati:</p>
+            <div class="exercise-row">Buongiorno, <input data-answer="io sono" placeholder="..."><span class="ex-fb"></span> Maria, sono <input data-answer="spagnola" placeholder="..."><span class="ex-fb"></span>, e sono <input data-answer="cantante" placeholder="..."><span class="ex-fb"></span>.</div>
+            <p style="font-size:13px;color:var(--muted);margin:14px 0 10px;">Ora tocca a te — presentati con i tuoi dati (nessuna risposta giusta o sbagliata qui!):</p>
             <div class="exercise-row">Buongiorno, sono <input placeholder="il tuo nome">, sono <input placeholder="la tua nazionalità">, e sono <input placeholder="il tuo lavoro">.</div>
           </div>`
       },
@@ -2020,7 +2011,7 @@
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa con CHI, CHE, CI o CE:</p>
-            <div class="exercise-row">GIO<input style="width:60px" placeholder="..">STO &nbsp; <input style="width:60px" placeholder="..">NESE &nbsp; BU<input style="width:60px" placeholder="..">A &nbsp; VAC<input style="width:60px" placeholder="..">NZA</div>
+            <div class="exercise-row">___LO (peso) <input data-answer="chi" style="width:60px"><span class="ex-fb"></span> &nbsp; BAR___ (barca, plurale) <input data-answer="che" style="width:60px"><span class="ex-fb"></span> &nbsp; CU___NA (dove si cucina) <input data-answer="ci" style="width:60px"><span class="ex-fb"></span> &nbsp; FELI___ (contrario di triste) <input data-answer="ce" style="width:60px"><span class="ex-fb"></span></div>
           </div>`
       },
       {
@@ -2069,7 +2060,7 @@
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa con GI, GE, GA, GHE, GHI, GR, GO o GU:</p>
-            <div class="exercise-row"><input style="width:60px" placeholder="..">LLO &nbsp; SPA<input style="width:60px" placeholder="..">TTI &nbsp; <input style="width:60px" placeholder="..">STO &nbsp; <input style="width:60px" placeholder="..">RRA</div>
+            <div class="exercise-row">___LLO (l'animale del mattino) <input data-answer="ga" style="width:60px"><span class="ex-fb"></span> &nbsp; SPA___TTI (piatto tipico) <input data-answer="ghe" style="width:60px"><span class="ex-fb"></span> &nbsp; ___STO (il sapore) <input data-answer="gu" style="width:60px"><span class="ex-fb"></span> &nbsp; LA___ (specchi d'acqua) <input data-answer="ghi" style="width:60px"><span class="ex-fb"></span></div>
           </div>`
       },
       {
@@ -2099,9 +2090,9 @@
           </div>
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
-            <div class="exercise-row">Ieri era sabato. Oggi è lunedì. Domani sarà <input placeholder="martedì"></div>
-            <div class="exercise-row">Ieri era giovedì. Oggi è <input placeholder="..">. Domani sarà <input placeholder="..">.</div>
-            <div class="exercise-row">Ieri era <input placeholder="..">. Oggi è martedì. Domani sarà <input placeholder="..">.</div>
+            <div class="exercise-row">Ieri era domenica. Oggi è lunedì. Domani sarà <input data-answer="martedì" placeholder="..."><span class="ex-fb"></span>.</div>
+            <div class="exercise-row">Ieri era giovedì. Oggi è <input data-answer="venerdì" placeholder=".."><span class="ex-fb"></span>. Domani sarà <input data-answer="sabato" placeholder=".."><span class="ex-fb"></span>.</div>
+            <div class="exercise-row">Ieri era <input data-answer="lunedì" placeholder=".."><span class="ex-fb"></span>. Oggi è martedì. Domani sarà <input data-answer="mercoledì" placeholder=".."><span class="ex-fb"></span>.</div>
           </div>`
       },
       {
@@ -2171,8 +2162,8 @@
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scrivi il numero in lettere:</p>
-            <div class="exercise-row">9 = <input style="width:90px" placeholder="nove"> &nbsp; 2 = <input style="width:90px"> &nbsp; 10 = <input style="width:90px"> &nbsp; 7 = <input style="width:90px"></div>
-            <div class="exercise-row">16 = <input style="width:90px"> &nbsp; 18 = <input style="width:90px"> &nbsp; 20 = <input style="width:90px"> &nbsp; 12 = <input style="width:90px"></div>
+            <div class="exercise-row">9 = <input data-answer="nove" style="width:90px" placeholder="nove"><span class="ex-fb"></span> &nbsp; 2 = <input data-answer="due" style="width:90px"><span class="ex-fb"></span> &nbsp; 10 = <input data-answer="dieci" style="width:90px"><span class="ex-fb"></span> &nbsp; 7 = <input data-answer="sette" style="width:90px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">16 = <input data-answer="sedici" style="width:90px"><span class="ex-fb"></span> &nbsp; 18 = <input data-answer="diciotto" style="width:90px"><span class="ex-fb"></span> &nbsp; 20 = <input data-answer="venti" style="width:90px"><span class="ex-fb"></span> &nbsp; 12 = <input data-answer="dodici" style="width:90px"><span class="ex-fb"></span></div>
           </div>`
       }
     ]
@@ -2194,7 +2185,7 @@
           </div>
           <div class="exercise-block">
             <div class="ex-title">Completa · পূরণ করো</div>
-            <div class="exercise-row">Tu di dove sei? <input style="width:260px"></div>
+            <div class="exercise-row">Tu di dove sei? <input style="width:260px" placeholder="la tua risposta"></div>
           </div>
           <div class="lesson-section">
             <h3>Lui / Lei — "সে"</h3>
@@ -2216,8 +2207,8 @@
             <div class="ex-title">Completa · পূরণ করো</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scrivi "Lui è" o "Lei è" davanti al nome giusto:</p>
             <div class="exercise-row"><b style="color:var(--gold)">Lui è</b> Aldo <span class="bn-mean">(esempio)</span></div>
-            <div class="exercise-row"><input style="width:70px"> Maria &nbsp; <input style="width:70px"> Amena</div>
-            <div class="exercise-row"><input style="width:70px"> Abdul &nbsp; <input style="width:70px"> Salman &nbsp; <input style="width:70px"> Sokina</div>
+            <div class="exercise-row"><input data-answer="Lei è" style="width:70px"><span class="ex-fb"></span> Maria &nbsp; <input data-answer="Lei è" style="width:70px"><span class="ex-fb"></span> Amena</div>
+            <div class="exercise-row"><input data-answer="Lui è" style="width:70px"><span class="ex-fb"></span> Abdul &nbsp; <input data-answer="Lui è" style="width:70px"><span class="ex-fb"></span> Salman &nbsp; <input data-answer="Lei è" style="width:70px"><span class="ex-fb"></span> Sokina</div>
           </div>`
       },
       {
@@ -2236,7 +2227,7 @@
           <div class="exercise-block">
             <div class="ex-title">Chiedi a un tuo compagno · সহপাঠীকে জিজ্ঞেস করো</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa la frase con le informazioni di un compagno di classe:</p>
-            <div class="exercise-row">Lui/Lei <input style="width:110px" placeholder="chi è?">, Lui/Lei <input style="width:150px" placeholder="si chiama...">, di <input style="width:130px" placeholder="dove è?">, Lui/Lei <input style="width:150px" placeholder="è..."> .</div>
+            <div class="exercise-row">Lui/Lei <input style="width:110px" placeholder="chi è?">, Lui/Lei <input style="width:150px" placeholder="si chiama..."> , di <input style="width:130px" placeholder="dove è?">, Lui/Lei <input style="width:150px" placeholder="è..."> .</div>
           </div>`
       },
       {
@@ -2263,11 +2254,11 @@
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Rispondi alle domande sul dialogo:</p>
-            <div class="exercise-row">Mia è italiana? No, non <input style="width:200px"></div>
-            <div class="exercise-row">Di dov'è Mia? Lei è <input style="width:200px"></div>
-            <div class="exercise-row">Priya è bengalese? <input style="width:220px"></div>
-            <div class="exercise-row">Salman è cingalese? <input style="width:220px"></div>
-            <div class="exercise-row">Di dove è Salman? <input style="width:220px"></div>
+            <div class="exercise-row">Mia è italiana? No, non <input data-answer="è italiana" style="width:200px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Di dov'è Mia? Lei è <input data-answer="indiana" style="width:200px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Priya è bengalese? <input data-answer="sì" style="width:220px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Salman è cingalese? <input data-answer="no" style="width:220px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Di dove è Salman? <input data-answer="brasiliano" style="width:220px"><span class="ex-fb"></span></div>
           </div>`
       },
       {
@@ -2301,9 +2292,9 @@
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Completa (Lei è... / Lui è...):</p>
-            <div class="exercise-row">Bengalese: Lei è <input style="width:160px"></div>
-            <div class="exercise-row">Polacco: Lui è <input style="width:160px"></div>
-            <div class="exercise-row">Spagnola: Lei è <input style="width:160px"></div>
+            <div class="exercise-row">Bengalese: Lei è <input data-answer="bengalese" style="width:160px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Polacco: Lui è <input data-answer="polacco" style="width:160px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Spagnola: Lei è <input data-answer="spagnola" style="width:160px"><span class="ex-fb"></span></div>
           </div>`
       },
       {
@@ -2331,7 +2322,7 @@
           <div class="exercise-block">
             <div class="ex-title">Tocca a te · এবার তোমার পালা</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scrivi la tua nazionalità e il tuo continente:</p>
-            <div class="exercise-row">Io sono <input style="width:160px">, sono <input style="width:160px">.</div>
+            <div class="exercise-row">Io sono <input style="width:160px" placeholder="la tua nazionalità">, sono <input style="width:160px" placeholder="il tuo continente">.</div>
           </div>`
       },
       {
@@ -2390,19 +2381,19 @@
           <div class="exercise-block">
             <div class="ex-title">Esercizio · অনুশীলন</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scegli la forma giusta:</p>
-            <div class="exercise-row">Io ( sono / sei ) in Italia da due mesi.</div>
-            <div class="exercise-row">Maria ( siete / è ) una brava dottoressa.</div>
-            <div class="exercise-row">Noi ( siamo / sono ) amici.</div>
-            <div class="exercise-row">Scusa, tu di dove ( sei / è )?</div>
-            <div class="exercise-row">Ragazzi, voi ( siete / siamo ) pronti per la lezione?</div>
-            <div class="exercise-row">Loro non ( sono / è ) a casa adesso.</div>
+            <div class="exercise-row">Io <input data-answer="sono" style="width:80px" placeholder="sono/sei"><span class="ex-fb"></span> in Italia da due mesi.</div>
+            <div class="exercise-row">Maria <input data-answer="è" style="width:80px" placeholder="siete/è"><span class="ex-fb"></span> una brava dottoressa.</div>
+            <div class="exercise-row">Noi <input data-answer="siamo" style="width:80px" placeholder="siamo/sono"><span class="ex-fb"></span> amici.</div>
+            <div class="exercise-row">Scusa, tu di dove <input data-answer="sei" style="width:80px" placeholder="sei/è"><span class="ex-fb"></span>?</div>
+            <div class="exercise-row">Ragazzi, voi <input data-answer="siete" style="width:80px" placeholder="siete/siamo"><span class="ex-fb"></span> pronti per la lezione?</div>
+            <div class="exercise-row">Loro non <input data-answer="sono" style="width:80px" placeholder="sono/è"><span class="ex-fb"></span> a casa adesso.</div>
           </div>
           <div class="exercise-block" style="margin-top:14px;">
             <div class="ex-title">Completa · বাক্য সাজাও</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Metti le parole nell'ordine giusto per fare una frase:</p>
-            <div class="exercise-row">di dove / tu / sei / ? → <input style="width:260px"></div>
-            <div class="exercise-row">a Roma / noi / siamo / oggi → <input style="width:260px"></div>
-            <div class="exercise-row">non / loro / studenti / sono → <input style="width:260px"></div>
+            <div class="exercise-row">di dove / tu / sei / ? → <input data-answer="di dove sei tu" style="width:260px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">a Roma / noi / siamo / oggi → <input data-answer="oggi noi siamo a Roma" style="width:260px"><span class="ex-fb"></span></div>
+            <div class="exercise-row">non / loro / studenti / sono → <input data-answer="loro non sono studenti" style="width:260px"><span class="ex-fb"></span></div>
           </div>`
       }
     ]
@@ -2427,13 +2418,13 @@
             </div>
           </div>
           <div class="exercise-block">
-            <div class="ex-title">Collega · মিলাও</div>
-            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Collega la domanda con la risposta giusta:</p>
-            <div class="exercise-row">Quanti anni ha Isa? → <input style="width:220px" placeholder="Isa ha 25 anni"></div>
-            <div class="exercise-row">Il fratello di Riad....... → <input style="width:220px" placeholder="ha 19 anni"></div>
-            <div class="exercise-row">Riad e suo fratello hanno → <input style="width:220px" placeholder="6 anni di differenza"></div>
-            <div class="exercise-row">Ciao, come stai? → <input style="width:220px" placeholder="Tutto bene, grazie"></div>
-            <div class="exercise-row">Invece tuo fratello → <input style="width:220px" placeholder="quanti anni ha?"></div>
+            <div class="ex-title">Completa · পূরণ করো</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Rispondi con le informazioni del dialogo:</p>
+            <div class="exercise-row">Quanti anni ha Isa? → <input data-answer="Isa ha 25 anni" style="width:220px" placeholder="..."><span class="ex-fb"></span></div>
+            <div class="exercise-row">Quanti anni ha il fratello di Riad? → <input data-answer="ha 19 anni" style="width:220px" placeholder="..."><span class="ex-fb"></span></div>
+            <div class="exercise-row">Quanti anni di differenza hanno Riad e suo fratello? → <input data-answer="6 anni di differenza" style="width:220px" placeholder="..."><span class="ex-fb"></span></div>
+            <div class="exercise-row">Ciao, come stai? → <input data-answer="Tutto bene, grazie" style="width:220px" placeholder="..."><span class="ex-fb"></span></div>
+            <div class="exercise-row">Quanti anni ha tuo fratello, Riad? → <input data-answer="ha 19 anni" style="width:220px" placeholder="..."><span class="ex-fb"></span></div>
           </div>`
       },
       {
@@ -2453,11 +2444,11 @@
           </div>
           <div class="exercise-block">
             <div class="ex-title">Vero o Falso · সত্য না মিথ্যা</div>
-            <div class="exercise-row">Sokina ha una macchina ( Vero / Falso )</div>
-            <div class="exercise-row">Mia ha una bicicletta ( Vero / Falso )</div>
-            <div class="exercise-row">Sokina non ha la patente ( Vero / Falso )</div>
-            <div class="exercise-row">Mia ha una macchina ( Vero / Falso )</div>
-            <div class="exercise-row">Sokina ha una moto ( Vero / Falso )</div>
+            <div class="exercise-row">Sokina ha una macchina <input data-answer="Falso" style="width:90px" placeholder="Vero/Falso"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Mia ha una bicicletta <input data-answer="Falso" style="width:90px" placeholder="Vero/Falso"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Sokina non ha la patente <input data-answer="Vero" style="width:90px" placeholder="Vero/Falso"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Mia ha una macchina <input data-answer="Vero" style="width:90px" placeholder="Vero/Falso"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Sokina ha una moto <input data-answer="Falso" style="width:90px" placeholder="Vero/Falso"><span class="ex-fb"></span></div>
           </div>`
       },
       {
@@ -2477,11 +2468,11 @@
           </div>
           <div class="exercise-block">
             <div class="ex-title">Scegli la forma giusta · সঠিক উত্তর বেছে নাও</div>
-            <div class="exercise-row">Che cosa ha Aldo? ( Febbre / Mal di testa )</div>
-            <div class="exercise-row">Aldo sta.... ( Bene / Non tanto bene )</div>
-            <div class="exercise-row">Aldo ha.... ( Pancia vuota / Pancia piena )</div>
-            <div class="exercise-row">Aldo ha preso le medicine? ( No / Sì )</div>
-            <div class="exercise-row">Maria è infermiera ( Vero / Falso )</div>
+            <div class="exercise-row">Che cosa ha Aldo? <input data-answer="Mal di testa" style="width:160px" placeholder="Febbre/Mal di testa"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Aldo sta.... <input data-answer="Non tanto bene" style="width:160px" placeholder="Bene/Non tanto bene"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Aldo ha.... <input data-answer="Pancia vuota" style="width:160px" placeholder="Pancia vuota/Pancia piena"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Aldo ha preso le medicine? <input data-answer="No" style="width:160px" placeholder="No/Sì"><span class="ex-fb"></span></div>
+            <div class="exercise-row">Aldo ha la febbre? <input data-answer="No" style="width:160px" placeholder="Vero/Falso"><span class="ex-fb"></span></div>
           </div>`
       },
       {
@@ -2514,19 +2505,19 @@
           <div class="exercise-block">
             <div class="ex-title">Completa · পূরণ করো</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Scrivi la forma giusta di Avere:</p>
-            <div class="exercise-row">Io <input style="width:70px"> una macchina &nbsp; Voi <input style="width:70px"> un telefono</div>
-            <div class="exercise-row">Tu <input style="width:70px"> 45 anni &nbsp; Marco <input style="width:70px"> la febbre</div>
-            <div class="exercise-row">Aurora <input style="width:70px"> sonno &nbsp; Loro <input style="width:70px"> una penna</div>
-            <div class="exercise-row">Carmel <input style="width:70px"> 65 anni &nbsp; Roy <input style="width:70px"> mal di testa</div>
+            <div class="exercise-row">Io <input data-answer="ho" style="width:70px"><span class="ex-fb"></span> una macchina &nbsp; Voi <input data-answer="avete" style="width:70px"><span class="ex-fb"></span> un telefono</div>
+            <div class="exercise-row">Tu <input data-answer="hai" style="width:70px"><span class="ex-fb"></span> 45 anni &nbsp; Marco <input data-answer="ha" style="width:70px"><span class="ex-fb"></span> la febbre</div>
+            <div class="exercise-row">Aurora <input data-answer="ha" style="width:70px"><span class="ex-fb"></span> sonno &nbsp; Loro <input data-answer="hanno" style="width:70px"><span class="ex-fb"></span> una penna</div>
+            <div class="exercise-row">Carmel <input data-answer="ha" style="width:70px"><span class="ex-fb"></span> 65 anni &nbsp; Roy <input data-answer="ha" style="width:70px"><span class="ex-fb"></span> mal di testa</div>
           </div>
           <div class="exercise-block" style="margin-top:14px;">
             <div class="ex-title">Scegli la forma giusta · সঠিক রূপ বেছে নাও</div>
-            <div class="exercise-row">Io ( ho / ha ) una sorella e un fratello.</div>
-            <div class="exercise-row">Tu e Maria ( abbiamo / avete ) freddo?</div>
-            <div class="exercise-row">Loro ( hanno / avete ) una grande casa a Roma.</div>
-            <div class="exercise-row">Il professore ( ha / hai ) molte penne sul tavolo.</div>
-            <div class="exercise-row">Tu ( hai / ho ) un'idea fantastica!</div>
-            <div class="exercise-row">Noi ( abbiamo / hanno ) lezione di italiano oggi.</div>
+            <div class="exercise-row">Io <input data-answer="ho" style="width:80px" placeholder="ho/ha"><span class="ex-fb"></span> una sorella e un fratello.</div>
+            <div class="exercise-row">Tu e Maria <input data-answer="avete" style="width:80px" placeholder="abbiamo/avete"><span class="ex-fb"></span> freddo?</div>
+            <div class="exercise-row">Loro <input data-answer="hanno" style="width:80px" placeholder="hanno/avete"><span class="ex-fb"></span> una grande casa a Roma.</div>
+            <div class="exercise-row">Il professore <input data-answer="ha" style="width:80px" placeholder="ha/hai"><span class="ex-fb"></span> molte penne sul tavolo.</div>
+            <div class="exercise-row">Tu <input data-answer="hai" style="width:80px" placeholder="hai/ho"><span class="ex-fb"></span> un'idea fantastica!</div>
+            <div class="exercise-row">Noi <input data-answer="abbiamo" style="width:80px" placeholder="abbiamo/hanno"><span class="ex-fb"></span> lezione di italiano oggi.</div>
           </div>`
       },
       {
@@ -5791,6 +5782,52 @@
   }
   document.addEventListener('pointerdown', ibpUnlockAudioOnce, { once:true });
   document.addEventListener('keydown', ibpUnlockAudioOnce, { once:true });
+
+  /* ===== Correzione automatica degli esercizi dentro le Lezioni =====
+     Ogni <input data-answer="rispostaGiusta"> viene controllato appena lo
+     studente esce dalla casella (o preme Invio): bordo verde + ✓ se giusta,
+     bordo rosso + la risposta corretta se sbagliata. Funziona su tutte le
+     lezioni automaticamente, senza dover ripetere questo codice ovunque. */
+  function ibpNormalizeAnswer(s){
+    return (s || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[.,!?]+$/g, '').trim();
+  }
+  function ibpCheckLessonInput(el){
+    const answer = el.dataset.answer;
+    if(!answer) return;
+    const val = ibpNormalizeAnswer(el.value);
+    if(!val) return; // non giudicare una casella lasciata vuota
+    let fb = el.nextElementSibling;
+    if(!fb || !fb.classList || !fb.classList.contains('ex-fb')){
+      fb = document.createElement('span');
+      fb.className = 'ex-fb';
+      el.insertAdjacentElement('afterend', fb);
+    }
+    if(val === ibpNormalizeAnswer(answer)){
+      el.classList.remove('ex-wrong'); el.classList.add('ex-correct');
+      fb.textContent = '✓'; fb.className = 'ex-fb ex-fb-ok';
+      ibpPlaySound('correct');
+    } else {
+      el.classList.remove('ex-correct'); el.classList.add('ex-wrong');
+      fb.textContent = '✗ ' + answer; fb.className = 'ex-fb ex-fb-bad';
+      ibpPlaySound('wrong');
+    }
+  }
+  const lessonContentEl = document.getElementById('lesson-content');
+  if(lessonContentEl){
+    // "blur" non risale (bubbling) da solo: serve la fase di cattura (true)
+    lessonContentEl.addEventListener('blur', function(e){
+      if(e.target.tagName === 'INPUT' && e.target.dataset.answer) ibpCheckLessonInput(e.target);
+    }, true);
+    lessonContentEl.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.dataset.answer) e.target.blur();
+    });
+    lessonContentEl.addEventListener('input', function(e){
+      if(e.target.tagName !== 'INPUT') return;
+      e.target.classList.remove('ex-correct', 'ex-wrong');
+      const fb = e.target.nextElementSibling;
+      if(fb && fb.classList && fb.classList.contains('ex-fb')) fb.textContent = '';
+    });
+  }
 
   function ibpPlaySound(kind){
     const ctx = ibpGetAudioCtx();
