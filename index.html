@@ -497,6 +497,39 @@
   .sub-level-card:hover{border-color:var(--gold);transform:translateY(-2px);}
   .sub-level-card h5{font-size:14.5px;color:var(--paper);font-weight:600;}
   .sub-level-card p{font-size:12px;color:var(--muted);}
+
+  /* Schermata di riepilogo quiz (stile Busuu): una card "Continua" ben
+     visibile in cima, seguita da una lista pulita del progresso per livello. */
+  .quiz-continue-card{
+    background:linear-gradient(135deg, rgba(255,122,61,0.10), rgba(108,63,197,0.10));
+    border:1.5px solid rgba(255,122,61,0.35);border-radius:16px;padding:22px 24px;
+    cursor:pointer;transition:transform .18s ease,border-color .18s ease;margin-bottom:28px;
+  }
+  .quiz-continue-card:hover{transform:translateY(-2px);border-color:var(--gold);}
+  .quiz-continue-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .quiz-continue-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);}
+  .quiz-continue-card h4{font-family:'Fraunces',serif;font-size:19px;color:var(--paper);margin-bottom:4px;}
+  .quiz-continue-card p{font-size:12.5px;color:var(--muted);margin-bottom:14px;}
+  .quiz-continue-card .progress-track{margin-bottom:16px;}
+  .quiz-continue-btn{
+    display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--night);
+    font-weight:700;font-size:14px;padding:10px 20px;border-radius:100px;
+  }
+  .quiz-continue-btn svg{width:16px;height:16px;}
+  .quiz-continue-card.all-done{background:rgba(143,170,138,0.10);border-color:rgba(143,170,138,0.4);}
+
+  .quiz-levels-heading{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:12px;}
+  .quiz-levels-summary{display:flex;flex-direction:column;gap:10px;}
+  .quiz-level-row{
+    display:flex;align-items:center;gap:14px;background:rgba(36,28,61,0.03);border:1px solid var(--line);
+    border-radius:12px;padding:14px 16px;cursor:pointer;text-align:left;font-family:'Work Sans',sans-serif;
+    transition:border-color .15s ease,background .15s ease;
+  }
+  .quiz-level-row:hover{border-color:var(--gold);background:rgba(255,122,61,0.05);}
+  .quiz-level-row-info{flex:1;min-width:0;}
+  .quiz-level-row-info h5{font-size:13.5px;color:var(--paper);font-weight:600;margin-bottom:6px;}
+  .progress-track.small{height:5px;}
+  .quiz-level-row-count{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;}
   .level-content .level-book{margin-top:0;}
   .exercise{
     display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
@@ -1041,7 +1074,49 @@
           <div class="cat-container" id="cat-quiz" style="display:none;">
             <button class="cat-back-btn" onclick="ibpBackToHub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Torna al menu</span></button>
 
-            <div class="sub-level-grid" id="quiz-level-select">
+            <div class="quiz-overview" id="quiz-overview">
+              <div class="quiz-continue-card" id="quiz-continue-card" onclick="ibpContinueQuiz()">
+                <div class="quiz-continue-top">
+                  <span class="level-badge" id="quiz-continue-badge">A0</span>
+                  <span class="quiz-continue-eyebrow">Riprendi da qui</span>
+                </div>
+                <h4 id="quiz-continue-title">Caricamento...</h4>
+                <p class="bn" id="quiz-continue-sub"></p>
+                <div class="progress-track"><div class="progress-fill" id="quiz-continue-fill" style="width:0%;"></div></div>
+                <span class="quiz-continue-btn">Continua <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+              </div>
+
+              <h5 class="quiz-levels-heading">I tuoi livelli</h5>
+              <div class="quiz-levels-summary">
+                <button class="quiz-level-row" onclick="ibpShowQuizLevel('a0')">
+                  <span class="level-badge lvl-a0">A0</span>
+                  <div class="quiz-level-row-info">
+                    <h5>Le basi</h5>
+                    <div class="progress-track small"><div class="progress-fill" id="ov-progress-a0" style="width:0%;"></div></div>
+                  </div>
+                  <span class="quiz-level-row-count" id="ov-count-a0">0/5</span>
+                </button>
+                <button class="quiz-level-row" onclick="ibpShowQuizLevel('a1')">
+                  <span class="level-badge lvl-a1">A1</span>
+                  <div class="quiz-level-row-info">
+                    <h5>Grammatica e vita quotidiana</h5>
+                    <div class="progress-track small"><div class="progress-fill" id="ov-progress-a1" style="width:0%;"></div></div>
+                  </div>
+                  <span class="quiz-level-row-count" id="ov-count-a1">0/8</span>
+                </button>
+                <button class="quiz-level-row" onclick="ibpShowQuizLevel('a2')">
+                  <span class="level-badge lvl-a2">A2</span>
+                  <div class="quiz-level-row-info">
+                    <h5>Grammatica avanzata e vita in Italia</h5>
+                    <div class="progress-track small"><div class="progress-fill" id="ov-progress-a2" style="width:0%;"></div></div>
+                  </div>
+                  <span class="quiz-level-row-count" id="ov-count-a2">0/10</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="sub-level-grid" id="quiz-level-select" style="display:none;">
+              <button class="cat-back-btn" onclick="ibpShowQuizOverview()" style="grid-column:1/-1;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Riepilogo</span></button>
               <button class="sub-level-card" onclick="ibpShowQuizLevel('a0')">
                 <span class="level-badge lvl-a0">A0</span>
                 <h5>Le basi</h5>
@@ -1708,23 +1783,13 @@
     if(!currentUid && (cat === 'libri' || cat === 'video')){ ibpShowAuthView(); return; }
 
     if(cat === 'quiz'){
-      const nextId = ibpNextExerciseId();
-      if(nextId === null){
-        // ha già completato tutto quello che ha sbloccato: mostra comunque
-        // la lista, così vede il riepilogo e può ripetere un esercizio
-        document.getElementById('area-hub').style.display = 'none';
-        document.getElementById('cat-lezioni').style.display = 'none';
-        document.getElementById('cat-quiz').style.display = 'block';
-        document.getElementById('cat-libri').style.display = 'none';
-        document.getElementById('cat-video').style.display = 'none';
-        ibpShowQuizLevelSelect();
-        document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
-        return;
-      }
-      if(!currentUid && nextId !== 1){ ibpShowAuthView(); return; }
       document.getElementById('area-hub').style.display = 'none';
+      document.getElementById('cat-lezioni').style.display = 'none';
       document.getElementById('cat-quiz').style.display = 'block';
-      ibpOpenQuiz(nextId);
+      document.getElementById('cat-libri').style.display = 'none';
+      document.getElementById('cat-video').style.display = 'none';
+      ibpShowQuizOverview();
+      document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
       return;
     }
 
@@ -3116,12 +3181,74 @@
       btn.textContent = btn.dataset.label;
     }
   };
+  window.ibpShowQuizOverview = function(){
+    const playView = document.getElementById('quiz-play-view');
+    playView.style.display = 'none';
+    playView.classList.remove('quiz-fullscreen');
+    document.body.classList.remove('quiz-fullscreen-lock');
+    document.getElementById('quiz-demo').classList.remove('show');
+    document.getElementById('quiz-overview').style.display = 'block';
+    document.getElementById('quiz-level-select').style.display = 'none';
+    ['a0','a1','a2'].forEach(l => document.getElementById('quiz-level-'+l).style.display = 'none');
+    ibpRenderQuizOverview();
+  };
+
+  // Calcola e mostra il progresso: quale esercizio riprendere (card "Continua")
+  // e quanto è stato completato in ciascun livello (A0/A1/A2).
+  function ibpRenderQuizOverview(){
+    const nextId = ibpNextExerciseId();
+    const card = document.getElementById('quiz-continue-card');
+    const badge = document.getElementById('quiz-continue-badge');
+    const title = document.getElementById('quiz-continue-title');
+    const sub = document.getElementById('quiz-continue-sub');
+    const fill = document.getElementById('quiz-continue-fill');
+    if(!card) return;
+
+    if(nextId === null){
+      card.classList.add('all-done');
+      badge.textContent = '🎉';
+      title.textContent = 'Hai completato tutto quello che hai sbloccato finora!';
+      sub.textContent = 'নতুন কন্টেন্টের জন্য আবার এসো';
+      fill.style.width = '100%';
+    } else {
+      card.classList.remove('all-done');
+      const meta = EXERCISES_META[nextId];
+      const list = QUIZZES['ex'+nextId];
+      const saved = ibpExState(nextId);
+      const qIndex = (saved && !saved.done) ? (saved.qIndex || 0) : 0;
+      const isResume = !!(saved && !saved.done && qIndex > 0);
+      badge.textContent = meta.livello;
+      title.textContent = meta.it;
+      sub.textContent = isResume ? ('Domanda ' + (qIndex+1) + '/' + list.length + ' · ' + meta.bn) : meta.bn;
+      fill.style.width = Math.round((qIndex / list.length) * 100) + '%';
+    }
+
+    ['a0','a1','a2'].forEach(function(level){
+      const ids = LEVEL_GROUPS[level];
+      let done = 0;
+      ids.forEach(function(id){ const s = ibpExState(id); if(s && s.done) done++; });
+      const pct = Math.round((done / ids.length) * 100);
+      const fillEl = document.getElementById('ov-progress-' + level);
+      const countEl = document.getElementById('ov-count-' + level);
+      if(fillEl) fillEl.style.width = pct + '%';
+      if(countEl) countEl.textContent = done + '/' + ids.length;
+    });
+  }
+
+  window.ibpContinueQuiz = function(){
+    const nextId = ibpNextExerciseId();
+    if(nextId === null) return;
+    if(!currentUid && nextId !== 1){ ibpShowAuthView(); return; }
+    ibpOpenQuiz(nextId);
+  };
+
   window.ibpShowQuizLevelSelect = function(){
     const playView = document.getElementById('quiz-play-view');
     playView.style.display = 'none';
     playView.classList.remove('quiz-fullscreen');
     document.body.classList.remove('quiz-fullscreen-lock');
     document.getElementById('quiz-demo').classList.remove('show');
+    document.getElementById('quiz-overview').style.display = 'none';
     document.getElementById('quiz-level-select').style.display = 'grid';
     ['a0','a1','a2'].forEach(l => document.getElementById('quiz-level-'+l).style.display = 'none');
   };
@@ -3131,6 +3258,7 @@
     playView.classList.remove('quiz-fullscreen');
     document.body.classList.remove('quiz-fullscreen-lock');
     document.getElementById('quiz-demo').classList.remove('show');
+    document.getElementById('quiz-overview').style.display = 'none';
     document.getElementById('quiz-level-select').style.display = 'none';
     ['a0','a1','a2'].forEach(l => document.getElementById('quiz-level-'+l).style.display = (l === level ? 'block' : 'none'));
   };
@@ -5277,6 +5405,7 @@
     window._ibpReorderQ = -1;
 
     // Il quiz si apre come una pagina a sé, a schermo intero (stile app)
+    document.getElementById('quiz-overview').style.display = 'none';
     document.getElementById('quiz-level-select').style.display = 'none';
     ['a0','a1','a2'].forEach(l => { const el = document.getElementById('quiz-level-'+l); if(el) el.style.display = 'none'; });
     const playView = document.getElementById('quiz-play-view');
@@ -5307,10 +5436,7 @@
     playView.classList.remove('quiz-fullscreen');
     document.body.classList.remove('quiz-fullscreen-lock');
     document.getElementById('quiz-demo').classList.remove('show');
-    const meta = EXERCISES_META[openExerciseId];
-    const level = meta ? meta.livello.toLowerCase() : 'a0';
-    ['a0','a1','a2'].forEach(l => { const el = document.getElementById('quiz-level-'+l); if(el) el.style.display = (l === level ? 'block' : 'none'); });
-    document.getElementById('quiz-level-select').style.display = 'none';
+    ibpShowQuizOverview();
     document.getElementById('cat-quiz').scrollIntoView({behavior:'smooth', block:'start'});
   };
 
