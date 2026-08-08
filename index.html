@@ -469,14 +469,23 @@
   /* ===== HUB (menu categorie area personale) ===== */
   .hub-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px,1fr));gap:16px;}
   .hub-card{
-    background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:14px;padding:28px 20px;
-    display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;cursor:pointer;
-    font-family:'Work Sans',sans-serif;transition:border-color .18s ease,transform .18s ease;
+    position:relative;background:var(--night);border:1px solid var(--line);border-radius:16px;padding:24px 20px;
+    display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:4px;cursor:pointer;
+    font-family:'Work Sans',sans-serif;transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease;
   }
-  .hub-card:hover{border-color:var(--gold);transform:translateY(-2px);}
-  .hub-card .hub-ic{font-size:32px;margin-bottom:6px;}
-  .hub-card h4{font-size:16px;color:var(--paper);}
-  .hub-card p{font-size:12.5px;color:var(--muted);}
+  .hub-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 28px rgba(36,28,61,0.08);}
+  .hub-card .hub-ic{
+    width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+    font-size:22px;margin-bottom:14px;
+  }
+  .hub-card:nth-child(odd) .hub-ic{background:rgba(255,122,61,0.12);}
+  .hub-card:nth-child(even) .hub-ic{background:rgba(108,63,197,0.12);}
+  .hub-card h4{font-family:'Fraunces',serif;font-size:17px;color:var(--paper);font-weight:600;}
+  .hub-card p{font-size:12.5px;color:var(--muted);line-height:1.5;}
+  .hub-card-badge{
+    position:absolute;top:18px;right:18px;font-size:11px;font-weight:700;color:var(--gold);
+    background:rgba(255,122,61,0.1);padding:4px 10px;border-radius:100px;white-space:nowrap;
+  }
 
   .cat-back-btn{
     background:var(--panel);border:1px solid var(--line);color:var(--muted);font-size:12.5px;font-weight:700;
@@ -1013,21 +1022,25 @@
             <div class="hub-grid">
               <button class="hub-card" onclick="ibpShowCategory('lezioni')">
                 <span class="hub-ic">📖</span>
+                <span class="hub-card-badge">37 lezioni</span>
                 <h4>Lezioni</h4>
                 <p>Impara passo dopo passo, con spiegazioni · পাঠ শুরু করো</p>
               </button>
               <button class="hub-card" onclick="ibpShowCategory('quiz')">
                 <span class="hub-ic">📝</span>
+                <span class="hub-card-badge" id="hub-quiz-badge">23 unità</span>
                 <h4>Quiz</h4>
                 <p>Metti alla prova quello che hai imparato · কুইজ দাও</p>
               </button>
               <button class="hub-card" onclick="ibpShowCategory('libri')">
                 <span class="hub-ic">📚</span>
+                <span class="hub-card-badge">3 livelli</span>
                 <h4>Libri</h4>
                 <p>Leggi o scarica i materiali del corso · বই পড়ো</p>
               </button>
               <button class="hub-card" onclick="ibpShowCategory('video')">
                 <span class="hub-ic">🎥</span>
+                <span class="hub-card-badge">5 lezioni</span>
                 <h4>Videolezioni</h4>
                 <p>Guarda le lezioni registrate · ভিডিও দেখো</p>
               </button>
@@ -1809,6 +1822,7 @@
     document.getElementById('cat-quiz').style.display = 'none';
     document.getElementById('cat-libri').style.display = 'none';
     document.getElementById('cat-video').style.display = 'none';
+    ibpRenderHubBadge();
     document.getElementById('area-hub').scrollIntoView({behavior:'smooth', block:'start'});
   };
 
@@ -3195,6 +3209,20 @@
 
   // Calcola e mostra il progresso: quale esercizio riprendere (card "Continua")
   // e quanto è stato completato in ciascun livello (A0/A1/A2).
+  // Aggiorna il badge sulla card "Quiz" dell'hub: mostra il progresso reale
+  // ("12/23 fatti") per chi è loggato, oppure il conteggio totale per gli ospiti.
+  function ibpRenderHubBadge(){
+    const badge = document.getElementById('hub-quiz-badge');
+    if(!badge) return;
+    if(!currentUid){ badge.textContent = '23 unità'; return; }
+    let done = 0;
+    for(let i = 1; i <= TOTAL_EXERCISES; i++){
+      const s = ibpExState(i);
+      if(s && s.done) done++;
+    }
+    badge.textContent = done + '/' + TOTAL_EXERCISES + ' fatti';
+  }
+
   function ibpRenderQuizOverview(){
     const nextId = ibpNextExerciseId();
     const card = document.getElementById('quiz-continue-card');
@@ -5254,6 +5282,7 @@
       ibpMarkVideoAvailability();
       ibpRenderLevelBadge();
       ibpRenderPointsBadge();
+      ibpRenderHubBadge();
 
       if(pendingRegisterName){
         pendingRegisterName = null;
@@ -5271,6 +5300,7 @@
           ibpMarkVideoAvailability();
           ibpRenderLevelBadge();
           ibpRenderPointsBadge();
+      ibpRenderHubBadge();
         } else {
           // primo accesso con un account creato manualmente da te: crea il profilo di base
           const nomeIniziale = user.displayName || (user.email ? user.email.split('@')[0] : 'Studente');
@@ -5297,6 +5327,7 @@
       ibpMarkVideoAvailability();
       ibpRenderLevelBadge();
       ibpRenderPointsBadge();
+      ibpRenderHubBadge();
     }
   });
 
