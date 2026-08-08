@@ -542,15 +542,20 @@
   .level-content .level-book{margin-top:0;}
   .exercise{
     display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
-    background:rgba(36,28,61,0.03);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    background:var(--night);border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+    transition:border-color .15s ease,box-shadow .15s ease;
   }
+  .exercise:not(.locked):hover{border-color:rgba(255,122,61,0.4);box-shadow:0 6px 18px rgba(36,28,61,0.06);}
+  .exercise.locked{background:rgba(36,28,61,0.02);}
   .exercise .lv{
     font-family:'Fraunces',serif;font-size:13px;color:var(--night);background:var(--gold);
-    width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .exercise .lv.done{background:var(--ok);}
+  .exercise .lv.locked{background:rgba(36,28,61,0.08);color:var(--muted);font-size:14px;}
   .exercise .info h5{font-size:14.5px;color:var(--paper);font-weight:600;}
-  .exercise .info p{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .exercise.locked .info h5{color:var(--muted);}
+  .exercise .info p{font-size:12px;color:var(--muted);margin-top:3px;opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:340px;}
   .exercise .go{
     color:var(--night);text-decoration:none;font-weight:700;font-size:12.5px;white-space:nowrap;
     background:var(--gold);padding:8px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:4px;
@@ -558,6 +563,9 @@
   }
   .exercise .go:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(255,122,61,0.35);}
   .exercise .go.retry{background:transparent;color:var(--gold);border:1.5px solid var(--gold);padding:6.5px 14px;}
+  .exercise .locked-tag{
+    display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:var(--muted);white-space:nowrap;
+  }
   /* Selettore più specifico (.exercise .exercise-row) così non viene sovrascritto
      dall'altra regola .exercise-row usata altrove nel sito (pannello esercizi
      personalizzati), che altrimenti aggiungeva flex-wrap e margini indesiderati
@@ -568,7 +576,7 @@
     .exercise{flex-wrap:wrap;padding:14px 16px;gap:10px;}
     .exercise .exercise-row{flex:1 1 100%;min-width:0;}
     .exercise .info h5{font-size:13.5px;line-height:1.3;}
-    .exercise .info p{font-size:11.5px;}
+    .exercise .info p{font-size:11.5px;max-width:220px;}
     .exercise .go-slot{flex:1 1 100%;justify-content:flex-end;}
   }
 
@@ -1164,35 +1172,35 @@
               <div class="exercise" data-ex="1">
                 <div class="exercise-row">
                   <div class="lv" id="lv-1">1</div>
-                  <div class="info"><h5>Ciao — Alfabeto, saluti e numeri</h5><p>A0 · 50 domande · হ্যালো — বর্ণমালা, অভিবাদন ও সংখ্যা</p></div>
+                  <div class="info"><h5>Ciao — Alfabeto, saluti e numeri</h5><p>A0 · হ্যালো — বর্ণমালা, অভিবাদন ও সংখ্যা</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(1)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="2">
                 <div class="exercise-row">
                   <div class="lv" id="lv-2">2</div>
-                  <div class="info"><h5>Di dove sei? — Nazionalità e verbo Essere</h5><p>A0 · 50 domande · তুমি কোথা থেকে? — জাতীয়তা ও Essere ক্রিয়া</p></div>
+                  <div class="info"><h5>Di dove sei? — Nazionalità e verbo Essere</h5><p>A0 · তুমি কোথা থেকে? — জাতীয়তা ও Essere ক্রিয়া</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(2)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="3">
                 <div class="exercise-row">
                   <div class="lv" id="lv-3">3</div>
-                  <div class="info"><h5>Quanti anni hai? — Verbo Avere e famiglia</h5><p>A0 · 50 domande · তোমার বয়স কত? — Avere ক্রিয়া ও পরিবার</p></div>
+                  <div class="info"><h5>Quanti anni hai? — Verbo Avere e famiglia</h5><p>A0 · তোমার বয়স কত? — Avere ক্রিয়া ও পরিবার</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(3)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="4">
                 <div class="exercise-row">
                   <div class="lv" id="lv-4">4</div>
-                  <div class="info"><h5>Studio e imparo — Vestiti e verbi in -ARE</h5><p>A0 · 50 domande · পড়াশোনা করি — পোশাক ও -ARE ক্রিয়াপদ</p></div>
+                  <div class="info"><h5>Studio e imparo — Vestiti e verbi in -ARE</h5><p>A0 · পড়াশোনা করি — পোশাক ও -ARE ক্রিয়াপদ</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(4)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="5">
                 <div class="exercise-row">
                   <div class="lv" id="lv-5">5</div>
-                  <div class="info"><h5>Partire — Verbi in -ERE/-IRE e domande</h5><p>A0 · 50 domande · যাত্রা — -ERE/-IRE ক্রিয়াপদ ও প্রশ্ন</p></div>
+                  <div class="info"><h5>Partire — Verbi in -ERE/-IRE e domande</h5><p>A0 · যাত্রা — -ERE/-IRE ক্রিয়াপদ ও প্রশ্ন</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(5)">Inizia →</a></span>
               </div>
@@ -1218,56 +1226,56 @@
               <div class="exercise" data-ex="6">
                 <div class="exercise-row">
                   <div class="lv" id="lv-6">6</div>
-                  <div class="info"><h5>Verbi modali ed essenziali</h5><p>A1 · 50 domande · মূল ও মোডাল ক্রিয়াপদ</p></div>
+                  <div class="info"><h5>Verbi modali ed essenziali</h5><p>A1 · মূল ও মোডাল ক্রিয়াপদ</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(8)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="7">
                 <div class="exercise-row">
                   <div class="lv" id="lv-7">7</div>
-                  <div class="info"><h5>Articoli e genere</h5><p>A1 · 50 domande · আর্টিকেল ও লিঙ্গ</p></div>
+                  <div class="info"><h5>Articoli e genere</h5><p>A1 · আর্টিকেল ও লিঙ্গ</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(7)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="8">
                 <div class="exercise-row">
                   <div class="lv" id="lv-8">8</div>
-                  <div class="info"><h5>La casa e la città</h5><p>A1 · 50 domande · ঘর ও শহর</p></div>
+                  <div class="info"><h5>La casa e la città</h5><p>A1 · ঘর ও শহর</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(8)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="9">
                 <div class="exercise-row">
                   <div class="lv" id="lv-9">9</div>
-                  <div class="info"><h5>Lavoro e professioni</h5><p>A1 · 50 domande · কাজ ও পেশা</p></div>
+                  <div class="info"><h5>Lavoro e professioni</h5><p>A1 · কাজ ও পেশা</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(9)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="10">
                 <div class="exercise-row">
                   <div class="lv" id="lv-10">10</div>
-                  <div class="info"><h5>Mezzi di trasporto e viaggi</h5><p>A1 · 50 domande · যানবাহন ও ভ্রমণ</p></div>
+                  <div class="info"><h5>Mezzi di trasporto e viaggi</h5><p>A1 · যানবাহন ও ভ্রমণ</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(10)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="11">
                 <div class="exercise-row">
                   <div class="lv" id="lv-11">11</div>
-                  <div class="info"><h5>Il tempo, orari e appuntamenti</h5><p>A1 · 50 domande · সময় ও সময়সূচি</p></div>
+                  <div class="info"><h5>Il tempo, orari e appuntamenti</h5><p>A1 · সময় ও সময়সূচি</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(11)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="12">
                 <div class="exercise-row">
                   <div class="lv" id="lv-12">12</div>
-                  <div class="info"><h5>Documenti e vita quotidiana</h5><p>A1 · 50 domande · নথি ও দৈনন্দিন জীবন</p></div>
+                  <div class="info"><h5>Documenti e vita quotidiana</h5><p>A1 · নথি ও দৈনন্দিন জীবন</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(12)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="13">
                 <div class="exercise-row">
                   <div class="lv" id="lv-13">13</div>
-                  <div class="info"><h5>Aggettivi e descrizioni</h5><p>A1 · 50 domande · বিশেষণ ও বর্ণনা</p></div>
+                  <div class="info"><h5>Aggettivi e descrizioni</h5><p>A1 · বিশেষণ ও বর্ণনা</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(13)">Inizia →</a></span>
               </div>
@@ -1293,70 +1301,70 @@
               <div class="exercise" data-ex="14">
                 <div class="exercise-row">
                   <div class="lv" id="lv-14">14</div>
-                  <div class="info"><h5>Conversazione quotidiana</h5><p>A2 · 50 domande · দৈনন্দিন কথোপকথন</p></div>
+                  <div class="info"><h5>Conversazione quotidiana</h5><p>A2 · দৈনন্দিন কথোপকথন</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(14)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="15">
                 <div class="exercise-row">
                   <div class="lv" id="lv-15">15</div>
-                  <div class="info"><h5>Il futuro semplice</h5><p>A2 · 50 domande · সাধারণ ভবিষ্যৎ কাল</p></div>
+                  <div class="info"><h5>Il futuro semplice</h5><p>A2 · সাধারণ ভবিষ্যৎ কাল</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(15)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="16">
                 <div class="exercise-row">
                   <div class="lv" id="lv-16">16</div>
-                  <div class="info"><h5>Il condizionale presente</h5><p>A2 · 50 domande · কন্ডিশনাল বর্তমান কাল</p></div>
+                  <div class="info"><h5>Il condizionale presente</h5><p>A2 · কন্ডিশনাল বর্তমান কাল</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(16)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="17">
                 <div class="exercise-row">
                   <div class="lv" id="lv-17">17</div>
-                  <div class="info"><h5>Il passato prossimo e la mia storia</h5><p>A2 · 50 domande · নিকট অতীত ও জীবনকাহিনী</p></div>
+                  <div class="info"><h5>Il passato prossimo e la mia storia</h5><p>A2 · নিকট অতীত ও জীবনকাহিনী</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(17)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="18">
                 <div class="exercise-row">
                   <div class="lv" id="lv-18">18</div>
-                  <div class="info"><h5>I pronomi diretti e indiretti</h5><p>A2 · 50 domande · প্রত্যক্ষ ও পরোক্ষ সর্বনাম</p></div>
+                  <div class="info"><h5>I pronomi diretti e indiretti</h5><p>A2 · প্রত্যক্ষ ও পরোক্ষ সর্বনাম</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(18)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="19">
                 <div class="exercise-row">
                   <div class="lv" id="lv-19">19</div>
-                  <div class="info"><h5>In viaggio e le vacanze</h5><p>A2 · 50 domande · ভ্রমণ ও ছুটি</p></div>
+                  <div class="info"><h5>In viaggio e le vacanze</h5><p>A2 · ভ্রমণ ও ছুটি</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(19)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="20">
                 <div class="exercise-row">
                   <div class="lv" id="lv-20">20</div>
-                  <div class="info"><h5>Dal medico e la salute</h5><p>A2 · 50 domande · ডাক্তার ও স্বাস্থ্য</p></div>
+                  <div class="info"><h5>Dal medico e la salute</h5><p>A2 · ডাক্তার ও স্বাস্থ্য</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(20)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="21">
                 <div class="exercise-row">
                   <div class="lv" id="lv-21">21</div>
-                  <div class="info"><h5>Il comune e la burocrazia</h5><p>A2 · 50 domande · পৌরসভা ও প্রশাসন</p></div>
+                  <div class="info"><h5>Il comune e la burocrazia</h5><p>A2 · পৌরসভা ও প্রশাসন</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(21)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="22">
                 <div class="exercise-row">
                   <div class="lv" id="lv-22">22</div>
-                  <div class="info"><h5>Giorni di festa e tradizioni</h5><p>A2 · 50 domande · ছুটির দিন ও ঐতিহ্য</p></div>
+                  <div class="info"><h5>Giorni di festa e tradizioni</h5><p>A2 · ছুটির দিন ও ঐতিহ্য</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(22)">Inizia →</a></span>
               </div>
               <div class="exercise" data-ex="23">
                 <div class="exercise-row">
                   <div class="lv" id="lv-23">23</div>
-                  <div class="info"><h5>Cultura civica e vita in Italia</h5><p>A2 · 50 domande · নাগরিক সংস্কৃতি</p></div>
+                  <div class="info"><h5>Cultura civica e vita in Italia</h5><p>A2 · নাগরিক সংস্কৃতি</p></div>
                 </div>
                 <span class="go-slot"><a class="go" onclick="ibpOpenQuiz(25)">Inizia →</a></span>
               </div>
@@ -5372,16 +5380,19 @@
       const slot = exDiv ? exDiv.querySelector('.go-slot') : null;
 
       if(!ibpExerciseUnlocked(i)){
-        if(lv){ lv.textContent = '🔒'; lv.classList.remove('done'); }
+        if(exDiv) exDiv.classList.add('locked');
+        if(lv){ lv.textContent = '🔒'; lv.classList.remove('done'); lv.classList.add('locked'); }
         if(slot){
           if(!currentUid){
-            slot.innerHTML = '<a class="go" onclick="ibpShowAuthView()">🔒 Registrati</a>';
+            slot.innerHTML = '<a class="go" onclick="ibpShowAuthView()">Registrati</a>';
           } else {
-            slot.innerHTML = '<span class="badge-pill" style="opacity:.7">🔒 Completa il quiz '+(i-1)+' prima</span>';
+            slot.innerHTML = '<span class="locked-tag">🔒 Dopo il quiz '+(i-1)+'</span>';
           }
         }
         continue;
       }
+      if(exDiv) exDiv.classList.remove('locked');
+      if(lv) lv.classList.remove('locked');
 
       const state = ibpExState(i);
 
