@@ -539,6 +539,17 @@
   .quiz-level-row-info h5{font-size:13.5px;color:var(--paper);font-weight:600;margin-bottom:6px;}
   .progress-track.small{height:5px;}
   .quiz-level-row-count{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;}
+  .quiz-exam-box{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    margin-top:24px;padding:18px 20px;border-radius:14px;border:1.5px dashed rgba(255,122,61,0.4);
+    background:rgba(255,122,61,0.04);
+  }
+  .quiz-exam-info h5{font-family:'Fraunces',serif;font-size:15px;color:var(--paper);margin:4px 0 3px;}
+  .quiz-exam-info p{font-size:12px;color:var(--muted);}
+  .quiz-exam-btn{
+    background:var(--paper);color:var(--night);font-weight:700;font-size:13px;
+    padding:10px 18px;border-radius:100px;white-space:nowrap;
+  }
   .level-content .level-book{margin-top:0;}
   .exercise{
     display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
@@ -1151,6 +1162,15 @@
                   </div>
                   <span class="quiz-level-row-count" id="ov-count-a2">0/10</span>
                 </button>
+              </div>
+
+              <div class="quiz-exam-box">
+                <div class="quiz-exam-info">
+                  <span class="rule-label" style="color:var(--gold);">📝 Esame</span>
+                  <h5>Esame finale — Livello A0</h5>
+                  <p>50 domande su tutte le 5 unità · accessibile a chiunque, senza account</p>
+                </div>
+                <button class="quiz-exam-btn" onclick="ibpStartExam()">Inizia l'esame →</button>
               </div>
             </div>
 
@@ -5209,6 +5229,12 @@
     ],
   };
 
+  // Esame finale A0: 50 domande (10 per unità: 2 di ogni tipo), prese dalle
+  // prime posizioni di ogni unità già verificate — nessuna domanda nuova,
+  // solo una selezione rappresentativa di quelle che esistono già.
+  QUIZZES.exam_a0 = [1,2,3,4,5].reduce((acc,n) => acc.concat(QUIZZES['ex'+n].slice(0,10)), []);
+  EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়ান্ত পরীক্ষা — A0 স্তর", livello: "A0" };
+
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
@@ -5450,6 +5476,9 @@
 
   function ibpStartSession(exId, resume){
     if(!ibpExerciseUnlocked(exId)){ ibpShowAuthView(); return; }
+    window._examMode = false;
+    const liveElReset = document.getElementById('quiz-points-live');
+    if(liveElReset) liveElReset.style.display = '';
     openExerciseId = exId;
     const list = QUIZZES['ex'+exId];
     currentAnswers = new Array(list.length).fill(null);
@@ -5483,6 +5512,41 @@
   }
 
   window.ibpOpenQuiz = function(exId){ ibpStartSession(exId, true); };
+
+  // Esame finale A0: accessibile a chiunque, senza bisogno di account e
+  // senza il controllo "esercizio sbloccato" (a differenza dei quiz normali).
+  // Riusa lo stesso motore collaudato dei quiz, ma senza mostrare le regole
+  // grammaticali dopo un errore — in un esame non devono aiutare, solo
+  // valutare quello che lo studente sa già.
+  window.ibpStartExam = function(){
+    window._examMode = true;
+    openExerciseId = 'am_a0';
+    const list = QUIZZES.exam_a0;
+    currentAnswers = new Array(list.length).fill(null);
+    currentQIndex = 0;
+    window._ibpMatchQ = -1;
+    window._ibpReorderQ = -1;
+    ibpHideRule();
+
+    document.getElementById('quiz-overview').style.display = 'none';
+    document.getElementById('quiz-level-select').style.display = 'none';
+    ['a0','a1','a2'].forEach(l => { const el = document.getElementById('quiz-level-'+l); if(el) el.style.display = 'none'; });
+    const playView = document.getElementById('quiz-play-view');
+    playView.style.display = 'block';
+    playView.classList.add('quiz-fullscreen');
+    document.body.classList.add('quiz-fullscreen-lock');
+    const liveEl = document.getElementById('quiz-points-live');
+    if(liveEl) liveEl.style.display = 'none'; // niente punti-classifica durante un esame
+
+    const demo = document.getElementById('quiz-demo');
+    demo.classList.add('show');
+    document.getElementById('quiz-result').style.display = 'none';
+    document.getElementById('quiz-q-it').style.display = 'block';
+    document.getElementById('quiz-q-bn').style.display = 'block';
+    document.getElementById('quiz-opts').style.display = 'flex';
+    ibpRenderQuestion();
+    document.getElementById('cat-quiz').scrollIntoView({behavior:'smooth', block:'start'});
+  };
   window.ibpRestartQuiz = function(exId){ ibpStartSession(exId, false); };
 
   /* Torna dalla pagina del quiz alla lista esercizi del livello corretto */
@@ -5493,6 +5557,9 @@
     playView.classList.remove('quiz-fullscreen');
     document.body.classList.remove('quiz-fullscreen-lock');
     document.getElementById('quiz-demo').classList.remove('show');
+    window._examMode = false;
+    const liveEl = document.getElementById('quiz-points-live');
+    if(liveEl) liveEl.style.display = '';
     ibpShowQuizOverview();
     document.getElementById('cat-quiz').scrollIntoView({behavior:'smooth', block:'start'});
   };
@@ -5633,7 +5700,7 @@
     const isCorrect = norm(inp ? inp.value : '') === norm(q.answer);
     currentAnswers[currentQIndex] = { correct: isCorrect, chosenIndex: null };
     ibpAwardPoints(isCorrect);
-    if(isCorrect) ibpHideRule(); else ibpShowRule();
+    if(isCorrect || window._examMode) ibpHideRule(); else ibpShowRule();
     ibpRenderQuestion();
   };
 
@@ -6126,7 +6193,7 @@
     if(currentAnswers[currentQIndex]) return; // già risposta, evita doppio conteggio
     currentAnswers[currentQIndex] = { correct: correct, chosenIndex: chosenIndex };
     ibpAwardPoints(correct);
-    if(correct) ibpHideRule(); else ibpShowRule();
+    if(correct || window._examMode) ibpHideRule(); else ibpShowRule();
     ibpRenderQuestion();
   };
 
@@ -6152,12 +6219,15 @@
       const pct = Math.round((score/list.length)*100);
       const resultBox = document.getElementById('quiz-result');
       resultBox.style.display = 'block';
+      const retryAction = window._examMode ? 'ibpStartExam()' : ('ibpRestartQuiz(' + openExerciseId + ')');
+      const resultLabel = window._examMode
+        ? ('<div class="score">'+score+'/'+list.length+'</div><p>Esame completato — '+pct+'% di risposte corrette. · পরীক্ষা সম্পন্ন হয়েছে।</p>')
+        : ('<div class="score">'+score+'/'+list.length+'</div><p>Esercizio completato — '+pct+'% di risposte corrette. · অনুশীলন সম্পন্ন হয়েছে।</p>');
       resultBox.innerHTML =
-        '<div class="score">'+score+'/'+list.length+'</div>' +
-        '<p>Esercizio completato — '+pct+'% di risposte corrette. · অনুশীলন সম্পন্ন হয়েছে।</p>' +
+        resultLabel +
         '<div class="quiz-result-actions">' +
         '<button class="close-btn" onclick="ibpCloseQuiz()">Chiudi · বন্ধ করো</button>' +
-        '<button class="close-btn retry-btn" onclick="ibpRestartQuiz('+openExerciseId+')">Ripeti il quiz ↻</button>' +
+        '<button class="close-btn retry-btn" onclick="'+retryAction+'">Ripeti '+(window._examMode ? "l'esame" : 'il quiz')+' ↻</button>' +
         '</div>';
 
       await ibpSaveExState(true);
@@ -6405,6 +6475,7 @@
   const IBP_PAGES = {
     'home': { el: 'page-home', title: 'Italiano Pro Bangla — Impara l\'italiano online' },
     'quiz': { el: 'quiz', title: 'Area Personale — Italiano Pro Bangla' },
+    'esame-a0': { el: 'quiz', title: 'Esame finale A0 — Italiano Pro Bangla' },
     'iscriviti': { el: 'iscriviti', title: 'Iscrizione — Italiano Pro Bangla' },
     'faq': { el: 'faq', title: 'Domande frequenti — Italiano Pro Bangla' },
     'accesso-riservato': { el: 'accesso-riservato', title: 'Accesso riservato — Italiano Pro Bangla' }
@@ -6433,6 +6504,15 @@
       const href = (a.getAttribute('href') || '').replace('#','');
       a.classList.toggle('active-page', href === pageId || href === rawHash);
     });
+
+    // Link diretto e condivisibile: italianoprobangla.it/#esame-a0 apre
+    // l'Area Personale e avvia subito l'esame, senza bisogno di account
+    if(pageId === 'esame-a0'){
+      setTimeout(function(){
+        if(typeof ibpShowCategory === 'function') ibpShowCategory('quiz');
+        if(typeof ibpStartExam === 'function') ibpStartExam();
+      }, 50);
+    }
 
     ibpCloseMenu();
   }
