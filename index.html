@@ -6012,6 +6012,36 @@
     bn: "ইতালিয়ানে ক্ষুধা, তৃষ্ণা, ঘুম, গরম ও ঠান্ডার মতো অনুভূতি <b>avere</b> ক্রিয়া দিয়ে প্রকাশ করা হয়, 'essere' দিয়ে নয়: <b>avere fame, avere sete, avere sonno, avere caldo, avere freddo</b>।"
   };
 
+  const RULE_VESTITI = {
+    it: "Vocabolario dei vestiti: <b>pantalone</b> (কোমর থেকে পা), <b>cappello</b> (মাথায়), <b>sciarpa</b> (গলায়), <b>guanto</b> (হাতে), <b>scarpa</b> (পায়ে). Ogni capo si indossa in una parte precisa del corpo.",
+    bn: "পোশাকের শব্দভান্ডার: <b>pantalone</b> (কোমর থেকে পা), <b>cappello</b> (মাথায়), <b>sciarpa</b> (গলায়), <b>guanto</b> (হাতে), <b>scarpa</b> (পায়ে)। প্রতিটি পোশাক শরীরের নির্দিষ্ট অংশে পরা হয়।"
+  };
+  const RULE_VERBI_ARE = {
+    it: "I verbi che finiscono in <b>-ARE</b> (come parlare, abitare, lavorare, cucinare) si coniugano così: io <b>-o</b>, tu <b>-i</b>, lui/lei <b>-a</b>, noi <b>-iamo</b>. È lo schema più comune tra i verbi italiani.",
+    bn: "<b>-ARE</b> দিয়ে শেষ হওয়া ক্রিয়া (যেমন parlare, abitare, lavorare, cucinare) এভাবে রূপ নেয়: io <b>-o</b>, tu <b>-i</b>, lui/lei <b>-a</b>, noi <b>-iamo</b>। এটি ইতালিয়ান ক্রিয়ার সবচেয়ে সাধারণ ধরন।"
+  };
+  const RULE_PLURALE_E_I = {
+    it: "I nomi che finiscono in <b>-E</b> al singolare (sia maschili che femminili) diventano <b>-I</b> al plurale: <b>paese→paesi, chiave→chiavi, madre→madri</b>. Vale per entrambi i generi.",
+    bn: "একবচনে <b>-E</b> দিয়ে শেষ হওয়া শব্দ (পুংলিঙ্গ ও স্ত্রীলিঙ্গ উভয়ই) বহুবচনে <b>-I</b> হয়ে যায়: <b>paese→paesi, chiave→chiavi, madre→madri</b>। এটি উভয় লিঙ্গের জন্য প্রযোজ্য।"
+  };
+
+  const RULE_VERBI_IRE = {
+    it: "I verbi che finiscono in <b>-IRE</b> (come partire) si coniugano: io <b>-o</b>, tu <b>-i</b>, lui/lei <b>-e</b>, noi <b>-iamo</b>. Esempio: parto, parti, parte, partiamo.",
+    bn: "<b>-IRE</b> দিয়ে শেষ হওয়া ক্রিয়া (যেমন partire) এভাবে রূপ নেয়: io <b>-o</b>, tu <b>-i</b>, lui/lei <b>-e</b>, noi <b>-iamo</b>। উদাহরণ: parto, parti, parte, partiamo।"
+  };
+  const RULE_VERBI_ERE = {
+    it: "I verbi che finiscono in <b>-ERE</b> (come prendere, vedere) si coniugano: io <b>-o</b>, tu <b>-i</b>, lui/lei <b>-e</b>, noi <b>-iamo</b> — stesso schema dei verbi in -IRE per queste persone.",
+    bn: "<b>-ERE</b> দিয়ে শেষ হওয়া ক্রিয়া (যেমন prendere, vedere) এভাবে রূপ নেয়: io <b>-o</b>, tu <b>-i</b>, lui/lei <b>-e</b>, noi <b>-iamo</b> — এই ক্ষেত্রে -IRE ক্রিয়ার মতোই একই ধরন।"
+  };
+  const RULE_PAROLE_INTERROGATIVE = {
+    it: "Le parole per fare domande: <b>Dove?</b> (luogo), <b>Quando?</b> (tempo), <b>Chi?</b> (persona), <b>Che cosa?</b> (oggetto/azione), <b>Come?</b> (modo/nome), <b>Quanto?</b> (quantità). Ognuna chiede un'informazione diversa.",
+    bn: "প্রশ্ন করার শব্দ: <b>Dove?</b> (স্থান), <b>Quando?</b> (সময়), <b>Chi?</b> (ব্যক্তি), <b>Che cosa?</b> (বস্তু/কাজ), <b>Come?</b> (পদ্ধতি/নাম), <b>Quanto?</b> (পরিমাণ)। প্রতিটি ভিন্ন তথ্য জিজ্ঞেস করে।"
+  };
+  const RULE_QU_CU = {
+    it: "In italiano, il suono 'kw' si scrive quasi sempre <b>QU</b> (quaderno, quattro, quando). Fanno eccezione poche parole con <b>CU</b>, come 'cuore' e 'cugino', da imparare a memoria.",
+    bn: "ইতালিয়ানে 'kw' উচ্চারণ প্রায় সবসময় <b>QU</b> দিয়ে লেখা হয় (quaderno, quattro, quando)। শুধু কিছু ব্যতিক্রম শব্দ <b>CU</b> দিয়ে লেখা হয়, যেমন 'cuore' এবং 'cugino' — এগুলো মুখস্থ করতে হবে।"
+  };
+
   const LESSON_RULES = {
     ex1: {
       1: RULE_NUMERI_0_10, 2: RULE_NUMERI_0_10, 3: RULE_SALUTI,
@@ -6048,6 +6078,30 @@
       36: RULE_ESPRESSIONI_AVERE, 37: RULE_ESPRESSIONI_AVERE, 38: RULE_ESPRESSIONI_AVERE,
       41: RULE_MESI, 42: RULE_NUMERI_21_100, 43: RULE_ESPRESSIONI_AVERE,
       46: RULE_DOMANDE_PERSONALI, 47: RULE_NUMERI_21_100, 48: RULE_AVERE
+    },
+    ex4: {
+      1: RULE_VESTITI, 2: RULE_VESTITI, 3: RULE_VERBI_ARE,
+      6: RULE_VESTITI, 7: RULE_VESTITI, 8: RULE_VERBI_ARE,
+      11: RULE_VERBI_ARE, 12: RULE_VERBI_ARE, 13: RULE_VERBI_ARE,
+      16: RULE_VERBI_ARE, 17: RULE_VERBI_ARE, 18: RULE_VERBI_ARE,
+      21: RULE_VERBI_ARE, 22: RULE_VERBI_ARE, 23: RULE_VESTITI,
+      26: RULE_PLURALE_E_I, 27: RULE_PLURALE_E_I, 28: RULE_VESTITI,
+      31: RULE_PLURALE_E_I, 32: RULE_VESTITI, 33: RULE_VESTITI,
+      36: RULE_VESTITI, 37: RULE_VESTITI, 38: RULE_VERBI_ARE,
+      41: RULE_VERBI_ARE, 42: RULE_VESTITI, 43: RULE_PLURALE_E_I,
+      46: RULE_VESTITI, 47: RULE_VERBI_ARE, 48: RULE_PLURALE_E_I
+    },
+    ex5: {
+      1: RULE_VERBI_IRE, 2: RULE_VERBI_IRE, 3: RULE_VERBI_IRE,
+      6: RULE_VERBI_ERE, 7: RULE_VERBI_ERE, 8: RULE_VERBI_ERE,
+      11: RULE_VERBI_ERE, 12: RULE_VERBI_ERE, 13: RULE_VERBI_ERE,
+      16: RULE_PAROLE_INTERROGATIVE, 17: RULE_PAROLE_INTERROGATIVE, 18: RULE_PAROLE_INTERROGATIVE,
+      21: RULE_PAROLE_INTERROGATIVE, 22: RULE_PAROLE_INTERROGATIVE, 23: RULE_PAROLE_INTERROGATIVE,
+      26: RULE_PAROLE_INTERROGATIVE, 27: RULE_PAROLE_INTERROGATIVE, 28: RULE_PAROLE_INTERROGATIVE,
+      31: RULE_PAROLE_INTERROGATIVE, 32: RULE_PAROLE_INTERROGATIVE, 33: RULE_PAROLE_INTERROGATIVE,
+      36: RULE_QU_CU, 37: RULE_QU_CU, 38: RULE_QU_CU,
+      41: RULE_QU_CU, 42: RULE_QU_CU, 43: RULE_QU_CU,
+      46: RULE_PAROLE_INTERROGATIVE, 47: RULE_PAROLE_INTERROGATIVE, 48: RULE_VERBI_IRE
     }
   };
 
