@@ -554,6 +554,7 @@
     border:none;background:var(--paper);margin-top:0;margin-bottom:14px;
   }
   .quiz-exam-btn-serio{background:var(--gold);color:var(--night);}
+  .quiz-exam-btn-group{display:flex;gap:10px;flex-wrap:wrap;}
   .level-content .level-book{margin-top:0;}
   .exercise{
     display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
@@ -1170,28 +1171,14 @@
 
               <div class="quiz-exam-box quiz-exam-box-serio">
                 <div class="quiz-exam-info">
-                  <span class="rule-label" style="color:var(--night);">📝 Esame serio</span>
-                  <h5 style="color:var(--night);">Grammatica essenziale — Essere, Avere, ARE/ERE/IRE, suoni C/G</h5>
-                  <p style="color:rgba(255,255,255,0.75);">55 domande vere di grammatica, non vocabolario · accessibile a chiunque, senza account</p>
+                  <span class="rule-label" style="color:var(--night);">📝 Esame finale</span>
+                  <h5 style="color:var(--night);">Grammatica seria — in 2 sezioni</h5>
+                  <p style="color:rgba(255,255,255,0.75);">Non vocabolario: verbi, articoli, suoni, coniugazioni · accessibile a chiunque, senza account</p>
                 </div>
-                <button class="quiz-exam-btn quiz-exam-btn-serio" onclick="ibpStartExam('grammatica')">Inizia l'esame →</button>
-              </div>
-
-              <div class="quiz-exam-box">
-                <div class="quiz-exam-info">
-                  <span class="rule-label" style="color:var(--gold);">📝 Esame</span>
-                  <h5>Esame finale — Livello A0</h5>
-                  <p>50 domande su tutte le 5 unità · accessibile a chiunque, senza account</p>
+                <div class="quiz-exam-btn-group">
+                  <button class="quiz-exam-btn quiz-exam-btn-serio" onclick="ibpStartExam('a0')">Sezione A0 →</button>
+                  <button class="quiz-exam-btn quiz-exam-btn-serio" onclick="ibpStartExam('a1')">Sezione A1 →</button>
                 </div>
-                <button class="quiz-exam-btn" onclick="ibpStartExam('a0')">Inizia l'esame →</button>
-              </div>
-              <div class="quiz-exam-box" style="margin-top:14px;">
-                <div class="quiz-exam-info">
-                  <span class="rule-label" style="color:var(--purple);">📝 Esame</span>
-                  <h5>Esame finale — Livello A1</h5>
-                  <p>100 domande vere di grammatica (modali, articoli, plurali, riflessivi...) · accessibile a chiunque, senza account</p>
-                </div>
-                <button class="quiz-exam-btn" onclick="ibpStartExam('a1')">Inizia l'esame →</button>
               </div>
             </div>
 
@@ -5250,12 +5237,6 @@
     ],
   };
 
-  // Esame finale A0: 50 domande (10 per unità: 2 di ogni tipo), prese dalle
-  // prime posizioni di ogni unità già verificate — nessuna domanda nuova,
-  // solo una selezione rappresentativa di quelle che esistono già.
-  QUIZZES.exam_a0 = [1,2,3,4,5].reduce((acc,n) => acc.concat(QUIZZES['ex'+n].slice(0,10)), []);
-  EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়ান্ত পরীক্ষা — A0 স্তর", livello: "A0" };
-
   // Esame finale A1 (versione seria): 100 domande vere di grammatica,
   // 20 per ciascuno dei 5 tipi, su verbi modali, articoli, plurali,
   // c'è/ci sono, piacere/piacciono, riflessivi, verbi irregolari, gerundio.
@@ -5427,8 +5408,8 @@ const EXAM_GRAMMATICA = [
   { kind:"match", it:"Abbina ogni parola con il suo suono C/G corretto.", bn:"প্রতিটি শব্দ তার সঠিক C/G উচ্চারণের সাথে মেলাও।", pairs:[["Cuore","C duro"],["Gelato","G dolce"],["Laghi","G duro"]] },
   { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Loro","hanno","molta","fame"] }
 ];
-QUIZZES.exam_grammatica = EXAM_GRAMMATICA;
-EXERCISES_META['am_grammatica'] = { it: "Esame di grammatica seria", bn: "গুরুত্বপূর্ণ ব্যাকরণ পরীক্ষা", livello: "A0-A1" };
+QUIZZES.exam_a0 = EXAM_GRAMMATICA;
+EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়ান্ত পরীক্ষা — A0 স্তর", livello: "A0" };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -6674,7 +6655,6 @@ EXERCISES_META['am_grammatica'] = { it: "Esame di grammatica seria", bn: "গু
     'quiz': { el: 'quiz', title: 'Area Personale — Italiano Pro Bangla' },
     'esame-a0': { el: 'quiz', title: 'Esame finale A0 — Italiano Pro Bangla' },
     'esame-a1': { el: 'quiz', title: 'Esame finale A1 — Italiano Pro Bangla' },
-    'esame-grammatica': { el: 'quiz', title: 'Esame di grammatica — Italiano Pro Bangla' },
     'iscriviti': { el: 'iscriviti', title: 'Iscrizione — Italiano Pro Bangla' },
     'faq': { el: 'faq', title: 'Domande frequenti — Italiano Pro Bangla' },
     'accesso-riservato': { el: 'accesso-riservato', title: 'Accesso riservato — Italiano Pro Bangla' }
@@ -6706,7 +6686,7 @@ EXERCISES_META['am_grammatica'] = { it: "Esame di grammatica seria", bn: "গু
 
     // Link diretto e condivisibile: italianoprobangla.it/#esame-a0 (o #esame-a1)
     // apre l'Area Personale e avvia subito l'esame, senza bisogno di account
-    if(pageId === 'esame-a0' || pageId === 'esame-a1' || pageId === 'esame-grammatica'){
+    if(pageId === 'esame-a0' || pageId === 'esame-a1'){
       const examLevel = pageId.replace('esame-','');
       setTimeout(function(){
         if(typeof ibpShowCategory === 'function') ibpShowCategory('quiz');
