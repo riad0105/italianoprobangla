@@ -550,6 +550,10 @@
     background:var(--paper);color:var(--night);font-weight:700;font-size:13px;
     padding:10px 18px;border-radius:100px;white-space:nowrap;
   }
+  .quiz-exam-box-serio{
+    border:none;background:var(--paper);margin-top:0;margin-bottom:14px;
+  }
+  .quiz-exam-btn-serio{background:var(--gold);color:var(--night);}
   .level-content .level-book{margin-top:0;}
   .exercise{
     display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
@@ -1164,13 +1168,30 @@
                 </button>
               </div>
 
+              <div class="quiz-exam-box quiz-exam-box-serio">
+                <div class="quiz-exam-info">
+                  <span class="rule-label" style="color:var(--night);">📝 Esame serio</span>
+                  <h5 style="color:var(--night);">Grammatica essenziale — Essere, Avere, ARE/ERE/IRE, suoni C/G</h5>
+                  <p style="color:rgba(255,255,255,0.75);">55 domande vere di grammatica, non vocabolario · accessibile a chiunque, senza account</p>
+                </div>
+                <button class="quiz-exam-btn quiz-exam-btn-serio" onclick="ibpStartExam('grammatica')">Inizia l'esame →</button>
+              </div>
+
               <div class="quiz-exam-box">
                 <div class="quiz-exam-info">
                   <span class="rule-label" style="color:var(--gold);">📝 Esame</span>
                   <h5>Esame finale — Livello A0</h5>
                   <p>50 domande su tutte le 5 unità · accessibile a chiunque, senza account</p>
                 </div>
-                <button class="quiz-exam-btn" onclick="ibpStartExam()">Inizia l'esame →</button>
+                <button class="quiz-exam-btn" onclick="ibpStartExam('a0')">Inizia l'esame →</button>
+              </div>
+              <div class="quiz-exam-box" style="margin-top:14px;">
+                <div class="quiz-exam-info">
+                  <span class="rule-label" style="color:var(--purple);">📝 Esame</span>
+                  <h5>Esame finale — Livello A1</h5>
+                  <p>100 domande vere di grammatica (modali, articoli, plurali, riflessivi...) · accessibile a chiunque, senza account</p>
+                </div>
+                <button class="quiz-exam-btn" onclick="ibpStartExam('a1')">Inizia l'esame →</button>
               </div>
             </div>
 
@@ -5235,6 +5256,180 @@
   QUIZZES.exam_a0 = [1,2,3,4,5].reduce((acc,n) => acc.concat(QUIZZES['ex'+n].slice(0,10)), []);
   EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়ান্ত পরীক্ষা — A0 স্তর", livello: "A0" };
 
+  // Esame finale A1 (versione seria): 100 domande vere di grammatica,
+  // 20 per ciascuno dei 5 tipi, su verbi modali, articoli, plurali,
+  // c'è/ci sono, piacere/piacciono, riflessivi, verbi irregolari, gerundio.
+const EXAM_A1_SERIO_1 = [
+  ["Come si coniuga il verbo modale DOVERE con 'io'?","'io' এর সাথে DOVERE ক্রিয়াটি কীভাবে হয়?",["devo","devo"],["devi","devi"],["deve","deve"],0],
+  ["Come si coniuga il verbo modale POTERE con 'tu'?","'tu' এর সাথে POTERE ক্রিয়াটি কীভাবে হয়?",["posso","posso"],["puoi","puoi"],["può","può"],1],
+  ["Come si coniuga il verbo modale VOLERE con 'lui/lei'?","'lui/lei' এর সাথে VOLERE ক্রিয়াটি কীভাবে হয়?",["voglio","voglio"],["vuoi","vuoi"],["vuole","vuole"],2],
+  ["Dopo un verbo modale (dovere/potere/volere), il secondo verbo va...","মোডাল ক্রিয়ার পর দ্বিতীয় ক্রিয়াটি কেমন হয়...",["All'infinito, senza coniugarlo","ইনফিনিটিভ রূপে, রূপান্তর ছাড়া"],["Coniugato come il primo","প্রথমটির মতো রূপান্তরিত"],["Al participio passato","অতীত কৃদন্ত রূপে"],0],
+  ["L'articolo determinativo davanti a un nome maschile che inizia con S+consonante (es. studente) è...","S+ব্যঞ্জনবর্ণ দিয়ে শুরু পুংলিঙ্গ শব্দের (যেমন studente) আগে নির্দিষ্ট আর্টিকেল কী...",["il","il"],["lo","lo"],["la","la"],1],
+  ["L'articolo determinativo davanti a un nome maschile che inizia con vocale (es. amico) è...","স্বরবর্ণ দিয়ে শুরু পুংলিঙ্গ শব্দের (যেমন amico) আগে নির্দিষ্ট আর্টিকেল কী...",["il","il"],["lo","lo"],["l'","l'"],2],
+  ["Il plurale di 'un'amica' (femminile in -A) è...","'un'amica' (স্ত্রীলিঙ্গ -A) এর বহুবচন কী...",["due amiche","due amiche"],["due amici","due amici"],["due amico","due amico"],0],
+  ["Il plurale di 'un libro' (maschile in -O) è...","'un libro' (পুংলিঙ্গ -O) এর বহুবচন কী...",["due libre","due libre"],["due libri","due libri"],["due libra","due libra"],1],
+  ["Il plurale di 'una chiave' (nome in -E) è...","'una chiave' (-E শব্দ) এর বহুবচন কী...",["due chiave","due chiave"],["due chiavi","due chiavi"],["due chiavo","due chiavo"],1],
+  ["'C'è' si usa davanti a un nome...","'C'è' কোন ধরনের বিশেষ্যের আগে ব্যবহৃত হয়...",["Singolare","একবচন"],["Plurale","বহুবচন"],["Sempre plurale","সবসময় বহুবচন"],0],
+  ["'Ci sono' si usa davanti a un nome...","'Ci sono' কোন ধরনের বিশেষ্যের আগে ব্যবহৃত হয়...",["Singolare","একবচন"],["Plurale","বহুবচন"],["Mai con i nomi","কখনও বিশেষ্যের সাথে নয়"],1],
+  ["'Mi piace' si usa quando il nome dopo è...","'Mi piace' ব্যবহৃত হয় যখন পরের বিশেষ্যটি...",["Singolare","একবচন"],["Plurale","বহুবচন"],["Un verbo","একটি ক্রিয়া"],0],
+  ["'Mi piacciono' si usa quando il nome dopo è...","'Mi piacciono' ব্যবহৃত হয় যখন পরের বিশেষ্যটি...",["Singolare","একবচন"],["Plurale","বহুবচন"],["Un aggettivo","একটি বিশেষণ"],1],
+  ["Quale frase è corretta per dire che ti piace la pasta?","পাস্তা পছন্দ বোঝাতে কোন বাক্যটি সঠিক?",["Mi piace la pasta","Mi piace la pasta"],["Mi piacciono la pasta","Mi piacciono la pasta"],["Mi piaci la pasta","Mi piaci la pasta"],0],
+  ["Quale frase è corretta per dire che ti piacciono gli spaghetti?","স্প্যাগেটি পছন্দ বোঝাতে কোন বাক্যটি সঠিক?",["Mi piace gli spaghetti","Mi piace gli spaghetti"],["Mi piacciono gli spaghetti","Mi piacciono gli spaghetti"],["Mi piacete gli spaghetti","Mi piacete gli spaghetti"],1],
+  ["Come si coniuga il verbo riflessivo ALZARSI con 'io'?","'io' এর সাথে ALZARSI ক্রিয়াটি কীভাবে হয়?",["mi alzo","mi alzo"],["ti alzi","ti alzi"],["si alza","si alza"],0],
+  ["Nei verbi riflessivi, il pronome (mi/ti/si...) si mette...","প্রতিবর্তক ক্রিয়ায় সর্বনাম (mi/ti/si...) কোথায় বসে...",["Prima del verbo coniugato","রূপান্তরিত ক্রিয়ার আগে"],["Sempre dopo il verbo","সবসময় ক্রিয়ার পরে"],["Non si usa mai","কখনও ব্যবহৃত হয় না"],0],
+  ["Come si coniuga il verbo irregolare SAPERE con 'io'?","'io' এর সাথে SAPERE ক্রিয়াটি কীভাবে হয়?",["so","so"],["sai","sai"],["sa","sa"],0],
+  ["Come si coniuga il verbo irregolare USCIRE con 'tu'?","'tu' এর সাথে USCIRE ক্রিয়াটি কীভাবে হয়?",["esco","esco"],["esci","esci"],["esce","esce"],1],
+  ["Come si coniuga il verbo irregolare BERE con 'lui/lei'?","'lui/lei' এর সাথে BERE ক্রিয়াটি কীভাবে হয়?",["bevo","bevo"],["bevi","bevi"],["beve","beve"],2],
+  ["Vero o Falso: con 'noi' il verbo modale 'dovere' si dice 'dobbiamo'.","সত্য নাকি মিথ্যা: 'noi' এর সাথে 'dovere' ক্রিয়া হয় 'dobbiamo'।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: con 'voi' il verbo modale 'potere' si dice 'potete'.","সত্য নাকি মিথ্যা: 'voi' এর সাথে 'potere' ক্রিয়া হয় 'potete'।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: l'articolo 'lo' si usa anche davanti a nomi maschili che iniziano con 'Z'.","সত্য নাকি মিথ্যা: Z দিয়ে শুরু পুংলিঙ্গ শব্দের আগেও 'lo' ব্যবহৃত হয়।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: i nomi femminili in -A fanno il plurale in -A anche loro (restano uguali).","সত্য নাকি মিথ্যা: -A দিয়ে শেষ স্ত্রীলিঙ্গ শব্দের বহুবচনও -A হয় (অপরিবর্তিত থাকে)।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  ["Vero o Falso: 'Ci sono due studenti in classe' è una frase corretta.","সত্য নাকি মিথ্যা: 'Ci sono due studenti in classe' একটি সঠিক বাক্য।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: si dice 'C'è molti libri' per dire che ci sono tanti libri.","সত্য নাকি মিথ্যা: অনেক বই আছে বোঝাতে 'C'è molti libri' বলা হয়।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  ["Vero o Falso: 'Mi piacciono i gatti' è corretto perché 'gatti' è plurale.","সত্য নাকি মিথ্যা: 'gatti' বহুবচন বলে 'Mi piacciono i gatti' সঠিক।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: con i verbi riflessivi, il pronome cambia in base al soggetto.","সত্য নাকি মিথ্যা: প্রতিবর্তক ক্রিয়ায় সর্বনাম কর্তা অনুযায়ী পরিবর্তিত হয়।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: 'lavarsi' e 'vestirsi' sono verbi riflessivi.","সত্য নাকি মিথ্যা: 'lavarsi' ও 'vestirsi' প্রতিবর্তক ক্রিয়া।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: il verbo 'sapere' con 'noi' si dice 'sappiamo'.","সত্য নাকি মিথ্যা: 'noi' এর সাথে 'sapere' ক্রিয়া হয় 'sappiamo'।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: il verbo 'uscire' con 'noi' cambia radice, si dice 'usciamo' senza 'esc'.","সত্য নাকি মিথ্যা: 'noi' এর সাথে 'uscire' ক্রিয়ার মূল পরিবর্তিত হয়ে 'usciamo' হয়, 'esc' ছাড়া।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: 'stare + gerundio' descrive un'azione già conclusa nel passato.","সত্য নাকি মিথ্যা: 'stare + gerundio' অতীতে সম্পন্ন হওয়া ক্রিয়া বর্ণনা করে।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  ["Vero o Falso: il gerundio di 'fare' è 'facendo' (irregolare).","সত্য নাকি মিথ্যা: 'fare' এর জেরুন্দিও রূপ 'facendo' (অনিয়মিত)।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: 'Sto mangiando' significa che l'azione di mangiare è finita.","সত্য নাকি মিথ্যা: 'Sto mangiando' মানে খাওয়ার কাজ শেষ হয়ে গেছে।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  ["Vero o Falso: l'articolo indeterminativo 'un' non prende mai l'apostrofo davanti a un nome maschile.","সত্য নাকি মিথ্যা: 'un' পুংলিঙ্গ শব্দের আগে কখনও অ্যাপোস্ট্রফি নেয় না।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: l'articolo 'un'' con l'apostrofo si usa davanti a nomi femminili che iniziano per vocale.","সত্য নাকি মিথ্যা: স্বরবর্ণ দিয়ে শুরু স্ত্রীলিঙ্গ শব্দের আগে অ্যাপোস্ট্রফি সহ 'un'' ব্যবহৃত হয়।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: 'Devo studiare' e 'Studio devo' significano la stessa cosa.","সত্য নাকি মিথ্যা: 'Devo studiare' ও 'Studio devo' একই অর্থ বহন করে।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  ["Vero o Falso: 'Voglio andare al mare' usa il verbo modale 'volere' + infinito.","সত্য নাকি মিথ্যা: 'Voglio andare al mare' এ 'volere' মোডাল ক্রিয়া + ইনফিনিটিভ ব্যবহৃত হয়েছে।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: 'bere' con 'loro' si dice 'bevono'.","সত্য নাকি মিথ্যা: 'loro' এর সাথে 'bere' ক্রিয়া হয় 'bevono'।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: 'rimanere' con 'io' si dice 'rimango' (con la G).","সত্য নাকি মিথ্যা: 'io' এর সাথে 'rimanere' ক্রিয়া হয় 'rimango' (G সহ)।",["Vero","সত্য"],["Falso","মিথ্যা"],0]
+];
+const EXAM_A1_SERIO_2_FILL = [
+  { kind:"fill", it:"Completa: 'Tu ___ studiare di più' (verbo dovere, con 'tu').", bn:"'Tu ___ studiare di più' (dovere ক্রিয়া)।", answer:"devi" },
+  { kind:"fill", it:"Completa: 'Loro ___ venire con noi?' (verbo potere, con 'loro').", bn:"'Loro ___ venire con noi?' (potere ক্রিয়া)।", answer:"possono" },
+  { kind:"fill", it:"Completa: 'Noi ___ comprare una casa' (verbo volere, con 'noi').", bn:"'Noi ___ comprare una casa' (volere ক্রিয়া)।", answer:"vogliamo" },
+  { kind:"fill", it:"Completa: l'articolo determinativo davanti a 'zaino' (inizia per Z) è '___'.", bn:"'zaino' (Z দিয়ে শুরু) এর আগে নির্দিষ্ট আর্টিকেল হলো '___'।", answer:"lo" },
+  { kind:"fill", it:"Completa: l'articolo determinativo plurale di 'lo studente' è '___ studenti'.", bn:"'lo studente' এর বহুবচন আর্টিকেল হলো '___ studenti'।", answer:"gli" },
+  { kind:"fill", it:"Completa: il plurale di 'un'amica' è 'due ___'.", bn:"'un'amica' এর বহুবচন হলো 'due ___'।", answer:"amiche" },
+  { kind:"fill", it:"Completa: il plurale di 'una madre' è 'due ___'.", bn:"'una madre' এর বহুবচন হলো 'due ___'।", answer:"madri" },
+  { kind:"fill", it:"Completa: 'In frigo ___ molte verdure' (il soggetto è plurale: verdure).", bn:"বিষয় বহুবচন: verdure (সবজি)। সঠিক রূপ লেখো।", answer:"ci sono" },
+  { kind:"fill", it:"Completa: 'Sul tavolo ___ un libro' (usa 'c'è' o 'ci sono' correttamente).", bn:"টেবিলে একটি বই আছে বোঝাতে সঠিক রূপ ব্যবহার করো।", answer:"c'è" },
+  { kind:"fill", it:"Completa: 'Mi ___ molto la pizza' (verbo piacere, con nome singolare).", bn:"একবচন বিশেষ্যের সাথে piacere ক্রিয়ার সঠিক রূপ লেখো।", answer:"piace" },
+  { kind:"fill", it:"Completa: 'Mi ___ molto i dolci' (verbo piacere, con nome plurale).", bn:"বহুবচন বিশেষ্যের সাথে piacere ক্রিয়ার সঠিক রূপ লেখো।", answer:"piacciono" },
+  { kind:"fill", it:"Completa: 'Io mi ___ alle sette' (verbo svegliarsi, con 'io').", bn:"'Io mi ___ alle sette' (svegliarsi ক্রিয়া)।", answer:"sveglio" },
+  { kind:"fill", it:"Completa: 'Tu ti ___ prima di uscire?' (verbo vestirsi, con 'tu').", bn:"'Tu ti ___ prima di uscire?' (vestirsi ক্রিয়া)।", answer:"vesti" },
+  { kind:"fill", it:"Completa: 'Io non lo ___' (verbo sapere, forma negativa, con 'io').", bn:"'Io non lo ___' (sapere ক্রিয়া, নেতিবাচক)।", answer:"so" },
+  { kind:"fill", it:"Completa: 'Voi a che ora ___ di casa?' (verbo uscire, con 'voi').", bn:"'Voi a che ora ___ di casa?' (uscire ক্রিয়া)।", answer:"uscite" },
+  { kind:"fill", it:"Completa: 'Tu che cosa ___ la mattina, latte o caffè?' (verbo bere, con 'tu').", bn:"'Tu che cosa ___ la mattina?' (bere ক্রিয়া)।", answer:"bevi" },
+  { kind:"fill", it:"Completa: 'Il treno sta ___' (gerundio di arrivare, azione in corso ora).", bn:"'Il treno sta ___' (arrivare এর জেরুন্দিও রূপ)।", answer:"arrivando" },
+  { kind:"fill", it:"Completa: 'Che cosa stai ___?' (gerundio di fare, azione in corso ora).", bn:"'Che cosa stai ___?' (fare এর জেরুন্দিও রূপ)।", answer:"facendo" },
+  { kind:"fill", it:"Completa: 'Ho bisogno di ___ un dottore, non mi sento bene' (verbo che significa 'incontrare con gli occhi', all'infinito).", bn:"'চোখে দেখা' অর্থের ক্রিয়া, ইনফিনিটিভ রূপে।", answer:"vedere" },
+  { kind:"fill", it:"Completa: 'Domani ___ andare in ufficio' (verbo dovere, con 'io').", bn:"'Domani ___ andare in ufficio' (dovere ক্রিয়া, 'io')।", answer:"devo" }
+];
+const EXAM_A1_SERIO_3_MATCH = [
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo dovere.", bn:"প্রতিটি সর্বনাম dovere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","devo"],["Tu","devi"],["Noi","dobbiamo"]] },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo potere.", bn:"প্রতিটি সর্বনাম potere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","posso"],["Lui/Lei","può"],["Voi","potete"]] },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo volere.", bn:"প্রতিটি সর্বনাম volere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","voglio"],["Tu","vuoi"],["Loro","vogliono"]] },
+  { kind:"match", it:"Abbina ogni nome al suo articolo determinativo giusto.", bn:"প্রতিটি বিশেষ্য তার সঠিক নির্দিষ্ট আর্টিকেলের সাথে মেলাও।", pairs:[["Treno","il"],["Studente","lo"],["Amico","l'"]] },
+  { kind:"match", it:"Abbina ogni nome al suo articolo indeterminativo giusto.", bn:"প্রতিটি বিশেষ্য তার সঠিক অনির্দিষ্ট আর্টিকেলের সাথে মেলাও।", pairs:[["Treno","un"],["Studente","uno"],["Chiave","una"]] },
+  { kind:"match", it:"Abbina ogni nome singolare al suo plurale corretto.", bn:"প্রতিটি একবচন শব্দ তার সঠিক বহুবচনের সাথে মেলাও।", pairs:[["Un libro","due libri"],["Una casa","due case"],["Un cane","due cani"]] },
+  { kind:"match", it:"Abbina ogni frase con 'piacere' alla forma verbale corretta.", bn:"piacere সহ প্রতিটি বাক্য তার সঠিক ক্রিয়া রূপের সাথে মেলাও।", pairs:[["La pizza (singolare)","piace"],["Gli spaghetti (plurale)","piacciono"],["Il gelato (singolare)","piace"]] },
+  { kind:"match", it:"Abbina ogni verbo riflessivo (io) al suo significato in bengalese.", bn:"'io' রূপে প্রতিটি প্রতিবর্তক ক্রিয়া তার বাংলা অর্থের সাথে মেলাও।", pairs:[["Mi alzo","আমি উঠি"],["Mi lavo","আমি গোসল করি"],["Mi vesto","আমি পোশাক পরি"]] },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo sapere.", bn:"প্রতিটি সর্বনাম sapere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","so"],["Tu","sai"],["Noi","sappiamo"]] },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo uscire.", bn:"প্রতিটি সর্বনাম uscire ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","esco"],["Tu","esci"],["Loro","escono"]] },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo bere.", bn:"প্রতিটি সর্বনাম bere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","bevo"],["Lui/Lei","beve"],["Voi","bevete"]] },
+  { kind:"match", it:"Abbina ogni verbo al suo gerundio.", bn:"প্রতিটি ক্রিয়া তার জেরুন্দিও রূপের সাথে মেলাও।", pairs:[["Fare","facendo"],["Bere","bevendo"],["Dire","dicendo"]] },
+  { kind:"match", it:"Abbina ogni frase con 'stare + gerundio' al suo significato in bengalese.", bn:"'stare + gerundio' সহ প্রতিটি বাক্য তার বাংলা অর্থের সাথে মেলাও।", pairs:[["Sto mangiando","আমি খাচ্ছি (এখন)"],["Sto arrivando","আমি আসছি (এখন)"],["Sta dormendo","সে ঘুমাচ্ছে (এখন)"]] },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo rimanere.", bn:"প্রতিটি সর্বনাম rimanere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","rimango"],["Tu","rimani"],["Loro","rimangono"]] },
+  { kind:"match", it:"Abbina ogni verbo modale al suo significato in bengalese.", bn:"প্রতিটি মোডাল ক্রিয়া তার বাংলা অর্থের সাথে মেলাও।", pairs:[["Dovere","করতে হবে (বাধ্যবাধকতা)"],["Potere","পারা (সামর্থ্য)"],["Volere","চাওয়া (ইচ্ছা)"]] },
+  { kind:"match", it:"Abbina ogni nome al suo plurale in -I (nomi in -E).", bn:"প্রতিটি শব্দ তার -I বহুবচনের সাথে মেলাও (-E শব্দ)।", pairs:[["Padre","padri"],["Notte","notti"],["Pesce","pesci"]] },
+  { kind:"match", it:"Abbina ogni espressione con AVERE al suo significato in bengalese.", bn:"AVERE সহ প্রতিটি অভিব্যক্তি তার বাংলা অর্থের সাথে মেলাও।", pairs:[["Avere bisogno di","প্রয়োজন হওয়া"],["Avere voglia di","ইচ্ছা করা"],["Avere fretta","তাড়া থাকা"]] },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo venire.", bn:"প্রতিটি সর্বনাম venire ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Io","vengo"],["Tu","vieni"],["Lui/Lei","viene"]] },
+  { kind:"match", it:"Abbina ogni articolo alla regola che lo giustifica.", bn:"প্রতিটি আর্টিকেল তার নিয়মের সাথে মেলাও।", pairs:[["Lo zaino","davanti a Z"],["Il tavolo","davanti a consonante normale"],["L'amico","davanti a vocale"]] },
+  { kind:"match", it:"Abbina ogni verbo irregolare (io) al suo significato in bengalese.", bn:"'io' রূপে প্রতিটি অনিয়মিত ক্রিয়া তার বাংলা অর্থের সাথে মেলাও।", pairs:[["So","আমি জানি"],["Esco","আমি বের হই"],["Rimango","আমি থাকি"]] }
+];
+const EXAM_A1_SERIO_4_REORDER = [
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Devo","studiare","di","più"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Posso","aiutarti","con","questo"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Voglio","imparare","bene","l'italiano"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Lo","studente","arriva","in","ritardo"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Ci","sono","molti","libri","qui"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["C'è","un","problema","grande"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Mi","piace","molto","questo","libro"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Mi","piacciono","i","tuoi","amici"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Mi","alzo","presto","la","mattina"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Ti","vesti","in","fretta","oggi"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Non","lo","so","ancora"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Esco","tutte","le","sere"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Bevo","un","caffè","ogni","mattina"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Sto","aspettando","un","amico"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Il","treno","sta","arrivando","ora"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Rimango","a","casa","stasera"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Ho","bisogno","di","aiuto"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Ho","voglia","di","un","gelato"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Vengo","con","voi","domani"] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Dobbiamo","partire","presto","domattina"] }
+];
+  QUIZZES.exam_a1 = [].concat(EXAM_A1_SERIO_1, EXAM_A1_SERIO_2_FILL, EXAM_A1_SERIO_3_MATCH, EXAM_A1_SERIO_4_REORDER);
+  EXERCISES_META['am_a1'] = { it: "Esame finale — Livello A1", bn: "চূড়ান্ত পরীক্ষা — A1 স্তর", livello: "A1" };
+
+const EXAM_GRAMMATICA = [
+  ["Quale parola ha il suono DOLCE della C?","কোন শব্দে C এর মিষ্টি উচ্চারণ আছে?",["casa","casa"],["cena","cena"],["cuore","cuore"],1],
+  ["Quale parola ha il suono DURO della C?","কোন শব্দে C এর কঠিন উচ্চারণ আছে?",["cena","cena"],["cinema","cinema"],["chiesa","chiesa"],2],
+  ["Vero o Falso: 'CHE' e 'CHI' hanno sempre il suono duro della C.","সত্য নাকি মিথ্যা: 'CHE' ও 'CHI' এর সবসময় C এর কঠিন উচ্চারণ থাকে।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  { kind:"fill", it:"Completa: per ottenere il suono duro della C davanti a E o I, si aggiunge la lettera ___.", bn:"E বা I এর আগে C এর কঠিন উচ্চারণ পেতে কোন অক্ষর যোগ করা হয়?", answer:"h" },
+  ["Quale parola ha il suono DOLCE della G?","কোন শব্দে G এর মিষ্টি উচ্চারণ আছে?",["gatto","gatto"],["gonna","gonna"],["gelato","gelato"],2],
+  ["Quale parola ha il suono DURO della G?","কোন শব্দে G এর কঠিন উচ্চারণ আছে?",["giorno","giorno"],["spaghetti","spaghetti"],["gelato","gelato"],1],
+  ["Vero o Falso: 'GH' davanti a E o I dà sempre il suono duro della G.","সত্য নাকি মিথ্যা: E বা I এর আগে 'GH' সবসময় G এর কঠিন উচ্চারণ দেয়।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  { kind:"fill", it:"Completa: nella parola 'giacca', la lettera I dopo la G non si pronuncia: serve solo a indicare il tipo di suono ___.", bn:"'giacca' শব্দে G এর পরের I উচ্চারিত হয় না, এটি শুধু উচ্চারণের ধরন নির্দেশ করে?", answer:"dolce" },
+  { kind:"match", it:"Abbina ogni parola al tipo di suono della C o G che contiene.", bn:"প্রতিটি শব্দ তার C বা G উচ্চারণের ধরনের সাথে মেলাও।", pairs:[["Chiesa","C duro"],["Cinema","C dolce"],["Gatto","G duro"]] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["La","cena","è","pronta"] },
+  ["Come si coniuga il verbo ESSERE con 'io'?","'io' এর সাথে ESSERE ক্রিয়াটি কীভাবে হয়?",["sono","sono"],["sei","sei"],["è","è"],0],
+  ["Come si coniuga il verbo ESSERE con 'noi'?","'noi' এর সাথে ESSERE ক্রিয়াটি কীভাবে হয়?",["siete","siete"],["siamo","siamo"],["sono","sono"],1],
+  ["Il verbo ESSERE si usa per esprimere...","ESSERE ক্রিয়া কী প্রকাশ করতে ব্যবহৃত হয়...",["Identità, nazionalità, professione, descrizione","পরিচয়, জাতীয়তা, পেশা, বর্ণনা"],["Solo il possesso di oggetti","শুধু বস্তুর মালিকানা"],["Solo l'età","শুধু বয়স"],0],
+  ["Vero o Falso: 'Sono italiano' usa il verbo essere per esprimere la nazionalità.","সত্য নাকি মিথ্যা: 'Sono italiano' জাতীয়তা প্রকাশে essere ক্রিয়া ব্যবহার করে।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: in italiano si dice 'Sono 25 anni' per l'età.","সত্য নাকি মিথ্যা: ইতালিয়ানে বয়স বলতে 'Sono 25 anni' বলা হয়।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  { kind:"fill", it:"Completa: 'Maria ___ una brava dottoressa' (verbo essere, con 'Maria' = lei).", bn:"'Maria ___ una brava dottoressa' (essere ক্রিয়া)।", answer:"è" },
+  { kind:"fill", it:"Completa: 'Voi ___ pronti per la lezione?' (verbo essere, con 'voi').", bn:"'Voi ___ pronti?' (essere ক্রিয়া, 'voi')।", answer:"siete" },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo essere.", bn:"প্রতিটি সর্বনাম essere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Tu","sei"],["Lui/Lei","è"],["Loro","sono"]] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Noi","siamo","stranieri"] },
+  ["Come si coniuga il verbo AVERE con 'io'?","'io' এর সাথে AVERE ক্রিয়াটি কীভাবে হয়?",["ho","ho"],["hai","hai"],["ha","ha"],0],
+  ["Come si coniuga il verbo AVERE con 'loro'?","'loro' এর সাথে AVERE ক্রিয়াটি কীভাবে হয়?",["avete","avete"],["hanno","hanno"],["abbiamo","abbiamo"],1],
+  ["Il verbo AVERE si usa per esprimere...","AVERE ক্রিয়া কী প্রকাশ করতে ব্যবহৃত হয়...",["Possesso, età, sensazioni fisiche (fame, sete, caldo, sonno)","মালিকানা, বয়স, শারীরিক অনুভূতি"],["Solo l'identità","শুধু পরিচয়"],["Solo la nazionalità","শুধু জাতীয়তা"],0],
+  ["Vero o Falso: in italiano si dice 'Ho 25 anni' per l'età (non 'Sono 25 anni').","সত্য নাকি মিথ্যা: ইতালিয়ানে বয়স বলতে 'Ho 25 anni' বলা হয়।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Vero o Falso: si dice 'Sono fame' per dire che si vuole mangiare.","সত্য নাকি মিথ্যা: খেতে ইচ্ছা করলে 'Sono fame' বলা হয়।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  { kind:"fill", it:"Completa: quando è tardi e si vuole andare a dormire, si dice 'Ho ___'.", bn:"রাত হলে এবং ঘুমাতে যেতে চাইলে কী বলা হয়? 'Ho ___'।", answer:"sonno" },
+  { kind:"fill", it:"Completa: 'Loro ___ una macchina nuova' (verbo avere, con 'loro').", bn:"'Loro ___ una macchina nuova' (avere ক্রিয়া)।", answer:"hanno" },
+  { kind:"match", it:"Abbina ogni pronome alla forma giusta del verbo avere.", bn:"প্রতিটি সর্বনাম avere ক্রিয়ার সঠিক রূপের সাথে মেলাও।", pairs:[["Tu","hai"],["Lui/Lei","ha"],["Noi","abbiamo"]] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Ho","molto","freddo","oggi"] },
+  ["I verbi che finiscono in -ARE (come parlare) con 'io' si coniugano...","-ARE ক্রিয়া (যেমন parlare) 'io' এর সাথে কীভাবে হয়...",["parl-o","parl-o"],["parl-i","parl-i"],["parl-a","parl-a"],0],
+  ["I verbi che finiscono in -ERE (come prendere) con 'tu' si coniugano...","-ERE ক্রিয়া (যেমন prendere) 'tu' এর সাথে কীভাবে হয়...",["prend-o","prend-o"],["prend-i","prend-i"],["prend-e","prend-e"],1],
+  ["I verbi che finiscono in -IRE (come partire) con 'lui/lei' si coniugano...","-IRE ক্রিয়া (যেমন partire) 'lui/lei' এর সাথে কীভাবে হয়...",["part-o","part-o"],["part-i","part-i"],["part-e","part-e"],2],
+  ["Vero o Falso: i verbi in -ERE e -IRE hanno le stesse desinenze per io/tu/lui/lei (-o/-i/-e).","সত্য নাকি মিথ্যা: -ERE ও -IRE ক্রিয়ার io/tu/lui/lei রূপে একই প্রত্যয় থাকে (-o/-i/-e)।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  ["Il verbo 'lavorare' finisce in...","'lavorare' ক্রিয়াটি কীসে শেষ হয়...",["-ARE","-ARE"],["-ERE","-ERE"],["-IRE","-IRE"],0],
+  ["Il verbo 'scrivere' finisce in...","'scrivere' ক্রিয়াটি কীসে শেষ হয়...",["-ARE","-ARE"],["-ERE","-ERE"],["-IRE","-IRE"],1],
+  ["Il verbo 'dormire' finisce in...","'dormire' ক্রিয়াটি কীসে শেষ হয়...",["-ARE","-ARE"],["-ERE","-ERE"],["-IRE","-IRE"],2],
+  { kind:"fill", it:"Completa: 'Noi ___' (verbo studiare, -ARE, con 'noi').", bn:"'Noi ___' (studiare, -ARE, 'noi')।", answer:"studiamo" },
+  { kind:"fill", it:"Completa: 'Voi ___' (verbo leggere, -ERE, con 'voi').", bn:"'Voi ___' (leggere, -ERE, 'voi')।", answer:"leggete" },
+  { kind:"fill", it:"Completa: 'Io ___' (verbo aprire, -IRE, con 'io').", bn:"'Io ___' (aprire, -IRE, 'io')।", answer:"apro" },
+  { kind:"match", it:"Abbina ogni verbo al gruppo giusto (-ARE, -ERE, -IRE).", bn:"প্রতিটি ক্রিয়া তার সঠিক গ্রুপের সাথে মেলাও।", pairs:[["Cucinare","-ARE"],["Vedere","-ERE"],["Sentire","-IRE"]] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Lei","lavora","in","un","ufficio"] },
+  ["'Avere bisogno di' significa...","'Avere bisogno di' এর অর্থ কী...",["Aver necessità di qualcosa","কোনো কিছুর প্রয়োজন হওয়া"],["Volere qualcosa per piacere","কিছু চাওয়া আনন্দের জন্য"],["Odiare qualcosa","কিছু ঘৃণা করা"],0],
+  ["'Avere voglia di' significa...","'Avere voglia di' এর অর্থ কী...",["Desiderare qualcosa, non necessariamente per necessità","কিছু চাওয়া, প্রয়োজন না হলেও"],["Avere paura di qualcosa","কিছুতে ভয় পাওয়া"],["Odiare qualcosa","কিছু ঘৃণা করা"],0],
+  ["Se hai fame ma vuoi solo un dolce (non ne hai bisogno per vivere), dici...","ক্ষুধার্ত হলেও শুধু মিষ্টি চাইলে (প্রয়োজন না হলেও) কী বলবে...",["Ho bisogno di un dolce","আমার মিষ্টি প্রয়োজন"],["Ho voglia di un dolce","আমার মিষ্টি খেতে ইচ্ছা করছে"],["Sono un dolce","আমি একটা মিষ্টি"],1],
+  ["Se non hai soldi e devi assolutamente lavorare per vivere, dici...","টাকা না থাকলে ও বাঁচার জন্য কাজ করতেই হলে কী বলবে...",["Ho bisogno di lavorare","আমার কাজ করা প্রয়োজন"],["Ho voglia di lavorare","আমার কাজ করতে ইচ্ছা করছে"],["Sono lavoro","আমি কাজ"],0],
+  ["Vero o Falso: 'bisogno' e 'voglia' significano esattamente la stessa cosa.","সত্য নাকি মিথ্যা: 'bisogno' ও 'voglia' একই অর্থ বহন করে।",["Vero","সত্য"],["Falso","মিথ্যা"],1],
+  { kind:"fill", it:"Completa: 'Ho ___ di bere, sto morendo di sete' (è una necessità vitale, non un semplice desiderio).", bn:"এটি একটি জরুরি প্রয়োজন, শুধু ইচ্ছা নয়।", answer:"bisogno" },
+  { kind:"fill", it:"Completa: 'Ho ___ di un gelato, fa caldo e mi piacerebbe' (è un desiderio, non una necessità vitale).", bn:"এটি একটি ইচ্ছা, জরুরি প্রয়োজন নয়।", answer:"voglia" },
+  { kind:"match", it:"Abbina ogni frase al suo significato in bengalese.", bn:"প্রতিটি বাক্য তার বাংলা অর্থের সাথে মেলাও।", pairs:[["Ho bisogno di aiuto","আমার সাহায্য প্রয়োজন"],["Ho voglia di ridere","আমার হাসতে ইচ্ছা করছে"],["Ho bisogno di riposare","আমার বিশ্রাম প্রয়োজন"]] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Ho","bisogno","di","un","medico"] },
+  ["Perché è importante distinguere ESSERE da AVERE in italiano?","ইতালিয়ানে ESSERE ও AVERE আলাদা করা কেন গুরুত্বপূর্ণ...",["Perché si usano in contesti diversi e sbagliarli cambia il senso della frase","এগুলো ভিন্ন প্রসঙ্গে ব্যবহৃত হয় এবং ভুল করলে বাক্যের অর্থ বদলে যায়"],["Non è importante, sono intercambiabili","গুরুত্বপূর্ণ নয়, এগুলো পরস্পর বিনিময়যোগ্য"],["Si usano solo con i numeri","শুধু সংখ্যার সাথে ব্যবহৃত হয়"],0],
+  ["Vero o Falso: in italiano l'età si esprime con AVERE, non con ESSERE.","সত্য নাকি মিথ্যা: ইতালিয়ানে বয়স AVERE দিয়ে প্রকাশ করা হয়, ESSERE দিয়ে নয়।",["Vero","সত্য"],["Falso","মিথ্যা"],0],
+  { kind:"fill", it:"Completa: 'Io ___ stanco' (verbo essere, per descrivere uno stato).", bn:"'Io ___ stanco' (essere ক্রিয়া, অবস্থা বর্ণনা)।", answer:"sono" },
+  { kind:"fill", it:"Completa: 'Io ___ 30 anni' (verbo avere, per l'età).", bn:"'Io ___ 30 anni' (avere ক্রিয়া, বয়স)।", answer:"ho" },
+  { kind:"match", it:"Abbina ogni parola con il suo suono C/G corretto.", bn:"প্রতিটি শব্দ তার সঠিক C/G উচ্চারণের সাথে মেলাও।", pairs:[["Cuore","C duro"],["Gelato","G dolce"],["Laghi","G duro"]] },
+  { kind:"reorder", it:"Riordina le parole per formare una frase corretta.", bn:"সঠিক বাক্য তৈরি করতে শব্দগুলো সাজাও।", correct:["Loro","hanno","molta","fame"] }
+];
+QUIZZES.exam_grammatica = EXAM_GRAMMATICA;
+EXERCISES_META['am_grammatica'] = { it: "Esame di grammatica seria", bn: "গুরুত্বপূর্ণ ব্যাকরণ পরীক্ষা", livello: "A0-A1" };
+
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
@@ -5518,10 +5713,12 @@
   // Riusa lo stesso motore collaudato dei quiz, ma senza mostrare le regole
   // grammaticali dopo un errore — in un esame non devono aiutare, solo
   // valutare quello che lo studente sa già.
-  window.ibpStartExam = function(){
+  window.ibpStartExam = function(level){
+    level = level || 'a0';
     window._examMode = true;
-    openExerciseId = 'am_a0';
-    const list = QUIZZES.exam_a0;
+    openExerciseId = 'am_' + level;
+    const list = QUIZZES['exam_' + level];
+    if(!list){ console.error('Esame non trovato per il livello:', level); return; }
     currentAnswers = new Array(list.length).fill(null);
     currentQIndex = 0;
     window._ibpMatchQ = -1;
@@ -6219,7 +6416,7 @@
       const pct = Math.round((score/list.length)*100);
       const resultBox = document.getElementById('quiz-result');
       resultBox.style.display = 'block';
-      const retryAction = window._examMode ? 'ibpStartExam()' : ('ibpRestartQuiz(' + openExerciseId + ')');
+      const retryAction = window._examMode ? ("ibpStartExam('" + openExerciseId.replace('am_','') + "')") : ('ibpRestartQuiz(' + openExerciseId + ')');
       const resultLabel = window._examMode
         ? ('<div class="score">'+score+'/'+list.length+'</div><p>Esame completato — '+pct+'% di risposte corrette. · পরীক্ষা সম্পন্ন হয়েছে।</p>')
         : ('<div class="score">'+score+'/'+list.length+'</div><p>Esercizio completato — '+pct+'% di risposte corrette. · অনুশীলন সম্পন্ন হয়েছে।</p>');
@@ -6476,6 +6673,8 @@
     'home': { el: 'page-home', title: 'Italiano Pro Bangla — Impara l\'italiano online' },
     'quiz': { el: 'quiz', title: 'Area Personale — Italiano Pro Bangla' },
     'esame-a0': { el: 'quiz', title: 'Esame finale A0 — Italiano Pro Bangla' },
+    'esame-a1': { el: 'quiz', title: 'Esame finale A1 — Italiano Pro Bangla' },
+    'esame-grammatica': { el: 'quiz', title: 'Esame di grammatica — Italiano Pro Bangla' },
     'iscriviti': { el: 'iscriviti', title: 'Iscrizione — Italiano Pro Bangla' },
     'faq': { el: 'faq', title: 'Domande frequenti — Italiano Pro Bangla' },
     'accesso-riservato': { el: 'accesso-riservato', title: 'Accesso riservato — Italiano Pro Bangla' }
@@ -6505,12 +6704,13 @@
       a.classList.toggle('active-page', href === pageId || href === rawHash);
     });
 
-    // Link diretto e condivisibile: italianoprobangla.it/#esame-a0 apre
-    // l'Area Personale e avvia subito l'esame, senza bisogno di account
-    if(pageId === 'esame-a0'){
+    // Link diretto e condivisibile: italianoprobangla.it/#esame-a0 (o #esame-a1)
+    // apre l'Area Personale e avvia subito l'esame, senza bisogno di account
+    if(pageId === 'esame-a0' || pageId === 'esame-a1' || pageId === 'esame-grammatica'){
+      const examLevel = pageId.replace('esame-','');
       setTimeout(function(){
         if(typeof ibpShowCategory === 'function') ibpShowCategory('quiz');
-        if(typeof ibpStartExam === 'function') ibpStartExam();
+        if(typeof ibpStartExam === 'function') ibpStartExam(examLevel);
       }, 50);
     }
 
