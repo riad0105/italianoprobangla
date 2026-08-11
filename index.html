@@ -1702,10 +1702,11 @@
       <div id="enroll-form-view">
         <div class="price-summary">
           <div>
-            <h4>Corso Italiano Pro Bangla</h4>
+            <h4>Prenotazione posto — Corso Italiano Pro Bangla</h4>
             <p class="bn">Percorso completo A0 → A2 · সম্পূর্ণ কোর্স · বই অন্তর্ভুক্ত</p>
+            <p style="font-size:12.5px;color:var(--muted);margin-top:6px;">Caparra per prenotare il posto. Il saldo di 180€ si paga entro il 6 settembre, sempre con Stripe. · আসন বুক করার জন্য অগ্রিম। বাকি ১৮০€ ৬ সেপ্টেম্বরের মধ্যে দিতে হবে।</p>
           </div>
-          <div class="price-summary-amount">€ 199</div>
+          <div class="price-summary-amount">€ 20</div>
         </div>
         <div class="no-account-tag">✓ Account creato automaticamente dopo il pagamento · পেমেন্টের পর স্বয়ংক্রিয়ভাবে অ্যাকাউন্ট তৈরি হবে</div>
         <form class="enroll-form" id="enrollForm">
@@ -1738,14 +1739,15 @@
       <div id="enroll-payment-view" style="display:none;">
         <div class="price-summary">
           <div>
-            <h4>Corso Italiano Pro Bangla</h4>
+            <h4>Prenotazione posto — Corso Italiano Pro Bangla</h4>
             <p class="bn">Percorso completo A0 → A2 · সম্পূর্ণ কোর্স</p>
+            <p style="font-size:12.5px;color:var(--muted);margin-top:6px;">Saldo di 180€ entro il 6 settembre, sempre con Stripe · বাকি ১৮০€ ৬ সেপ্টেম্বরের মধ্যে</p>
           </div>
-          <div class="price-summary-amount">€ 199</div>
+          <div class="price-summary-amount">€ 20</div>
         </div>
         <p class="cart-note" style="margin-top:0;margin-bottom:18px;">Pagamento sicuro con carta tramite Stripe. Verrai portato su una pagina di pagamento protetta e poi riporterà automaticamente qui. · স্ট্রাইপের মাধ্যমে নিরাপদ কার্ড পেমেন্ট।</p>
         <div id="stripe-button-container">
-          <button class="btn-primary" style="width:100%;border:none;cursor:pointer;" onclick="ibpStartStripeCheckout()" id="stripe-pay-btn">Paga € 199 con carta →</button>
+          <button class="btn-primary" style="width:100%;border:none;cursor:pointer;" onclick="ibpStartStripeCheckout()" id="stripe-pay-btn">Paga € 20 con carta →</button>
         </div>
         <button class="btn-ghost" style="margin-top:14px;" onclick="ibpBackToEnrollForm()">← Torna al modulo</button>
       </div>
@@ -1775,6 +1777,13 @@
             <div>
               <h5>Hai domande?</h5>
               <p>Scrivici pure su WhatsApp, ti rispondiamo di persona.</p>
+            </div>
+          </div>
+          <div class="next-step">
+            <div class="n">04</div>
+            <div>
+              <h5>Saldo di 180€ entro il 6 settembre</h5>
+              <p>Hai pagato la caparra di 20€ per prenotare il posto. Ti contatteremo per il saldo dei restanti 180€ (sempre con Stripe) prima del 6 settembre.</p>
             </div>
           </div>
         </div>
@@ -1808,7 +1817,7 @@
     </details>
     <details class="faq-item">
       <summary>Quanto costa e cosa include?</summary>
-      <p>Il corso completo (A0–A2) costa 199€, libro incluso. · সম্পূর্ণ কোর্স (A0–A2) এর মূল্য ১৯৯ ইউরো, বই সহ।</p>
+      <p>Per prenotare il posto si pagano 20€ subito; il saldo di 180€ va pagato entro il 6 settembre, sempre con Stripe. Libro incluso. · আসন বুক করতে এখনই ২০€ দিতে হবে; বাকি ১৮০€ ৬ সেপ্টেম্বরের মধ্যে, স্ট্রাইপের মাধ্যমে। বই সহ।</p>
     </details>
     <details class="faq-item">
       <summary>Quando sono le lezioni?</summary>
@@ -5830,8 +5839,7 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
     window._examMode = false;
     const liveEl = document.getElementById('quiz-points-live');
     if(liveEl) liveEl.style.display = '';
-    ibpShowQuizOverview();
-    document.getElementById('cat-quiz').scrollIntoView({behavior:'smooth', block:'start'});
+    location.hash = '#home';
   };
 
   window.ibpPrevQuestion = function(){
@@ -6519,7 +6527,7 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
      "To Email" impostato sulla variabile dinamica {{to_email}}.
      Sostituisci il valore qui sotto con l'ID di quel template.
      ============================================================ */
-  const PRICE = 199;
+  const PRICE = 20;
   const EMAILJS_SERVICE = 'service_vsk4bfo';
   const EMAILJS_NOTIFY_TEMPLATE = 'template_5ctj4yx';       // a te: notifica nuova iscrizione
   const EMAILJS_CREDENTIALS_TEMPLATE = 'template_n1lagkj'; // allo studente: email + password
@@ -6612,7 +6620,7 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
     }catch(err){
       console.error('Errore avvio pagamento Stripe:', err);
       btn.disabled = false;
-      btn.textContent = 'Paga € 199 con carta →';
+      btn.textContent = 'Paga € 20 con carta →';
       document.getElementById('stripe-button-container').insertAdjacentHTML('beforeend',
         '<p style="color:#b5716b;font-size:13px;text-align:center;margin-top:10px;">Il pagamento non è ancora configurato o non risponde. Contattaci su WhatsApp per completare l\'iscrizione.</p>');
     }
@@ -6694,7 +6702,7 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
     emailjs.send(EMAILJS_SERVICE, EMAILJS_NOTIFY_TEMPLATE, {
       nome: enrollData.nome, email: enrollData.email, telefono: enrollData.telefono,
       livello: enrollData.livello,
-      messaggio: enrollData.nome + ' ha pagato €' + PRICE + ' con ' + metodoPagamento + '. ' +
+      messaggio: enrollData.nome + ' ha pagato la caparra di €' + PRICE + ' con ' + metodoPagamento + ' (saldo di 180€ da riscuotere entro il 6 settembre). ' +
         (accountCreated ? 'Account creato automaticamente.' : 'Aveva già un account: nessuna nuova password inviata.')
     }).catch(err => console.error('Notifica non inviata:', err));
 
