@@ -112,8 +112,16 @@
   .navlinks a.nav-cta-link{background:var(--gold);color:var(--night);margin-left:4px;}
   .navlinks a.nav-cta-link:hover{background:var(--gold);opacity:.92;}
   @media(max-width:640px){
-    .navrow{flex-wrap:wrap;}
-    .navlinks{justify-content:flex-start;width:100%;order:3;padding-top:8px;border-top:1px solid var(--line);margin-top:8px;}
+    .navrow{flex-wrap:nowrap;gap:12px;padding:10px 16px;}
+    .logo{font-size:13px;}
+    .logo img{width:26px;height:26px;}
+    .navlinks{
+      justify-content:flex-start;flex:0 1 auto;width:auto;order:0;padding-top:0;border-top:none;margin-top:0;
+      flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+      mask-image:linear-gradient(to right, black 88%, transparent);
+    }
+    .navlinks::-webkit-scrollbar{display:none;}
+    .navlinks a{padding:7px 10px;font-size:12.5px;}
   }
   .cart-badge{
     background:var(--gold);color:var(--night);font-size:10px;font-weight:700;
@@ -134,11 +142,68 @@
     background-image:radial-gradient(rgba(36,28,61,0.06) 1px, transparent 1px);
     background-size:28px 28px;mask-image:radial-gradient(ellipse at 30% 20%, black, transparent 70%);
   }
+
+  /* Forme sfumate animate sullo sfondo: si muovono molto lentamente, danno
+     vita alla pagina senza distrarre dal testo (restano dietro, sfocate). */
+  .hero-blob{position:absolute;z-index:0;border-radius:50%;filter:blur(70px);pointer-events:none;animation:ibpBlobFloat 20s ease-in-out infinite;}
+  .hero-blob-1{width:360px;height:360px;background:var(--gold);opacity:.16;top:-100px;right:-80px;}
+  .hero-blob-2{width:300px;height:300px;background:var(--purple);opacity:.13;bottom:-120px;left:-70px;animation-delay:-7s;}
+  .hero-blob-3{width:220px;height:220px;background:var(--yellow);opacity:.10;top:38%;left:58%;animation-delay:-13s;}
+  @keyframes ibpBlobFloat{
+    0%,100%{transform:translate(0,0) scale(1);}
+    33%{transform:translate(24px,-28px) scale(1.08);}
+    66%{transform:translate(-18px,22px) scale(0.94);}
+  }
+
+  /* Striscia di traduzioni che si alternano: Ciao → হ্যালো, ecc. — tema
+     perfetto per un sito di lingue, movimento leggero senza JavaScript. */
+  .hero-ticker{position:relative;z-index:2;height:24px;overflow:hidden;margin-bottom:14px;}
+  .hero-ticker span{
+    position:absolute;left:0;top:0;opacity:0;font-size:14.5px;font-weight:700;color:var(--gold);
+    white-space:nowrap;animation:ibpTickerFade 15s infinite;
+  }
+  .hero-ticker span b{color:var(--paper);font-weight:700;}
+  .hero-ticker span:nth-child(1){animation-delay:0s;}
+  .hero-ticker span:nth-child(2){animation-delay:3s;}
+  .hero-ticker span:nth-child(3){animation-delay:6s;}
+  .hero-ticker span:nth-child(4){animation-delay:9s;}
+  .hero-ticker span:nth-child(5){animation-delay:12s;}
+  @keyframes ibpTickerFade{
+    0%{opacity:0;transform:translateY(10px);}
+    4%{opacity:1;transform:translateY(0);}
+    18%{opacity:1;transform:translateY(0);}
+    22%{opacity:0;transform:translateY(-10px);}
+    100%{opacity:0;}
+  }
   .hero-inner{position:relative;z-index:2;padding:88px 24px;max-width:1080px;margin:0 auto;width:100%;}
   .hero-tag{font-size:13px;font-weight:700;letter-spacing:0.18em;color:var(--paper);opacity:0.75;text-transform:uppercase;}
   .hero h1{font-size:clamp(42px,7vw,76px);line-height:0.98;margin-top:14px;color:var(--paper);}
   .hero h1 .accent{color:var(--gold);}
   .hero .bn-line{font-size:clamp(17px,2.2vw,21px);color:var(--muted);margin-top:16px;max-width:42ch;}
+  /* Percorso visivo A0→A1→A2: mostra concretamente il cammino del corso,
+     non solo a parole — è quello che funziona meglio sui siti di lingue
+     seri, dà subito l'idea "so cosa sto per iniziare e dove arrivo". */
+  .level-path{display:flex;align-items:center;gap:10px;margin-top:28px;flex-wrap:wrap;}
+  .level-path-step{display:flex;align-items:center;gap:10px;opacity:0;animation:ibpStepIn .5s ease forwards;}
+  .level-path-step:nth-child(1){animation-delay:.15s;}
+  .level-path-step:nth-child(3){animation-delay:.4s;}
+  .level-path-step:nth-child(5){animation-delay:.65s;}
+  @keyframes ibpStepIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .level-path-badge{
+    width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:#fff;flex-shrink:0;
+    box-shadow:0 6px 14px rgba(36,28,61,0.14);
+  }
+  .level-path-badge.lp-a0{background:linear-gradient(150deg, var(--gold), var(--gold-soft));}
+  .level-path-badge.lp-a1{background:linear-gradient(150deg, var(--purple), #8A5FE0);}
+  .level-path-badge.lp-a2{background:linear-gradient(150deg, #241C3D, #4A3D6B);}
+  .level-path-label{font-size:12.5px;font-weight:700;color:var(--paper);line-height:1.35;}
+  .level-path-label .bn{font-size:11px;font-weight:500;color:var(--muted);}
+  .level-path-arrow{color:var(--line);font-size:16px;opacity:0;animation:ibpStepIn .5s ease forwards;}
+  .level-path-arrow:nth-child(2){animation-delay:.3s;}
+  .level-path-arrow:nth-child(4){animation-delay:.55s;}
+  @media(max-width:520px){ .level-path{gap:6px;} .level-path-arrow{display:none;} .level-path-step{flex-basis:100%;} }
+
   .hero-ctas{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;}
   .btn-primary{background:var(--gold);color:var(--night);padding:15px 28px;border-radius:100px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 8px 22px rgba(255,122,61,0.22);transition:transform .18s ease;}
   .btn-primary:hover{transform:translateY(-2px);}
@@ -889,20 +954,36 @@
 <div class="page-view active" id="page-home">
 <header class="hero">
   <div class="hero-bg">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
     <div class="hero-inner">
-      <div class="community-badge">
-        <div class="avatars"><span>স</span><span>আ</span><span>র</span></div>
-        <b>20.000+</b><span class="txt">studenti nella community</span>
-      </div>
       <p class="hero-tag">Impara · Pratica · Parla</p>
       <h1>Italiano<br><span class="accent">Pro Bangla</span></h1>
       <p class="bn-line bn">বাংলা থেকে ইতালিয়ান শিখুন সহজ উপায়ে — সঠিক পদ্ধতিতে, সত্যিকারের অভিজ্ঞতা দিয়ে ২০,০০০+ শিক্ষার্থীর কমিউনিটির সাথে।</p>
+
+      <div class="level-path">
+        <div class="level-path-step">
+          <span class="level-path-badge lp-a0">A0</span>
+          <span class="level-path-label">Le basi<br><span class="bn">শুরুর স্তর</span></span>
+        </div>
+        <span class="level-path-arrow">→</span>
+        <div class="level-path-step">
+          <span class="level-path-badge lp-a1">A1</span>
+          <span class="level-path-label">Grammatica<br><span class="bn">প্রাথমিক স্তর</span></span>
+        </div>
+        <span class="level-path-arrow">→</span>
+        <div class="level-path-step">
+          <span class="level-path-badge lp-a2">A2</span>
+          <span class="level-path-label">Fluidità<br><span class="bn">মধ্যম স্তর</span></span>
+        </div>
+      </div>
+
       <div class="hero-ctas">
         <a class="btn-primary" href="#iscriviti">Iscriviti al corso</a>
       </div>
       <div class="stat-strip">
-        <div class="stat"><b>20k+</b><span>Community attiva · কমিউনিটি</span></div>
-        <div class="stat"><b>A0→A2</b><span>Percorso completo · সম্পূর্ণ কোর্স</span></div>
+        <div class="stat"><b>20k+</b><span>Studenti nella community · শিক্ষার্থী</span></div>
         <div class="stat"><b>100%</b><span>Online, da ovunque · অনলাইন</span></div>
       </div>
     </div>
