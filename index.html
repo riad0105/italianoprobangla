@@ -131,10 +131,9 @@
   /* HERO */
   .hero{position:relative;padding:0;overflow:hidden;background:var(--night);}
   .hero-bg{
-    position:relative;overflow:hidden;min-height:480px;display:flex;align-items:center;
+    position:relative;overflow:hidden;
     background:
       radial-gradient(60% 70% at 88% 10%, rgba(255,122,61,0.14), transparent 60%),
-      radial-gradient(50% 60% at 5% 100%, rgba(255,122,61,0.08), transparent 60%),
       var(--night);
   }
   .hero-bg::before{
@@ -175,7 +174,7 @@
     22%{opacity:0;transform:translateY(-10px);}
     100%{opacity:0;}
   }
-  .hero-inner{position:relative;z-index:2;padding:88px 24px;max-width:1080px;margin:0 auto;width:100%;}
+  .hero-inner{position:relative;z-index:2;padding:24px 24px 48px;max-width:1080px;margin:0 auto;width:100%;}
   .hero-tag{font-size:13px;font-weight:700;letter-spacing:0.18em;color:var(--paper);opacity:0.75;text-transform:uppercase;}
   .hero h1{font-size:clamp(42px,7vw,76px);line-height:0.98;margin-top:14px;color:var(--paper);}
   .hero h1 .accent{color:var(--gold);}
@@ -211,7 +210,7 @@
   .btn-ghost:hover{border-color:rgba(36,28,61,0.65);background:rgba(36,28,61,0.06);}
 
   /* feature strip */
-  .feature-strip{display:flex;gap:0;border-top:1px solid var(--line);background:var(--night);}
+  .feature-strip{display:flex;gap:0;background:var(--night);}
   .feature{flex:1;padding:26px 24px;border-right:1px solid var(--line);display:flex;gap:14px;align-items:flex-start;}
   .feature:last-child{border-right:none;}
   .feature .ic{font-size:19px;line-height:1;color:var(--gold);}
@@ -242,7 +241,7 @@
   .quick-desc{font-size:12px;color:var(--muted);line-height:1.4;}
   @media(max-width:760px){ .quick-access{grid-template-columns:repeat(2, 1fr);} }
 
-  section{padding:80px 0;border-top:1px solid var(--line);background:var(--night);}
+  section{padding:80px 0;background:var(--night);}
   .section-head{max-width:620px;margin-bottom:40px;}
   .section-head h2{font-size:clamp(28px,3.6vw,38px);margin-top:8px;color:var(--paper);}
   .section-head .bn{color:var(--muted);margin-top:10px;font-size:16px;}
