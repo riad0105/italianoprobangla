@@ -1703,6 +1703,7 @@
         <div class="price-summary">
           <div>
             <h4>Prenotazione posto — Corso Italiano Pro Bangla</h4>
+            <p class="bn" style="font-weight:700;">আসন বুকিং — ইতালিয়ানো প্রো বাংলা কোর্স</p>
             <p class="bn">Percorso completo A0 → A2 · সম্পূর্ণ কোর্স · বই অন্তর্ভুক্ত</p>
             <p style="font-size:12.5px;color:var(--muted);margin-top:6px;">Caparra per prenotare il posto. Il saldo di 180€ si paga entro il 6 settembre, sempre con Stripe. · আসন বুক করার জন্য অগ্রিম। বাকি ১৮০€ ৬ সেপ্টেম্বরের মধ্যে দিতে হবে।</p>
           </div>
@@ -1740,6 +1741,7 @@
         <div class="price-summary">
           <div>
             <h4>Prenotazione posto — Corso Italiano Pro Bangla</h4>
+            <p class="bn" style="font-weight:700;">আসন বুকিং — ইতালিয়ানো প্রো বাংলা কোর্স</p>
             <p class="bn">Percorso completo A0 → A2 · সম্পূর্ণ কোর্স</p>
             <p style="font-size:12.5px;color:var(--muted);margin-top:6px;">Saldo di 180€ entro il 6 settembre, sempre con Stripe · বাকি ১৮০€ ৬ সেপ্টেম্বরের মধ্যে</p>
           </div>
@@ -1747,7 +1749,7 @@
         </div>
         <p class="cart-note" style="margin-top:0;margin-bottom:18px;">Pagamento sicuro con carta tramite Stripe. Verrai portato su una pagina di pagamento protetta e poi riporterà automaticamente qui. · স্ট্রাইপের মাধ্যমে নিরাপদ কার্ড পেমেন্ট।</p>
         <div id="stripe-button-container">
-          <button class="btn-primary" style="width:100%;border:none;cursor:pointer;" onclick="ibpStartStripeCheckout()" id="stripe-pay-btn">Paga € 20 con carta →</button>
+          <button class="btn-primary" style="width:100%;border:none;cursor:pointer;" onclick="ibpStartStripeCheckout()" id="stripe-pay-btn">Paga € 20 con carta → · ২০€ দিয়ে পেমেন্ট করো</button>
         </div>
         <button class="btn-ghost" style="margin-top:14px;" onclick="ibpBackToEnrollForm()">← Torna al modulo</button>
       </div>
@@ -1783,7 +1785,7 @@
             <div class="n">04</div>
             <div>
               <h5>Saldo di 180€ entro il 6 settembre</h5>
-              <p>Hai pagato la caparra di 20€ per prenotare il posto. Ti contatteremo per il saldo dei restanti 180€ (sempre con Stripe) prima del 6 settembre.</p>
+              <p>Hai pagato la caparra di 20€ per prenotare il posto. Ti contatteremo per il saldo dei restanti 180€ (sempre con Stripe) prima del 6 settembre. · তুমি আসন বুক করতে ২০€ অগ্রিম দিয়েছো। বাকি ১৮০€ এর জন্য ৬ সেপ্টেম্বরের আগে যোগাযোগ করা হবে (স্ট্রাইপের মাধ্যমে)।</p>
             </div>
           </div>
         </div>
@@ -6620,7 +6622,7 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
     }catch(err){
       console.error('Errore avvio pagamento Stripe:', err);
       btn.disabled = false;
-      btn.textContent = 'Paga € 20 con carta →';
+      btn.textContent = 'Paga € 20 con carta → · ২০€ দিয়ে পেমেন্ট করো';
       document.getElementById('stripe-button-container').insertAdjacentHTML('beforeend',
         '<p style="color:#b5716b;font-size:13px;text-align:center;margin-top:10px;">Il pagamento non è ancora configurato o non risponde. Contattaci su WhatsApp per completare l\'iscrizione.</p>');
     }
