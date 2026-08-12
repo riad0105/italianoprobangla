@@ -5768,6 +5768,9 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
     window._ibpMatchQ = -1;
     window._ibpReorderQ = -1;
     ibpHideRule();
+    // Aggiunge una voce nella cronologia del browser: così premendo "indietro"
+    // sul telefono si chiude il quiz invece di uscire subito dal sito.
+    history.pushState({ ibpQuizOpen: true }, '', location.href);
 
     // Il quiz si apre come una pagina a sé, a schermo intero (stile app)
     document.getElementById('quiz-overview').style.display = 'none';
@@ -5808,6 +5811,7 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
     window._ibpMatchQ = -1;
     window._ibpReorderQ = -1;
     ibpHideRule();
+    history.pushState({ ibpQuizOpen: true }, '', location.href);
 
     document.getElementById('quiz-overview').style.display = 'none';
     document.getElementById('quiz-level-select').style.display = 'none';
@@ -6793,6 +6797,22 @@ EXERCISES_META['am_a0'] = { it: "Esame finale — Livello A0", bn: "চূড়
   window.addEventListener('hashchange', ibpRoute);
   window.addEventListener('DOMContentLoaded', ibpRoute);
   ibpRoute();
+
+  // Tasto/gesto "indietro" del telefono: se il quiz (o l'esame) è aperto a
+  // schermo intero, lo chiude — non deve mai far uscire dal sito.
+  window.addEventListener('popstate', function(){
+    const playView = document.getElementById('quiz-play-view');
+    if(playView && playView.classList.contains('quiz-fullscreen')){
+      playView.style.display = 'none';
+      playView.classList.remove('quiz-fullscreen');
+      document.body.classList.remove('quiz-fullscreen-lock');
+      const demo = document.getElementById('quiz-demo');
+      if(demo) demo.classList.remove('show');
+      window._examMode = false;
+      const liveEl = document.getElementById('quiz-points-live');
+      if(liveEl) liveEl.style.display = '';
+    }
+  });
 
   function ibpToggleChat(){
     document.getElementById('chat-window').classList.toggle('open');
