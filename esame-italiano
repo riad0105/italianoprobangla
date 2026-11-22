@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Esame di italiano A1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF8F3;--card:#fff;--ink:#4E1C29;--mut:#6f6a66;--acc:#A67C3D;--mar:#6B2737;--blue:#1F3B6B;--tan:#F3EAD9;--line:#E6DCC8;--ok:#3f8a4b;--sel:#E7EEF6;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1418;--card:#272024;--ink:#f3e6e9;--mut:#b5aaae;--acc:#d3a85c;--mar:#e48fa3;--blue:#9db8e8;--tan:#33292d;--line:#43373c;--ok:#7cc788;--bad:#e59a90;--sel:#243247;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1418;--card:#272024;--ink:#f3e6e9;--mut:#b5aaae;--acc:#d3a85c;--mar:#e48fa3;--blue:#9db8e8;--tan:#33292d;--line:#43373c;--ok:#7cc788;--bad:#e59a90;--sel:#243247;color-scheme:dark}
+:root{--bad:#A65A52}
+:root:not([data-theme="light"]){}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Open Sans",system-ui,sans-serif;line-height:1.5;min-height:100vh}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+.brand{font-weight:800;font-size:.8rem;letter-spacing:.08em;color:var(--acc);text-transform:uppercase}
+h1{font-family:Georgia,serif;font-size:1.9rem;line-height:1.2;margin:4px 0 2px}
+.sub{color:var(--mut);font-size:.95rem}
+.bar{height:10px;background:var(--tan);border-radius:99px;overflow:hidden;margin:16px 0 6px}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .3s}
+.meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--mut)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 12px;font:600 .8rem inherit;font-family:inherit;cursor:pointer}
+.tabs button.on{background:var(--mar);color:#fff;border-color:var(--mar)}
+.tabs button.ok::after{content:" ✓"}
+.sec{background:var(--tan);border-radius:22px;padding:14px 18px;margin:8px 0 18px}
+.sec h2{font-family:Georgia,serif;font-size:1.25rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(80,60,40,.07)}
+.q h3{font-size:1rem;font-weight:700;margin-bottom:6px}
+.q h3 span{color:var(--acc);margin-right:6px}
+.o{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:10px 14px;margin-top:8px;cursor:pointer}
+.o:hover{border-color:var(--acc)}
+.o.sel{background:var(--sel);border-color:var(--blue)}
+.o b{color:var(--acc);margin-right:8px}
+.sw{width:96px;height:96px;border-radius:50%;margin:8px auto 10px;border:3px solid var(--line);box-shadow:0 2px 8px rgba(80,60,40,.15)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.btn{font:700 .95rem inherit;font-family:inherit;border:0;border-radius:99px;padding:12px 24px;cursor:pointer;background:var(--mar);color:#fff}
+.btn.alt{background:var(--tan);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default}
+.score{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:26px 18px;margin:14px 0 20px;box-shadow:0 2px 8px rgba(80,60,40,.07)}
+.big{font:800 3.4rem Georgia,serif;color:var(--mar)}
+.lvl{font-weight:700;font-size:1.1rem;margin-top:4px}
+.row{display:grid;grid-template-columns:1fr 70px;gap:10px;align-items:center;margin:10px 0;font-size:.9rem}
+.row .t{height:12px;background:var(--tan);border-radius:99px;overflow:hidden;margin-top:4px}
+.row .t i{display:block;height:100%;border-radius:99px}
+.row>b{text-align:right}
+.rev h3{margin:22px 0 8px;font-family:Georgia,serif;color:var(--mar)}
+.wq{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 16px;margin-bottom:10px;font-size:.92rem}
+.wq .a{margin-top:4px}.wq .x{color:var(--bad)}.wq .v{color:var(--ok)}
+.ex{margin-top:6px;font-size:.85rem;color:var(--mut);border-left:4px solid var(--acc);padding-left:10px}
+.hint{font-size:.85rem;color:var(--mut);text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const m=(q,o,c,e,sw)=>({q,o,c,e,sw});
+const colore=(n,o,hex)=>m("Che colore è?",o,o.indexOf(n),"Il colore è "+n+".",hex);
+const D=[
+{t:"Suoni dolci e duri (C, G, SC)",q:[
+m("Quale di queste parole ha il suono dolce della C?",["cane","cena","chiave","come"],1,"CE ha il suono dolce."),
+m("Quale di queste parole ha il suono duro della G?",["gelato","giorno","gatto","gita"],2,"GA, GO, GU hanno il suono duro."),
+m("In “giorno” la lettera I…",["si pronuncia chiaramente","non si pronuncia","si legge come E","si legge come U"],1,"In GIA, GIO, GIU la I non si pronuncia."),
+m("Quale gruppo di lettere ha il suono dolce?",["SCA","SCO","SCE","SCHI"],2,"SCE e SCI hanno il suono dolce."),
+m("Per avere il suono duro davanti a E e I si scrive…",["la H","la S","la I","la A"],0,"CHE, CHI, GHE, GHI: la H rende il suono duro.")]},
+{t:"Giorni della settimana e mesi dell’anno",q:[
+m("Quale giorno viene dopo martedì?",["lunedì","mercoledì","giovedì","venerdì"],1,"lunedì, martedì, mercoledì."),
+m("Quale giorno viene prima di domenica?",["sabato","venerdì","lunedì","giovedì"],0,"Prima di domenica c’è sabato."),
+m("Quale mese viene dopo agosto?",["luglio","settembre","ottobre","giugno"],1,"agosto, settembre, ottobre."),
+m("Il primo mese dell’anno è…",["gennaio","febbraio","dicembre","marzo"],0,"gennaio è il primo mese."),
+m("Oggi è giovedì. Dopodomani è…",["venerdì","sabato","domenica","mercoledì"],1,"Domani è venerdì, dopodomani è sabato.")]},
+{t:"I numeri da 1 a 100.000",q:[
+m("Come si scrive 17?",["diciassette","dicesette","diciasette","diecisette"],0,"17 = diciassette."),
+m("Come si scrive 48?",["quarantotto","quaranta otto","quarantaotto","quattrovanta"],0,"quaranta + otto = quarantotto."),
+m("Quanto fa 15 + 25?",["trenta","quaranta","cinquanta","trentacinque"],1,"15 + 25 = 40 = quaranta."),
+m("Come si scrive 1.000?",["cento","mille","mila","diecimila"],1,"1.000 = mille."),
+m("Come si scrive 20.000?",["ventimila","venti mila","ventemila","duemila"],0,"20.000 = ventimila, tutto attaccato."),
+m("Come si scrive 100.000?",["centomila","cento mille","millecento","diecimila"],0,"100.000 = centomila.")]},
+{t:"Come si forma il NON",q:[
+m("Dove si mette “non” in una frase?",["prima del verbo","dopo il verbo","alla fine della frase","prima del soggetto"],0,"NON sta prima del verbo."),
+m("Quale frase è corretta?",["Marco non parla italiano","Marco parla non italiano","Non Marco parla italiano","Marco parla italiano non"],0,"Soggetto + non + verbo."),
+m("Completa: Io ____ sono stanco.",["non","no","mai","nessuno"],0,"Io non sono stanco."),
+m("“Sei italiano?” Quale risposta negativa è corretta?",["No, sono non italiano","No, non sono italiano","Non, sono italiano","Sì, non sono italiano"],1,"No, non sono italiano."),
+m("Quale frase è la negativa di “Noi mangiamo la pizza”?",["Noi non mangiamo la pizza","Noi mangiamo non la pizza","Non noi mangiamo la pizza","Noi mangiamo la pizza non"],0,"Noi non mangiamo la pizza.")]},
+{t:"Le nazionalità",q:[
+m("Lui è italiano. Lei è…",["italiano","italiana","italiani","italiane"],1,"Femminile singolare: italiana."),
+m("Quale frase è corretta?",["Marie è francese","Marie è francesa","Marie è francesi","Marie è franceso"],0,"Le nazionalità in -E non cambiano al femminile."),
+m("Marco e Luca sono italiani. Anna e Sara sono…",["italiano","italiana","italiani","italiane"],3,"Femminile plurale: italiane."),
+m("Carlos è spagnolo. Maria è…",["spagnolo","spagnola","spagnoli","spagnole"],1,"Femminile singolare: spagnola."),
+m("Quale nazionalità ha la stessa forma al maschile e al femminile?",["italiano","spagnolo","inglese","tedesco"],2,"inglese: lui è inglese, lei è inglese.")]},
+{t:"I colori",q:[
+colore("rosso",["rosso","rosa","arancione","marrone"],"#C0392B"),
+colore("giallo",["giallo","arancione","verde","bianco"],"#F2C94C"),
+colore("verde",["blu","verde","viola","grigio"],"#4F9A55"),
+colore("blu",["azzurro","blu","nero","viola"],"#1F3B6B"),
+colore("bianco",["grigio","bianco","giallo","rosa"],"#FFFFFF"),
+colore("nero",["nero","marrone","blu","grigio"],"#222222")]},
+{t:"Il verbo ESSERE: a che cosa serve",q:[
+m("Io ____ Hassan.",["sei","sono","è","siamo"],1,"Io sono."),
+m("Tu ____ stanco.",["sei","sono","è","siete"],0,"Tu sei."),
+m("“Il libro è sul tavolo.” Qui il verbo ESSERE indica…",["identità","posizione","età","professione"],1,"Indica la posizione."),
+m("“Marco è alto.” Qui il verbo ESSERE indica…",["descrizione","posizione","origine","tempo"],0,"Indica una descrizione."),
+m("“Sono insegnante.” Qui il verbo ESSERE indica…",["posizione","professione","tempo","età"],1,"Indica la professione.")]},
+{t:"Il verbo AVERE: età, possesso, sensazioni fisiche",q:[
+m("Io ____ 25 anni.",["sono","ho","ha","hai"],1,"L’età si dice con AVERE: ho 25 anni."),
+m("Marco ____ una macchina nuova.",["ha","è","hai","ho"],0,"Possesso: Marco ha una macchina."),
+m("Per dire che hai sete, sonno o freddo si usa il verbo…",["avere","essere","stare","fare"],0,"Fame, sete, sonno, caldo, freddo si dicono con AVERE: ho sete, ho sonno."),
+m("Noi ____ sete.",["abbiamo","avete","hanno","siamo"],0,"Noi abbiamo."),
+m("Quale frase è corretta?",["Ho venti anni","Sono venti anni","Ho venti anno","Sono venti"],0,"Ho venti anni.")]},
+{t:"Maschile, femminile, singolare e plurale",q:[
+m("Qual è il plurale di “libro”?",["libri","libre","libra","libro"],0,"-O diventa -I: libri."),
+m("Qual è il plurale di “casa”?",["casi","case","casa","cose"],1,"-A diventa -E: case."),
+m("Qual è il plurale di “padre”?",["padri","padre","padra","padres"],0,"-E diventa -I: padri."),
+m("Quale parola è femminile singolare?",["gatti","penna","libri","ragazzi"],1,"penna: femminile singolare."),
+m("“Le ragazze” è…",["maschile plurale","femminile plurale","femminile singolare","maschile singolare"],1,"le ragazze = femminile plurale.")]},
+{t:"Nomi comuni e nomi propri",q:[
+m("Quale parola è un nome proprio?",["gatto","Marco","libro","ragazzo"],1,"Marco è il nome di una persona."),
+m("Quale parola è un nome comune?",["Anna","Hassan","ragazzo","Marco"],2,"ragazzo indica ogni ragazzo."),
+m("I nomi propri si scrivono con…",["la lettera maiuscola","la lettera minuscola","il corsivo","due maiuscole"],0,"Sempre con la maiuscola."),
+m("Quale frase è scritta correttamente?",["io sono hassan","Io sono Hassan","io sono Hassan","Io sono hassan"],1,"Hassan è un nome proprio: maiuscola."),
+m("“Anna” è un nome…",["comune","proprio","plurale","maschile"],1,"Anna è un nome proprio.")]},
+{t:"Gli aggettivi",q:[
+m("La casa è ____ (nuovo).",["nuovo","nuova","nuovi","nuove"],1,"casa è femminile singolare: nuova."),
+m("I libri sono ____ (grande).",["grande","grandi","grando","grandà"],1,"Gli aggettivi in -E hanno il plurale in -I."),
+m("Le ragazze sono ____ (alto).",["alto","alta","alti","alte"],3,"Femminile plurale: alte."),
+m("In italiano l’aggettivo sta di solito…",["dopo il nome","prima del nome","alla fine della frase","prima del verbo"],0,"Di solito dopo il nome: un libro nuovo."),
+m("Quale frase è corretta?",["La ragazza è alta","La ragazza è alto","La ragazza è alti","La ragazza è alte"],0,"ragazza è femminile singolare: alta.")]},
+{t:"Verbi in -ARE, -ERE, -IRE al presente",q:[
+m("Io ____ (parlare) italiano.",["parli","parlo","parla","parlano"],1,"io → -o: parlo."),
+m("Tu ____ (prendere) il caffè.",["prendi","prende","prendo","prendono"],0,"tu → -i: prendi."),
+m("Noi ____ (dormire) molto.",["dormiamo","dormite","dormono","dormo"],0,"noi → -iamo: dormiamo."),
+m("Loro ____ (leggere) un libro.",["leggono","leggano","leggete","legge"],0,"loro (-ERE) → -ono: leggono."),
+m("Voi ____ (lavorare) in banca.",["lavorate","lavorano","lavorete","lavoro"],0,"voi (-ARE) → -ate: lavorate.")]}
+];
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const L="ABCD";
+let Q,A,cur,fin;
+function init(){Q=D.map(s=>({t:s.t,q:s.q.map(q=>({q:q.q,e:q.e,sw:q.sw,o:sh(q.o.map((t,i)=>({t,ok:i==q.c})))}))}));A=Q.map(s=>s.q.map(()=>null));cur=0;fin=false;render();}
+const total=()=>Q.reduce((n,s)=>n+s.q.length,0);
+const answered=()=>A.flat().filter(x=>x!==null).length;
+const secDone=i=>A[i].every(x=>x!==null);
+function render(){
+ const app=document.getElementById("app");
+ if(fin)return result(app);
+ const s=Q[cur],n=answered(),pct=Math.round(n/total()*100);
+ let h=`<span class="brand">Italiano Facile · A1</span><h1>Esame di italiano</h1><div class="sub">${total()} domande · ${Q.length} argomenti</div>
+ <div class="bar"><i style="width:${pct}%"></i></div><div class="meta"><span>${n} / ${total()} risposte</span><span>${pct}%</span></div>
+ <div class="tabs">${Q.map((x,i)=>`<button data-tab="${i}" class="${i==cur?"on":""} ${secDone(i)?"ok":""}">${i+1}</button>`).join("")}</div>
+ <div class="sec"><h2>${cur+1}. ${s.t}</h2></div>`;
+ s.q.forEach((q,qi)=>{h+=`<div class="q"><h3><span>${qi+1}.</span>${q.q}</h3>${q.sw?`<div class="sw" style="background:${q.sw}"></div>`:""}${q.o.map((o,oi)=>`<button class="o ${A[cur][qi]===oi?"sel":""}" data-q="${qi}" data-o="${oi}"><b>${L[oi]}</b>${o.t}</button>`).join("")}</div>`});
+ const last=cur==Q.length-1;
+ h+=`<div class="nav"><button class="btn alt" data-go="-1" ${cur==0?"disabled":""}>← Indietro</button>${last?`<button class="btn" data-end="1" ${n<total()?"disabled":""}>Consegna</button>`:`<button class="btn" data-go="1">Avanti →</button>`}</div>`;
+ if(last&&n<total())h+=`<div class="hint">Rispondi a tutte le domande per consegnare.</div>`;
+ app.innerHTML=h;}
+function result(app){
+ let ok=0,rev="";const rows=[];
+ Q.forEach((s,si)=>{let n=0;s.q.forEach((q,qi)=>{const sel=A[si][qi];if(q.o[sel].ok){n++;ok++}else rev+=`<div class="wq"><b>${q.q}${q.sw?" (colore mostrato nella domanda)":""}</b><div class="a x">✗ ${q.o[sel].t}</div><div class="a v">✓ ${q.o.find(o=>o.ok).t}</div><div class="ex">${q.e}</div></div>`});rows.push([s,n]);});
+ const p=Math.round(ok/total()*100),lvl=p>=85?"Ottimo! 🎉":p>=60?"Promosso ✓":"Da ripassare";
+ const cl=x=>x>=85?"var(--ok)":x>=60?"var(--acc)":"var(--bad)";
+ app.innerHTML=`<span class="brand">Italiano Facile · A1</span><h1>Risultato</h1>
+ <div class="score"><div class="big">${ok} / ${total()}</div><div class="sub">${p}%</div><div class="lvl">${lvl}</div></div>
+ ${rows.map(([s,n])=>{const x=Math.round(n/s.q.length*100);return `<div class="row"><div><b>${s.t}</b><div class="t"><i style="width:${x}%;background:${cl(x)}"></i></div></div><b>${n} / ${s.q.length}</b></div>`}).join("")}
+ <div class="rev">${rev?`<h3>Rivedi gli errori</h3>${rev}`:`<h3>Nessun errore!</h3>`}</div>
+ <div class="nav"><button class="btn" data-again="1">Ricomincia</button></div>`;scrollTo(0,0);}
+document.addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.o!==undefined){A[cur][+b.dataset.q]=+b.dataset.o;const y=scrollY;render();scrollTo(0,y);}
+ else if(b.dataset.go){cur+=+b.dataset.go;render();scrollTo(0,0);}
+ else if(b.dataset.tab){cur=+b.dataset.tab;render();scrollTo(0,0);}
+ else if(b.dataset.end){fin=true;render();}
+ else if(b.dataset.again){init();scrollTo(0,0);}
+});
+init();
+</script>
+</body>
+</html>
