@@ -28,9 +28,8 @@ h1{font-family:Georgia,serif;font-size:1.9rem;line-height:1.2;margin:4px 0 2px}
 .tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 12px;font:600 .8rem inherit;font-family:inherit;cursor:pointer}
 .tabs button.on{background:var(--mar);color:#fff;border-color:var(--mar)}
 .tabs button.ok::after{content:" ✓"}
-.sec{background:var(--tan);border-radius:22px;padding:14px 18px;margin:8px 0 18px}
-.sec h2{font-family:Georgia,serif;font-size:1.25rem}
 .q{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(80,60,40,.07)}
+.topic{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin-bottom:4px}
 .q h3{font-size:1rem;font-weight:700;margin-bottom:6px}
 .q h3 span{color:var(--acc);margin-right:6px}
 .o{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:10px 14px;margin-top:8px;cursor:pointer}
@@ -43,7 +42,8 @@ h1{font-family:Georgia,serif;font-size:1.9rem;line-height:1.2;margin:4px 0 2px}
 .btn.alt{background:var(--tan);color:var(--ink)}
 .btn:disabled{opacity:.4;cursor:default}
 .score{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:26px 18px;margin:14px 0 20px;box-shadow:0 2px 8px rgba(80,60,40,.07)}
-.big{font:800 3.4rem Georgia,serif;color:var(--mar)}
+.big{font:800 4rem Georgia,serif;color:var(--mar);line-height:1.1}
+.big small{font-size:1.6rem;color:var(--mut)}
 .lvl{font-weight:700;font-size:1.1rem;margin-top:4px}
 .row{display:grid;grid-template-columns:1fr 70px;gap:10px;align-items:center;margin:10px 0;font-size:.9rem}
 .row .t{height:12px;background:var(--tan);border-radius:99px;overflow:hidden;margin-top:4px}
@@ -67,6 +67,11 @@ const EXAM_EMAILJS_PUBLIC_KEY = 'amI7zkN3o539HGjsb';
 emailjs.init(EXAM_EMAILJS_PUBLIC_KEY);
 let examReportSent = false;
 let examReportSending = false;
+
+// ===== IMPOSTAZIONI DELL'ESAME =====
+const PER_SECTION = 2;   // quante domande a caso per ogni argomento (13 argomenti x 2 = 26 domande)
+const PAGE = 7;          // quante domande per pagina
+const PASS_GRADE = 6;    // voto minimo per essere promossi
 
 const m=(q,o,c,e,sw)=>({q,o,c,e,sw});
 const colore=(n,o,hex)=>m("Che colore è?",o,o.indexOf(n),"Il colore è "+n+".",hex);
@@ -149,61 +154,95 @@ m("Voi ____ (lavorare) in banca.",["lavorate","lavorano","lavorete","lavoro"],0,
 const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const L="ABCD";
 let Q,A,cur,fin;
-function init(){Q=D.map(s=>({t:s.t,q:s.q.map(q=>({q:q.q,e:q.e,sw:q.sw,o:sh(q.o.map((t,i)=>({t,ok:i==q.c})))}))}));A=Q.map(s=>s.q.map(()=>null));cur=0;fin=false;render();}
-const total=()=>Q.reduce((n,s)=>n+s.q.length,0);
-const answered=()=>A.flat().filter(x=>x!==null).length;
-const secDone=i=>A[i].every(x=>x!==null);
+
+// Estrae PER_SECTION domande a caso da ogni argomento: ogni esame è diverso,
+// ma tutti gli argomenti sono sempre rappresentati.
+function init(){
+ Q=[];
+ D.forEach(s=>{
+  sh(s.q).slice(0,PER_SECTION).forEach(q=>{
+   Q.push({t:s.t,q:q.q,e:q.e,sw:q.sw,o:sh(q.o.map((t,i)=>({t,ok:i==q.c})))});
+  });
+ });
+ A=Q.map(()=>null);cur=0;fin=false;render();
+}
+const total=()=>Q.length;
+const pages=()=>Math.ceil(Q.length/PAGE);
+const answered=()=>A.filter(x=>x!==null).length;
+const pageDone=i=>A.slice(i*PAGE,(i+1)*PAGE).every(x=>x!==null);
+const gradeOf=ok=>Math.max(1,Math.round(ok/total()*10));
+const verdict=g=>g>=9?"Ottimo! 🎉":g>=PASS_GRADE?"Promosso ✓":"Da ripassare";
+function stats(){
+ let ok=0;const topics=[];
+ Q.forEach((q,i)=>{
+  let t=topics.find(x=>x.t===q.t);
+  if(!t){t={t:q.t,n:0,tot:0};topics.push(t);}
+  t.tot++;
+  if(A[i]!==null&&q.o[A[i]].ok){t.n++;ok++;}
+ });
+ return {ok,topics,grade:gradeOf(ok)};
+}
 function render(){
  const app=document.getElementById("app");
  if(fin)return result(app);
- const s=Q[cur],n=answered(),pct=Math.round(n/total()*100);
- let h=`<span class="brand">Italiano Facile · A1</span><h1>Esame di italiano</h1><div class="sub">${total()} domande · ${Q.length} argomenti</div>
+ const n=answered(),pct=Math.round(n/total()*100);
+ let h=`<span class="brand">Italiano Facile · A1</span><h1>Esame di italiano</h1><div class="sub">${total()} domande · voto da 1 a 10</div>
  <div class="bar"><i style="width:${pct}%"></i></div><div class="meta"><span>${n} / ${total()} risposte</span><span>${pct}%</span></div>
- <div class="tabs">${Q.map((x,i)=>`<button data-tab="${i}" class="${i==cur?"on":""} ${secDone(i)?"ok":""}">${i+1}</button>`).join("")}</div>
- <div class="sec"><h2>${cur+1}. ${s.t}</h2></div>`;
- s.q.forEach((q,qi)=>{h+=`<div class="q"><h3><span>${qi+1}.</span>${q.q}</h3>${q.sw?`<div class="sw" style="background:${q.sw}"></div>`:""}${q.o.map((o,oi)=>`<button class="o ${A[cur][qi]===oi?"sel":""}" data-q="${qi}" data-o="${oi}"><b>${L[oi]}</b>${o.t}</button>`).join("")}</div>`});
- const last=cur==Q.length-1;
+ <div class="tabs">${Array.from({length:pages()},(_,i)=>`<button data-tab="${i}" class="${i==cur?"on":""} ${pageDone(i)?"ok":""}">${i+1}</button>`).join("")}</div>`;
+ const start=cur*PAGE;
+ Q.slice(start,start+PAGE).forEach((q,k)=>{
+  const gi=start+k;
+  h+=`<div class="q"><div class="topic">${q.t}</div><h3><span>${gi+1}.</span>${q.q}</h3>${q.sw?`<div class="sw" style="background:${q.sw}"></div>`:""}${q.o.map((o,oi)=>`<button class="o ${A[gi]===oi?"sel":""}" data-q="${gi}" data-o="${oi}"><b>${L[oi]}</b>${o.t}</button>`).join("")}</div>`;
+ });
+ const last=cur==pages()-1;
  h+=`<div class="nav"><button class="btn alt" data-go="-1" ${cur==0?"disabled":""}>← Indietro</button>${last?`<button class="btn" data-end="1" ${n<total()?"disabled":""}>Consegna</button>`:`<button class="btn" data-go="1">Avanti →</button>`}</div>`;
  if(last&&n<total())h+=`<div class="hint">Rispondi a tutte le domande per consegnare.</div>`;
  app.innerHTML=h;}
 function result(app){
- let ok=0,rev="";const rows=[];
- Q.forEach((s,si)=>{let n=0;s.q.forEach((q,qi)=>{const sel=A[si][qi];if(q.o[sel].ok){n++;ok++}else rev+=`<div class="wq"><b>${q.q}${q.sw?" (colore mostrato nella domanda)":""}</b><div class="a x">✗ ${q.o[sel].t}</div><div class="a v">✓ ${q.o.find(o=>o.ok).t}</div><div class="ex">${q.e}</div></div>`});rows.push([s,n]);});
- const p=Math.round(ok/total()*100),lvl=p>=85?"Ottimo! 🎉":p>=60?"Promosso ✓":"Da ripassare";
+ const st=stats();
+ let rev="";
+ Q.forEach((q,i)=>{
+  const sel=A[i];
+  if(!q.o[sel].ok)rev+=`<div class="wq"><b>${q.q}${q.sw?" (colore mostrato nella domanda)":""}</b><div class="a x">✗ ${q.o[sel].t}</div><div class="a v">✓ ${q.o.find(o=>o.ok).t}</div><div class="ex">${q.e}</div></div>`;
+ });
  const cl=x=>x>=85?"var(--ok)":x>=60?"var(--acc)":"var(--bad)";
  app.innerHTML=`<span class="brand">Italiano Facile · A1</span><h1>Risultato</h1>
- <div class="score"><div class="big">${ok} / ${total()}</div><div class="sub">${p}%</div><div class="lvl">${lvl}</div></div>
- ${rows.map(([s,n])=>{const x=Math.round(n/s.q.length*100);return `<div class="row"><div><b>${s.t}</b><div class="t"><i style="width:${x}%;background:${cl(x)}"></i></div></div><b>${n} / ${s.q.length}</b></div>`}).join("")}
+ <div class="score"><div class="big">${st.grade}<small> / 10</small></div><div class="sub">${st.ok} risposte giuste su ${total()}</div><div class="lvl">${verdict(st.grade)}</div></div>
+ ${st.topics.map(s=>{const x=Math.round(s.n/s.tot*100);return `<div class="row"><div><b>${s.t}</b><div class="t"><i style="width:${x}%;background:${cl(x)}"></i></div></div><b>${s.n} / ${s.tot}</b></div>`}).join("")}
  <div class="rev">${rev?`<h3>Rivedi gli errori</h3>${rev}`:`<h3>Nessun errore!</h3>`}</div>
  <div id="send-status" class="hint" role="status">Invio del risultato in corso…</div>
- <div class="nav"><button class="btn" data-again="1">Ricomincia</button></div>`;
- sendExamReport(ok,p,rows);
+ <div class="nav"><button class="btn" data-again="1">Ricomincia con nuove domande</button></div>`;
+ sendExamReport();
  scrollTo(0,0);}
-async function sendExamReport(ok,p,rows){
+async function sendExamReport(){
  const status=document.getElementById('send-status');
  if(examReportSent||examReportSending)return;
  examReportSending=true;
+ const st=stats();
  const lines=[
   'NUOVA CONSEGNA — ESAME DI ITALIANO A1',
-  'Punteggio: '+ok+'/'+total()+' ('+p+'%)',
-  'Esito: '+(p>=85?'Ottimo':p>=60?'Promosso':'Da ripassare'),
+  'VOTO: '+st.grade+'/10',
+  'Risposte giuste: '+st.ok+' su '+total(),
+  'Esito: '+verdict(st.grade).replace(/[^\wÀ-ÿ ]/g,'').trim(),
   '', 'RISULTATI PER ARGOMENTO:',
-  ...rows.map(([section,n])=>section.t+': '+n+'/'+section.q.length),
+  ...st.topics.map(s=>s.t+': '+s.n+'/'+s.tot),
   '', 'RISPOSTE SBAGLIATE:'
  ];
- Q.forEach((section,si)=>section.q.forEach((question,qi)=>{
-  const selected=question.o[A[si][qi]];
+ let wrong=0;
+ Q.forEach((q,i)=>{
+  const selected=q.o[A[i]];
   if(!selected.ok){
-   lines.push('• '+section.t+' — '+question.q);
+   wrong++;
+   lines.push('• '+q.t+' — '+q.q);
    lines.push('  Risposta data: '+selected.t);
-   lines.push('  Risposta corretta: '+question.o.find(option=>option.ok).t);
-   if(question.e)lines.push('  Spiegazione: '+question.e);
+   lines.push('  Risposta corretta: '+q.o.find(o=>o.ok).t);
+   if(q.e)lines.push('  Spiegazione: '+q.e);
   }
- }));
- if(ok===total())lines.push('Nessuna risposta sbagliata.');
+ });
+ if(!wrong)lines.push('Nessuna risposta sbagliata.');
  try{
   await emailjs.send(EXAM_EMAILJS_SERVICE,EXAM_EMAILJS_TEMPLATE,{
-   nome:'Consegna esame A1', email:'Non fornita', telefono:'—', livello:'A1',
+   nome:'Consegna esame A1 — voto '+st.grade+'/10', email:'Non fornita', telefono:'—', livello:'A1',
    messaggio:lines.join('\n')
   });
   examReportSent=true;
@@ -215,14 +254,13 @@ async function sendExamReport(ok,p,rows){
 }
 document.addEventListener("click",e=>{
  const b=e.target.closest("button");if(!b)return;
- if(b.dataset.o!==undefined){A[cur][+b.dataset.q]=+b.dataset.o;const y=scrollY;render();scrollTo(0,y);}
+ if(b.dataset.o!==undefined){A[+b.dataset.q]=+b.dataset.o;const y=scrollY;render();scrollTo(0,y);}
  else if(b.dataset.go){cur+=+b.dataset.go;render();scrollTo(0,0);}
  else if(b.dataset.tab){cur=+b.dataset.tab;render();scrollTo(0,0);}
  else if(b.dataset.end){fin=true;render();}
  else if(b.dataset.again){examReportSent=false;examReportSending=false;init();scrollTo(0,0);}
- else if(b.dataset.resend!==undefined){sendExamReport(computeScore(),Math.round(computeScore()/total()*100),Q.map((section,si)=>[section,A[si].filter((answer,qi)=>answer!==null&&section.q[qi].o[answer].ok).length]));}
+ else if(b.dataset.resend!==undefined){sendExamReport();}
 });
-function computeScore(){let n=0;Q.forEach((section,si)=>section.q.forEach((question,qi)=>{if(A[si][qi]!==null&&question.o[A[si][qi]].ok)n++;}));return n;}
 init();
 </script>
 </body>
