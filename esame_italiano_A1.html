@@ -4,104 +4,409 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Esame di italiano A1</title>
+<title>Esame di italiano A1 | Italiano Pro Bangla</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
---bg:#FBF8F3;--card:#fff;--ink:#4E1C29;--mut:#6f6a66;
---acc:#A67C3D;--mar:#6B2737;--blue:#1F3B6B;--tan:#F3EAD9;
---line:#E6DCC8;--ok:#3f8a4b;--sel:#E7EEF6;
-color-scheme:light;box-sizing:border-box;
+--bg:#F3F6FA;
+--card:#FFFFFF;
+--ink:#172B43;
+--mut:#64748B;
+--acc:#16A36A;
+--mar:#102B46;
+--blue:#245B85;
+--tan:#E8EEF4;
+--line:#DCE5ED;
+--ok:#168653;
+--bad:#C44848;
+--sel:#E5F5ED;
+color-scheme:light;
+box-sizing:border-box;
 padding-top:env(safe-area-inset-top,0px);
 padding-bottom:env(safe-area-inset-bottom,0px)
 }
-@media (prefers-color-scheme:dark){
-:root:not([data-theme="light"]){
---bg:#1b1418;--card:#272024;--ink:#f3e6e9;--mut:#b5aaae;
---acc:#d3a85c;--mar:#e48fa3;--blue:#9db8e8;--tan:#33292d;
---line:#43373c;--ok:#7cc788;--bad:#e59a90;--sel:#243247;
-color-scheme:dark
-}}
-:root[data-theme="dark]{
---bg:#1b1418;--card:#272024;--ink:#f3e6e9;--mut:#b5aaae;
---acc:#d3a85c;--mar:#e48fa3;--blue:#9db8e8;--tan:#33292d;
---line:#43373c;--ok:#7cc788;--bad:#e59a90;--sel:#243247;
-color-scheme:dark
-}
-:root{--bad:#A65A52}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box;margin:0}
-body{
-background:var(--bg);color:var(--ink);
-font-family:"Open Sans",system-ui,sans-serif;
-line-height:1.5;min-height:100vh
-}
-body::before{
-content:"";position:fixed;inset:0 0 auto;
-height:env(safe-area-inset-top,0px);
-background:var(--bg);z-index:10
-}
-.wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px}
-.brand{
-font-weight:800;font-size:.8rem;letter-spacing:.08em;
-color:var(--acc);text-transform:uppercase
-}
-h1{font-family:Georgia,serif;font-size:1.9rem;line-height:1.2;margin:4px 0 2px}
-.sub{color:var(--mut);font-size:.95rem}
-.bar{height:10px;background:var(--tan);border-radius:99px;overflow:hidden;margin:16px 0 6px}
-.bar i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .3s}
-.meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--mut)}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
-.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 12px;font:600 .8rem inherit;font-family:inherit;cursor:pointer}
-.tabs button.on{background:var(--mar);color:#fff;border-color:var(--mar)}
-.tabs button.ok::after{content:" ✓"}
-.q{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(80,60,40,.07)}
-.topic{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin-bottom:4px}
-.q h3{font-size:1rem;font-weight:700;margin-bottom:6px}
-.q h3 span{color:var(--acc);margin-right:6px}
-.o{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:10px 14px;margin-top:8px;cursor:pointer}
-.o:hover{border-color:var(--acc)}
-.o.sel{background:var(--sel);border-color:var(--blue)}
-.o b{color:var(--acc);margin-right:8px}
-.sw{width:96px;height:96px;border-radius:50%;margin:8px auto 10px;border:3px solid var(--line);box-shadow:0 2px 8px rgba(80,60,40,.15)}
-.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
-.btn{font:700 .95rem inherit;font-family:inherit;border:0;border-radius:99px;padding:12px 24px;cursor:pointer;background:var(--mar);color:#fff}
-.btn.alt{background:var(--tan);color:var(--ink)}
-.btn:disabled{opacity:.4;cursor:default}
-.score{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:26px 18px;margin:14px 0 20px;box-shadow:0 2px 8px rgba(80,60,40,.07)}
-.big{font:800 4rem Georgia,serif;color:var(--mar);line-height:1.1}
-.big small{font-size:1.6rem;color:var(--mut)}
-.lvl{font-weight:700;font-size:1.1rem;margin-top:4px}
-.row{display:grid;grid-template-columns:1fr 70px;gap:10px;align-items:center;margin:10px 0;font-size:.9rem}
-.row .t{height:12px;background:var(--tan);border-radius:99px;overflow:hidden;margin-top:4px}
-.row .t i{display:block;height:100%;border-radius:99px}
-.row>b{text-align:right}
-.rev h3{margin:22px 0 8px;font-family:Georgia,serif;color:var(--mar)}
-.wq{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 16px;margin-bottom:10px;font-size:.92rem}
-.wq .a{margin-top:4px}.wq .x{color:var(--bad)}.wq .v{color:var(--ok)}
-.ex{margin-top:6px;font-size:.85rem;color:var(--mut);border-left:4px solid var(--acc);padding-left:10px}
-.hint{font-size:.85rem;color:var(--mut);text-align:center;margin-top:10px}
 
-/* SCHERMATA INIZIALE */
+*{box-sizing:border-box;margin:0}
+
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+
+body{
+background:var(--bg);
+color:var(--ink);
+font-family:"Open Sans",system-ui,sans-serif;
+line-height:1.55;
+min-height:100vh
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0 0 auto;
+height:env(safe-area-inset-top,0px);
+background:var(--bg);
+z-index:10
+}
+
+.wrap{
+max-width:760px;
+margin:0 auto;
+padding:20px 16px 60px
+}
+
+.hero{
+background:linear-gradient(135deg,#102B46,#1C4666);
+color:white;
+padding:26px 23px;
+border-radius:24px;
+margin-bottom:22px;
+box-shadow:0 8px 24px rgba(16,43,70,.15)
+}
+
+.hero-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-bottom:20px
+}
+
+.brand{
+font-weight:800;
+font-size:.78rem;
+letter-spacing:.09em;
+color:#FFFFFF;
+text-transform:uppercase
+}
+
+.hero-badge{
+background:#16A36A;
+color:white;
+padding:6px 12px;
+border-radius:30px;
+font-size:.72rem;
+font-weight:800;
+letter-spacing:.05em
+}
+
+h1{
+font-size:1.9rem;
+line-height:1.2;
+margin:0 0 8px;
+font-weight:800;
+color:inherit
+}
+
+.hero .sub{
+color:#D8E6F0;
+font-size:.92rem
+}
+
+.sub{
+color:var(--mut);
+font-size:.92rem
+}
+
+.bar{
+height:9px;
+background:var(--tan);
+border-radius:99px;
+overflow:hidden;
+margin:18px 0 8px
+}
+
+.bar i{
+display:block;
+height:100%;
+background:var(--acc);
+border-radius:99px;
+transition:width .3s
+}
+
+.meta{
+display:flex;
+justify-content:space-between;
+font-size:.82rem;
+color:var(--mut)
+}
+
+.tabs{
+display:flex;
+gap:7px;
+flex-wrap:wrap;
+margin:16px 0
+}
+
+.tabs button{
+border:1px solid var(--line);
+background:var(--card);
+color:var(--ink);
+border-radius:12px;
+padding:8px 13px;
+font-weight:700;
+font-family:inherit;
+cursor:pointer
+}
+
+.tabs button.on{
+background:var(--mar);
+color:#fff;
+border-color:var(--mar)
+}
+
+.tabs button.ok::after{content:" ✓"}
+
+.q{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:20px;
+padding:18px;
+margin-bottom:14px;
+box-shadow:0 4px 14px rgba(16,43,70,.045)
+}
+
+.topic{
+font-size:.72rem;
+font-weight:800;
+letter-spacing:.07em;
+text-transform:uppercase;
+color:var(--acc);
+margin-bottom:8px
+}
+
+.q h3{
+font-size:1rem;
+font-weight:700;
+margin-bottom:10px;
+color:var(--ink)
+}
+
+.q h3 span{
+color:var(--acc);
+margin-right:7px
+}
+
+.o{
+display:block;
+width:100%;
+text-align:left;
+font:inherit;
+color:var(--ink);
+background:#F7F9FC;
+border:2px solid var(--line);
+border-radius:13px;
+padding:12px 14px;
+margin-top:9px;
+cursor:pointer;
+transition:.2s
+}
+
+.o:hover{
+border-color:var(--acc);
+background:#F0FAF5
+}
+
+.o.sel{
+background:var(--sel);
+border-color:var(--acc)
+}
+
+.o b{
+color:var(--acc);
+margin-right:9px
+}
+
+.sw{
+width:96px;
+height:96px;
+border-radius:50%;
+margin:12px auto;
+border:3px solid var(--line);
+box-shadow:0 3px 12px rgba(16,43,70,.12)
+}
+
+.nav{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-top:22px
+}
+
+.btn{
+font:700 .95rem "Open Sans",sans-serif;
+border:0;
+border-radius:13px;
+padding:13px 22px;
+cursor:pointer;
+background:var(--acc);
+color:#fff;
+transition:.2s
+}
+
+.btn:hover{filter:brightness(.95)}
+
+.btn.alt{
+background:#E8EEF4;
+color:var(--mar)
+}
+
+.btn:disabled{
+opacity:.4;
+cursor:default
+}
+
+.score{
+text-align:center;
+background:var(--card);
+border:1px solid var(--line);
+border-radius:24px;
+padding:28px 18px;
+margin:16px 0 24px;
+box-shadow:0 5px 18px rgba(16,43,70,.06)
+}
+
+.big{
+font-size:4rem;
+font-weight:800;
+color:var(--mar);
+line-height:1.1
+}
+
+.big small{
+font-size:1.5rem;
+color:var(--mut)
+}
+
+.lvl{
+font-weight:800;
+font-size:1.1rem;
+margin-top:7px;
+color:var(--acc)
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 70px;
+gap:10px;
+align-items:center;
+margin:13px 0;
+font-size:.9rem
+}
+
+.row .t{
+height:10px;
+background:var(--tan);
+border-radius:99px;
+overflow:hidden;
+margin-top:6px
+}
+
+.row .t i{
+display:block;
+height:100%;
+border-radius:99px
+}
+
+.row>b{text-align:right}
+
+.rev h3{
+margin:24px 0 12px;
+color:var(--mar);
+font-size:1.15rem
+}
+
+.wq{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:16px;
+padding:15px;
+margin-bottom:11px;
+font-size:.92rem
+}
+
+.wq .a{margin-top:6px}
+.wq .x{color:var(--bad)}
+.wq .v{color:var(--ok)}
+
+.ex{
+margin-top:9px;
+font-size:.85rem;
+color:var(--mut);
+border-left:4px solid var(--acc);
+padding-left:10px
+}
+
+.hint{
+font-size:.85rem;
+color:var(--mut);
+text-align:center;
+margin-top:12px
+}
+
 .start-card{
-background:var(--card);border:1px solid var(--line);
-border-radius:22px;padding:24px 20px;margin-top:22px;
-box-shadow:0 2px 8px rgba(80,60,40,.07)
+background:var(--card);
+border:1px solid var(--line);
+border-radius:22px;
+padding:25px 21px;
+margin-top:18px;
+box-shadow:0 5px 18px rgba(16,43,70,.05)
 }
+
+.start-card h2{
+color:var(--mar)
+}
+
 .start-card label{
-display:block;font-weight:700;margin:16px 0 6px
+display:block;
+font-weight:700;
+margin:17px 0 7px;
+font-size:.9rem
 }
+
 .start-card input{
-width:100%;padding:14px 15px;border:2px solid var(--line);
-border-radius:13px;background:var(--bg);color:var(--ink);
-font:inherit;font-size:1rem;outline:none
+width:100%;
+padding:14px 15px;
+border:2px solid var(--line);
+border-radius:12px;
+background:#F7F9FC;
+color:var(--ink);
+font:inherit;
+font-size:1rem;
+outline:none
 }
-.start-card input:focus{border-color:var(--acc)}
-.start-card .btn{width:100%;margin-top:22px}
-.start-note{font-size:.85rem;color:var(--mut);margin-top:12px}
-.error-message{color:var(--bad);font-size:.88rem;margin-top:10px}
+
+.start-card input:focus{
+border-color:var(--acc);
+background:white
+}
+
+.start-card .btn{
+width:100%;
+margin-top:23px;
+padding:15px
+}
+
+.start-note{
+font-size:.82rem;
+color:var(--mut);
+margin-top:13px;
+text-align:center
+}
+
+.error-message{
+color:var(--bad);
+font-size:.88rem;
+margin-top:10px
+}
+
+@media(max-width:480px){
+.wrap{padding:14px 12px 45px}
+.hero{padding:22px 18px;border-radius:20px}
+h1{font-size:1.65rem}
+.q{padding:15px}
+.nav .btn{padding:12px 15px;font-size:.86rem}
+}
 </style>
 </head>
 
@@ -293,32 +598,45 @@ return {ok,topics,grade:gradeOf(ok)};
 }
 
 // ==========================================
-// SCHERMATA NOME E COGNOME
+// SCHERMATA INIZIALE
 // ==========================================
 
 function renderStart(){
 const app=document.getElementById("app");
 
 app.innerHTML=`
-<span class="brand">Italiano Facile · A1</span>
-<h1>Esame di italiano</h1>
-<div class="sub">Benvenuto! Prima di iniziare, inserisci i tuoi dati.</div>
+<div class="hero">
+  <div class="hero-top">
+    <span class="brand">ITALIANO PRO BANGLA</span>
+    <span class="hero-badge">ESAME A1</span>
+  </div>
+  <h1>Metti alla prova il tuo italiano!</h1>
+  <div class="sub">Preparati, concentrati e dimostra quello che sai.</div>
+</div>
 
 <div class="start-card">
-<h2 style="font-family:Georgia,serif;margin-bottom:8px">I tuoi dati</h2>
-<p class="sub">Compila entrambi i campi per iniziare l'esame.</p>
+  <h2 style="margin-bottom:8px">Benvenuto!</h2>
+  <p class="sub">Inserisci i tuoi dati prima di iniziare.</p>
 
-<label for="student-name">Nome *</label>
-<input id="student-name" type="text" placeholder="Inserisci il tuo nome" autocomplete="given-name" maxlength="60" required>
+  <label for="student-name">Nome *</label>
+  <input id="student-name" type="text"
+  placeholder="Il tuo nome"
+  autocomplete="given-name" maxlength="60" required>
 
-<label for="student-surname">Cognome *</label>
-<input id="student-surname" type="text" placeholder="Inserisci il tuo cognome" autocomplete="family-name" maxlength="60" required>
+  <label for="student-surname">Cognome *</label>
+  <input id="student-surname" type="text"
+  placeholder="Il tuo cognome"
+  autocomplete="family-name" maxlength="60" required>
 
-<div id="start-error" class="error-message" role="alert"></div>
+  <div id="start-error" class="error-message" role="alert"></div>
 
-<button class="btn" type="button" data-start="1">INIZIA L'ESAME →</button>
+  <button class="btn" type="button" data-start="1">
+    INIZIA L'ESAME →
+  </button>
 
-<div class="start-note">I dati inseriti saranno utilizzati per identificare il risultato del tuo esame.</div>
+  <div class="start-note">
+    I tuoi dati saranno utilizzati per identificare il risultato del tuo esame.
+  </div>
 </div>
 `;
 
@@ -341,11 +659,17 @@ if(fin)return result(app);
 const n=answered(),pct=Math.round(n/total()*100);
 
 let h=`
-<span class="brand">Italiano Facile · A1</span>
-<h1>Esame di italiano</h1>
-<div class="sub">${studentNome} ${studentCognome} · ${total()} domande · voto da 1 a 10</div>
+<div class="hero">
+  <div class="hero-top">
+    <span class="brand">ITALIANO PRO BANGLA</span>
+    <span class="hero-badge">ESAME A1</span>
+  </div>
+  <h1>Esame di italiano</h1>
+  <div class="sub">${escapeHTML(studentNome)} ${escapeHTML(studentCognome)}</div>
+</div>
+
 <div class="bar"><i style="width:${pct}%"></i></div>
-<div class="meta"><span>${n} / ${total()} risposte</span><span>${pct}%</span></div>
+<div class="meta"><span>Risposte completate: ${n}</span><span>${pct}%</span></div>
 
 <div class="tabs">
 ${Array.from({length:pages()},(_,i)=>
@@ -413,8 +737,14 @@ rev+=`
 const cl=x=>x>=85?"var(--ok)":x>=60?"var(--acc)":"var(--bad)";
 
 app.innerHTML=`
-<span class="brand">Italiano Facile · A1</span>
-<h1>Risultato</h1>
+<div class="hero">
+  <div class="hero-top">
+    <span class="brand">ITALIANO PRO BANGLA</span>
+    <span class="hero-badge">ESAME A1</span>
+  </div>
+  <h1>Il tuo risultato</h1>
+  <div class="sub">Ecco come è andato il tuo esame.</div>
+</div>
 
 <div class="sub" style="text-align:center;margin-top:8px">
 Studente: <strong>${escapeHTML(studentNome)} ${escapeHTML(studentCognome)}</strong>
@@ -422,7 +752,7 @@ Studente: <strong>${escapeHTML(studentNome)} ${escapeHTML(studentCognome)}</stro
 
 <div class="score">
 <div class="big">${st.grade}<small> / 10</small></div>
-<div class="sub">${st.ok} risposte giuste su ${total()}</div>
+<div class="sub">${st.ok} risposte giuste</div>
 <div class="lvl">${verdict(st.grade)}</div>
 </div>
 
@@ -501,8 +831,6 @@ messaggio:lines.join('\n')
 
 try{
 
-// text/plain evita la richiesta preliminare CORS.
-// Google Apps Script riceve comunque il contenuto JSON.
 await fetch(GOOGLE_SCRIPT_URL,{
 method:'POST',
 mode:'no-cors',
