@@ -5,11 +5,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Esame A0 | Italiano Pro Bangla</title>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#F3F6FA;--card:#fff;--ink:#172B43;--mut:#64748B;--acc:#16A36A;--mar:#102B46;--tan:#E8EEF4;--line:#DCE5ED;--ok:#168653;--bad:#C44848;--sel:#E5F5ED}
+:root{
+--bg:#F3F6FA;--card:#fff;--ink:#172B43;--mut:#64748B;
+--acc:#16A36A;--mar:#102B46;--tan:#E8EEF4;--line:#DCE5ED;
+--ok:#168653;--bad:#C44848;--sel:#E5F5ED
+}
 *{box-sizing:border-box;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Open Sans",Arial,sans-serif;line-height:1.55}
+body{background:var(--bg);color:var(--ink);font-family:"Open Sans","Noto Sans Bengali",Arial,sans-serif;line-height:1.55}
 .wrap{max-width:760px;margin:auto;padding:20px 16px 60px}
 .hero{background:linear-gradient(135deg,#102B46,#1C4666);color:white;padding:26px 23px;border-radius:24px;margin-bottom:22px}
 .hero-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:20px}
@@ -37,11 +42,15 @@ input:focus{outline:none;border-color:var(--acc)}
 .tabs button.on{background:var(--mar);color:white}
 .tabs button.ok:after{content:" ✓"}
 .topic{font-size:.72rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
-.q h3{font-size:1rem;margin-bottom:10px}
+.q h3{font-size:1rem;margin-bottom:5px}
 .q h3 span{color:var(--acc);margin-right:7px}
+.bn{font-family:"Noto Sans Bengali",sans-serif;direction:ltr;display:block;color:#52677D;font-size:.91rem;line-height:1.65;margin-top:3px}
+.hero .bn{color:#D8E6F0}
+.topic-bn{font-family:"Noto Sans Bengali",sans-serif;font-size:.82rem;color:#64748B;margin-bottom:10px}
 .o{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:#F7F9FC;border:2px solid var(--line);border-radius:13px;padding:12px 14px;margin-top:9px;cursor:pointer}
 .o.sel{background:var(--sel);border-color:var(--acc)}
 .o b{color:var(--acc);margin-right:9px}
+.o .bn{margin-left:27px;font-size:.83rem}
 .sw{width:96px;height:96px;border-radius:50%;margin:12px auto;border:3px solid var(--line)}
 .nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
 .score{text-align:center;padding:28px 18px}
@@ -57,9 +66,17 @@ input:focus{outline:none;border-color:var(--acc)}
 .wq .a{margin-top:6px}
 .x{color:var(--bad)}.v{color:var(--ok)}
 .ex{margin-top:9px;font-size:.85rem;color:var(--mut);border-left:4px solid var(--acc);padding-left:10px}
-@media(max-width:480px){.wrap{padding:14px 12px 45px}.hero{padding:22px 18px}.q{padding:15px}.nav .btn{padding:12px 15px;font-size:.86rem}}
+.status-bn{font-family:"Noto Sans Bengali",sans-serif;font-size:.85rem;color:var(--mut);margin-top:5px}
+@media(max-width:480px){
+.wrap{padding:14px 12px 45px}
+.hero{padding:22px 18px}
+.q{padding:15px}
+.nav .btn{padding:12px 15px;font-size:.86rem}
+h1{font-size:1.55rem}
+}
 </style>
 </head>
+
 <body>
 <div class="wrap" id="app"></div>
 
@@ -67,10 +84,14 @@ input:focus{outline:none;border-color:var(--acc)}
 const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbx8-6u6cf0jluhgf5ETS3K0l9MgLsN_izO_8EQhD_8DRcUgd3gh27Psbr15N4bPSe19/exec';
 const ACCESS_KEY='IPB-A0-2026-R7mQ9xK4pL2vN8cT';
 const PAGE=7, PASS_GRADE=6, EXPECTED_QUESTIONS=67;
-let studentNome='',studentCognome='',studentEmail='',started=false,examReportSent=false,examReportSending=false;
+
+let studentNome='',studentCognome='',studentEmail='';
+let started=false,examReportSent=false,examReportSending=false;
+
 const m=(q,o,c,e,sw)=>({q,o,c,e,sw});
 const colore=(n,o,hex)=>m("Che colore è?",o,o.indexOf(n),"Il colore è "+n+".",hex);
 
+/* DOMANDE ORIGINALI: 67 DOMANDE IN 12 ARGOMENTI */
 const D=[
 {t:"Suoni dolci e duri (C, G, SC)",q:[
 m("Quale di queste parole ha il suono dolce della C?",["cane","cena","chiave","come"],1,"CE ha il suono dolce."),
@@ -165,10 +186,305 @@ m("Voi ____ (lavorare) in banca.",["lavorate","lavorano","lavorete","lavoro"],0,
 ]}
 ];
 
+/* TRADUZIONI DEI 12 ARGOMENTI */
+const topicBn={
+"Suoni dolci e duri (C, G, SC)":"কোমল ও কঠিন উচ্চারণ (C, G, SC)",
+"Giorni della settimana e mesi dell’anno":"সপ্তাহের দিন ও বছরের মাস",
+"I numeri da 1 a 100.000":"১ থেকে ১,০০,০০০ পর্যন্ত সংখ্যা",
+"Come si forma il NON":"NON দিয়ে নেতিবাচক বাক্য তৈরি",
+"Le nazionalità":"জাতীয়তা",
+"I colori":"রং",
+"Il verbo ESSERE: a che cosa serve":"ESSERE ক্রিয়া: কী কাজে ব্যবহার হয়",
+"Il verbo AVERE: età, possesso, sensazioni fisiche":"AVERE ক্রিয়া: বয়স, মালিকানা ও শারীরিক অনুভূতি",
+"Maschile, femminile, singolare e plurale":"পুংলিঙ্গ, স্ত্রীলিঙ্গ, একবচন ও বহুবচন",
+"Nomi comuni e nomi propri":"সাধারণ বিশেষ্য ও ব্যক্তিবাচক নাম",
+"Gli aggettivi":"বিশেষণ",
+"Verbi in -ARE, -ERE, -IRE al presente":"বর্তমান কালে -ARE, -ERE, -IRE ক্রিয়া"
+};
+
+/* TRADUZIONI DELLE DOMANDE, NELLO STESSO ORDINE DEI 12 ARGOMENTI */
+const BNQ=[
+[
+"এই শব্দগুলোর মধ্যে কোনটিতে C-এর কোমল উচ্চারণ আছে?",
+"এই শব্দগুলোর মধ্যে কোনটিতে G-এর কঠিন উচ্চারণ আছে?",
+"“giorno” শব্দে I অক্ষরটি…",
+"কোন অক্ষর-সমষ্টির উচ্চারণ কোমল?",
+"E এবং I-এর আগে C-এর কঠিন উচ্চারণ পেতে কী লেখা হয়?"
+],
+[
+"মঙ্গলবারের পর কোন দিন আসে?",
+"রবিবারের আগের দিন কোনটি?",
+"আগস্টের পর কোন মাস আসে?",
+"বছরের প্রথম মাস কোনটি?",
+"আজ বৃহস্পতিবার। পরশু কী বার হবে?",
+"মে মাসের আগে কোন মাস আসে?"
+],
+[
+"১৭ কীভাবে লেখা হয়?",
+"৪৮ কীভাবে লেখা হয়?",
+"১৫ + ২৫ কত হয়?",
+"১,০০০ কীভাবে লেখা হয়?",
+"২০,০০০ কীভাবে লেখা হয়?",
+"১,০০,০০০ কীভাবে লেখা হয়?",
+"৩৬ কীভাবে লেখা হয়?"
+],
+[
+"একটি বাক্যে “non” কোথায় বসে?",
+"কোন বাক্যটি সঠিক?",
+"শূন্যস্থান পূরণ করো: আমি ____ ক্লান্ত।",
+"“তুমি কি ইতালীয়?”—নেতিবাচক উত্তর কোনটি সঠিক?",
+"“আমরা পিৎজা খাই”—এর নেতিবাচক বাক্য কোনটি?",
+"শূন্যস্থান পূরণ করো: তারা রোমে ____ থাকে।"
+],
+[
+"সে পুরুষ ইতালীয়। সে নারী…",
+"কোন বাক্যটি সঠিক?",
+"মার্কো ও লুকা ইতালীয়। আন্না ও সারা…",
+"কার্লোস স্প্যানিশ। মারিয়া…",
+"কোন জাতীয়তার শব্দটি পুরুষ ও নারী উভয়ের জন্য একই থাকে?"
+],
+[
+"এটি কী রং?",
+"এটি কী রং?",
+"এটি কী রং?",
+"এটি কী রং?",
+"এটি কী রং?",
+"এটি কী রং?"
+],
+[
+"আমি ____ হাসান।",
+"তুমি ____ ক্লান্ত।",
+"“বইটি টেবিলের ওপর আছে।” এখানে ESSERE ক্রিয়াটি কী বোঝায়?",
+"“মার্কো লম্বা।” এখানে ESSERE ক্রিয়াটি কী বোঝায়?",
+"“আমি শিক্ষক।” এখানে ESSERE ক্রিয়াটি কী বোঝায়?",
+"শূন্যস্থান পূরণ করো: আমরা ____ বাড়িতে।"
+],
+[
+"আমি ____ ২৫ বছর বয়সী।",
+"মার্কোর ____ একটি নতুন গাড়ি।",
+"তৃষ্ণা, ঘুম বা ঠান্ডা লাগার কথা বলতে কোন ক্রিয়া ব্যবহার করা হয়?",
+"আমাদের ____ পিপাসা পেয়েছে।",
+"কোন বাক্যটি সঠিক?",
+"তাদের ____ ক্ষুধা লেগেছে।"
+],
+[
+"“libro” শব্দের বহুবচন কী?",
+"“casa” শব্দের বহুবচন কী?",
+"“padre” শব্দের বহুবচন কী?",
+"কোন শব্দটি স্ত্রীলিঙ্গ একবচন?",
+"“Le ragazze” বলতে কী বোঝায়?"
+],
+[
+"কোন শব্দটি ব্যক্তিবাচক নাম?",
+"কোন শব্দটি সাধারণ বিশেষ্য?",
+"ব্যক্তিবাচক নামের শুরুতে কী ব্যবহার করা হয়?",
+"কোন বাক্যটি সঠিকভাবে লেখা হয়েছে?",
+"“Anna” একটি… নাম।"
+],
+[
+"বাড়িটি ____ (নতুন)।",
+"বইগুলো ____ (বড়)।",
+"মেয়েরা ____ (লম্বা)।",
+"বিশেষণ কী?",
+"বিশেষণ কী কাজে লাগে?"
+],
+[
+"আমি ____ ইতালীয় ভাষায় কথা বলি। (parlare)",
+"তুমি ____ কফি। (prendere)",
+"আমরা অনেক ____। (dormire)",
+"তারা একটি বই ____। (leggere)",
+"তোমরা ব্যাংকে ____। (lavorare)"
+]
+];
+
+/* ব্যাখ্যার বাংলা অনুবাদ */
+const BNE=[
+[
+"CE-এর উচ্চারণ কোমল।",
+"GA, GO, GU-এর উচ্চারণ কঠিন।",
+"GIA, GIO, GIU-তে I অক্ষরটি G-এর কোমল উচ্চারণ বোঝাতে সাহায্য করে।",
+"SCE এবং SCI-এর উচ্চারণ কোমল।",
+"CHE এবং CHI-তে H অক্ষরটি C-এর কঠিন উচ্চারণ বজায় রাখে।"
+],
+[
+"মঙ্গলবারের পর বুধবার আসে।",
+"রবিবারের আগে শনিবার আসে।",
+"আগস্ট, সেপ্টেম্বর, অক্টোবর।",
+"জানুয়ারি বছরের প্রথম মাস।",
+"আগামীকাল শুক্রবার, পরশু শনিবার।",
+"মে মাসের আগে এপ্রিল আসে।"
+],
+[
+"১৭ = diciassette।",
+"৪৮ ইতালীয় ভাষায় quarantotto লেখা হয়, একসঙ্গে।",
+"১৫ + ২৫ = ৪০ = quaranta।",
+"১,০০০ = mille।",
+"২০,০০০ = ventimila, একসঙ্গে লেখা হয়।",
+"১,০০,০০০ = centomila।",
+"৩৬ = trentasei, একসঙ্গে লেখা হয়।"
+],
+[
+"NON ক্রিয়াপদের আগে বসে।",
+"সাধারণ গঠন: কর্তা + non + ক্রিয়া।",
+"Io non sono stanco.",
+"No, non sono italiano.",
+"Noi non mangiamo la pizza.",
+"Loro non abitano a Roma."
+],
+[
+"স্ত্রীলিঙ্গ একবচন: italiana।",
+"-E দিয়ে শেষ হওয়া জাতীয়তার শব্দ সাধারণত স্ত্রীলিঙ্গেও অপরিবর্তিত থাকে।",
+"স্ত্রীলিঙ্গ বহুবচন: italiane।",
+"স্ত্রীলিঙ্গ একবচন: spagnola।",
+"Inglese: lui è inglese, lei è inglese।"
+],
+[
+"রংটি rosso (লাল)।",
+"রংটি giallo (হলুদ)।",
+"রংটি verde (সবুজ)।",
+"রংটি blu (নীল)।",
+"রংটি bianco (সাদা)।",
+"রংটি nero (কালো)।"
+],
+[
+"IO-এর সঙ্গে SONO ব্যবহার হয়।",
+"TU-এর সঙ্গে SEI ব্যবহার হয়।",
+"বইটি কোথায় আছে তা বোঝায়: অবস্থান।",
+"মার্কোর একটি বৈশিষ্ট্য বোঝায়।",
+"পেশা বোঝায়।",
+"NOI-এর সঙ্গে SIAMO ব্যবহার হয়।"
+],
+[
+"বয়স প্রকাশ করতে AVERE ব্যবহার হয়: ho 25 anni।",
+"মালিকানা বোঝাতে AVERE ব্যবহার হয়।",
+"ক্ষুধা, তৃষ্ণা, ঘুম, গরম ও ঠান্ডা বোঝাতে AVERE ব্যবহার হয়।",
+"NOI-এর সঙ্গে ABBIAMO ব্যবহার হয়।",
+"বয়স বলতে বলা হয়: ho venti anni।",
+"LORO-এর সঙ্গে HANNO ব্যবহার হয়।"
+],
+[
+"-O পরিবর্তিত হয়ে -I হয়: libri।",
+"-A পরিবর্তিত হয়ে -E হয়: case।",
+"-E পরিবর্তিত হয়ে -I হয়: padri।",
+"Penna স্ত্রীলিঙ্গ একবচন।",
+"Le ragazze = স্ত্রীলিঙ্গ বহুবচন।"
+],
+[
+"Marco একজন ব্যক্তির ব্যক্তিবাচক নাম।",
+"Ragazzo একটি সাধারণ বিশেষ্য।",
+"ব্যক্তিবাচক নামের প্রথম অক্ষর বড় হাতের হয়।",
+"বাক্যের শুরুতে বড় হাতের অক্ষর এবং Hassan একটি ব্যক্তিবাচক নাম।",
+"Anna একটি ব্যক্তিবাচক নাম।"
+],
+[
+"Casa স্ত্রীলিঙ্গ একবচন, তাই nuova।",
+"-E দিয়ে শেষ হওয়া বিশেষণের বহুবচন -I হয়।",
+"স্ত্রীলিঙ্গ বহুবচন: alte।",
+"বিশেষণ কোনো ব্যক্তি, প্রাণী বা বস্তুর বর্ণনা দেয়।",
+"বিশেষণ দিয়ে কোনো ব্যক্তি, প্রাণী বা বস্তু কেমন তা বোঝানো হয়।"
+],
+[
+"IO-এর সঙ্গে: parl-o।",
+"TU-এর সঙ্গে: prend-i।",
+"NOI-এর সঙ্গে: dorm-iamo।",
+"LORO-এর সঙ্গে: leggono।",
+"VOI-এর সঙ্গে: lavor-ate।"
+]
+];
+
+/* উত্তরগুলোর বাংলা অর্থ */
+const OPTION_BN={
+"cane":"কুকুর","cena":"রাতের খাবার","chiave":"চাবি","come":"কীভাবে",
+"gelato":"আইসক্রিম","giorno":"দিন","gatto":"বিড়াল","gita":"ভ্রমণ",
+"si pronuncia chiaramente":"স্পষ্টভাবে উচ্চারণ করা হয়",
+"non si pronuncia":"উচ্চারণ করা হয় না",
+"si legge come E":"E-এর মতো পড়া হয়","si legge come U":"U-এর মতো পড়া হয়",
+"SCA":"SCA","SCO":"SCO","SCE":"SCE","SCHI":"SCHI",
+"la H":"H অক্ষর","la S":"S অক্ষর","la I":"I অক্ষর","la A":"A অক্ষর",
+"lunedì":"সোমবার","martedì":"মঙ্গলবার","mercoledì":"বুধবার","giovedì":"বৃহস্পতিবার","venerdì":"শুক্রবার","sabato":"শনিবার","domenica":"রবিবার",
+"gennaio":"জানুয়ারি","febbraio":"ফেব্রুয়ারি","marzo":"মার্চ","aprile":"এপ্রিল","maggio":"মে","giugno":"জুন","luglio":"জুলাই","agosto":"আগস্ট","settembre":"সেপ্টেম্বর","ottobre":"অক্টোবর","dicembre":"ডিসেম্বর",
+"diciassette":"সতেরো","dicesette":"ভুল বানান","diciasette":"ভুল বানান","diecisette":"ভুল বানান",
+"quarantotto":"আটচল্লিশ","quaranta otto":"আলাদা করে লেখা ভুল","quarantaotto":"ভুল বানান","quattrovanta":"ভুল বানান",
+"trenta":"ত্রিশ","quaranta":"চল্লিশ","cinquanta":"পঞ্চাশ","trentacinque":"পঁয়ত্রিশ",
+"cento":"একশ","mille":"এক হাজার","mila":"হাজার (এককভাবে)","diecimila":"দশ হাজার",
+"ventimila":"বিশ হাজার","venti mila":"আলাদা করে লেখা ভুল","ventemila":"ভুল বানান","duemila":"দুই হাজার",
+"centomila":"এক লক্ষ","cento mille":"ভুলভাবে আলাদা লেখা","millecento":"এক হাজার একশ","diecimila":"দশ হাজার",
+"trentasei":"ছত্রিশ","trenta sei":"আলাদা করে লেখা ভুল","trentasette":"সাঁইত্রিশ","trentaseiotto":"ভুল বানান",
+"prima del verbo":"ক্রিয়ার আগে","dopo il verbo":"ক্রিয়ার পরে","alla fine della frase":"বাক্যের শেষে","prima del soggetto":"কর্তার আগে",
+"Marco non parla italiano":"মার্কো ইতালীয় ভাষায় কথা বলে না",
+"Marco parla non italiano":"ভুল বাক্য",
+"Non Marco parla italiano":"ভুল বাক্য",
+"Marco parla italiano non":"ভুল বাক্য",
+"non":"না (নেতিবাচক শব্দ)","no":"না","mai":"কখনো না","nessuno":"কেউ না",
+"No, sono non italiano":"না, আমি non italiano (ভুল গঠন)",
+"No, non sono italiano":"না, আমি ইতালীয় নই",
+"Non, sono italiano":"ভুল গঠন",
+"Sì, non sono italiano":"হ্যাঁ, আমি ইতালীয় নই (বিরোধপূর্ণ উত্তর)",
+"Noi non mangiamo la pizza":"আমরা পিৎজা খাই না",
+"Noi mangiamo non la pizza":"ভুল বাক্য",
+"Non noi mangiamo la pizza":"ভুল বাক্য",
+"Noi mangiamo la pizza non":"ভুল বাক্য",
+"Loro non abitano a Roma":"তারা রোমে থাকে না",
+"italiano":"ইতালীয় (পুরুষ একবচন)","italiana":"ইতালীয় (নারী একবচন)","italiani":"ইতালীয় (পুরুষ বহুবচন)","italiane":"ইতালীয় (নারী বহুবচন)",
+"Marie è francese":"মারি ফরাসি",
+"Marie è francesa":"ভুল রূপ","Marie è francesi":"ভুল রূপ","Marie è franceso":"ভুল রূপ",
+"spagnolo":"স্প্যানিশ (পুরুষ একবচন)","spagnola":"স্প্যানিশ (নারী একবচন)","spagnoli":"স্প্যানিশ (পুরুষ বহুবচন)","spagnole":"স্প্যানিশ (নারী বহুবচন)",
+"inglese":"ইংরেজ","tedesco":"জার্মান",
+"rosso":"লাল","rosa":"গোলাপি","arancione":"কমলা","marrone":"বাদামি",
+"giallo":"হলুদ","verde":"সবুজ","bianco":"সাদা","blu":"নীল","azzurro":"আকাশি নীল","viola":"বেগুনি","grigio":"ধূসর","nero":"কালো",
+"sei":"তুমি হও / আছ","sono":"আমি হই / আছি","è":"সে হয় / আছে","siamo":"আমরা হই / আছি","siete":"তোমরা হও / আছ",
+"identità":"পরিচয়","posizione":"অবস্থান","età":"বয়স","professione":"পেশা","descrizione":"বর্ণনা","origine":"উৎপত্তি","tempo":"সময়",
+"avere":"থাকা / নিজের কাছে থাকা","essere":"হওয়া / থাকা","stare":"অবস্থান করা / থাকা","fare":"করা",
+"ho":"আমার আছে","ha":"তার আছে","hai":"তোমার আছে","abbiamo":"আমাদের আছে","avete":"তোমাদের আছে","hanno":"তাদের আছে",
+"Ho venti anni":"আমার বয়স বিশ বছর","Sono venti anni":"ভুল বাক্য","Ho venti anno":"ভুল রূপ","Sono venti":"ভুল বাক্য",
+"libri":"বইগুলো","libre":"ভুল বহুবচন","libra":"ভুল রূপ",
+"casi":"ভুল বহুবচন","case":"বাড়িগুলো","casa":"বাড়ি","cose":"জিনিসগুলো",
+"padri":"বাবারা","padre":"বাবা","padra":"ভুল রূপ","padres":"ভুল রূপ",
+"gatti":"বিড়ালগুলো","penna":"কলম","ragazzi":"ছেলেরা",
+"maschile plurale":"পুংলিঙ্গ বহুবচন","femminile plurale":"স্ত্রীলিঙ্গ বহুবচন","femminile singolare":"স্ত্রীলিঙ্গ একবচন","maschile singolare":"পুংলিঙ্গ একবচন",
+"gatto":"বিড়াল","Marco":"মার্কো","libro":"বই","ragazzo":"ছেলে","Anna":"আন্না","Hassan":"হাসান",
+"la lettera maiuscola":"বড় হাতের অক্ষর","la lettera minuscola":"ছোট হাতের অক্ষর","il corsivo":"ইটালিক লেখা","due maiuscole":"দুটি বড় হাতের অক্ষর",
+"io sono hassan":"আমি হাসান","Io sono Hassan":"আমি হাসান","io sono Hassan":"আমি হাসান","Io sono hassan":"আমি হাসান",
+"comune":"সাধারণ","proprio":"ব্যক্তিবাচক","plurale":"বহুবচন","maschile":"পুংলিঙ্গ",
+"nuovo":"নতুন (পুংলিঙ্গ)","nuova":"নতুন (স্ত্রীলিঙ্গ)","nuovi":"নতুন (পুংলিঙ্গ বহুবচন)","nuove":"নতুন (স্ত্রীলিঙ্গ বহুবচন)",
+"grande":"বড় (একবচন)","grandi":"বড় (বহুবচন)","grando":"ভুল রূপ","grandà":"ভুল রূপ",
+"alto":"লম্বা (পুংলিঙ্গ)","alta":"লম্বা (স্ত্রীলিঙ্গ)","alti":"লম্বা (পুংলিঙ্গ বহুবচন)","alte":"লম্বা (স্ত্রীলিঙ্গ বহুবচন)",
+"Una parola che descrive una persona, un animale o una cosa":"এমন শব্দ যা ব্যক্তি, প্রাণী বা বস্তুর বর্ণনা দেয়",
+"Una parola che indica un’azione":"এমন শব্দ যা কোনো কাজ বোঝায়",
+"Una parola che indica un nome proprio":"এমন শব্দ যা ব্যক্তিবাচক নাম বোঝায়",
+"Una parola che collega due frasi":"এমন শব্দ যা দুটি বাক্য যুক্ত করে",
+"A descrivere una qualità o una caratteristica":"গুণ বা বৈশিষ্ট্য বর্ণনা করতে",
+"A indicare un’azione":"কোনো কাজ বোঝাতে",
+"A dire quando succede qualcosa":"কখন কিছু ঘটে তা বলতে",
+"A fare una domanda":"প্রশ্ন করতে",
+"parli":"তুমি কথা বলো","parlo":"আমি কথা বলি","parla":"সে কথা বলে","parlano":"তারা কথা বলে",
+"prendi":"তুমি নাও","prende":"সে নেয়","prendo":"আমি নিই","prendono":"তারা নেয়",
+"dormiamo":"আমরা ঘুমাই","dormite":"তোমরা ঘুমাও","dormono":"তারা ঘুমায়","dormo":"আমি ঘুমাই",
+"leggono":"তারা পড়ে","leggano":"ভুল ক্রিয়ারূপ","leggete":"তোমরা পড়ো","legge":"সে পড়ে",
+"lavorate":"তোমরা কাজ করো","lavorano":"তারা কাজ করে","lavorete":"ভুল ক্রিয়ারূপ","lavoro":"আমি কাজ করি"
+};
+
+/* প্রশ্ন ও ব্যাখ্যার বাংলা অনুবাদ যোগ করা */
+D.forEach((section,si)=>{
+section.q.forEach((q,qi)=>{
+q.bt=BNQ[si][qi]||"";
+q.be=BNE[si][qi]||"";
+q.bo=q.o.map(option=>OPTION_BN[option]||"");
+});
+});
+
 const questionCount=D.reduce((s,a)=>s+a.q.length,0);
 if(questionCount!==EXPECTED_QUESTIONS)console.error("Numero domande errato:",questionCount);
 
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const shuffle=a=>{
+a=a.slice();
+for(let i=a.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[a[i],a[j]]=[a[j],a[i]];
+}
+return a;
+};
+
 const L="ABCD";
 let Q=[],A=[],cur=0,fin=false;
 const total=()=>Q.length;
@@ -178,19 +494,30 @@ const pageDone=i=>A.slice(i*PAGE,(i+1)*PAGE).every(x=>x!==null);
 const gradeOf=ok=>Math.round(ok/total()*10);
 const verdict=g=>g>=9?"Ottimo! 🎉":g>=PASS_GRADE?"Promosso ✓":"Da ripassare";
 
-function escapeHTML(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");}
+function escapeHTML(s){
+return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
 
 function init(){
 Q=[];
-D.forEach(s=>s.q.forEach(q=>Q.push({t:s.t,q:q.q,e:q.e,sw:q.sw,o:shuffle(q.o.map((t,i)=>({t,ok:i===q.c})))})));
-Q=shuffle(Q);A=Q.map(()=>null);cur=0;fin=false;examReportSent=false;examReportSending=false;render();
+D.forEach(s=>s.q.forEach(q=>{
+Q.push({
+t:s.t,bt:topicBn[s.t]||"",
+q:q.q,bq:q.bt,e:q.e,be:q.be,sw:q.sw,
+o:shuffle(q.o.map((t,i)=>({t,bn:q.bo[i]||"",ok:i===q.c})))
+});
+}));
+Q=shuffle(Q);
+A=Q.map(()=>null);
+cur=0;fin=false;examReportSent=false;examReportSending=false;
+render();
 }
 
 function stats(){
 let ok=0,topics=[];
 Q.forEach((q,i)=>{
 let t=topics.find(x=>x.t===q.t);
-if(!t){t={t:q.t,n:0,tot:0};topics.push(t);}
+if(!t){t={t:q.t,bt:q.bt,n:0,tot:0};topics.push(t);}
 t.tot++;
 if(A[i]!==null&&q.o[A[i]].ok){t.n++;ok++;}
 });
@@ -199,14 +526,28 @@ return {ok,topics,grade:gradeOf(ok)};
 
 function renderStart(){
 document.getElementById("app").innerHTML=`
-<div class="hero"><div class="hero-top"><span class="brand">ITALIANO PRO BANGLA</span><span class="hero-badge">ESAME A0</span></div><h1>Metti alla prova il tuo italiano!</h1><div class="sub">Preparati, concentrati e dimostra quello che sai.</div></div>
-<div class="start-card"><h2>Benvenuto!</h2><p class="sub">Inserisci i tuoi dati prima di iniziare.</p>
-<label for="student-name">Nome *</label><input id="student-name" autocomplete="given-name" maxlength="60" placeholder="Il tuo nome">
-<label for="student-surname">Cognome *</label><input id="student-surname" autocomplete="family-name" maxlength="60" placeholder="Il tuo cognome">
-<label for="student-email">Indirizzo email *</label><input id="student-email" type="email" autocomplete="email" maxlength="120" placeholder="La tua email">
+<div class="hero">
+<div class="hero-top"><span class="brand">ITALIANO PRO BANGLA</span><span class="hero-badge">ESAME A0</span></div>
+<h1>Metti alla prova il tuo italiano!</h1>
+<div class="bn">তোমার ইতালীয় ভাষার জ্ঞান পরীক্ষা করো!</div>
+<div class="sub">Preparati, concentrati e dimostra quello che sai.</div>
+<div class="bn">প্রস্তুতি নাও, মনোযোগ দাও এবং তুমি কী জানো তা দেখাও।</div>
+</div>
+<div class="start-card">
+<h2>Benvenuto!</h2><div class="bn">স্বাগতম!</div>
+<p class="sub">Inserisci i tuoi dati prima di iniziare.</p>
+<div class="bn">শুরু করার আগে তোমার তথ্য দাও।</div>
+<label for="student-name">Nome * <span class="bn">নাম *</span></label>
+<input id="student-name" autocomplete="given-name" maxlength="60" placeholder="Il tuo nome">
+<label for="student-surname">Cognome * <span class="bn">পদবি *</span></label>
+<input id="student-surname" autocomplete="family-name" maxlength="60" placeholder="Il tuo cognome">
+<label for="student-email">Indirizzo email * <span class="bn">ইমেইল ঠিকানা *</span></label>
+<input id="student-email" type="email" autocomplete="email" maxlength="120" placeholder="La tua email">
 <div id="start-error" class="error-message"></div>
 <button class="btn" data-start="1">INIZIA L'ESAME →</button>
-<div class="start-note">Il risultato dell'esame sarà inviato via email a te e all'insegnante.</div></div>`;
+<div class="start-note">Il risultato dell'esame sarà inviato via email a te e all'insegnante.</div>
+<div class="status-bn">পরীক্ষার ফলাফল তোমার এবং শিক্ষকের ইমেইলে পাঠানো হবে।</div>
+</div>`;
 scrollTo(0,0);
 }
 
@@ -214,84 +555,236 @@ function render(){
 if(!started){renderStart();return;}
 const app=document.getElementById("app");
 if(fin){result(app);return;}
+
 const n=answered(),pct=Math.round(n/total()*100);
-let h=`<div class="hero"><div class="hero-top"><span class="brand">ITALIANO PRO BANGLA</span><span class="hero-badge">ESAME A0</span></div><h1>Esame di italiano A0</h1><div class="sub">${escapeHTML(studentNome)} ${escapeHTML(studentCognome)}</div></div>
-<div class="bar"><i style="width:${pct}%"></i></div><div class="meta"><span>Risposte completate: ${n} / ${total()}</span><span>${pct}%</span></div>
+let h=`
+<div class="hero">
+<div class="hero-top"><span class="brand">ITALIANO PRO BANGLA</span><span class="hero-badge">ESAME A0</span></div>
+<h1>Esame di italiano A0</h1>
+<div class="bn">ইতালীয় ভাষার A0 পরীক্ষা</div>
+<div class="sub">${escapeHTML(studentNome)} ${escapeHTML(studentCognome)}</div>
+</div>
+<div class="bar"><i style="width:${pct}%"></i></div>
+<div class="meta"><span>Risposte completate: ${n} / ${total()}</span><span>${pct}%</span></div>
+<div class="bn">উত্তর দেওয়া হয়েছে: ${n} / ${total()}</div>
 <div class="tabs">${Array.from({length:pages()},(_,i)=>`<button data-tab="${i}" class="${i===cur?"on":""} ${pageDone(i)?"ok":""}">${i+1}</button>`).join("")}</div>`;
+
 const start=cur*PAGE;
 Q.slice(start,start+PAGE).forEach((q,k)=>{
 const gi=start+k;
-h+=`<div class="q"><div class="topic">${escapeHTML(q.t)}</div><h3><span>${gi+1}.</span>${escapeHTML(q.q)}</h3>${q.sw?`<div class="sw" style="background:${q.sw}"></div>`:""}${q.o.map((o,oi)=>`<button class="o ${A[gi]===oi?"sel":""}" data-q="${gi}" data-o="${oi}"><b>${L[oi]}</b>${escapeHTML(o.t)}</button>`).join("")}</div>`;
+h+=`
+<div class="q">
+<div class="topic">${escapeHTML(q.t)}</div>
+<div class="topic-bn">${escapeHTML(q.bt)}</div>
+<h3><span>${gi+1}.</span>${escapeHTML(q.q)}</h3>
+<div class="bn">${escapeHTML(q.bq)}</div>
+${q.sw?`<div class="sw" style="background:${q.sw}"></div>`:""}
+${q.o.map((o,oi)=>`
+<button class="o ${A[gi]===oi?"sel":""}" data-q="${gi}" data-o="${oi}">
+<b>${L[oi]}</b>${escapeHTML(o.t)}
+<span class="bn">${escapeHTML(o.bn)}</span>
+</button>`).join("")}
+</div>`;
 });
+
 const last=cur===pages()-1;
-h+=`<div class="nav"><button class="btn alt" data-go="-1" ${cur===0?"disabled":""}>← Indietro</button>${last?`<button class="btn" data-end="1" ${n<total()?"disabled":""}>Consegna</button>`:`<button class="btn" data-go="1">Avanti →</button>`}</div>`;
-if(last&&n<total())h+=`<div class="hint">Rispondi a tutte le domande per consegnare.</div>`;
+h+=`
+<div class="nav">
+<button class="btn alt" data-go="-1" ${cur===0?"disabled":""}>← Indietro</button>
+${last?`<button class="btn" data-end="1" ${n<total()?"disabled":""}>Consegna</button>`:`<button class="btn" data-go="1">Avanti →</button>`}
+</div>
+<div class="status-bn">${last?"সব প্রশ্নের উত্তর দিয়ে পরীক্ষা জমা দাও।":"পরবর্তী প্রশ্নে যেতে Avanti চাপো।"}</div>`;
+if(last&&n<total())h+=`<div class="hint">Rispondi a tutte le domande per consegnare.<div class="status-bn">জমা দেওয়ার আগে সব প্রশ্নের উত্তর দাও।</div></div>`;
 app.innerHTML=h;
 }
 
 function result(app){
-const st=stats();let rev="";
+const st=stats();
+let rev="";
 Q.forEach((q,i)=>{
 const sel=A[i];
-if(!q.o[sel].ok)rev+=`<div class="wq"><b>${escapeHTML(q.q)}</b><div class="a x">✗ ${escapeHTML(q.o[sel].t)}</div><div class="a v">✓ ${escapeHTML(q.o.find(o=>o.ok).t)}</div><div class="ex">${escapeHTML(q.e)}</div></div>`;
+if(!q.o[sel].ok){
+const correct=q.o.find(o=>o.ok);
+rev+=`
+<div class="wq">
+<b>${escapeHTML(q.q)}</b>
+<div class="bn">${escapeHTML(q.bq)}</div>
+<div class="a x">✗ ${escapeHTML(q.o[sel].t)}</div>
+<div class="bn">${escapeHTML(q.o[sel].bn)}</div>
+<div class="a v">✓ ${escapeHTML(correct.t)}</div>
+<div class="bn">${escapeHTML(correct.bn)}</div>
+<div class="ex">${escapeHTML(q.e)}<div class="bn">${escapeHTML(q.be)}</div></div>
+</div>`;
+}
 });
 const cl=x=>x>=85?"var(--ok)":x>=60?"var(--acc)":"var(--bad)";
-app.innerHTML=`<div class="hero"><div class="hero-top"><span class="brand">ITALIANO PRO BANGLA</span><span class="hero-badge">ESAME A0</span></div><h1>Il tuo risultato</h1><div class="sub">Ecco come è andato il tuo esame.</div></div>
-<div class="sub" style="text-align:center">Studente: <strong>${escapeHTML(studentNome)} ${escapeHTML(studentCognome)}</strong><br>Email: ${escapeHTML(studentEmail)}</div>
-<div class="score"><div class="big">${st.grade}<small> / 10</small></div><div class="sub">${st.ok} risposte giuste su ${total()}</div><div class="lvl">${verdict(st.grade)}</div></div>
-${st.topics.map(s=>{const x=Math.round(s.n/s.tot*100);return `<div class="row"><div><b>${escapeHTML(s.t)}</b><div class="t"><i style="width:${x}%;background:${cl(x)}"></i></div></div><b>${s.n} / ${s.tot}</b></div>`;}).join("")}
-<div class="rev">${rev?`<h3>Rivedi gli errori</h3>${rev}`:`<h3>Nessun errore!</h3>`}</div>
-<div id="send-status" class="hint">Invio del risultato in corso…</div>
-<div class="nav"><button class="btn" data-again="1">Ricomincia con nuove domande</button></div>`;
-sendExamReport();scrollTo(0,0);
+
+app.innerHTML=`
+<div class="hero">
+<div class="hero-top"><span class="brand">ITALIANO PRO BANGLA</span><span class="hero-badge">ESAME A0</span></div>
+<h1>Il tuo risultato</h1><div class="bn">তোমার পরীক্ষার ফলাফল</div>
+<div class="sub">Ecco come è andato il tuo esame.</div>
+<div class="bn">তোমার পরীক্ষা কেমন হয়েছে তা এখানে দেখো।</div>
+</div>
+<div class="sub" style="text-align:center">
+Studente: <strong>${escapeHTML(studentNome)} ${escapeHTML(studentCognome)}</strong><br>
+Email: ${escapeHTML(studentEmail)}
+</div>
+<div class="score">
+<div class="big">${st.grade}<small> / 10</small></div>
+<div class="sub">${st.ok} risposte giuste su ${total()}</div>
+<div class="status-bn">${total()}টি প্রশ্নের মধ্যে ${st.ok}টি সঠিক উত্তর</div>
+<div class="lvl">${verdict(st.grade)}</div>
+<div class="bn">${st.grade>=PASS_GRADE?"অভিনন্দন! তুমি পরীক্ষায় পাস করেছ।":"আরও অনুশীলন করো। তুমি আবার চেষ্টা করতে পারবে।"}</div>
+</div>
+<h3 style="margin:22px 0 12px">Risultati per argomento</h3>
+<div class="bn">প্রতিটি বিষয়ের ফলাফল</div>
+${st.topics.map(s=>{
+const x=Math.round(s.n/s.tot*100);
+return `<div class="row"><div><b>${escapeHTML(s.t)}</b><div class="status-bn">${escapeHTML(s.bt)}</div><div class="t"><i style="width:${x}%;background:${cl(x)}"></i></div></div><b>${s.n} / ${s.tot}</b></div>`;
+}).join("")}
+<div class="rev">${rev?`<h3>Rivedi gli errori</h3><div class="bn">তোমার ভুল উত্তরগুলো দেখো</div>${rev}`:`<h3>Nessun errore!</h3><div class="bn">কোনো ভুল উত্তর নেই! দারুণ!</div>`}</div>
+<div id="send-status" class="hint">Preparazione e invio del risultato…<div class="status-bn">ফলাফল তৈরি ও পাঠানো হচ্ছে…</div></div>
+<div class="nav"><button class="btn" data-again="1">Ricomincia con nuove domande</button></div>
+<div class="status-bn">নতুন প্রশ্ন দিয়ে আবার পরীক্ষা দাও</div>`;
+sendExamReport();
+scrollTo(0,0);
 }
 
+/* PREPARA I DATI NEL FORMATO RICHIESTO DAL NUOVO APPS SCRIPT */
 async function sendExamReport(){
 const status=document.getElementById("send-status");
 if(examReportSent||examReportSending)return;
+
 examReportSending=true;
 const st=stats();
-const lines=[
-"ESAME DI ITALIANO A0","NOME: "+studentNome,"COGNOME: "+studentCognome,
-"EMAIL: "+studentEmail,"VOTO: "+st.grade+"/10",
-"RISPOSTE GIUSTE: "+st.ok+" su "+total(),
-"ESITO: "+(st.grade>=PASS_GRADE?"PROMOSSO":"NON ANCORA PROMOSSO"),
-"","RISULTATI PER ARGOMENTO:",
-...st.topics.map(s=>s.t+": "+s.n+"/"+s.tot),"","RISPOSTE SBAGLIATE:"
-];
-let wrong=0;
+
+const argomenti=st.topics.map(s=>({
+t:s.t,
+bn:s.bt,
+n:s.n,
+tot:s.tot
+}));
+
+const errori=[];
 Q.forEach((q,i)=>{
 const selected=q.o[A[i]];
-if(!selected.ok){wrong++;lines.push(q.t+" — "+q.q);lines.push("Risposta data: "+selected.t);lines.push("Risposta corretta: "+q.o.find(o=>o.ok).t);if(q.e)lines.push("Spiegazione: "+q.e);}
+if(!selected.ok){
+const correct=q.o.find(o=>o.ok);
+errori.push({
+t:q.t,
+bt:q.bt,
+q:q.q,
+bq:q.bq,
+scelta:selected.t,
+bscelta:selected.bn,
+corretta:correct.t,
+bcorretta:correct.bn,
+spiegazione:q.e,
+bspiegazione:q.be
 });
-if(!wrong)lines.push("Nessuna risposta sbagliata.");
-const dati={key:ACCESS_KEY,nome:studentNome+" "+studentCognome,email:studentEmail,livello:"A0",voto:st.grade,messaggio:lines.join("\n")};
+}
+});
+
+const dati={
+key:ACCESS_KEY,
+nome:studentNome+" "+studentCognome,
+email:studentEmail,
+livello:"A0",
+voto:st.grade,
+totale:total(),
+corrette:st.ok,
+argomenti:argomenti,
+errori:errori,
+promosso:st.grade>=PASS_GRADE
+};
+
 try{
-await fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(dati)});
+/*
+Con mode:no-cors il browser non può leggere la risposta di Apps Script.
+Quindi non dichiariamo che l'email è stata consegnata:
+indichiamo che la richiesta è stata trasmessa e invitiamo a controllare la casella.
+*/
+await fetch(GOOGLE_SCRIPT_URL,{
+method:"POST",
+mode:"no-cors",
+headers:{"Content-Type":"text/plain;charset=utf-8"},
+body:JSON.stringify(dati)
+});
 examReportSent=true;
-if(status)status.textContent="✓ Richiesta inviata. Il PDF sarà elaborato e inviato via email.";
+if(status){
+status.innerHTML='Richiesta trasmessa. Controlla la tua email tra qualche minuto.<div class="status-bn">অনুরোধ পাঠানো হয়েছে। কয়েক মিনিট পর ইমেইল চেক করো।</div><div class="status-bn">ইমেইল না পেলে শিক্ষককে জানাও।</div>';
+}
 }catch(err){
-console.error(err);
-if(status)status.innerHTML='Invio non riuscito. Controlla la connessione e <button class="btn alt" data-resend="1">Riprova invio</button>.';
-}finally{examReportSending=false;}
+console.error("Errore di invio:",err);
+if(status){
+status.innerHTML='Problema di connessione. Riprova a inviare il risultato.<div class="status-bn">ইন্টারনেট সংযোগে সমস্যা হয়েছে। আবার চেষ্টা করো।</div><button class="btn alt" data-resend="1">Riprova invio</button>';
+}
+}finally{
+examReportSending=false;
+}
 }
 
+/* EVENTI */
 document.addEventListener("click",e=>{
-const b=e.target.closest("button");if(!b)return;
+const b=e.target.closest("button");
+if(!b)return;
+
 if(b.dataset.start!==undefined){
 const nome=document.getElementById("student-name").value.trim();
 const cognome=document.getElementById("student-surname").value.trim();
 const email=document.getElementById("student-email").value.trim();
 const error=document.getElementById("start-error");
-if(!nome||!cognome||!email){error.textContent="Inserisci nome, cognome e email.";return;}
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){error.textContent="Inserisci un indirizzo email valido.";return;}
-studentNome=nome;studentCognome=cognome;studentEmail=email;started=true;init();scrollTo(0,0);
-}else if(b.dataset.o!==undefined){A[+b.dataset.q]=+b.dataset.o;const y=scrollY;render();scrollTo(0,y);}
-else if(b.dataset.go){cur+=+b.dataset.go;render();scrollTo(0,0);}
-else if(b.dataset.tab!==undefined){cur=+b.dataset.tab;render();scrollTo(0,0);}
-else if(b.dataset.end!==undefined){if(answered()===total()){fin=true;render();}}
-else if(b.dataset.again!==undefined){started=false;studentNome="";studentCognome="";studentEmail="";examReportSent=false;examReportSending=false;renderStart();}
-else if(b.dataset.resend!==undefined){sendExamReport();}
+
+if(!nome||!cognome||!email){
+error.innerHTML="Inserisci nome, cognome e email.<div class='status-bn'>নাম, পদবি ও ইমেইল লিখো।</div>";
+return;
+}
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+error.innerHTML="Inserisci un indirizzo email valido.<div class='status-bn'>সঠিক ইমেইল ঠিকানা লিখো।</div>";
+return;
+}
+studentNome=nome;
+studentCognome=cognome;
+studentEmail=email;
+started=true;
+init();
+scrollTo(0,0);
+
+}else if(b.dataset.o!==undefined){
+A[+b.dataset.q]=+b.dataset.o;
+const y=scrollY;
+render();
+scrollTo(0,y);
+
+}else if(b.dataset.go){
+cur+=+b.dataset.go;
+render();
+scrollTo(0,0);
+
+}else if(b.dataset.tab!==undefined){
+cur=+b.dataset.tab;
+render();
+scrollTo(0,0);
+
+}else if(b.dataset.end!==undefined){
+if(answered()===total()){
+fin=true;
+render();
+}
+
+}else if(b.dataset.again!==undefined){
+started=false;
+studentNome="";
+studentCognome="";
+studentEmail="";
+examReportSent=false;
+examReportSending=false;
+renderStart();
+
+}else if(b.dataset.resend!==undefined){
+sendExamReport();
+}
 });
 
 renderStart();
